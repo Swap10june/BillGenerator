@@ -1,4 +1,4 @@
-package util;
+package S_Util;
 
 import java.awt.Color;
 import java.awt.Dimension;
