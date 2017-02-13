@@ -5,16 +5,35 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
+import S_Util.Registry;
+import ui.BillGenerateUI;
+
 public class HomeButtonHandler implements ActionListener {
 
-	public HomeButtonHandler(JDialog owner) {
-		// TODO Auto-generated constructor stub
+	private JDialog parent;
+	
+	public HomeButtonHandler(JDialog owner)
+	{
+		this.parent = owner;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent arg0)
+	{
+		switch (arg0.getActionCommand())
+		{
+			case Registry.BILL_GEN_WIN_NAME:
+			{
+				new BillGenerateUI(new javax.swing.JDialog());
+			}
+			
+			break;
+			
+			
 
+		default:
+			break;
+		}
 	}
 
 }
