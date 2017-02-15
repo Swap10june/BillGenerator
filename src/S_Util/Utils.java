@@ -52,7 +52,7 @@ public class Utils
 	    //Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    //int x = (int) ((dimension.getWidth() - owner.getWidth()) / 4);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 5);
-	    owner.setLocation(150,100);
+	    owner.setLocation(80,10);
 	    owner.setSize(new Dimension(Registry.MAIN_WINDOW_WIDTH, Registry.MAIN_WINDOW_HEIGHT));
 	    owner.setModal(true);
 	    owner.setResizable(false);
@@ -61,14 +61,14 @@ public class Utils
 	    
 	    
 	    JLabel headerLabel = new JLabel(Registry.PRPJECT_HEADING,SwingConstants.CENTER);
-	    headerLabel.setBounds(0, 0,Registry.MAIN_WINDOW_WIDTH, 30);
+	    headerLabel.setBounds(0, 0,Registry.MAIN_WINDOW_WIDTH-6, 30);
 	    headerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
 	    Border border = BorderFactory.createLineBorder(Color.blue);
 	    headerLabel.setBorder(border);
 	    owner.add(headerLabel);
 	    
 	    JLabel footerLabel = new JLabel(Registry.MY_COMPANY_NAME,SwingConstants.CENTER);
-	    footerLabel.setBounds(0, 542, Registry.MAIN_WINDOW_WIDTH, 30);
+	    footerLabel.setBounds(0, Registry.MAIN_WINDOW_HEIGHT-60, Registry.MAIN_WINDOW_WIDTH, 30);
 	    footerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);

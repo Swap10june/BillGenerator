@@ -17,7 +17,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import exceptions.CustomException;
 import ui.Home;
+import S_Util.Registry;
 import S_Util.Utils;
 
 public class Login extends JDialog
@@ -116,19 +118,25 @@ public class Login extends JDialog
 		 btnLogin.addActionListener(new ActionListener()
                  {
 
-                        @Override
-                        public void actionPerformed(ActionEvent e)
+                    @Override
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name", "resource/users.xml")) &&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
                         {
-                            if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name", "resource/users.xml")) &&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
-                            {
-                                System.out.println("Login Successful :: "+txtUserName.getText());
-                                new Home(new javax.swing.JDialog());
-                            	owner.dispose();
-                            }
-                            else
-                                JOptionPane.showMessageDialog(null, "InValid Credentials...please try again");
-                            txtUserPass.setText("");
-                        }
+                            System.out.println("Login Successful :: "+txtUserName.getText());
+                            new Home(new javax.swing.JDialog());
+                        	owner.dispose();
+                        } else
+							try 
+                        {
+								throw new CustomException(Registry.LOGIN_EXCEPTION_STRING);
+						} catch (CustomException e1)
+                        {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+						}
+                        txtUserPass.setText("");
+                    }
                     });
 		 
 		 // Cancel button

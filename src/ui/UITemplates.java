@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import listners.SpinnerChangeListner;
 
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -61,42 +65,41 @@ public class UITemplates
 		return panel;
 		
 	}
-	public JPanel getLabelWithTextField(String string, Object value,boolean status,int TextColumnSize,Map<String,Object> billGenerateUIComponent)
+	public JPanel getLabelWithTextFieldDatePicker(String labelText,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel labelkey = new JLabel(string +":");
+		JLabel labelkey = new JLabel(labelText +":");
 		labelkey.setFont(Registry.FONT_COURRIER_BOLD_10);
-		String str = "";
-		if(value instanceof  Date)
-		{
-			Date date = (Date) value;
-			str = date.toLocaleString();
-		}
-		else if(value instanceof String)
-		{
-			str = "<HTML><U>"+(String) value+"</U></HTML>";
-		}
-		JTextField textValue = new JTextField(TextColumnSize);
-		//textValue.setText(str);
 		
 		JXDatePicker picker = new JXDatePicker();
 		picker.setBackground(Color.magenta);
         picker.setDate(Calendar.getInstance().getTime());
-        picker.setFormats(new SimpleDateFormat("dd.MM.yyyy"));
+        picker.setFormats(new SimpleDateFormat("dd-MM-yyyy"));
 
         
 		panel.add(labelkey);
-		billGenerateUIComponent.put(getComponentName(string,"labelkey"), labelkey);
-		if(status)
+		billGenerateUIComponent.put(getComponentName(labelText,"labelkey"), labelkey);
+		panel.add(picker);
+		billGenerateUIComponent.put(getComponentName(labelText,"picker"), picker);
+		return panel;
+	}
+	public JPanel getLabelWithTextField(String labelText,String TextValue,int TextColumnSize,Map<String,Object> billGenerateUIComponent)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JLabel labelkey = new JLabel(labelText +":");
+		labelkey.setFont(Registry.FONT_COURRIER_BOLD_10);
+		String str = "";
+		if(TextValue instanceof String)
 		{
-			panel.add(picker);
-			billGenerateUIComponent.put(getComponentName(string,"picker"), picker);
+			str = (String) TextValue;
 		}
-		else
-		{
-			panel.add(textValue);
-			billGenerateUIComponent.put(getComponentName(string,"textValue"), textValue);
-		}
+		JTextField textValue = new JTextField(TextColumnSize);
+		textValue.setText(str);
+		panel.add(labelkey);
+		billGenerateUIComponent.put(getComponentName(labelText,"labelkey"), labelkey);
+		panel.add(textValue);
+		billGenerateUIComponent.put(getComponentName(labelText,"textValue"), textValue);
+		
 		return panel;
 	}
 	public JPanel getLabelWithCombo(String string, String[] vehicleTypes,Map<String,Object> billGenerateUIComponent)
@@ -143,6 +146,7 @@ public class UITemplates
 		SpinnerModel spinnermodel = new SpinnerNumberModel(value,min,max,step);
 		//spinnermodel.setCalendarField(Calendar.MINUTE);
 		spinner .setModel(spinnermodel);
+		spinner.addChangeListener(new SpinnerChangeListner());
 		
 	    panel.add(labelkey);
 	    billGenerateUIComponent.put(getComponentName(key, "labelkey"), labelkey);

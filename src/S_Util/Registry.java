@@ -21,8 +21,10 @@ public class Registry
 	public static final Font FONT_COURRIER_BOLD_10 = new Font("Courier", Font.BOLD,13);
 	public static final String[] VEHICLE_TYPES = {"Indica","Tavera"};
 	public static final int MAIN_WINDOW_WIDTH = 1200;
-	public static final int MAIN_WINDOW_HEIGHT = 602;
+	public static final int MAIN_WINDOW_HEIGHT = 702;
 	public static final Border BORDER_BLUE_1 = BorderFactory.createLineBorder(Color.BLUE, 1);
+	public static final String KM_EXCEPTION_STRING = "Total KM Should Be Greater Than Zero(0), Start KM Should be more than End KM";
+	public static final String LOGIN_EXCEPTION_STRING = "InValid Credentials...please try again";
 	
 	public Registry()
 	{
