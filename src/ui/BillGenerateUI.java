@@ -9,9 +9,8 @@ import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
 
+import beans.DutyType;
 import S_Util.Registry;
 import S_Util.Utils;
 
@@ -22,6 +21,7 @@ public class BillGenerateUI extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
+	private int totalKM = 0;
 	
 	public static Map<String, Object> getComponentMap()
 	{
@@ -66,7 +66,7 @@ public class BillGenerateUI extends JDialog {
 		//panelEmail.setBounds(860, 5, 240, 25);
 		panelBillHeader.add(panelEmail);
 		
-		JPanel panelVehicleType = templates.getLabelWithCombo("Veh.Type",Registry.VEHICLE_TYPES,billGenerateUIComponentsMap);
+		JPanel panelVehicleType = templates.getLabelWithCombo("Veh.Type",Registry.VEHICLE_TYPE_COMBO_ID, Registry.VEHICLE_TYPES,billGenerateUIComponentsMap);
 		//panelVehicleType.setBounds(670, 3, 200, 32);
 		panelBillHeader.add(panelVehicleType);
 		
@@ -79,7 +79,7 @@ public class BillGenerateUI extends JDialog {
 		panelBillBody.setLayout(new FlowLayout());
 		
 		
-		JPanel panelCustomer = templates.getLabelWithCombo("TO",Registry.CUSSTOMER_LIST, billGenerateUIComponentsMap);
+		JPanel panelCustomer = templates.getLabelWithCombo("TO",null, Registry.CUSSTOMER_LIST, billGenerateUIComponentsMap);
 		//panelCustomer.setBounds(5, 3, 120, 32);
 		panelBillBody.add(panelCustomer);
 		
@@ -134,6 +134,57 @@ public class BillGenerateUI extends JDialog {
 		panelBillBody1.add(panelTotalKM);
 		
 		owner.add(panelBillBody1);
+		
+		// Body Panel
+		JPanel panelBillBody2 = new JPanel();
+		panelBillBody2.setBounds(10, 300, 1170, 50);
+		panelBillBody2.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelBillBody2.setBackground(Color.cyan);
+		panelBillBody2.setLayout(new FlowLayout());
+		
+		
+		DutyType dutyType = new DutyType(4, 40,520);
+		dutyType.setDutyTypeString();
+		//billGenerateUIComponentsMap.put("dutyType", dutyType);
+		DutyType dutyType1 = new DutyType(8, 80,1040);
+		dutyType1.setDutyTypeString();
+		//billGenerateUIComponentsMap.put("dutyType1", dutyType1);
+		String[] dutyTypeArray = {dutyType.getDutyTypeString(),dutyType1.getDutyTypeString()};
+		
+		JPanel panelDutyType = templates.getLabelWithCombo("Duty Type", Registry.DUTYTYPE_COMBO_ID, dutyTypeArray, billGenerateUIComponentsMap);
+		panelBillBody2.add(panelDutyType);
+		
+		JPanel panelTotalDistance = templates.getLabelWithLabel("Total KM", "", billGenerateUIComponentsMap);
+		panelBillBody2.add(panelTotalDistance);
+		
+		JPanel panelRate = templates.getLabelWithLabel("Rate", "", billGenerateUIComponentsMap);
+		panelBillBody2.add(panelRate);
+		
+		JPanel panelAmount = templates.getLabelWithLabel("Amount", "", billGenerateUIComponentsMap);
+		panelBillBody2.add(panelAmount);
+		
+		
+		owner.add(panelBillBody2);
+		
+		JPanel panelBillBody3 = new JPanel();
+		panelBillBody3.setBounds(10, 360, 1170, 50);
+		panelBillBody3.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelBillBody3.setBackground(Color.lightGray);
+		panelBillBody3.setLayout(new FlowLayout());
+		
+		/*JPanel panelExtraKM = templates.getLabelWithLabel("Extra KM", "", billGenerateUIComponentsMap);
+		panelBillBody3.add(panelExtraKM);*/
+		
+		JPanel panelTotalExtraKM = templates.getLabelWithLabel("Total Extra KM", "", billGenerateUIComponentsMap);
+		panelBillBody3.add(panelTotalExtraKM);
+		
+		JPanel panelExtraKMRate = templates.getLabelWithLabel("Extra KM Rate", "", billGenerateUIComponentsMap);
+		panelBillBody3.add(panelExtraKMRate);
+		
+		JPanel panelExtraKMAmount = templates.getLabelWithLabel("Extra Amount", "", billGenerateUIComponentsMap);
+		panelBillBody3.add(panelExtraKMAmount);
+		owner.add(panelBillBody3);
+		
 		
 	}
 }

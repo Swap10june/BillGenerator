@@ -24,18 +24,23 @@ public class SpinnerChangeListner implements ChangeListener
 		SpinnerModel textEnd = (SpinnerModel) billGenerateUIComponentsMap.get("End KM_spinnermodel");
 		int totalKm = Integer.parseInt(textStart.getValue().toString())-Integer.parseInt(textEnd.getValue().toString());
 		if(totalKm>0)
+		{
 			textTotalKM.setText(String.valueOf(totalKm));
+			BillGenerateUI.getComponentMap().put("totalKM", totalKm);
+		}
 		else
 		{
 			try
 			{
+				textTotalKM.setText(String.valueOf(0));
 				throw new CustomException(Registry.KM_EXCEPTION_STRING);
+				
 			} catch (CustomException e1)
 			{
 				// TODO Auto-generated catch block
 				//e1.printStackTrace();
 			}
-			textTotalKM.setText(String.valueOf(0));
+			
 		}
 				
 	}

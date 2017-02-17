@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import listners.ComboItemListner;
 import listners.SpinnerChangeListner;
 
 import org.jdesktop.swingx.JXDatePicker;
@@ -102,13 +105,14 @@ public class UITemplates
 		
 		return panel;
 	}
-	public JPanel getLabelWithCombo(String string, String[] vehicleTypes,Map<String,Object> billGenerateUIComponent)
+	public JPanel getLabelWithCombo(String string,String comboID, String[] vehicleTypes,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel labelkey = new JLabel(string +":");
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(Registry.FONT_COURRIER_BOLD_10);
 		JComboBox<String> textValue = new JComboBox<String>(vehicleTypes);
+		textValue.addItemListener(new ComboItemListner(comboID));
 		panel.add(labelkey);
 		panel.add(textValue);
 		billGenerateUIComponent.put(getComponentName(string, "labelkey"), labelkey);
