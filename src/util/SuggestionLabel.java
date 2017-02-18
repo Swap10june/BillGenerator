@@ -1,4 +1,4 @@
-package S_Util;
+package util;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;

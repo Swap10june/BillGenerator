@@ -5,8 +5,9 @@ import handlers.HomeButtonHandler;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-import S_Util.Registry;
-import S_Util.Utils;
+import util.Registry;
+import util.SConstants;
+import util.Utils;
 
 public class Home extends JDialog {
 
@@ -24,7 +25,7 @@ public class Home extends JDialog {
 
 	private void initUI(JDialog owner)
 	{
-		JButton [] btnArray = new JButton[Registry.HOME_BUTTONS_NAMES.length]; 
+		JButton [] btnArray = new JButton[SConstants.HOME_BUTTONS_NAMES.length]; 
 		for (int i = 0 , xPos= 10, yPos=60;i < btnArray.length; i++,xPos+=180)
 		{
 			if(i%4==0 && i!=0)
@@ -32,7 +33,7 @@ public class Home extends JDialog {
 				yPos+=60;
 				xPos= 10;
 			}
-			btnArray[i] = new JButton(Registry.HOME_BUTTONS_NAMES[i]);
+			btnArray[i] = new JButton(SConstants.HOME_BUTTONS_NAMES[i]);
 			btnArray[i].setBounds(xPos,yPos, 150, 25);
 			owner.add(btnArray[i]);
 			btnArray[i].addActionListener(new HomeButtonHandler(owner));

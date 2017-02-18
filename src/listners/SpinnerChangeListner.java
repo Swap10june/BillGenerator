@@ -2,27 +2,41 @@ package listners;
 
 import java.util.Map;
 
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import S_Util.Registry;
 import exceptions.CustomException;
 import ui.BillGenerateUI;
+import util.Registry;
+import util.SConstants;
 
 public class SpinnerChangeListner implements ChangeListener
 {
 
+	Registry reg = SConstants.reg;
 	@Override
 	public void stateChanged(ChangeEvent e)
 	{
 		Map<String, Object> billGenerateUIComponentsMap = BillGenerateUI.getComponentMap();
-		JTextField textTotalKM = (JTextField) billGenerateUIComponentsMap.get("Total KM_textValue");
+		
+		JPanel panelTotalKM = (JPanel) billGenerateUIComponentsMap.get("panelTotalKM");
+		JTextField textTotalKM=(JTextField) panelTotalKM.getComponent(1);
 		textTotalKM.setEditable(false);
-		SpinnerModel textStart = (SpinnerModel) billGenerateUIComponentsMap.get("Start KM_spinnermodel");
-		SpinnerModel textEnd = (SpinnerModel) billGenerateUIComponentsMap.get("End KM_spinnermodel");
-		int totalKm = Integer.parseInt(textStart.getValue().toString())-Integer.parseInt(textEnd.getValue().toString());
+		
+		JPanel panelStartKM = (JPanel) billGenerateUIComponentsMap.get("panelStartKM");
+		JSpinner spinner  =(JSpinner) panelStartKM.getComponent(1);
+		SpinnerModel textStartKM=spinner.getModel();
+		
+		
+		JPanel panelEndKM = (JPanel) billGenerateUIComponentsMap.get("panelEndKM");
+		JSpinner spinner1  = (JSpinner) panelEndKM.getComponent(1);
+		SpinnerModel textEnd = spinner1.getModel();
+		
+		int totalKm = Integer.parseInt(textStartKM.getValue().toString())-Integer.parseInt(textEnd.getValue().toString());
 		if(totalKm>0)
 		{
 			textTotalKM.setText(String.valueOf(totalKm));
@@ -30,16 +44,8 @@ public class SpinnerChangeListner implements ChangeListener
 		}
 		else
 		{
-			try
-			{
-				textTotalKM.setText(String.valueOf(0));
-				throw new CustomException(Registry.KM_EXCEPTION_STRING);
-				
-			} catch (CustomException e1)
-			{
-				// TODO Auto-generated catch block
-				//e1.printStackTrace();
-			}
+			textTotalKM.setText(String.valueOf(0));
+			new CustomException(reg.getValueFor("E_KM_EXCEPTION_STRING"));
 			
 		}
 				

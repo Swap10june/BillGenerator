@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -19,8 +18,9 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import exceptions.CustomException;
 import ui.Home;
-import S_Util.Registry;
-import S_Util.Utils;
+import util.Registry;
+import util.SConstants;
+import util.Utils;
 
 public class Login extends JDialog
 {
@@ -28,6 +28,7 @@ public class Login extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	Registry reg = SConstants.reg;
 	
 	public Login(JDialog owner)
 	{
@@ -126,15 +127,9 @@ public class Login extends JDialog
                             System.out.println("Login Successful :: "+txtUserName.getText());
                             new Home(new javax.swing.JDialog());
                         	owner.dispose();
-                        } else
-							try 
-                        {
-								throw new CustomException(Registry.LOGIN_EXCEPTION_STRING);
-						} catch (CustomException e1)
-                        {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-						}
+                        }
+                        else
+							new CustomException(reg.getValueFor("E_LOGIN_EXCEPTION_STRING"));
                         txtUserPass.setText("");
                     }
                     });

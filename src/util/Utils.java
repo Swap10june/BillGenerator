@@ -1,4 +1,4 @@
-package S_Util;
+package util;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Map;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -53,23 +54,23 @@ public class Utils
 	    //int x = (int) ((dimension.getWidth() - owner.getWidth()) / 4);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 5);
 	    owner.setLocation(80,10);
-	    owner.setSize(new Dimension(Registry.MAIN_WINDOW_WIDTH, Registry.MAIN_WINDOW_HEIGHT));
+	    owner.setSize(new Dimension(SConstants.MAIN_WINDOW_WIDTH, SConstants.MAIN_WINDOW_HEIGHT));
 	    owner.setModal(true);
 	    owner.setResizable(false);
 	    owner.setTitle(title);
 	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    
 	    
-	    JLabel headerLabel = new JLabel(Registry.PRPJECT_HEADING,SwingConstants.CENTER);
-	    headerLabel.setBounds(0, 0,Registry.MAIN_WINDOW_WIDTH-6, 30);
-	    headerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0,SConstants.MAIN_WINDOW_WIDTH-6, 30);
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
 	    Border border = BorderFactory.createLineBorder(Color.blue);
 	    headerLabel.setBorder(border);
 	    owner.add(headerLabel);
 	    
-	    JLabel footerLabel = new JLabel(Registry.MY_COMPANY_NAME,SwingConstants.CENTER);
-	    footerLabel.setBounds(0, Registry.MAIN_WINDOW_HEIGHT-60, Registry.MAIN_WINDOW_WIDTH, 30);
-	    footerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, SConstants.MAIN_WINDOW_HEIGHT-60, SConstants.MAIN_WINDOW_WIDTH, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
 	}
@@ -88,17 +89,17 @@ public class Utils
 	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 	    
 	    
-	    JLabel headerLabel = new JLabel(Registry.PRPJECT_HEADING,SwingConstants.CENTER);
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
 	    headerLabel.setBounds(0, 0, 594, 30);
         //set font for JLabel
-	    headerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
 	    Border border = BorderFactory.createLineBorder(Color.blue);
 	    headerLabel.setBorder(border);
 	    owner.add(headerLabel);
 	    
-	    JLabel footerLabel = new JLabel(Registry.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
 	    footerLabel.setBounds(0, 442, 594, 30);
-	    footerLabel.setFont(Registry.FONT_COURRIER_BOLD_18);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
 	}
@@ -191,4 +192,8 @@ public class Utils
 	    }
 	        return null;
 	  }
+	public static String getComponentName(String key, String value)
+	{
+		return key+"_"+value;
+	}
 }
