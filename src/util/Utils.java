@@ -23,6 +23,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import beans.BOM;
+
 public class Utils 
 {
 	private static Utils s_utils=null;
@@ -195,5 +197,10 @@ public class Utils
 	public static String getComponentName(String key, String value)
 	{
 		return key+"_"+value;
+	}
+	public void generateBill(BOM bom)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

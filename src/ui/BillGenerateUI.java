@@ -2,16 +2,20 @@ package ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import util.Registry;
 import util.SConstants;
 import util.Utils;
+import beans.BOM;
 import beans.DutyType;
 
 public class BillGenerateUI extends JDialog {
@@ -115,11 +119,11 @@ public class BillGenerateUI extends JDialog {
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelBillBody1.add(panelEmployeeName);
 		
-		JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",reg.getValueFor("L_Start_KM"),15,0,10000,1, billGenerateUIComponentsMap);
+		JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",reg.getValueFor("L_Start_KM"),0,0,10000,1, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelBillBody1.add(panelStartKM);
 		
-		JPanel panelEndKM = templates.getLabelWithIntSpinner("panelEndKM",reg.getValueFor("L_End_KM"),10,0,10000,1, billGenerateUIComponentsMap);
+		JPanel panelEndKM = templates.getLabelWithIntSpinner("panelEndKM",reg.getValueFor("L_End_KM"),0,0,10000,1, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelBillBody1.add(panelEndKM);
 		
@@ -131,7 +135,7 @@ public class BillGenerateUI extends JDialog {
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelBillBody1.add(panelEndTime);
 		
-		JPanel panelTotalKM = templates.getLabelWithTextField("panelTotalKM",reg.getValueFor("L_Total_KM"),"",3, billGenerateUIComponentsMap);
+		JPanel panelTotalKM = templates.getLabelWithTextField("panelTotalKM",reg.getValueFor("L_Total_KM"),"0",3, billGenerateUIComponentsMap);
 		panelBillBody1.add(panelTotalKM);
 		
 		owner.add(panelBillBody1);
@@ -224,5 +228,24 @@ public class BillGenerateUI extends JDialog {
 		
 		owner.add(panelGross);
 		
+		JPanel panelBtns = new JPanel();
+		panelBtns.setBounds(10, 600, 1170, 40);
+		panelBtns.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelBtns.setBackground(Color.lightGray);
+		panelBtns.setLayout(new FlowLayout());
+		
+		JButton btnGenerate = new JButton("Generate Bill");
+		panelBtns.add(btnGenerate);	
+		btnGenerate.addActionListener(new ActionListener()
+		{
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				Utils.getUtilityInstance().generateBill(new BOM());
+			}
+		});
+		
+		owner.add(panelBtns);
 	}
 }
