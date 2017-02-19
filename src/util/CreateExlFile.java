@@ -1,19 +1,23 @@
 package util;
 import  java.io.*;
+
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import  org.apache.poi.hssf.usermodel.HSSFRow;
 import  org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.util.CellRangeAddress;
+
+import beans.BOM;
 
 public class CreateExlFile
 {
-    public  void Create()
+    public  static void CreateBOMExcel(File filename,BOM bom)
     {
         try
         {
-            String filename = "C:/NewExcelFile.xls" ;
             HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet sheet = workbook.createSheet("FirstSheet");  
+            HSSFSheet sheet = workbook.createSheet("FirstSheet"); 
+            sheet.addMergedRegion(new CellRangeAddress(1,1,1,10));
 
             HSSFRow rowhead = sheet.createRow((short)0);
             rowhead.createCell(0).setCellValue("No.");

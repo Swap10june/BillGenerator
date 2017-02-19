@@ -3,6 +3,8 @@ package util;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -205,11 +207,24 @@ public class Utils
 	}
 	public void generateBill(BOM bom)
 	{
-		createEXCEL(bom,"");
+		createEXCEL(bom,"C:\\Bills\\2.xls");
 	}
 	private void createEXCEL(BOM bom, String string)
 	{
-		
+		File excelFile = new File(string);
+		if(!excelFile.exists())
+		{
+			try 
+			{	
+				excelFile.createNewFile();
+				
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		CreateExlFile.CreateBOMExcel(excelFile,bom);
 	}
 	public String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
 	{
