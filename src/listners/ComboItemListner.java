@@ -11,11 +11,12 @@ import beans.DutyType;
 import ui.BillGenerateUI;
 import util.NumToWords;
 import util.Registry;
+import util.SConstants;
 
 public class ComboItemListner implements ItemListener{
 
 	private String comboFrom = null;
-	private Registry reg = new Registry(new File("/UIT-BillGen/TelcoBillUI.config"));
+	private Registry reg = SConstants.reg;
 	public ComboItemListner(String string)
 	{
 		this.comboFrom = string;
