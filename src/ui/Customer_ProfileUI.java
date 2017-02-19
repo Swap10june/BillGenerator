@@ -54,15 +54,10 @@ public class Customer_ProfileUI extends JDialog {
 		panelCustProfileBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelCustProfileBody.setLayout(new FlowLayout());
 		
-<<<<<<< .mine
-		if(action.equals("Add")){
-		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8, CustomerProfileUIComponentsMap);
-
-=======
 		if(action.equals("Add"))
 		{
 		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8, CustomerProfileUIComponentsMap);
->>>>>>> .theirs
+
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelCustProfileBody.add(panelVendorName);
 		
@@ -74,7 +69,7 @@ public class Customer_ProfileUI extends JDialog {
 		
 		owner.add(panelCustProfileBody);
 		
-		JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
+		JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelCustProfileBody.add(panelVendorAddress);
 				
@@ -92,14 +87,14 @@ public class Customer_ProfileUI extends JDialog {
 			//panelVendorNumber.setBounds(550, 170, 400, 35);
 			panelCustProfileBody.add(panelVendorNumber);
 			
-			owner.add(panelCustProfileBody);
-			
-			JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
+			JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
 			//panelVendorNumber.setBounds(550, 170, 400, 35);
 			panelCustProfileBody.add(panelVendorAddress);
 			
+			owner.add(panelCustProfileBody);
+			
 			JButton button_search = new JButton();
-			button_search.setText("Search");
+			button_search.setText(SConstants.CUST_EDIT_BUTTON);
 			button_search.addActionListener(new AdminButtonHandler(owner));
 			panelCustProfileBody.add(button_search);
 			

@@ -31,7 +31,7 @@ public class SConstants
 	
 	public static final Border 			BORDER_BLUE_1 			= 		BorderFactory.createLineBorder(Color.BLUE, 1);
 	
-	public static final Registry 		reg 					= 		new Registry(new File("/UIT-BillGen/TelcoBillUI.config"));
+	public static final Registry 		reg 					= 		new Registry(new File("G:\\Repository\\UIT-BillGen\\TelcoBillUI.config"));
 
 	public static  final String 		BILL_GEN_WIN_NAME 		= 		"Generate Bill";
 	public static  final String 		ADMIN_WIN_NAME 			= 		"Admin";
@@ -39,5 +39,6 @@ public class SConstants
 	public static  final String 		EDIT_CUST_WIN_NAME 		= 		"Edit Customer";
 	public static  final String 		ADD_VEHICLE_WIN_NAME 	= 		"Add Vehicle";
 	public static  final String 		EDIT_VEHICLE_WIN_NAME 	= 		"edit vehicle";
-	public static  final String 		SEARCH_BUTTON 			= 		"Search";
+	public static  final String 		SAVE_BUTTON 			= 		"Save";
+	public static  final String 		CUST_EDIT_BUTTON 		= 		"Save Customer";
 }

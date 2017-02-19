@@ -24,6 +24,13 @@ public class Customer
 		this.customerPersonName = customerPersonName;
 		this.customerDepartmentName = customerDepartmentName;
 	}
+	public Customer(String name, String address, String vendorCode,String oldName)
+	{
+		this.name = name;
+		this.address = address;
+		this.vendorCode = vendorCode;
+		this.oldName = oldName;
+	}
 	
 	
 	public Customer() {
