@@ -49,7 +49,7 @@ public class Customer_ProfileUI extends JDialog {
 	private void initUI(JDialog owner)
 	{
 		JPanel panelCustProfileBody = new JPanel();
-		panelCustProfileBody.setBounds(0, 30, SConstants.MAIN_WINDOW_WIDTH-6, 43);
+		panelCustProfileBody.setBounds(0, 30, SConstants.MAIN_WINDOW_WIDTH-6, 100);
 		//panelCustProfileBody.setBackground(Color.cyan);
 		panelCustProfileBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelCustProfileBody.setLayout(new FlowLayout());
@@ -57,6 +57,7 @@ public class Customer_ProfileUI extends JDialog {
 		if(action.equals("Add"))
 		{
 		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8, CustomerProfileUIComponentsMap);
+
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelCustProfileBody.add(panelVendorName);
 		
@@ -68,7 +69,7 @@ public class Customer_ProfileUI extends JDialog {
 		
 		owner.add(panelCustProfileBody);
 		
-		JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
+		JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelCustProfileBody.add(panelVendorAddress);
 				
@@ -86,11 +87,17 @@ public class Customer_ProfileUI extends JDialog {
 			//panelVendorNumber.setBounds(550, 170, 400, 35);
 			panelCustProfileBody.add(panelVendorNumber);
 			
-			owner.add(panelCustProfileBody);
-			
-			JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
+			JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8, CustomerProfileUIComponentsMap);
 			//panelVendorNumber.setBounds(550, 170, 400, 35);
 			panelCustProfileBody.add(panelVendorAddress);
+			
+			owner.add(panelCustProfileBody);
+			
+			JButton button_search = new JButton();
+			button_search.setText(SConstants.CUST_EDIT_BUTTON);
+			button_search.addActionListener(new AdminButtonHandler(owner));
+			panelCustProfileBody.add(button_search);
+			
 		}
 		owner.add(panelCustProfileBody);
 	}

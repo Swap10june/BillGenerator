@@ -12,7 +12,7 @@ import beans.Rate;
 public class Dao {
 	
 	private static String ADD_CUSTOMER ="insert into CUSTOMER values(?,?,?)";
-	private static String EDIT_CUSTOMER ="UPDATE CUSTOMER SET CUSTOMER_NAME=?, VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?; ";
+	private static String EDIT_CUSTOMER ="UPDATE CUSTOMER SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
 	private static String ADD_VEHICLE ="insert into RATES values(?,?,?,?,?,?,?)";
 	private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
 	private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";
@@ -25,7 +25,7 @@ public class Dao {
 	public List getCustomerList(){		
 		List customerList = null;
 		try {
-			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(GET_CUSTOMER_LIST);
+			 pStmtDao = DBConnection.getConnectionInstance().prepareStatement(GET_CUSTOMER_LIST);
 			ResultSet Rset = pStmtDao.executeQuery();
 			
 			while (Rset.next()) {
@@ -108,13 +108,13 @@ public class Dao {
 public void editCustomer(Customer customerBean){		
 		
 		try {
-			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(EDIT_CUSTOMER);
-			pStmtDao.setString(1,customerBean.getName());
-			pStmtDao.setString(2,customerBean.getVendorCode());
-			pStmtDao.setString(3,customerBean.getAddress());
-			pStmtDao.setString(4,customerBean.getOldName());
-			int status = pStmtDao.executeUpdate();
-			pStmtDao.close();
+			PreparedStatement pStmtDao1 = DBConnection.getConnectionInstance().prepareStatement(EDIT_CUSTOMER);
+			pStmtDao1.setString(1,customerBean.getName());
+			pStmtDao1.setString(2,customerBean.getVendorCode());
+			pStmtDao1.setString(3,customerBean.getAddress());
+			pStmtDao1.setString(4,customerBean.getOldName());
+			int status = pStmtDao1.executeUpdate();
+			pStmtDao1.close();
 			
 		} catch (SQLException e) {
 			
