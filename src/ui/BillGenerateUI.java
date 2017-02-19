@@ -9,8 +9,15 @@ import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+
+import org.jdesktop.swingx.JXDatePicker;
 
 import util.Registry;
 import util.SConstants;
@@ -26,6 +33,17 @@ public class BillGenerateUI extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
 	private Registry reg = SConstants.reg;
+	
+	
+	// Bill Component
+	private String lblBillNoValue = null;
+	private String lblBillDateValue = null;
+	private String lblMobNoValue = null;
+	
+	private String lblPanNoValue = null;
+	private String lblEmailValue = null;
+	
+	
 	
 	public static Map<String, Object> getComponentMap()
 	{
@@ -50,17 +68,14 @@ public class BillGenerateUI extends JDialog {
 		panelBillHeader.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelBillHeader.setLayout(new FlowLayout());
 		
-		JPanel panelBillNo = templates.getLabelWithLabel("panelBillNo",reg.getValueFor("L_BILL_NO"),reg.getValueFor("TEL_BILL_SERIAL_TEXT_GEN"),billGenerateUIComponentsMap);
-		//panelBillNo.setBounds(10, 5, 190, 20);
+		JPanel panelBillNo = templates.getLabelWithLabel("panelBillNo",reg.getValueFor("L_BILL_NO"),reg.getValueFor("V_TEL_BILL_SERIAL_TEXT_GEN"),billGenerateUIComponentsMap);
 		panelBillHeader.add(panelBillNo);
 		//panelBillNo.setBackground(Color.cyan);
 		
 		JPanel panelBillDate = templates.getLabelWithLabel("panelBillDate",reg.getValueFor("L_TEL_BILL_DTAE"), SConstants.TODAYS_DATE,billGenerateUIComponentsMap);
-		//panelBillDate.setBounds(250, 5, 250, 20);
 		panelBillHeader.add(panelBillDate);
 		
 		JPanel panelContactNumber = templates.getLabelWithLabel("panelContactNumber",reg.getValueFor("L_TEL_CONTACT_NO"),reg.getValueFor("V_CLIENT_MOB1"),billGenerateUIComponentsMap);
-		//panelContactNumber.setBounds(510, 5, 200, 20);
 		panelBillHeader.add(panelContactNumber);
 		
 		JPanel panelPanNumber = templates.getLabelWithLabel("panelPanNumber",reg.getValueFor("L_PAN_NO"),reg.getValueFor("V_PAN_NO"),billGenerateUIComponentsMap);
@@ -234,6 +249,10 @@ public class BillGenerateUI extends JDialog {
 		panelBtns.setBackground(Color.lightGray);
 		panelBtns.setLayout(new FlowLayout());
 		
+		JPanel panelGenerateExcelCheck = templates.getLabelWithCheckBox("panelGenerateExcelCheck",reg.getValueFor("L_GENERATE_EXCEL_CHECK"), billGenerateUIComponentsMap);
+		panelBtns.add(panelGenerateExcelCheck);
+		
+		JCheckBox generateBillCheck = (JCheckBox) panelGenerateExcelCheck.getComponent(1);
 		JButton btnGenerate = new JButton("Generate Bill");
 		panelBtns.add(btnGenerate);	
 		btnGenerate.addActionListener(new ActionListener()
@@ -242,10 +261,130 @@ public class BillGenerateUI extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Utils.getUtilityInstance().generateBill(new BOM());
+				BOM bom = new BOM();
+				
+				bom.setBillNumber(getStringValueFromPanelComponent(panelBillNo, 1));
+				bom.setBillDate(getStringValueFromPanelComponent(panelBillDate, 1));
+				bom.setContactNumber(getStringValueFromPanelComponent(panelContactNumber, 1));
+				bom.setEmail(getStringValueFromPanelComponent(panelEmail,1));
+				bom.setCustomerName(getStringValueFromPanelComponent(panelTOCustomer, 1));
+				bom.setDateOfTravels(getStringValueFromPanelComponent(panelDateOfTravels,1));
+				bom.setDateOfreturn(getStringValueFromPanelComponent(panelDateOfReturn,1));
+				bom.setTypeOfVehicle(getStringValueFromPanelComponent(panelVehicleType, 1));
+				bom.setVehicleNumber(getStringValueFromPanelComponent(panelVehicleNumber, 1));
+				bom.setVendorCode(getStringValueFromPanelComponent(panelVendorNumber, 1));
+				bom.setEmployeeNameUsedVehicle(getStringValueFromPanelComponent(panelEmployeeName, 1));
+				bom.setStartKM(getStringValueFromPanelComponent(panelStartKM, 1));
+				bom.setEndKM(getStringValueFromPanelComponent(panelEndKM, 1));
+				bom.setStartTime(getStringValueFromPanelComponent(panelStartTime, 1));
+				bom.setEndTime(getStringValueFromPanelComponent(panelEndTime, 1));
+				bom.setTotalKM(getStringValueFromPanelComponent(panelTotalDistance, 1));
+				bom.setDutyType(getStringValueFromPanelComponent(panelDutyType, 1));
+				bom.setPackageKM(getStringValueFromPanelComponent(panelTotalKM, 1));
+				bom.setPackageRate(getStringValueFromPanelComponent(panelRate, 1));
+				bom.setPakageAmount(getStringValueFromPanelComponent(panelAmount, 1));
+				bom.setExtraKM(getStringValueFromPanelComponent(panelTotalExtraKM, 1));
+				bom.setExtraRate(getStringValueFromPanelComponent(panelExtraKMRate, 1));
+				bom.setExtraTotalAmount(getStringValueFromPanelComponent(panelExtraKMAmount, 1));
+				bom.setTollCharges(getStringValueFromPanelComponent(panelTollAmount, 1));
+				bom.setNightHaltRate(getStringValueFromPanelComponent(panelNightHaltAmount, 1));
+				bom.setGrandTotal(getStringValueFromPanelComponent(panelFinalAmount, 1));
+				if(generateBillCheck.isSelected())
+				{
+					Utils.getUtilityInstance().generateBill(bom);
+				}
+				
 			}
 		});
 		
 		owner.add(panelBtns);
+	}
+	
+	private String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
+	{
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
+		{
+			JLabel lbl= (JLabel) Panel.getComponent(1);
+			return lbl.getText();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
+		{
+			JTextField lbl= (JTextField) Panel.getComponent(1);
+			return lbl.getText();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JComboBox)
+		{
+			@SuppressWarnings("rawtypes")
+			JComboBox lbl= (JComboBox) Panel.getComponent(1);
+			return lbl.getSelectedItem().toString();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
+		{
+			@SuppressWarnings("rawtypes")
+			JSpinner lbl= (JSpinner) Panel.getComponent(1);
+			return lbl.getValue().toString();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)
+		{
+			@SuppressWarnings("rawtypes")
+			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(1);
+			return lbl.getDate().toLocaleString();
+		}
+		return "";
+		
+	}
+	public String getLblBillNoValue() {
+		return lblBillNoValue;
+	}
+	public void setLblBillNoValue(String lblBillNoValue) {
+		this.lblBillNoValue = lblBillNoValue;
+	}
+	/**
+	 * @return the lblMobNoValue
+	 */
+	public String getLblMobNoValue() {
+		return lblMobNoValue;
+	}
+	/**
+	 * @param lblMobNoValue the lblMobNoValue to set
+	 */
+	public void setLblMobNoValue(String lblMobNoValue) {
+		this.lblMobNoValue = lblMobNoValue;
+	}
+	/**
+	 * @return the lblPanNoValue
+	 */
+	public String getLblPanNoValue() {
+		return lblPanNoValue;
+	}
+	/**
+	 * @param lblPanNoValue the lblPanNoValue to set
+	 */
+	public void setLblPanNoValue(String lblPanNoValue) {
+		this.lblPanNoValue = lblPanNoValue;
+	}
+	/**
+	 * @return the lblEmailValue
+	 */
+	public String getLblEmailValue() {
+		return lblEmailValue;
+	}
+	/**
+	 * @param lblEmailValue the lblEmailValue to set
+	 */
+	public void setLblEmailValue(String lblEmailValue) {
+		this.lblEmailValue = lblEmailValue;
+	}
+	/**
+	 * @return the lblBillDateValue
+	 */
+	public String getLblBillDateValue() {
+		return lblBillDateValue;
+	}
+	/**
+	 * @param lblBillDateValue the lblBillDateValue to set
+	 */
+	public void setLblBillDateValue(String lblBillDateValue) {
+		this.lblBillDateValue = lblBillDateValue;
 	}
 }

@@ -28,7 +28,6 @@ public class Customer_ProfileUI extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
-	private int totalKM = 0;
 	private Registry reg = SConstants.reg;
 	private String action;
 	Connection conn = null;

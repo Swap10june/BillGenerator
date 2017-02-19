@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,7 +43,7 @@ public class UITemplates
 		}
 		else if(value instanceof String)
 		{
-			str = "<HTML><U>"+(String) value+"</U></HTML>";
+			str =(String) value;
 		}
 		JLabel labelValue = new JLabel(str);
 		/*JXDatePicker picker = new JXDatePicker();
@@ -157,6 +158,18 @@ public class UITemplates
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinnermodel")), spinnermodel);
 	    billGenerateUIComponent.put(mapKey,panel );
 	    return panel;
+	}
+	public JPanel getLabelWithCheckBox(String mapKey, String valueFor,
+			Map<String, Object> billGenerateUIComponentsMap)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JLabel labelkey = new JLabel(valueFor +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		JCheckBox textValue = new JCheckBox();
+		panel.add(labelkey);
+		panel.add(textValue);
+		billGenerateUIComponentsMap.put(mapKey, panel);
+		return panel;
 	}
 	
 }

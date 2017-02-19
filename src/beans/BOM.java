@@ -5,35 +5,40 @@ import java.sql.Time;
 
 public class BOM
 {
+	
 	private String 		billNumber 				= 		null;
 	private Admin		admin					=		null;
 	private Customer	customer				=		null;
-	private Date		billDate				=		null;
-	private Date		dateOfTravels			=		null;
-	private Date		dateOfreturn			=		null;
+	private String 		customerName			=		null;
+	private String		billDate				=		null;
+	private String 		contactNumber			=		null;
+	private String 		email					= 		null;
+	private String		dateOfTravels			=		null;
+	private String		dateOfreturn			=		null;
 	private String 		typeOfVehicle			=		null;
 	private String 		vehicleNumber			=		null;
 	private String 		vendorCode				=		null;
 	private String 		employeeNameUsedVehicle	=		null;
 	private String 		packageType				=		null;
-	private double		startKM					=		0.0;
-	private double		endKM					=		0.0;
-	private	Time		startTime				=		null;
-	private Time		endTime					=		null;
+	private String		startKM					=		null;
+	private String		endKM					=		null;
+	private String 		totalKM					=		null;
+	private	String		startTime				=		null;
+	private String		endTime					=		null;
 	private	String		dutyType				=		null;
-	private double		packageKM				=		0.0;
-	private double 		extraKM					=		0.0;
-	private double		packageRate				=		0.0;
-	private double		extraRate				=		0.0;
-	private double		pkgtotalAmount			=		0.0;
-	private double		extraTotalAmount		=		0.0;
-	private double		extraTimeHours			=		0.0;	
-	private double		tollCharges				=		0.0;
-	private double		monthlyExtraCharges		=		0.0;
-	private double		serviceTaxCarges		=		0.0;
-	private double		nightHaltRate			=		0.0;
-	private	double		grandTotal				=		0.0;
-	
+	private String		packageKM				=		null;
+	private String 		pakageAmount			=		null;
+	private String 		extraKM					=		null;
+	private String		packageRate				=		null;
+	private String		extraRate				=		null;
+	private String		pkgtotalAmount			=		null;
+	private String		extraTotalAmount		=		null;
+	private String		extraTimeHours			=		null;	
+	private String		tollCharges				=		null;
+	private String		monthlyExtraCharges		=		null;
+	private String		serviceTaxCarges		=		null;
+	private String		nightHaltRate			=		null;
+	private	String		grandTotal				=		null;
 	
 	public String getBillNumber() {
 		return billNumber;
@@ -53,22 +58,22 @@ public class BOM
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public Date getBillDate() {
+	public String getBillDate() {
 		return billDate;
 	}
-	public void setBillDate(Date billDate) {
+	public void setBillDate(String billDate) {
 		this.billDate = billDate;
 	}
-	public Date getDateOfTravels() {
+	public String getDateOfTravels() {
 		return dateOfTravels;
 	}
-	public void setDateOfTravels(Date dateOfTravels) {
+	public void setDateOfTravels(String dateOfTravels) {
 		this.dateOfTravels = dateOfTravels;
 	}
-	public Date getDateOfreturn() {
+	public String getDateOfreturn() {
 		return dateOfreturn;
 	}
-	public void setDateOfreturn(Date dateOfreturn) {
+	public void setDateOfreturn(String dateOfreturn) {
 		this.dateOfreturn = dateOfreturn;
 	}
 	public String getTypeOfVehicle() {
@@ -101,28 +106,28 @@ public class BOM
 	public void setPackageType(String packageType) {
 		this.packageType = packageType;
 	}
-	public double getStartKM() {
+	public String getStartKM() {
 		return startKM;
 	}
-	public void setStartKM(double startKM) {
+	public void setStartKM(String startKM) {
 		this.startKM = startKM;
 	}
-	public double getEndKM() {
+	public String getEndKM() {
 		return endKM;
 	}
-	public void setEndKM(double endKM) {
+	public void setEndKM(String endKM) {
 		this.endKM = endKM;
 	}
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Time startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 	public String getDutyType() {
@@ -131,79 +136,142 @@ public class BOM
 	public void setDutyType(String dutyType) {
 		this.dutyType = dutyType;
 	}
-	public double getPackageKM() {
+	public String getPackageKM() {
 		return packageKM;
 	}
-	public void setPackageKM(double packageKM) {
+	public void setPackageKM(String packageKM) {
 		this.packageKM = packageKM;
 	}
-	public double getExtraKM() {
+	public String getExtraKM() {
 		return extraKM;
 	}
-	public void setExtraKM(double extraKM) {
+	public void setExtraKM(String extraKM) {
 		this.extraKM = extraKM;
 	}
-	public double getPackageRate() {
+	public String getPackageRate() {
 		return packageRate;
 	}
-	public void setPackageRate(double packageRate) {
+	public void setPackageRate(String packageRate) {
 		this.packageRate = packageRate;
 	}
-	public double getExtraRate() {
+	public String getExtraRate() {
 		return extraRate;
 	}
-	public void setExtraRate(double extraRate) {
+	public void setExtraRate(String extraRate) {
 		this.extraRate = extraRate;
 	}
-	public double getPkgtotalAmount() {
+	public String getPkgtotalAmount() {
 		return pkgtotalAmount;
 	}
-	public void setPkgtotalAmount(double pkgtotalAmount) {
+	public void setPkgtotalAmount(String pkgtotalAmount) {
 		this.pkgtotalAmount = pkgtotalAmount;
 	}
-	public double getExtraTotalAmount() {
+	public String getExtraTotalAmount() {
 		return extraTotalAmount;
 	}
-	public void setExtraTotalAmount(double extraTotalAmount) {
+	public void setExtraTotalAmount(String extraTotalAmount) {
 		this.extraTotalAmount = extraTotalAmount;
 	}
-	public double getExtraTimeHours() {
+	public String getExtraTimeHours() {
 		return extraTimeHours;
 	}
-	public void setExtraTimeHours(double extraTimeHours) {
+	public void setExtraTimeHours(String extraTimeHours) {
 		this.extraTimeHours = extraTimeHours;
 	}
-	public double getTollCharges() {
+	public String getTollCharges() {
 		return tollCharges;
 	}
-	public void setTollCharges(double tollCharges) {
+	public void setTollCharges(String tollCharges) {
 		this.tollCharges = tollCharges;
 	}
-	public double getMonthlyExtraCharges() {
+	public String getMonthlyExtraCharges() {
 		return monthlyExtraCharges;
 	}
-	public void setMonthlyExtraCharges(double monthlyExtraCharges) {
+	public void setMonthlyExtraCharges(String monthlyExtraCharges) {
 		this.monthlyExtraCharges = monthlyExtraCharges;
 	}
-	public double getServiceTaxCarges() {
+	public String getServiceTaxCarges() {
 		return serviceTaxCarges;
 	}
-	public void setServiceTaxCarges(double serviceTaxCarges) {
+	public void setServiceTaxCarges(String serviceTaxCarges) {
 		this.serviceTaxCarges = serviceTaxCarges;
 	}
-	public double getNightHaltRate() {
+	public String getNightHaltRate() {
 		return nightHaltRate;
 	}
-	public void setNightHaltRate(double nightHaltRate) {
+	public void setNightHaltRate(String nightHaltRate) {
 		this.nightHaltRate = nightHaltRate;
 	}
-	public double getGrandTotal() {
+	public String getGrandTotal() {
 		return grandTotal;
 	}
-	public void setGrandTotal(double grandTotal) {
+	public void setGrandTotal(String grandTotal) {
 		this.grandTotal = grandTotal;
 	}
+	/**
+	 * @return the contactNumber
+	 */
+	public String getContactNumber() {
+		return contactNumber;
+	}
+	/**
+	 * @param contactNumber the contactNumber to set
+	 */
+	public void setContactNumber(String contactNumber) {
+		this.contactNumber = contactNumber;
+	}
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	/**
+	 * @return the customerName
+	 */
+	public String getCustomerName() {
+		return customerName;
+	}
+	/**
+	 * @param customerName the customerName to set
+	 */
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	/**
+	 * @return the totalKM
+	 */
+	public String getTotalKM() {
+		return totalKM;
+	}
+	/**
+	 * @param totalKM the totalKM to set
+	 */
+	public void setTotalKM(String totalKM) {
+		this.totalKM = totalKM;
+	}
+	/**
+	 * @return the pakageAmount
+	 */
+	public String getPakageAmount() {
+		return pakageAmount;
+	}
+	/**
+	 * @param pakageAmount the pakageAmount to set
+	 */
+	public void setPakageAmount(String pakageAmount) {
+		this.pakageAmount = pakageAmount;
+	}
 	
+	
+	
+
 	
 	
 	

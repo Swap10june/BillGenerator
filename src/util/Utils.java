@@ -200,7 +200,7 @@ public class Utils
 	}
 	public void generateBill(BOM bom)
 	{
-		// TODO Auto-generated method stub
-		
+		System.out.println(bom.getBillDate());
+		System.out.println(bom.getBillNumber());
 	}
 }
