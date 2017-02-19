@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import util.Dao;
 import util.Registry;
 import util.SConstants;
 import util.Utils;
@@ -34,6 +35,7 @@ public class BillGenerateUI extends JDialog {
 	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
 	private Registry reg = SConstants.reg;
 	
+	Utils utility = Utils.getUtilityInstance();
 	
 	// Bill Component
 	private String lblBillNoValue = null;
@@ -263,32 +265,33 @@ public class BillGenerateUI extends JDialog {
 			{
 				BOM bom = new BOM();
 				
-				bom.setBillNumber(getStringValueFromPanelComponent(panelBillNo, 1));
-				bom.setBillDate(getStringValueFromPanelComponent(panelBillDate, 1));
-				bom.setContactNumber(getStringValueFromPanelComponent(panelContactNumber, 1));
-				bom.setEmail(getStringValueFromPanelComponent(panelEmail,1));
-				bom.setCustomerName(getStringValueFromPanelComponent(panelTOCustomer, 1));
-				bom.setDateOfTravels(getStringValueFromPanelComponent(panelDateOfTravels,1));
-				bom.setDateOfreturn(getStringValueFromPanelComponent(panelDateOfReturn,1));
-				bom.setTypeOfVehicle(getStringValueFromPanelComponent(panelVehicleType, 1));
-				bom.setVehicleNumber(getStringValueFromPanelComponent(panelVehicleNumber, 1));
-				bom.setVendorCode(getStringValueFromPanelComponent(panelVendorNumber, 1));
-				bom.setEmployeeNameUsedVehicle(getStringValueFromPanelComponent(panelEmployeeName, 1));
-				bom.setStartKM(getStringValueFromPanelComponent(panelStartKM, 1));
-				bom.setEndKM(getStringValueFromPanelComponent(panelEndKM, 1));
-				bom.setStartTime(getStringValueFromPanelComponent(panelStartTime, 1));
-				bom.setEndTime(getStringValueFromPanelComponent(panelEndTime, 1));
-				bom.setTotalKM(getStringValueFromPanelComponent(panelTotalDistance, 1));
-				bom.setDutyType(getStringValueFromPanelComponent(panelDutyType, 1));
-				bom.setPackageKM(getStringValueFromPanelComponent(panelTotalKM, 1));
-				bom.setPackageRate(getStringValueFromPanelComponent(panelRate, 1));
-				bom.setPakageAmount(getStringValueFromPanelComponent(panelAmount, 1));
-				bom.setExtraKM(getStringValueFromPanelComponent(panelTotalExtraKM, 1));
-				bom.setExtraRate(getStringValueFromPanelComponent(panelExtraKMRate, 1));
-				bom.setExtraTotalAmount(getStringValueFromPanelComponent(panelExtraKMAmount, 1));
-				bom.setTollCharges(getStringValueFromPanelComponent(panelTollAmount, 1));
-				bom.setNightHaltRate(getStringValueFromPanelComponent(panelNightHaltAmount, 1));
-				bom.setGrandTotal(getStringValueFromPanelComponent(panelFinalAmount, 1));
+				bom.setBillNumber(utility.getStringValueFromPanelComponent(panelBillNo, 1));
+				bom.setBillDate(utility.getStringValueFromPanelComponent(panelBillDate, 1));
+				bom.setContactNumber(utility.getStringValueFromPanelComponent(panelContactNumber, 1));
+				bom.setEmail(utility.getStringValueFromPanelComponent(panelEmail,1));
+				bom.setCustomerName(utility.getStringValueFromPanelComponent(panelTOCustomer, 1));
+				bom.setDateOfTravels(utility.getStringValueFromPanelComponent(panelDateOfTravels,1));
+				bom.setDateOfreturn(utility.getStringValueFromPanelComponent(panelDateOfReturn,1));
+				bom.setTypeOfVehicle(utility.getStringValueFromPanelComponent(panelVehicleType, 1));
+				bom.setVehicleNumber(utility.getStringValueFromPanelComponent(panelVehicleNumber, 1));
+				bom.setVendorCode(utility.getStringValueFromPanelComponent(panelVendorNumber, 1));
+				bom.setEmployeeNameUsedVehicle(utility.getStringValueFromPanelComponent(panelEmployeeName, 1));
+				bom.setStartKM(utility.getStringValueFromPanelComponent(panelStartKM, 1));
+				bom.setEndKM(utility.getStringValueFromPanelComponent(panelEndKM, 1));
+				bom.setStartTime(utility.getStringValueFromPanelComponent(panelStartTime, 1));
+				bom.setEndTime(utility.getStringValueFromPanelComponent(panelEndTime, 1));
+				bom.setTotalKM(utility.getStringValueFromPanelComponent(panelTotalDistance, 1));
+				bom.setDutyType(utility.getStringValueFromPanelComponent(panelDutyType, 1));
+				bom.setPackageKM(utility.getStringValueFromPanelComponent(panelTotalKM, 1));
+				bom.setPackageRate(utility.getStringValueFromPanelComponent(panelRate, 1));
+				bom.setPakageAmount(utility.getStringValueFromPanelComponent(panelAmount, 1));
+				bom.setExtraKM(utility.getStringValueFromPanelComponent(panelTotalExtraKM, 1));
+				bom.setExtraRate(utility.getStringValueFromPanelComponent(panelExtraKMRate, 1));
+				bom.setExtraTotalAmount(utility.getStringValueFromPanelComponent(panelExtraKMAmount, 1));
+				bom.setTollCharges(utility.getStringValueFromPanelComponent(panelTollAmount, 1));
+				bom.setNightHaltRate(utility.getStringValueFromPanelComponent(panelNightHaltAmount, 1));
+				bom.setGrandTotal(utility.getStringValueFromPanelComponent(panelFinalAmount, 1));
+				
 				if(generateBillCheck.isSelected())
 				{
 					Utils.getUtilityInstance().generateBill(bom);
@@ -300,39 +303,7 @@ public class BillGenerateUI extends JDialog {
 		owner.add(panelBtns);
 	}
 	
-	private String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
-	{
-		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
-		{
-			JLabel lbl= (JLabel) Panel.getComponent(1);
-			return lbl.getText();
-		}
-		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
-		{
-			JTextField lbl= (JTextField) Panel.getComponent(1);
-			return lbl.getText();
-		}
-		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JComboBox)
-		{
-			@SuppressWarnings("rawtypes")
-			JComboBox lbl= (JComboBox) Panel.getComponent(1);
-			return lbl.getSelectedItem().toString();
-		}
-		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
-		{
-			@SuppressWarnings("rawtypes")
-			JSpinner lbl= (JSpinner) Panel.getComponent(1);
-			return lbl.getValue().toString();
-		}
-		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)
-		{
-			@SuppressWarnings("rawtypes")
-			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(1);
-			return lbl.getDate().toLocaleString();
-		}
-		return "";
-		
-	}
+	
 	public String getLblBillNoValue() {
 		return lblBillNoValue;
 	}
