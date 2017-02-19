@@ -54,8 +54,15 @@ public class Customer_ProfileUI extends JDialog {
 		panelCustProfileBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelCustProfileBody.setLayout(new FlowLayout());
 		
+<<<<<<< .mine
 		if(action.equals("Add")){
 		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8, CustomerProfileUIComponentsMap);
+
+=======
+		if(action.equals("Add"))
+		{
+		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8, CustomerProfileUIComponentsMap);
+>>>>>>> .theirs
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelCustProfileBody.add(panelVendorName);
 		

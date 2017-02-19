@@ -10,14 +10,19 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.jdesktop.swingx.JXDatePicker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -200,7 +205,41 @@ public class Utils
 	}
 	public void generateBill(BOM bom)
 	{
-		System.out.println(bom.getBillDate());
-		System.out.println(bom.getBillNumber());
+		createEXCEL(bom,"");
+	}
+	private void createEXCEL(BOM bom, String string)
+	{
+		
+	}
+	public String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
+	{
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
+		{
+			JLabel lbl= (JLabel) Panel.getComponent(1);
+			return lbl.getText();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
+		{
+			JTextField lbl= (JTextField) Panel.getComponent(1);
+			return lbl.getText();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JComboBox)
+		{
+			@SuppressWarnings("rawtypes")
+			JComboBox lbl= (JComboBox) Panel.getComponent(1);
+			return lbl.getSelectedItem().toString();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
+		{
+			JSpinner lbl= (JSpinner) Panel.getComponent(1);
+			return lbl.getValue().toString();
+		}
+		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)
+		{
+			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(1);
+			return lbl.getDate().toLocaleString();
+		}
+		return "";
+		
 	}
 }
