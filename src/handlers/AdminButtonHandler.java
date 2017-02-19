@@ -2,8 +2,10 @@ package handlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JDialog;
+import javax.swing.JPanel;
 
 import ui.BillGenerateUI;
 import ui.Customer_ProfileUI;
@@ -45,7 +47,13 @@ public class AdminButtonHandler implements ActionListener {
 			}
 			
 			break;
+			case SConstants.SEARCH_BUTTON:
+			{
+				 Map<String, Object> panelVendorName = Customer_ProfileUI.getComponentMap();
+				new Customer_ProfileUI(new javax.swing.JDialog(),"Search");
+			}
 			
+			break;
 			
 
 		default:

@@ -39,4 +39,5 @@ public class SConstants
 	public static  final String 		EDIT_CUST_WIN_NAME 		= 		"Edit Customer";
 	public static  final String 		ADD_VEHICLE_WIN_NAME 	= 		"Add Vehicle";
 	public static  final String 		EDIT_VEHICLE_WIN_NAME 	= 		"edit vehicle";
+	public static  final String 		SEARCH_BUTTON 			= 		"Search";
 }
