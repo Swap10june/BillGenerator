@@ -3,6 +3,8 @@ package beans;
 public class Customer
 {
 	private String name						=		null;
+	private String oldName					=		null;
+	
 	private String address					=		null;
 	private String vendorCode				=		null;
 	private String customerPersonName		=		null;
@@ -24,6 +26,11 @@ public class Customer
 	}
 	
 	
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public String getName() {
 		return name;
 	}
@@ -54,6 +61,13 @@ public class Customer
 	public void setCustomerDepartmentName(String customerDepartmentName) {
 		this.customerDepartmentName = customerDepartmentName;
 	}
-	
+	public String getOldName() {
+		return oldName;
+	}
+
+
+	public void setOldName(String oldName) {
+		this.oldName = oldName;
+	}
 	
 }
