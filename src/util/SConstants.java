@@ -8,6 +8,9 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.util.HSSFColor;
+
 
 public class SConstants
 {
@@ -26,12 +29,13 @@ public class SConstants
 	public static final Font 			FONT_COURRIER_BOLD_10 	= 		new Font("Courier", Font.BOLD,10);
 	public static final Font 			FONT_COURRIER_BOLD_13 	= 		new Font("Courier", Font.BOLD,13);
 	
+	
 	public static final int 			MAIN_WINDOW_WIDTH 		= 		1200;
 	public static final int 			MAIN_WINDOW_HEIGHT 		= 		702;
 	
 	public static final Border 			BORDER_BLUE_1 			= 		BorderFactory.createLineBorder(Color.BLUE, 1);
 	
-	public static final Registry 		reg 					= 		new Registry(new File("G:\\Repository\\UIT-BillGen\\TelcoBillUI.config"));
+	public static final Registry 		reg 					= 		new Registry(new File("/UIT-BillGen/TelcoBillUI.config"));
 
 	public static  final String 		BILL_GEN_WIN_NAME 		= 		"Generate Bill";
 	public static  final String 		ADMIN_WIN_NAME 			= 		"Admin";

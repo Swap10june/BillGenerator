@@ -1,42 +1,288 @@
 package util;
+import java.awt.Desktop;
 import  java.io.*;
 
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import  org.apache.poi.hssf.usermodel.HSSFRow;
 import  org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 import beans.BOM;
 
 public class CreateExlFile
 {
-    public  static void CreateBOMExcel(File filename,BOM bom)
+	private ExcelUtils utility = null;
+	private Registry reg = SConstants.reg;
+	
+    public  void CreateBOMExcel(File filename,BOM bom)
     {
         try
         {
+        	if(!filename.exists())
+        		filename.createNewFile();
             HSSFWorkbook workbook = new HSSFWorkbook();
-            HSSFSheet sheet = workbook.createSheet("FirstSheet"); 
-            sheet.addMergedRegion(new CellRangeAddress(1,1,1,10));
-
-            HSSFRow rowhead = sheet.createRow((short)0);
-            rowhead.createCell(0).setCellValue("No.");
-            rowhead.createCell(1).setCellValue("Name");
-            rowhead.createCell(2).setCellValue("Address");
-            rowhead.createCell(3).setCellValue("Email");
-
-            HSSFRow row = sheet.createRow((short)1);
-            row.createCell(0).setCellValue("1");
-            row.createCell(1).setCellValue("Sankumarsingh");
-            row.createCell(2).setCellValue("India");
-            row.createCell(3).setCellValue("sankumarsingh@gmail.com");
-
+            utility  = new ExcelUtils(workbook);
+            HSSFSheet sheet = workbook.createSheet("Bill"); 
+            int width = sheet.getColumnWidth(8)+sheet.getColumnWidth(8)/2;
+            sheet.setColumnWidth(8, width+100);
+            // Header Row ---0
+            int row = 0;
+            HSSFRow headerRow = sheet.createRow((short)row);
+            CellRangeAddress headerRowSpan = CellRangeAddress.valueOf("A1:I1");
+            sheet.addMergedRegion(headerRowSpan);
+            
+            
+            HSSFCell headerRow_cell0 = headerRow.createCell(0);
+            headerRow_cell0.setCellValue("SIAKRUPA TRANSPORT");
+            headerRow_cell0.setCellStyle(utility.getExcelHeaderRowStyle());
+        
+            // ADRESS ROW --1
+            row =1;
+            HSSFRow addressRow = sheet.createRow((short)row);
+            CellRangeAddress addressSpan = CellRangeAddress.valueOf("A2:I2");
+            sheet.addMergedRegion(addressSpan);
+            
+            
+            HSSFCell addressRowSpan_cell0 = addressRow.createCell(0);
+            String address = reg.getValueFor("V_CLIENT_ADDRESS");
+            addressRowSpan_cell0.setCellValue(address);
+            addressRowSpan_cell0.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short)10));
+            
+          // Bill no and Contact No row ---2
+            row =2;
+            HSSFRow billNoContactNoRow = sheet.createRow((short)row);
+            CellRangeAddress billNoRowSpan = CellRangeAddress.valueOf("A3:E3");
+            sheet.addMergedRegion(billNoRowSpan);
+            
+            HSSFCell billNoRowSpan_cell0 = billNoContactNoRow.createCell(0);
+            String BillNo = "Bill No:"+"   "+bom.getBillNumber();
+            billNoRowSpan_cell0.setCellValue(BillNo);
+            
+            
+            CellRangeAddress contactNoRowSpan = CellRangeAddress.valueOf("F3:I3");
+            sheet.addMergedRegion(contactNoRowSpan);
+            
+            HSSFCell billNoRowSpan_cell1 = billNoContactNoRow.createCell(5);
+            String contact = "Mobile No:"+"   "+bom.getContactNumber();
+            billNoRowSpan_cell1.setCellValue(contact);
+            billNoRowSpan_cell1.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
+            
+            //PAN NO and EMAIL Row--3
+            row = 3;
+            HSSFRow PanRow = sheet.createRow((short)row);
+            CellRangeAddress PanRowSpan = CellRangeAddress.valueOf("A4:E4");
+            sheet.addMergedRegion(PanRowSpan);
+            
+            CellRangeAddress emailRowSpan = CellRangeAddress.valueOf("F4:I4");
+            sheet.addMergedRegion(emailRowSpan);
+            
+            
+            HSSFCell PanRowSpan_cell0 = PanRow.createCell(0);
+            String pan = "PAN:"+"   "+reg.getValueFor("V_PAN_NO");
+            PanRowSpan_cell0.setCellValue(pan);
+            
+            HSSFCell PanRowSpan_cell2 = PanRow.createCell(5);
+            String email = "E-Mail:"+"   "+bom.getEmail();
+            PanRowSpan_cell2.setCellValue(email);
+            PanRowSpan_cell2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
+            
+            //  empty row -- 4
+            //TO AND BILL DATE Row--5
+            row = 5;
+            HSSFRow CustomerRow = sheet.createRow((short)row);
+            CellRangeAddress CustomerRowSpan = CellRangeAddress.valueOf("A6:D6");
+            sheet.addMergedRegion(CustomerRowSpan);
+            CellRangeAddress CustomerColSpan = CellRangeAddress.valueOf("A6:A12");
+            sheet.addMergedRegion(CustomerColSpan);
+            
+            HSSFCell CustomerRow_cell0 = CustomerRow.createCell(0);
+            String to = "TO:"+"   "+bom.getCustomerName();
+            CustomerRow_cell0.setCellValue(to);
+            CustomerRow_cell0.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+                        
+            CellRangeAddress billDateRowSpan = CellRangeAddress.valueOf("E6:F6");
+            sheet.addMergedRegion(billDateRowSpan);
+            
+            HSSFCell CustomerRow_cell1 = CustomerRow.createCell(4);
+            String dats = "Bill Date:";
+            CustomerRow_cell1.setCellValue(dats);
+            
+            CellRangeAddress billDateValueRowSpan = CellRangeAddress.valueOf("G6:I6");
+            sheet.addMergedRegion(billDateValueRowSpan);
+            HSSFCell CustomerRow_cell2 = CustomerRow.createCell(6);
+            String billDateValue = bom.getBillDate();
+            CustomerRow_cell2.setCellValue(billDateValue);
+            
+            //Row - 6
+            CellRangeAddress startDateRowSpan = CellRangeAddress.valueOf("E7:F7");
+            sheet.addMergedRegion(startDateRowSpan);
+            HSSFRow DatesRow6 = sheet.createRow((short)6);
+            HSSFCell DatesRow6_0 = DatesRow6.createCell(4);
+            String startDate = "Date Of Travels:";
+            DatesRow6_0.setCellValue(startDate);
+            
+            CellRangeAddress startDateValueRowSpan = CellRangeAddress.valueOf("G7:I7");
+            sheet.addMergedRegion(startDateValueRowSpan);
+            HSSFCell DatesRow6_cell1 = DatesRow6.createCell(6);
+            String startDateValue = bom.getDateOfTravels();
+            DatesRow6_cell1.setCellValue(startDateValue);
+            
+          //Row - 7
+            CellRangeAddress dateReturnRowSpan = CellRangeAddress.valueOf("E8:F8");
+            sheet.addMergedRegion(dateReturnRowSpan);
+            HSSFRow DatesRow7 = sheet.createRow((short)7);
+            HSSFCell DatesRow7_0 = DatesRow7.createCell(4);
+            String dateReturn = "Date Of Return:";
+            DatesRow7_0.setCellValue(dateReturn);
+            
+            CellRangeAddress dateReturnvalueRowSpan = CellRangeAddress.valueOf("G8:I8");
+            sheet.addMergedRegion(dateReturnvalueRowSpan);
+            HSSFCell DatesRow7_1 = DatesRow7.createCell(6);
+            String dateReturnValue = bom.getDateOfReturn();
+            DatesRow7_1.setCellValue(dateReturnValue);
+            
+          //Row - 8
+            CellRangeAddress typeOfVehicleRowSpan = CellRangeAddress.valueOf("E9:F9");
+            sheet.addMergedRegion(typeOfVehicleRowSpan);
+            HSSFRow DatesRow8 = sheet.createRow((short)8);
+            HSSFCell DatesRow8_0 = DatesRow8.createCell(4);
+            String typeOfVehicle = "Vehicle Type:";
+            DatesRow8_0.setCellValue(typeOfVehicle);
+            
+            CellRangeAddress typeOfVehicleValueRowSpan = CellRangeAddress.valueOf("G9:I9");
+            sheet.addMergedRegion(typeOfVehicleValueRowSpan);
+            HSSFCell DatesRow8_1 = DatesRow8.createCell(6);
+            String typeOfVehicleValue = bom.getTypeOfVehicle();
+            DatesRow8_1.setCellValue(typeOfVehicleValue);
+            
+          //Row - 9
+            CellRangeAddress vehNumberRowSpan = CellRangeAddress.valueOf("E10:F10");
+            sheet.addMergedRegion(vehNumberRowSpan);
+            HSSFRow DatesRow9 = sheet.createRow((short)9);
+            HSSFCell DatesRow9_0 = DatesRow9.createCell(4);
+            String vehNumber = "Vehicle Number:";
+            DatesRow9_0.setCellValue(vehNumber);
+            
+            CellRangeAddress vechicleNumberRowSpan  = CellRangeAddress.valueOf("G10:I10");
+            sheet.addMergedRegion(vechicleNumberRowSpan);
+            HSSFCell DatesRow9_1 = DatesRow9.createCell(6);
+            String vechicleNumberValue = bom.getVehicleNumber();
+            DatesRow9_1.setCellValue(vechicleNumberValue);
+            
+          //Row - 10
+            CellRangeAddress vendorCodeRowSpan = CellRangeAddress.valueOf("E11:F11");
+            sheet.addMergedRegion(vendorCodeRowSpan);
+            HSSFRow DatesRow10 = sheet.createRow((short)10);
+            HSSFCell DatesRow10_0 = DatesRow10.createCell(4);
+            String vendorCode = "Vendor Code:";
+            DatesRow10_0.setCellValue(vendorCode);
+           
+            CellRangeAddress vendorCodeValueRowSpan  = CellRangeAddress.valueOf("G11:I11");
+            sheet.addMergedRegion(vendorCodeValueRowSpan);
+            HSSFCell DatesRow10_1 = DatesRow10.createCell(6);
+            String vendorCodeValue = bom.getVendorCode();
+            DatesRow10_1.setCellValue(vendorCodeValue);
+            
+            // Empty Row 11
+            // ROW-12
+            CellRangeAddress employeeNameRowSpan = CellRangeAddress.valueOf("A13:D13");
+            sheet.addMergedRegion(employeeNameRowSpan);
+            CellRangeAddress employeeNameColSpan = CellRangeAddress.valueOf("A13:A15");
+            sheet.addMergedRegion(employeeNameColSpan);
+            
+            HSSFRow DatesRow11 = sheet.createRow((short)12);
+            HSSFCell DatesRow11_0 = DatesRow11.createCell(0);
+            String employeeName = "Employee Name:    " +bom.getCustomerName();
+            DatesRow11_0.setCellValue(employeeName);
+           
+            CellRangeAddress KMRowSpan = CellRangeAddress.valueOf("F13:G13");
+            sheet.addMergedRegion(KMRowSpan);
+            HSSFCell DatesRow11_2 = DatesRow11.createCell(5);
+            DatesRow11_2.setCellValue("KM");
+            DatesRow11_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            CellRangeAddress timeRowSpan = CellRangeAddress.valueOf("H13:I13");
+            sheet.addMergedRegion(timeRowSpan);
+            HSSFCell DatesRow11_4 = DatesRow11.createCell(7);
+            DatesRow11_4.setCellValue("TIME");
+            DatesRow11_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+         // ROW-13
+            
+            HSSFRow DatesRow13 = sheet.createRow((short)13);
+            
+            HSSFCell DatesRow13_1 = DatesRow13.createCell(4);
+            DatesRow13_1.setCellValue("Starting");
+            
+            CellRangeAddress KMValueRowSpan = CellRangeAddress.valueOf("F14:G14");
+            sheet.addMergedRegion(KMValueRowSpan);
+            HSSFCell DatesRow13_2 = DatesRow13.createCell(5);
+            DatesRow13_2.setCellValue(bom.getStartKM());
+            DatesRow13_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            CellRangeAddress timeValueRowSpan = CellRangeAddress.valueOf("H14:I14");
+            sheet.addMergedRegion(timeValueRowSpan);
+            HSSFCell DatesRow13_4 = DatesRow13.createCell(7);
+            DatesRow13_4.setCellValue(bom.getStartTime());
+            DatesRow13_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            // ROW-14
+            
+            HSSFRow DatesRow14 = sheet.createRow((short)14);
+            
+            HSSFCell DatesRow14_1 = DatesRow14.createCell(4);
+            DatesRow14_1.setCellValue("Closing");
+            
+            CellRangeAddress closKMValueRowSpan = CellRangeAddress.valueOf("F15:G15");
+            sheet.addMergedRegion(closKMValueRowSpan);
+            HSSFCell DatesRow14_2 = DatesRow14.createCell(5);
+            DatesRow14_2.setCellValue(bom.getEndKM());
+            DatesRow14_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            CellRangeAddress closetimeValueRowSpan = CellRangeAddress.valueOf("H15:I15");
+            sheet.addMergedRegion(closetimeValueRowSpan);
+            HSSFCell DatesRow14_4 = DatesRow14.createCell(7);
+            DatesRow14_4.setCellValue(bom.getEndTime());
+            DatesRow14_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            //Row -- 15
+            CellRangeAddress packageNameRowSpan = CellRangeAddress.valueOf("A16:D16");
+            sheet.addMergedRegion(packageNameRowSpan);
+            CellRangeAddress packageNameColSpan = CellRangeAddress.valueOf("A16:A17");
+            sheet.addMergedRegion(packageNameColSpan);
+            
+            HSSFRow packageNameRow15 = sheet.createRow((short)15);
+            HSSFCell packageNameRow15_0 = packageNameRow15.createCell(0);
+            String packageName = "Package Name:    " +bom.getPackageType();
+            packageNameRow15_0.setCellValue(packageName);
+            
+            HSSFCell packageNameRow15_1 = packageNameRow15.createCell(4);
+            packageNameRow15_1.setCellValue("Total");
+            
+            CellRangeAddress packageNameValueRowSpan = CellRangeAddress.valueOf("F16:I16");
+            sheet.addMergedRegion(packageNameValueRowSpan);
+            
+            HSSFCell packageNameRow15_2 = packageNameRow15.createCell(5);
+            packageNameRow15_2.setCellValue(bom.getTotalKM());
+            
+            CellRangeAddress acRowSpan = CellRangeAddress.valueOf("E17:I17");
+            sheet.addMergedRegion(acRowSpan);
+            HSSFRow packageNameRow16 = sheet.createRow((short)16);
+            HSSFCell packageNameRow16_1 = packageNameRow16.createCell(4);
+            String acNonAc = "AC:";
+            packageNameRow16_1.setCellValue(acNonAc);
+            
             FileOutputStream fileOut = new FileOutputStream(filename);
             workbook.write(fileOut);
             fileOut.close();
+            //new ConvertExcelIntoPDF().convert(filename);
             System.out.println("Your excel file has been generated!");
 
-        } catch ( Exception ex ) {
+            if(filename.exists())
+            	Desktop.getDesktop().open(filename);
+        } catch ( Exception ex )
+        {
             System.out.println(ex);
         }
     }

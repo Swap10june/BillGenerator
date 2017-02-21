@@ -18,18 +18,23 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.jdesktop.swingx.JXDatePicker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import exceptions.CustomException;
 import beans.BOM;
 
 public class Utils 
@@ -207,24 +212,22 @@ public class Utils
 	}
 	public void generateBill(BOM bom)
 	{
-		createEXCEL(bom,"C:\\Bills\\2.xls");
-	}
-	private void createEXCEL(BOM bom, String string)
-	{
-		File excelFile = new File(string);
-		if(!excelFile.exists())
+		String str = bom.getBillNumber();
+		str= str.replace(" ", "");
+		str = str.replace(":", "");
+		str= str.replace("-", "");
+		File excel = new File("C:\\Bills\\"+str+".xls");
+		
+		try 
 		{
-			try 
-			{	
-				excelFile.createNewFile();
-				
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			if(!excel.exists())
+				excel.createNewFile();
+			new CreateExlFile().CreateBOMExcel(excel,bom);
+		} catch (IOException e)
+		{
+			new CustomException("File Not Found");
 		}
-		CreateExlFile.CreateBOMExcel(excelFile,bom);
+		
 	}
 	public String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
 	{
@@ -247,6 +250,12 @@ public class Utils
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
 		{
 			JSpinner lbl= (JSpinner) Panel.getComponent(1);
+			if(lbl.getEditor() instanceof JSpinner.DateEditor)
+			{
+				String [] arr = lbl.getValue().toString().split(" ");
+				return arr[3];
+			}
+				
 			return lbl.getValue().toString();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)

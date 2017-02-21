@@ -12,7 +12,7 @@ import beans.Rate;
 public class Dao {
 	
 	private static String ADD_CUSTOMER ="insert into CUSTOMER values(?,?,?)";
-	private static String EDIT_CUSTOMER ="UPDATE CUSTOMER SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
+	private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
 	private static String ADD_VEHICLE ="insert into RATES values(?,?,?,?,?,?,?)";
 	private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
 	private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";

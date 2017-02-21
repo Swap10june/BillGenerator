@@ -70,7 +70,7 @@ public class BOM
 	public void setDateOfTravels(String dateOfTravels) {
 		this.dateOfTravels = dateOfTravels;
 	}
-	public String getDateOfreturn() {
+	public String getDateOfReturn() {
 		return dateOfreturn;
 	}
 	public void setDateOfreturn(String dateOfreturn) {

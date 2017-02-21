@@ -295,6 +295,7 @@ public class BillGenerateUI extends JDialog {
 				if(generateBillCheck.isSelected())
 				{
 					Utils.getUtilityInstance().generateBill(bom);
+					owner.dispose();
 				}
 				
 			}

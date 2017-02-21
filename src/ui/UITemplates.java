@@ -126,10 +126,9 @@ public class UITemplates
 		
 		JSpinner spinner = new JSpinner();
 		SpinnerDateModel spinnermodel = new SpinnerDateModel();
-		spinnermodel.setCalendarField(Calendar.MINUTE);
+		spinnermodel.setCalendarField(Calendar.AM_PM);
 		spinner .setModel(spinnermodel);
 		spinner .setEditor(new JSpinner.DateEditor(spinner , "hh:mm:ss"));
-		
 	    panel.add(labelkey);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_key")), labelkey);
 	    panel.add(spinner);
