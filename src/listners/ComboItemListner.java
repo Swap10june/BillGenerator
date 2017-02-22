@@ -61,19 +61,7 @@ public class ComboItemListner implements ItemListener{
 			JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(1);
 			lblExtraAMount.setText(String.valueOf(extraKM*10));
 			 
-			int finalAMount = Integer.parseInt(lblAMountValue.getText())+ Integer.parseInt(lblExtraAMount.getText());
-			NumToWords w = new NumToWords(); 
-			String inwords = w.convert(finalAMount);
 			
-			
-			
-			JPanel panelFinalAmount = (JPanel) BillGenerateUI.getComponentMap().get("panelFinalAmount");
-			JLabel lblFianlAMount = (JLabel) panelFinalAmount.getComponent(1);
-			lblFianlAMount.setText(String.valueOf(finalAMount));
-			
-			JPanel panelAmountInWords = (JPanel) BillGenerateUI.getComponentMap().get("panelAmountInWords");
-			JLabel finalAmount = (JLabel) panelAmountInWords.getComponent(1);
-			finalAmount.setText(inwords+" Only");
 			 
 		}
 	}

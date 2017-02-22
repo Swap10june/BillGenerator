@@ -1,5 +1,7 @@
 package ui;
 
+import handlers.ButtonHandler;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -227,6 +229,10 @@ public class BillGenerateUI extends JDialog {
 		
 		JPanel panelNightHaltAmount = templates.getLabelWithTextField("panelNightHaltAmount",  reg.getValueFor("L_NIGHT_HALT_AMOUNT"), "0", 3, billGenerateUIComponentsMap);
 		panelNightHalt.add(panelNightHaltAmount);
+		
+		JButton btnTotal = new JButton(reg.getValueFor("V_TOTAL_BTN_STRING"));
+		panelNightHalt.add(btnTotal);
+		btnTotal.addActionListener(new ButtonHandler());
 		
 		owner.add(panelNightHalt);
 		
