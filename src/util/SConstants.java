@@ -30,7 +30,7 @@ public class SConstants
 	public static final Font 			FONT_COURRIER_BOLD_13 	= 		new Font("Courier", Font.BOLD,13);
 	
 	
-	public static final int 			MAIN_WINDOW_WIDTH 		= 		1200;
+	public static final int 			MAIN_WINDOW_WIDTH 		= 		950;
 	public static final int 			MAIN_WINDOW_HEIGHT 		= 		702;
 	
 	public static final Border 			BORDER_BLUE_1 			= 		BorderFactory.createLineBorder(Color.BLUE, 1);

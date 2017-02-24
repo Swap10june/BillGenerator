@@ -24,20 +24,20 @@ public class SpinnerChangeListner implements ChangeListener
 		Map<String, Object> billGenerateUIComponentsMap = BillGenerateUI.getComponentMap();
 		
 		JPanel panelTotalKM = (JPanel) billGenerateUIComponentsMap.get("panelTotalKM");
-		JTextField textTotalKM=(JTextField) panelTotalKM.getComponent(1);
+		JTextField textTotalKM=(JTextField) panelTotalKM.getComponent(2);
 		textTotalKM.setEditable(false);
 		
 		JPanel panelStartKM = (JPanel) billGenerateUIComponentsMap.get("panelStartKM");
-		JSpinner spinner  =(JSpinner) panelStartKM.getComponent(1);
+		JSpinner spinner  =(JSpinner) panelStartKM.getComponent(2);
 		SpinnerModel textStartKM=spinner.getModel();
 		
 		
 		JPanel panelEndKM = (JPanel) billGenerateUIComponentsMap.get("panelEndKM");
-		JSpinner spinner1  = (JSpinner) panelEndKM.getComponent(1);
+		JSpinner spinner1  = (JSpinner) panelEndKM.getComponent(2);
 		SpinnerModel textEnd = spinner1.getModel();
 		
-		int totalKm = Integer.parseInt(textEnd.getValue().toString())-Integer.parseInt(textStartKM.getValue().toString());
-		if(totalKm>0 )
+		double totalKm = Double.parseDouble(textEnd.getValue().toString())-Double.parseDouble(textStartKM.getValue().toString());
+		if(totalKm>=0 )
 		{
 			textTotalKM.setText(String.valueOf(totalKm));
 			BillGenerateUI.getComponentMap().put("totalKM", totalKm);

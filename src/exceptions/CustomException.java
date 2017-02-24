@@ -2,18 +2,20 @@ package exceptions;
 
 import javax.swing.JOptionPane;
 
-public class CustomException extends Exception
+public class CustomException
 {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	public static final String WARNING = null;
 
 	public CustomException(String string)
 	{
-		super(string);
+		
 		JOptionPane.showMessageDialog(null,string,"Error",JOptionPane.ERROR_MESSAGE);
+	}
+
+	public CustomException(String string, String warning2) {
+		
+		JOptionPane.showMessageDialog(null,string,"Message",JOptionPane.WARNING_MESSAGE);
 	}
 	
 }

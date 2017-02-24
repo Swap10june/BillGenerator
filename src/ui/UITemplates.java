@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
+import javax.swing.Box;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import listners.ComboItemListner;
 import listners.SpinnerChangeListner;
 
 import org.jdesktop.swingx.JXDatePicker;
+import org.jdesktop.swingx.prompt.PromptSupport;
 
 import util.Registry;
 import util.SConstants;
@@ -33,6 +35,7 @@ public class UITemplates
 	public JPanel getLabelWithLabel(String mapKey, String labelKey,Object value,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		String str = "";
@@ -53,6 +56,7 @@ public class UITemplates
         panel.add(picker);
         panel.add(picker);*/
 		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
 		panel.add(labelValue);
 		
 		billGenerateUIComponent.put(mapKey, panel);
@@ -64,6 +68,7 @@ public class UITemplates
 	public JPanel getLabelWithTextFieldDatePicker(String mapKey, String labelKey,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		
@@ -74,7 +79,7 @@ public class UITemplates
 
         
 		panel.add(labelkey);
-		
+		panel.add(Box.createHorizontalStrut(10));
 		panel.add(picker);
 		billGenerateUIComponent.put(mapKey, panel);
 		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_Picker")), picker);
@@ -83,6 +88,7 @@ public class UITemplates
 	public JPanel getLabelWithTextField(String mapKey,String labelKey,String TextValue,int TextColumnSize,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		String str = "";
@@ -91,9 +97,13 @@ public class UITemplates
 			str = (String) TextValue;
 		}
 		JTextField textValue = new JTextField(TextColumnSize);
-		textValue.setText(TextValue);
+		textValue.setHorizontalAlignment(JTextField.RIGHT);
+		//textValue.setToolTipText(TextValue);
+		//textValue.setText(labelKey);
+		PromptSupport.setPrompt(TextValue, textValue);
 		panel.add(labelkey);
 		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_key")), labelkey);
+		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);
 		//System.out.println(labelText);
 		//System.out.println(Utils.getComponentName(labelText,reg.getValueFor("L_value")));
@@ -105,12 +115,15 @@ public class UITemplates
 	public JPanel getLabelWithCombo(String mapKey,String labelKey,String comboID, String[] vehicleTypes,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JComboBox<String> textValue = new JComboBox<String>(vehicleTypes);
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXX");
 		textValue.addItemListener(new ComboItemListner(comboID));
 		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);
 		//billGenerateUIComponent.put(Utils.getComponentName(string, reg.getValueFor("L_key")), labelkey);
 		//billGenerateUIComponent.put(Utils.getComponentName(string, reg.getValueFor("L_value")), textValue);
@@ -120,18 +133,24 @@ public class UITemplates
 	public JPanel getLabelWithTimeSpinner(String mapKey,String labelKey,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		
+	     //formatting time to have AM/PM text using 'a' format
+	     //String strDateFormat = "HH:mm:ss a";
+	     String strDateFormat = "hh:mm a";
 		JSpinner spinner = new JSpinner();
 		SpinnerDateModel spinnermodel = new SpinnerDateModel();
 		spinnermodel.setCalendarField(Calendar.AM_PM);
 		spinner .setModel(spinnermodel);
-		spinner .setEditor(new JSpinner.DateEditor(spinner , "hh:mm:ss"));
+		spinner .setEditor(new JSpinner.DateEditor(spinner , strDateFormat));
 	    panel.add(labelkey);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_key")), labelkey);
+	    panel.add(Box.createHorizontalStrut(10));
 	    panel.add(spinner);
+	    //panel.add(Box.createHorizontalStrut(70));
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinner")), spinner);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinnermodel")), spinnermodel);
 	    billGenerateUIComponent.put(mapKey,panel );
@@ -140,6 +159,7 @@ public class UITemplates
 	public JPanel getLabelWithIntSpinner(String mapKey,String labelKey,int value,int min,int max,int step,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
@@ -152,6 +172,7 @@ public class UITemplates
 		
 	    panel.add(labelkey);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_key")), labelkey);
+	    panel.add(Box.createHorizontalStrut(10));
 	    panel.add(spinner);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinner")), spinner);
 	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinnermodel")), spinnermodel);
@@ -162,10 +183,12 @@ public class UITemplates
 			Map<String, Object> billGenerateUIComponentsMap)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		valueFor = Utils.getUtilityInstance().getStringOfCharacters(valueFor,13);
 		JLabel labelkey = new JLabel(valueFor +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JCheckBox textValue = new JCheckBox();
 		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);
 		billGenerateUIComponentsMap.put(mapKey, panel);
 		return panel;

@@ -34,38 +34,38 @@ public class ButtonHandler implements ActionListener
 		{
 			JPanel panelDutyType = (JPanel) componentMap.get("panelDutyType");
 			@SuppressWarnings("unchecked")
-			JComboBox<String> comboDutyType = (JComboBox<String>) panelDutyType.getComponent(1);
+			JComboBox<String> comboDutyType = (JComboBox<String>) panelDutyType.getComponent(2);
 			DutyType t = DutyType.map.get(comboDutyType.getSelectedItem().toString());
 			
 			JPanel panelAmount = (JPanel) componentMap.get("panelAmount");
-			JLabel lblAMountValue = (JLabel) panelAmount.getComponent(1);
+			JLabel lblAMountValue = (JLabel) panelAmount.getComponent(2);
 			//lblAMountValue.setText(String.valueOf(t.getPackageRate()));
 			
 			JPanel panelExtraKMAmount = (JPanel) componentMap.get("panelExtraKMAmount");
-			JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(1);
+			JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
 			//lblExtraAMount.setText(String.valueOf(extraKM*10));
 			
 			JPanel panelTollAmount = (JPanel) componentMap.get("panelTollAmount");
-			JTextField tollAmountText = (JTextField) panelTollAmount.getComponent(1);
+			JTextField tollAmountText = (JTextField) panelTollAmount.getComponent(2);
 			
 			JPanel panelNightHaltAmount = (JPanel) componentMap.get("panelTollAmount");
-			JTextField nightHaltAmountText = (JTextField) panelNightHaltAmount.getComponent(1);
+			JTextField nightHaltAmountText = (JTextField) panelNightHaltAmount.getComponent(2);
 			//lblFianlAMount.setText(String.valueOf(finalAMount));
 			
-			int finalAMount = 
-					Integer.parseInt(lblAMountValue.getText())+
-					Integer.parseInt(lblExtraAMount.getText())+
-					Integer.parseInt(tollAmountText.getText())+
-					Integer.parseInt(nightHaltAmountText.getText());
+			double finalAMount = 
+					Double.parseDouble(lblAMountValue.getText())+
+					Double.parseDouble(lblExtraAMount.getText())+
+					Double.parseDouble(tollAmountText.getText().isEmpty()?"0":tollAmountText.getText())+
+					Double.parseDouble(nightHaltAmountText.getText().isEmpty()?"0":nightHaltAmountText.getText());
 			NumToWords w = new NumToWords(); 
-			String inwords = w.convert(finalAMount);
+			String inwords = w.convert((int)finalAMount);
 			
 			JPanel panelFinalAmount = (JPanel) componentMap.get("panelFinalAmount");
-			JLabel lblFianlAMount = (JLabel) panelFinalAmount.getComponent(1);
+			JLabel lblFianlAMount = (JLabel) panelFinalAmount.getComponent(2);
 			lblFianlAMount.setText(String.valueOf(finalAMount));
 			
 			JPanel panelAmountInWords = (JPanel) componentMap.get("panelAmountInWords");
-			JLabel finalAmount = (JLabel) panelAmountInWords.getComponent(1);
+			JLabel finalAmount = (JLabel) panelAmountInWords.getComponent(2);
 			finalAmount.setText(inwords+" Only");
 		}
 	}

@@ -233,23 +233,23 @@ public class Utils
 	{
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
 		{
-			JLabel lbl= (JLabel) Panel.getComponent(1);
+			JLabel lbl= (JLabel) Panel.getComponent(2);
 			return lbl.getText();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
 		{
-			JTextField lbl= (JTextField) Panel.getComponent(1);
+			JTextField lbl= (JTextField) Panel.getComponent(2);
 			return lbl.getText();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JComboBox)
 		{
 			@SuppressWarnings("rawtypes")
-			JComboBox lbl= (JComboBox) Panel.getComponent(1);
+			JComboBox lbl= (JComboBox) Panel.getComponent(2);
 			return lbl.getSelectedItem().toString();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
 		{
-			JSpinner lbl= (JSpinner) Panel.getComponent(1);
+			JSpinner lbl= (JSpinner) Panel.getComponent(2);
 			if(lbl.getEditor() instanceof JSpinner.DateEditor)
 			{
 				String [] arr = lbl.getValue().toString().split(" ");
@@ -260,10 +260,24 @@ public class Utils
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)
 		{
-			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(1);
+			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(2);
 			return lbl.getDate().toLocaleString();
 		}
 		return "";
+		
+	}
+	public String getStringOfCharacters(String string,int chars)
+	{
+		int charSize = string.length();
+		if(string.length()<chars)
+		{
+			while(charSize!=chars)
+			{
+				string=" "+string;
+				charSize++;
+			}
+		}
+		return string;
 		
 	}
 }
