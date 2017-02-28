@@ -2,17 +2,17 @@ package listners;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.File;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import exceptions.CustomException;
 import beans.DutyType;
 import ui.BillGenerateUI;
-import util.NumToWords;
 import util.Registry;
 import util.SConstants;
+import ModelXml.DutyTypeDataModel;
 
 public class ComboItemListner implements ItemListener{
 
@@ -39,10 +39,15 @@ public class ComboItemListner implements ItemListener{
 				new CustomException("Total Km Should be greater Than 0(Zero)");
 				return;
 			}
+			JButton btnToatl = (JButton) BillGenerateUI.getComponentMap().get("btnTotal");
+			btnToatl.setEnabled(true);
+			
 			JPanel panelTotalDistance = (JPanel) BillGenerateUI.getComponentMap().get("panelTotalDistance");
 			JLabel lblTotalDistanceValue = (JLabel) panelTotalDistance.getComponent(2);
 			
-			DutyType t = DutyType.map.get(e.getItem().toString());
+			String dutyTypeID = e.getItem().toString();
+			
+			DutyType t = new DutyTypeDataModel().getDutyType(dutyTypeID);
 			lblTotalDistanceValue.setText(String.valueOf(t.getKm()));
 			
 			

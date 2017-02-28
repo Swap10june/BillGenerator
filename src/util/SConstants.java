@@ -8,9 +8,6 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.util.HSSFColor;
-
 
 public class SConstants
 {
@@ -21,7 +18,7 @@ public class SConstants
 	public static final String[] 		VEHICLE_TYPES 			= 		{"Indica","Tavera"};
 	public static final String[] 		CUSSTOMER_LIST 			= 		{"TAL","Mahindra"};
 	public static final String[] 		HOME_BUTTONS_NAMES		= 		{"Generate Bill","Admin","History"};
-	public static final String[] 		ADMIN_BUTTONS_NAMES		= 		{"Add Customer","Edit Customer","Add Vehicle","edit vehicle"};
+	public static final String[] 		ADMIN_BUTTONS_NAMES		= 		{"Add Customer","Edit Customer","Add Vehicle","edit vehicle","Add Duty Type","Edit Duty Type"};
 	public static final String 			MY_COMPANY_NAME 		= 		"Unity Infotech Group (I) Pvt Ltd";
 	public static final String 			PRPJECT_HEADING 		= 		"SAIKRUPA TRANSPORT";
 	
@@ -35,7 +32,7 @@ public class SConstants
 	
 	public static final Border 			BORDER_BLUE_1 			= 		BorderFactory.createLineBorder(Color.BLUE, 1);
 	
-	public static final Registry 		reg 					= 		new Registry(new File("/UIT-BillGen/TelcoBillUI.config"));
+	public static final Registry 		reg 					= 		new Registry(new File("resource/TelcoBillUI.config"));
 
 	public static  final String 		BILL_GEN_WIN_NAME 		= 		"Generate Bill";
 	public static  final String 		ADMIN_WIN_NAME 			= 		"Admin";
@@ -45,4 +42,7 @@ public class SConstants
 	public static  final String 		EDIT_VEHICLE_WIN_NAME 	= 		"edit vehicle";
 	public static  final String 		SAVE_BUTTON 			= 		"Save";
 	public static  final String 		CUST_EDIT_BUTTON 		= 		"Save Customer";
+	
+	public static  final String 		ADD_DUTY_TYPE 			= 		"Add Duty Type";
+	public static  final String 		EDIT_DUTY_TYPE 			= 		"Edit Duty Type";
 }

@@ -32,6 +32,8 @@ public class UITemplates
 {
 
 	Registry reg = SConstants.reg;
+	
+	@SuppressWarnings("deprecation")
 	public JPanel getLabelWithLabel(String mapKey, String labelKey,Object value,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -91,6 +93,7 @@ public class UITemplates
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		@SuppressWarnings("unused")
 		String str = "";
 		if(TextValue instanceof String)
 		{

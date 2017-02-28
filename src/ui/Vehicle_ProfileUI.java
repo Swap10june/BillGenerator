@@ -2,18 +2,13 @@ package ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import beans.DutyType;
-import handlers.AdminButtonHandler;
-import handlers.HomeButtonHandler;
 import util.Registry;
 import util.SConstants;
 import util.Utils;
@@ -25,7 +20,6 @@ public class Vehicle_ProfileUI extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
-	private int totalKM = 0;
 	private String action;
 	private Registry reg = SConstants.reg;
 	

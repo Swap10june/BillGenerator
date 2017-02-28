@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,16 +17,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JSpinner.DateEditor;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
 import org.jdesktop.swingx.JXDatePicker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -67,7 +62,7 @@ public class Utils
 	    //Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    //int x = (int) ((dimension.getWidth() - owner.getWidth()) / 4);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 5);
-	    owner.setLocation(80,10);
+	    owner.setLocation(150,10);
 	    owner.setSize(new Dimension(SConstants.MAIN_WINDOW_WIDTH, SConstants.MAIN_WINDOW_HEIGHT));
 	    owner.setModal(true);
 	    owner.setResizable(false);
@@ -229,6 +224,7 @@ public class Utils
 		}
 		
 	}
+	@SuppressWarnings("deprecation")
 	public String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
 	{
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)

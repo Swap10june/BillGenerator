@@ -3,9 +3,6 @@ package ui;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import beans.DutyType;
 import handlers.AdminButtonHandler;
-import handlers.HomeButtonHandler;
 import util.Registry;
 import util.SConstants;
 import util.Utils;
@@ -40,7 +35,8 @@ public class Customer_ProfileUI extends JDialog {
 	{
 		super(owner);
 		this.action=action;
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,"Admin");
+		Utils.getUtilityInstance();
+		Utils.applyBasicSettingsOnWindow_Small(owner,"Admin");
 		initUI(owner);
 		owner.setVisible(true);
 		

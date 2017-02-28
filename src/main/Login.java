@@ -37,7 +37,7 @@ public class Login extends JDialog
 		initUI(owner);
 		owner.setVisible(true);
 	}
-	private void initUI(JDialog owner)
+	private void initUI(final JDialog owner)
 	{
 		// Image panel
 		 JPanel imagePanel = new JPanel();
@@ -59,7 +59,7 @@ public class Login extends JDialog
 		 lblUserName.setBounds(450, 100, 200, 30);
 		 
 		 //Text field for user name 
-		 JTextField  txtUserName = new JTextField(15);
+		 final JTextField  txtUserName = new JTextField(15);
 		 //Helper.setComponent(txtUserName, "txtUserName");
          txtUserName.setText("swap");
 		 txtUserName.setBounds(480, 140, 300, 30);
@@ -81,7 +81,7 @@ public class Login extends JDialog
 		 
 		 
 		 //Text field for password
-		 JPasswordField txtUserPass = new JPasswordField(15);
+		 final JPasswordField txtUserPass = new JPasswordField(15);
 		 //Helper.setComponent(txtUserPass, "txtUserPass");
          txtUserPass.setText("swap");
 		 txtUserPass.setBounds(480, 240, 300, 30);
@@ -93,7 +93,7 @@ public class Login extends JDialog
 		 lblUserPassIcon.setBounds(790, 240, 40, 30);
 		 
 		 //Check box to show password
-		 JCheckBox passCheckBox = new JCheckBox("Show Password");
+		 final JCheckBox passCheckBox = new JCheckBox("Show Password");
 		 //Helper.setComponent(passCheckBox, "passCheckBox");
 		 passCheckBox.setBounds(750, 280, 300, 30);
 		 passCheckBox.addActionListener(new ActionListener()
@@ -119,10 +119,12 @@ public class Login extends JDialog
 		 btnLogin.addActionListener(new ActionListener()
                  {
 
-                    @Override
+                    @SuppressWarnings("deprecation")
+					@Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name", "resource/users.xml")) &&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
+                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name", "resource/users.xml")) 
+                        		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
                         {
                             System.out.println("Login Successful :: "+txtUserName.getText());
                             new Home(new javax.swing.JDialog());

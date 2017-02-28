@@ -5,7 +5,6 @@ import handlers.HomeButtonHandler;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
-import util.Registry;
 import util.SConstants;
 import util.Utils;
 

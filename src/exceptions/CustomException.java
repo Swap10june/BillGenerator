@@ -13,7 +13,8 @@ public class CustomException
 		JOptionPane.showMessageDialog(null,string,"Error",JOptionPane.ERROR_MESSAGE);
 	}
 
-	public CustomException(String string, String warning2) {
+	public CustomException(String string, String warning2)
+	{
 		
 		JOptionPane.showMessageDialog(null,string,"Message",JOptionPane.WARNING_MESSAGE);
 	}

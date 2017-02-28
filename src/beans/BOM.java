@@ -1,14 +1,11 @@
 package beans;
 
-import java.sql.Date;
-import java.sql.Time;
-
 public class BOM
 {
 	
 	private String 		billNumber 				= 		null;
-	private Admin		admin					=		null;
-	private Customer	customer				=		null;
+	private String		admin					=		null;
+	private String		customer				=		null;
 	private String 		customerName			=		null;
 	private String		billDate				=		null;
 	private String 		contactNumber			=		null;
@@ -46,16 +43,16 @@ public class BOM
 	public void setBillNumber(String billNumber) {
 		this.billNumber = billNumber;
 	}
-	public Admin getAdmin() {
+	public String getAdmin() {
 		return admin;
 	}
-	public void setAdmin(Admin admin) {
+	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
-	public Customer getCustomer() {
+	public String getCustomer() {
 		return customer;
 	}
-	public void setCustomer(Customer customer) {
+	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
 	public String getBillDate() {

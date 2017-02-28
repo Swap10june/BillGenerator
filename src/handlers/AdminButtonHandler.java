@@ -8,8 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import beans.Customer;
-import ui.BillGenerateUI;
 import ui.Customer_ProfileUI;
+import ui.DutyTypeUI;
 import ui.Vehicle_ProfileUI;
 import util.Dao;
 import util.SConstants;
@@ -47,6 +47,12 @@ public class AdminButtonHandler implements ActionListener {
 			case SConstants.EDIT_VEHICLE_WIN_NAME:
 			{
 				new Vehicle_ProfileUI(new javax.swing.JDialog(),"Edit");
+			}
+			
+			break;
+			case SConstants.ADD_DUTY_TYPE:
+			{
+				new DutyTypeUI(new javax.swing.JDialog(),"Add");
 			}
 			
 			break;

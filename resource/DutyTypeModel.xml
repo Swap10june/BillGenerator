@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<DutyTypes>
+<DutyType Rate="500" dutyTypeString="5 Hrs 50 KM" hours="5" id="5 Hrs 50 KM" km="50"/>
+<DutyType Rate="520" dutyTypeString="4 Hrs 40 KM" hours="4" id="4 Hrs 40 KM" km="40"/>
+</DutyTypes>

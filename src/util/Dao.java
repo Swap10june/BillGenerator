@@ -3,14 +3,22 @@ package util;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import exceptions.CustomException;
+
+import beans.BOM;
 import beans.Customer;
+import beans.DutyType;
 import beans.Rate;
 
 
 public class Dao {
 	
+	private static final String ADD_DUTY_TYPE = "insert into DUTYTYPES values(?,?,?,?)";
 	private static String ADD_CUSTOMER ="insert into CUSTOMER values(?,?,?)";
 	private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
 	private static String ADD_VEHICLE ="insert into RATES values(?,?,?,?,?,?,?)";
@@ -20,10 +28,11 @@ public class Dao {
 	private static String GET_CUSTOMER ="select * FROM CUSTOMERS WHERE CUSTOMER_NAME=?;";
 	private static String GET_VEHICLE ="select * FROM RATES where CUSTOMER=? AND VEHICLE_TYPE=?;";
 	
+	
 	PreparedStatement pStmtDao;
 	
-	public List getCustomerList(){		
-		List customerList = null;
+	public List<String> getCustomerList(){		
+		List<String> customerList = new ArrayList<String>();
 		try {
 			 pStmtDao = DBConnection.getConnectionInstance().prepareStatement(GET_CUSTOMER_LIST);
 			ResultSet Rset = pStmtDao.executeQuery();
@@ -33,7 +42,7 @@ public class Dao {
 				
 			}//pStmtDao.setInt(1,Integer.parseInt(familyId));
 			//pStmtDao.setString(2,((SFamily) table).getMembers().get(0).getM_name_e());
-			int status = pStmtDao.executeUpdate();
+			pStmtDao.executeUpdate();
 			pStmtDao.close();
 			
 		} catch (SQLException e) {
@@ -45,8 +54,8 @@ public class Dao {
 		return customerList;
 	}
 	
-	public List getVehicleList(String customer){		
-		List vehicleList = null;
+	public List<String> getVehicleList(String customer){		
+		List<String> vehicleList =  new ArrayList<String>();
 		try {
 			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(GET_VEHICLE_LIST);
 			pStmtDao.setString(1,customer);
@@ -74,7 +83,7 @@ public class Dao {
 			pStmtDao.setString(1,customerBean.getName());
 			pStmtDao.setString(2,customerBean.getVendorCode());
 			pStmtDao.setString(3,customerBean.getAddress());
-			int status = pStmtDao.executeUpdate();
+			pStmtDao.executeUpdate();
 			pStmtDao.close();
 			
 		} catch (SQLException e) {
@@ -95,7 +104,7 @@ public class Dao {
 			pStmtDao.setString(5,vehicle.getExtraRate());
 			pStmtDao.setString(6,vehicle.getVendorCode());
 			pStmtDao.setString(7,vehicle.getAcNonAcStatus());
-			int status = pStmtDao.executeUpdate();
+			pStmtDao.executeUpdate();
 			pStmtDao.close();
 			
 		} catch (SQLException e) {
@@ -108,13 +117,13 @@ public class Dao {
 public void editCustomer(Customer customerBean){		
 		
 		try {
-			PreparedStatement pStmtDao1 = DBConnection.getConnectionInstance().prepareStatement(EDIT_CUSTOMER);
-			pStmtDao1.setString(1,customerBean.getName());
-			pStmtDao1.setString(2,customerBean.getVendorCode());
-			pStmtDao1.setString(3,customerBean.getAddress());
-			pStmtDao1.setString(4,customerBean.getOldName());
-			int status = pStmtDao1.executeUpdate();
-			pStmtDao1.close();
+			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(EDIT_CUSTOMER);
+			pStmtDao.setString(1,customerBean.getName());
+			pStmtDao.setString(2,customerBean.getVendorCode());
+			pStmtDao.setString(3,customerBean.getAddress());
+			pStmtDao.setString(4,customerBean.getOldName());
+			pStmtDao.executeUpdate();
+			pStmtDao.close();
 			
 		} catch (SQLException e) {
 			
@@ -135,7 +144,7 @@ public void editVehicle(Rate vehicle){
 		pStmtDao.setString(7,vehicle.getAcNonAcStatus());
 		pStmtDao.setString(8,vehicle.getCustomerName());
 		pStmtDao.setString(9,vehicle.getOldVehicleType());
-		int status = pStmtDao.executeUpdate();
+		pStmtDao.executeUpdate();
 		pStmtDao.close();
 		
 	} catch (SQLException e) {
@@ -157,7 +166,7 @@ public Customer getCustomer(String customereName){
 			customer.setAddress(Rset.getString("ADDRESS"));
 			
 		}
-		int status = pStmtDao.executeUpdate();
+		pStmtDao.executeUpdate();
 		pStmtDao.close();
 		
 	} catch (SQLException e) {
@@ -197,6 +206,30 @@ public Rate getVehicle(String customerName,String vehicleName){
 		
 	return vehicle;
 }
-
+public void addDutyType(DutyType dutyType)
+{
+	try {
+		pStmtDao = DBConnection.getConnectionInstance().prepareStatement(ADD_DUTY_TYPE);
+		pStmtDao.setString(1,dutyType.getId());
+		pStmtDao.setString(2,String.valueOf(dutyType.getHours()));
+		pStmtDao.setString(3,String.valueOf(dutyType.getKm()));
+		pStmtDao.setString(4,String.valueOf(dutyType.getPackageRate()));
+		int status = pStmtDao.executeUpdate();
+		if(status==1)
+		{
+			new CustomException("Added Successfully", JOptionPane.MESSAGE_PROPERTY);
+		}
+		pStmtDao.close();
+		
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+}
 	
+	public void addBill(BOM bom) 
+{
+	// TODO Auto-generated method stub
+	
+}
 }
