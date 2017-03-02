@@ -52,10 +52,13 @@ public class DutyTypeDataModel
     	NodeList totalNumberOfFamilysTags = doc.getElementsByTagName("DutyTypes");
         Element DutyTypesTag = (Element) totalNumberOfFamilysTags.item(0);
         Element familyElement = doc.createElement("DutyType");
+        familyElement.setAttribute("uid",String.valueOf(dutyType.getUid()));
         familyElement.setAttribute("id",dutyType.getId());
         familyElement.setAttribute("hours",String.valueOf(dutyType.getHours()));
         familyElement.setAttribute("km",String.valueOf(dutyType.getKm()));
         familyElement.setAttribute("dutyTypeString",dutyType.getId());
+        familyElement.setAttribute("cName",dutyType.getCustomerName());
+        familyElement.setAttribute("vName",dutyType.getVehicleType());
         familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
         DutyTypesTag.appendChild(familyElement);
         
@@ -68,7 +71,7 @@ public class DutyTypeDataModel
 			StreamResult result = new StreamResult(new File(filePath));
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.transform(source, result);
-			System.out.println("XML file updated successfully");
+			System.out.println(" Duty Type XML file updated successfully");
 			
 		} catch (TransformerException e)
 		{
@@ -76,7 +79,7 @@ public class DutyTypeDataModel
 			e.printStackTrace();
 		}
 	}
-    public String[] getAllDutyTypStrings()
+    public String[] getAllDutyTypStringsFor(String cName, String vName)
     {
     	List<String> values = new ArrayList<String>();
     	 try 
@@ -90,6 +93,7 @@ public class DutyTypeDataModel
     		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
     				{
     		            Element eElement = (Element) nNode;
+    		            if(eElement.getAttribute("cName").equalsIgnoreCase(cName) && eElement.getAttribute("vName").equalsIgnoreCase(vName))
     		            values.add(eElement.getAttribute("id"));
     		            //System.out.println("Staff id : " + eElement.getAttribute("id"));
     		        }
@@ -118,9 +122,13 @@ public class DutyTypeDataModel
     		            if(eElement.getAttribute("id").equalsIgnoreCase(id))
     		            {
     		            	dutyType = new DutyType(
-    		            					Integer.parseInt(eElement.getAttribute("hours")),
-    		            					Integer.parseInt(eElement.getAttribute("km")),
-    		            					Integer.parseInt(eElement.getAttribute("Rate")));
+    		            			
+    		            			Integer.parseInt(eElement.getAttribute("uid")),
+    		            			Integer.parseInt(eElement.getAttribute("hours")),
+	            					Integer.parseInt(eElement.getAttribute("km")),
+	            					Double.parseDouble(eElement.getAttribute("Rate")),
+	            					eElement.getAttribute("cName"),
+	            					eElement.getAttribute("vName"));
     		            }
     		           
     		        }
@@ -132,5 +140,117 @@ public class DutyTypeDataModel
     		    }
 		return dutyType;
     }
+	public String[] getAllDutyTypes()
+	{
 
+    	List<String> values = new ArrayList<String>();
+    	 try 
+    	 {
+    		 doc.getDocumentElement().normalize();
+    		 NodeList nList = doc.getElementsByTagName("DutyType");
+    		 for (int temp = 0; temp < nList.getLength(); temp++)
+    		 {
+    			 Node nNode = nList.item(temp);
+
+    		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+    				{
+    		            Element eElement = (Element) nNode;
+    		            values.add(eElement.getAttribute("id"));
+    		            //System.out.println("Staff id : " + eElement.getAttribute("id"));
+    		        }
+    		    }
+    		    }
+    			catch (Exception e)
+    			{
+    				e.printStackTrace();
+    		    }
+		return values.toArray(new String[values.size()]);
+    
+	}
+
+	public void editDutyType(DutyType dutyType)
+	{
+
+    	NodeList totalNumberOfFamilysTags = doc.getElementsByTagName("DutyTypes");
+        Element DutyTypesTag = (Element) totalNumberOfFamilysTags.item(0);
+        Element familyElement = doc.createElement("DutyType");
+        familyElement.setAttribute("id",dutyType.getId());
+        familyElement.setAttribute("hours",String.valueOf(dutyType.getHours()));
+        familyElement.setAttribute("km",String.valueOf(dutyType.getKm()));
+        familyElement.setAttribute("dutyTypeString",dutyType.getId());
+        familyElement.setAttribute("cName",dutyType.getCustomerName());
+        familyElement.setAttribute("vName",dutyType.getVehicleType());
+        familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
+        DutyTypesTag.appendChild(familyElement);
+        
+        try
+        {
+			doc.getDocumentElement().normalize();
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(doc);
+			StreamResult result = new StreamResult(new File(filePath));
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.transform(source, result);
+			System.out.println(" Duty Type XML file updated successfully");
+			
+		} catch (TransformerException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	public void updateAttributeValue(String uid,String attr, String value)
+	{
+		NodeList DutyType = doc.getElementsByTagName("DutyType");
+        Element emp = null;
+        //loop for each employee
+        for(int i=0; i<DutyType.getLength();i++)
+        {
+            emp = (Element) DutyType.item(i);
+            String gender = emp.getElementsByTagName("gender").item(0).getFirstChild().getNodeValue();
+            if(gender.equalsIgnoreCase("male")){
+                //prefix id attribute with M
+                emp.setAttribute("id", "M"+emp.getAttribute("id"));
+            }else{
+                //prefix id attribute with F
+                emp.setAttribute("id", "F"+emp.getAttribute("id"));
+            }
+        }
+    }
+	public DutyType getDutyTypeByUID(String uid)
+    {
+    	DutyType dutyType = null;
+    	 try 
+    	 {
+    		 doc.getDocumentElement().normalize();
+    		 NodeList nList = doc.getElementsByTagName("DutyType");
+    		 for (int temp = 0; temp < nList.getLength(); temp++)
+    		 {
+    			 Node nNode = nList.item(temp);
+
+    		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+    				{
+    		            Element eElement = (Element) nNode;
+    		            if(eElement.getAttribute("uid").equalsIgnoreCase(uid))
+    		            {
+    		            	dutyType = new DutyType(
+    		            			Integer.parseInt(eElement.getAttribute("uid")),
+    		            			Integer.parseInt(eElement.getAttribute("hours")),
+	            					Integer.parseInt(eElement.getAttribute("km")),
+	            					Double.parseDouble(eElement.getAttribute("Rate")),
+	            					eElement.getAttribute("cName"),
+	            					eElement.getAttribute("vName"));
+    		            }
+    		           
+    		        }
+    		    }
+    		    }
+    			catch (Exception e)
+    			{
+    				e.printStackTrace();
+    		    }
+		return dutyType;
+    }
 }

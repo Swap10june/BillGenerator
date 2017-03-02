@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
-import exceptions.CustomException;
+import exceptions.PopupDialogs;
 import ui.Home;
 import util.Registry;
 import util.SConstants;
@@ -131,7 +131,7 @@ public class Login extends JDialog
                         	owner.dispose();
                         }
                         else
-							new CustomException(reg.getValueFor("E_LOGIN_EXCEPTION_STRING"));
+							new PopupDialogs(reg.getValueFor("E_LOGIN_EXCEPTION_STRING"),PopupDialogs.ERROR_MESSAGE);
                         txtUserPass.setText("");
                     }
                     });

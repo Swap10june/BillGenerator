@@ -1,6 +1,5 @@
 package handlers;
 
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -11,28 +10,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import beans.DutyType;
-import ui.BillGenerateUI;
-import ui.DutyTypeUI;
-import ModelXml.DutyTypeDataModel;
+import ui.TelcoBOM;
 import util.NumToWords;
 import util.Registry;
 import util.SConstants;
 
-public class ButtonHandler implements ActionListener
+public class TelcoBillUIButtonHandler implements ActionListener
 {
 
 	Registry reg = SConstants.reg;
 	Map<String, Object> componentMap;
-	private Window parent = null;
-	public ButtonHandler()
+	public TelcoBillUIButtonHandler()
 	{
-		componentMap = BillGenerateUI.getComponentMap();
+		componentMap = TelcoBOM.getComponentMap();
 	}
 	
-	public ButtonHandler(String valueFor, JDialog owner)
+	public TelcoBillUIButtonHandler(String valueFor, JDialog owner)
 	{
-		this.parent = owner;
 	}
 
 	@Override
@@ -52,11 +46,16 @@ public class ButtonHandler implements ActionListener
 			JPanel panelNightHaltAmount = (JPanel) componentMap.get("panelTollAmount");
 			JTextField nightHaltAmountText = (JTextField) panelNightHaltAmount.getComponent(2);
 			
+			JPanel panelServiceTax = (JPanel) componentMap.get("panelServiceTax");
+			JTextField serviceTaxText = (JTextField) panelServiceTax.getComponent(2);
+			
 			double finalAMount = 
 					Double.parseDouble(lblAMountValue.getText())+
 					Double.parseDouble(lblExtraAMount.getText())+
 					Double.parseDouble(tollAmountText.getText().isEmpty()?"0":tollAmountText.getText())+
-					Double.parseDouble(nightHaltAmountText.getText().isEmpty()?"0":nightHaltAmountText.getText());
+					Double.parseDouble(nightHaltAmountText.getText().isEmpty()?"0":nightHaltAmountText.getText())+
+					Double.parseDouble(serviceTaxText.getText().isEmpty()?"0":serviceTaxText.getText());
+			
 			NumToWords w = new NumToWords(); 
 			String inwords = w.convert((int)finalAMount);
 			
@@ -68,35 +67,10 @@ public class ButtonHandler implements ActionListener
 			JLabel finalAmount = (JLabel) panelAmountInWords.getComponent(2);
 			finalAmount.setText(inwords+" Rupees Only");
 			
-			JButton btnGenerate = (JButton) BillGenerateUI.getComponentMap().get("btnGenerate");
+			JButton btnGenerate = (JButton) TelcoBOM.getComponentMap().get("btnGenerate");
 			btnGenerate.setEnabled(true);
 		}
-		if(arg0.getActionCommand().equalsIgnoreCase(reg.getValueFor("ID_BTN_ADD_DUTY_TYPE")))
-		{
-			Map<String, Object> dutyTypeComponentMap = DutyTypeUI.getDutyTypeUIComponent();
-			
-			JPanel enterHours = (JPanel) dutyTypeComponentMap.get("enterHours");
-			JTextField lblHoursValue = (JTextField) enterHours.getComponent(2);
-			String hoursValue = lblHoursValue.getText();
-			
-			JPanel enterKmValue = (JPanel) dutyTypeComponentMap.get("enterKmValue");
-			JTextField lblKMValue = (JTextField) enterKmValue.getComponent(2);
-			String kmValue = lblKMValue.getText();
-			
-			JPanel enterPkgRate = (JPanel) dutyTypeComponentMap.get("enterPkgRate");
-			JTextField lblPkgValue = (JTextField) enterPkgRate.getComponent(2);
-			String pkgValue = lblPkgValue.getText();
-			
-			DutyType dutyType = new DutyType(Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Integer.parseInt(pkgValue));
-			//new Dao().addDutyType(dutyType);
-			new DutyTypeDataModel().addDutyType(dutyType);
-			
-			parent .dispose();
-		}
-		if(arg0.getActionCommand().equalsIgnoreCase(reg.getValueFor("ID_BTN_Edit_DUTY_TYPE")))
-		{
-			
-		}
+		
 	}
 
 }

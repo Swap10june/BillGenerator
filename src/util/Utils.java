@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import exceptions.CustomException;
+import exceptions.PopupDialogs;
 import beans.BOM;
 
 public class Utils 
@@ -90,8 +90,8 @@ public class Utils
 		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
-	    owner.setLocation(300,100);
-	    owner.setSize(new Dimension(600, 502));
+	    owner.setLocation(300,200);
+	    owner.setSize(new Dimension(600, 300));
 	    owner.setModal(true);
 	    owner.setResizable(false);
 	    owner.setTitle(string);
@@ -220,7 +220,7 @@ public class Utils
 			new CreateExlFile().CreateBOMExcel(excel,bom);
 		} catch (IOException e)
 		{
-			new CustomException("File Not Found");
+			new PopupDialogs("File Not Found",PopupDialogs.ERROR_MESSAGE);
 		}
 		
 	}
@@ -230,18 +230,18 @@ public class Utils
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
 		{
 			JLabel lbl= (JLabel) Panel.getComponent(2);
-			return lbl.getText();
+			return lbl.getText().isEmpty()?"":lbl.getText();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
 		{
 			JTextField lbl= (JTextField) Panel.getComponent(2);
-			return lbl.getText();
+			return lbl.getText().isEmpty()?"0.0":lbl.getText();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JComboBox)
 		{
 			@SuppressWarnings("rawtypes")
 			JComboBox lbl= (JComboBox) Panel.getComponent(2);
-			return lbl.getSelectedItem().toString();
+			return lbl.getSelectedItem().toString().isEmpty()?"":lbl.getSelectedItem().toString();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JSpinner)
 		{

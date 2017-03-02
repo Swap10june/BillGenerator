@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
-import exceptions.CustomException;
+import exceptions.PopupDialogs;
 
 import beans.BOM;
 import beans.Customer;
@@ -217,7 +215,7 @@ public void addDutyType(DutyType dutyType)
 		int status = pStmtDao.executeUpdate();
 		if(status==1)
 		{
-			new CustomException("Added Successfully", JOptionPane.MESSAGE_PROPERTY);
+			new PopupDialogs("Added Successfully",PopupDialogs.PLAIN_MESSAGE);
 		}
 		pStmtDao.close();
 		

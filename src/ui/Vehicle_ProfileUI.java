@@ -54,33 +54,33 @@ public class Vehicle_ProfileUI extends JDialog {
 			
 		owner.add(panelVehicleProfileBody);
 		
-		JPanel panelDutyType = templates.getLabelWithTextField("panelDutyType",reg.getValueFor("L_Duty_Type"),"Enter Duty Type",8, billGenerateUIComponentsMap);
+		JPanel panelDutyType = templates.getLabelWithTextField("panelDutyType",reg.getValueFor("L_Duty_Type"),"Enter Duty Type",8, false,billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelDutyType);
 		
 		owner.add(panelVehicleProfileBody);
 		
-		JPanel panelVehicleType = templates.getLabelWithTextField("panelVehicleType",reg.getValueFor("L_Veh_Type"),"Enter Vehicle Type",8, billGenerateUIComponentsMap);
+		JPanel panelVehicleType = templates.getLabelWithTextField("panelVehicleType",reg.getValueFor("L_Veh_Type"),"Enter Vehicle Type",8,false, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelVehicleType);
 		
-		JPanel panelPackgRate = templates.getLabelWithTextField("panelPackgRate",reg.getValueFor("L_PKG_Rate"),"Enter Package Rate",8, billGenerateUIComponentsMap);
+		JPanel panelPackgRate = templates.getLabelWithTextField("panelPackgRate",reg.getValueFor("L_PKG_Rate"),"Enter Package Rate",8, true,billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelPackgRate);
 		
 		owner.add(panelVehicleProfileBody);
 		
-		JPanel panelExtraRate = templates.getLabelWithTextField("panelExtraRate",reg.getValueFor("L_Extra_Rate"),"Extra Rate",8, billGenerateUIComponentsMap);
+		JPanel panelExtraRate = templates.getLabelWithTextField("panelExtraRate",reg.getValueFor("L_Extra_Rate"),"Extra Rate",8,true, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelExtraRate);
 		
-		JPanel panelVendorcode = templates.getLabelWithTextField("panelVendorcode",reg.getValueFor("L_Vendor_Code"),"Enter Vendor No",8, billGenerateUIComponentsMap);
+		JPanel panelVendorcode = templates.getLabelWithTextField("panelVendorcode",reg.getValueFor("L_Vendor_Code"),"Enter Vendor No",8,false, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelVendorcode);
 		
 		owner.add(panelVehicleProfileBody);
 		
-		JPanel panelACnoAC = templates.getLabelWithTextField("panelACnoAC",reg.getValueFor("C_VENDOR_ADDESSS"),"AC non AC (Y/N)",8, billGenerateUIComponentsMap);
+		JPanel panelACnoAC = templates.getLabelWithTextField("panelACnoAC",reg.getValueFor("C_VENDOR_ADDESSS"),"AC non AC (Y/N)",8,false, billGenerateUIComponentsMap);
 		//panelVendorNumber.setBounds(550, 170, 400, 35);
 		panelVehicleProfileBody.add(panelACnoAC);
 		

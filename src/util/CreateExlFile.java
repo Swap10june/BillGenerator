@@ -407,9 +407,52 @@ public class CreateExlFile
             DatesRow23_2.setCellValue(nightHalt);
             DatesRow23_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
+            //empty row 24
+            // row 25
+            HSSFRow DatesRow25 = sheet.createRow((short)25);
+            CellRangeAddress g = CellRangeAddress.valueOf("F26:G26");
+            sheet.addMergedRegion(g);
+            HSSFCell DatesRow25_2 = DatesRow25.createCell(5);
+            DatesRow25_2.setCellValue("Total");
+            DatesRow25_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
+            CellRangeAddress h = CellRangeAddress.valueOf("H26:I26");
+            sheet.addMergedRegion(h);
+            HSSFCell DatesRow25_4 = DatesRow25.createCell(7);
+            DatesRow25_4.setCellValue(bom.getTotalWithoutTax());
+            DatesRow25_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
+          //empty row 26
+            // row 27
+            HSSFRow DatesRow27 = sheet.createRow((short)27);
+            CellRangeAddress i = CellRangeAddress.valueOf("F28:G28");
+            sheet.addMergedRegion(i);
+            HSSFCell DatesRow27_2 = DatesRow27.createCell(5);
+            DatesRow27_2.setCellValue("Service Tax");
+            DatesRow27_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
+            CellRangeAddress j = CellRangeAddress.valueOf("H28:I28");
+            sheet.addMergedRegion(j);
+            HSSFCell DatesRow27_4 = DatesRow27.createCell(7);
+            DatesRow27_4.setCellValue(bom.getServiceTaxCarges());
+            DatesRow27_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            
+            //empty row 28
+            // row 29
+            HSSFRow DatesRow29 = sheet.createRow((short)29);
+            CellRangeAddress k = CellRangeAddress.valueOf("F30:G30");
+            sheet.addMergedRegion(k);
+            HSSFCell DatesRow29_2 = DatesRow29.createCell(5);
+            DatesRow29_2.setCellValue("Grand Total");
+            DatesRow29_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            DatesRow29_2.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short) 10));
+            
+            CellRangeAddress l = CellRangeAddress.valueOf("H30:I30");
+            sheet.addMergedRegion(l);
+            HSSFCell DatesRow29_4 = DatesRow29.createCell(7);
+            DatesRow29_4.setCellValue(bom.getGrandTotal());
+            DatesRow29_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            DatesRow29_4.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short) 10));
             
             FileOutputStream fileOut = new FileOutputStream(filename);
             workbook.write(fileOut);

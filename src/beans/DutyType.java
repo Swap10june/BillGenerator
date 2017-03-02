@@ -7,9 +7,14 @@ public class DutyType
 {
 	private int hours 	= 	0;
 	private int km		=	0;
-	private String dutyTypeString =null;
-	private int packageRate = 0;
+	private double packageRate = 0;
 	private String id = null;
+	private String customerName = null;
+	private String vehicleType  = null;
+	
+	private String dutyTypeString =null;
+	private int uid = 0;
+	
 	public  static Map<String,DutyType>  map = new HashMap<String,DutyType>();
 	
 	
@@ -21,17 +26,21 @@ public class DutyType
 	}
 	
 	
-	public int getPackageRate() {
+	public double getPackageRate() {
 		return packageRate;
 	}
-	public void setPackageRate(int packageRate) {
+	public void setPackageRate(double packageRate) {
 		this.packageRate = packageRate;
 	}
-	public DutyType(int hours, int km,int packageRate)
+	public DutyType(int uid, int hours, int km,double packageRate,String customerName, String vehicleType)
 	{
+		this.setUid(uid);
 		this.hours = hours;
 		this.km = km;
 		this.packageRate = packageRate;
+		this.customerName = customerName;
+		this.vehicleType = vehicleType;
+		
 		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 		map.put(id, this);
 	}
@@ -57,6 +66,42 @@ public class DutyType
 	{
 		return map.get(id);
 		
+	}
+	/**
+	 * @return the customerName
+	 */
+	public String getCustomerName() {
+		return customerName;
+	}
+	/**
+	 * @param customerName the customerName to set
+	 */
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+	/**
+	 * @return the vehicleType
+	 */
+	public String getVehicleType() {
+		return vehicleType;
+	}
+	/**
+	 * @param vehicleType the vehicleType to set
+	 */
+	public void setVehicleType(String vehicleType) {
+		this.vehicleType = vehicleType;
+	}
+	/**
+	 * @return the uid
+	 */
+	public int getUid() {
+		return uid;
+	}
+	/**
+	 * @param uid the uid to set
+	 */
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 	
 }

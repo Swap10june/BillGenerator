@@ -36,6 +36,7 @@ public class BOM
 	private String		serviceTaxCarges		=		null;
 	private String		nightHaltRate			=		null;
 	private	String		grandTotal				=		null;
+	private String		totalWithoutTax			=		null;
 	
 	public String getBillNumber() {
 		return billNumber;
@@ -264,6 +265,19 @@ public class BOM
 	 */
 	public void setPakageAmount(String pakageAmount) {
 		this.pakageAmount = pakageAmount;
+	}
+	
+	/**
+	 * @return the totalWithoutTax
+	 */
+	public String getTotalWithoutTax() {
+		return totalWithoutTax;
+	}
+	/**
+	 * @param totalWithoutTax the totalWithoutTax to set
+	 */
+	public void setTotalWithoutTax(String totalWithoutTax) {
+		this.totalWithoutTax = totalWithoutTax;
 	}
 	
 	

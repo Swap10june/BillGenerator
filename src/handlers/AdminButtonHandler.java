@@ -9,7 +9,8 @@ import javax.swing.JPanel;
 
 import beans.Customer;
 import ui.Customer_ProfileUI;
-import ui.DutyTypeUI;
+import ui.AddDutyTypeUI;
+import ui.EditDutyTypeUI;
 import ui.Vehicle_ProfileUI;
 import util.Dao;
 import util.SConstants;
@@ -52,7 +53,13 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.ADD_DUTY_TYPE:
 			{
-				new DutyTypeUI(new javax.swing.JDialog(),"Add");
+				new AddDutyTypeUI(new javax.swing.JDialog(),"Add");
+			}
+			
+			break;
+			case SConstants.EDIT_DUTY_TYPE:
+			{
+				new EditDutyTypeUI(new javax.swing.JDialog());
 			}
 			
 			break;

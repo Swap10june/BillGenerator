@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,7 +89,7 @@ public class UITemplates
 		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_Picker")), picker);
 		return panel;
 	}
-	public JPanel getLabelWithTextField(String mapKey,String labelKey,String TextValue,int TextColumnSize,Map<String,Object> billGenerateUIComponent)
+	public JPanel getLabelWithTextField(String mapKey,String labelKey,String TextValue,int TextColumnSize,boolean IntegerStatus , Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
@@ -112,6 +114,20 @@ public class UITemplates
 		//System.out.println(Utils.getComponentName(labelText,reg.getValueFor("L_value")));
 		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_value")), textValue);
 		billGenerateUIComponent.put(mapKey, panel);
+		if(IntegerStatus)
+		{
+			textValue.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		      char c = e.getKeyChar();
+		      if (!((c >= '0') && (c <= '9') ||
+		         (c == KeyEvent.VK_BACK_SPACE) ||
+		         (c == KeyEvent.VK_DELETE))) {
+		       // getToolkit().beep();
+		        e.consume();
+		      }
+		    }
+		  });
+		}
 		
 		return panel;
 	}

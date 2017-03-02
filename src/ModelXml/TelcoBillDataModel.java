@@ -21,7 +21,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import beans.BOM;
-import beans.DutyType;
 
 public class TelcoBillDataModel
 {
@@ -131,7 +130,7 @@ public class TelcoBillDataModel
     		    }
 		return values.toArray(new String[values.size()]);
     }
-    public DutyType getDutyType(String id)
+    /*public DutyType getDutyType(String id)
     {
     	DutyType dutyType = null;
     	 try 
@@ -151,7 +150,10 @@ public class TelcoBillDataModel
     		            			(
     		            					Integer.parseInt(eElement.getAttribute("hours")),
     		            					Integer.parseInt(eElement.getAttribute("km")),
-    		            					Integer.parseInt(eElement.getAttribute("Rate"))
+    		            					Integer.parseInt(eElement.getAttribute("Rate")),
+    		            					eElement.getAttribute("CName"),
+    		            					eElement.getAttribute("VName")
+    		            					
     		            			);
     		            }
     		           
@@ -163,7 +165,7 @@ public class TelcoBillDataModel
     				e.printStackTrace();
     		    }
 		return dutyType;
-    }
+    }*/
     public int getNoOfTagsUnderTag(String tagName)
     {
     	NodeList list = doc.getElementsByTagName(tagName);

@@ -9,8 +9,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import exceptions.CustomException;
-import ui.BillGenerateUI;
+import exceptions.PopupDialogs;
+import ui.TelcoBOM;
 import util.Registry;
 import util.SConstants;
 
@@ -21,7 +21,7 @@ public class SpinnerChangeListner implements ChangeListener
 	@Override
 	public void stateChanged(ChangeEvent e)
 	{
-		Map<String, Object> billGenerateUIComponentsMap = BillGenerateUI.getComponentMap();
+		Map<String, Object> billGenerateUIComponentsMap = TelcoBOM.getComponentMap();
 		
 		JPanel panelTotalKM = (JPanel) billGenerateUIComponentsMap.get("panelTotalKM");
 		JTextField textTotalKM=(JTextField) panelTotalKM.getComponent(2);
@@ -40,12 +40,12 @@ public class SpinnerChangeListner implements ChangeListener
 		if(totalKm>=0 )
 		{
 			textTotalKM.setText(String.valueOf(totalKm));
-			BillGenerateUI.getComponentMap().put("totalKM", totalKm);
+			TelcoBOM.getComponentMap().put("totalKM", totalKm);
 		}
 		else
 		{
 			
-			new CustomException(reg.getValueFor("E_KM_EXCEPTION_STRING"));
+			new PopupDialogs(reg.getValueFor("E_KM_EXCEPTION_STRING"),PopupDialogs.ERROR_MESSAGE);
 			textTotalKM.setText(String.valueOf(0));
 			//textEnd.setValue(textEnd.getPreviousValue());
 		}

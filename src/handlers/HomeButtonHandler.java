@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 import ui.Admin_homeUI;
-import ui.BillGenerateUI;
+import ui.TelcoBOM;
 import util.SConstants;
 
 public class HomeButtonHandler implements ActionListener {
@@ -22,7 +22,7 @@ public class HomeButtonHandler implements ActionListener {
 		{
 			case SConstants.BILL_GEN_WIN_NAME:
 			{
-				new BillGenerateUI(new javax.swing.JDialog());
+				new TelcoBOM(new javax.swing.JDialog());
 			}
 			
 			break;

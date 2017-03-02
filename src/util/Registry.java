@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-import exceptions.CustomException;
+import exceptions.PopupDialogs;
 
 public class Registry
 {
@@ -23,7 +23,7 @@ public class Registry
 			property.load(is);
 		} catch (IOException e)
 		{
-			new CustomException("Prperty File Is Missing");
+			new PopupDialogs("Prperty File Is Missing",PopupDialogs.ERROR_MESSAGE);
 		}
 	}
 	public String getValueFor(String key)
