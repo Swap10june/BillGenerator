@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -61,23 +63,7 @@ public class DutyTypeDataModel
         familyElement.setAttribute("vName",dutyType.getVehicleType());
         familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
         DutyTypesTag.appendChild(familyElement);
-        
-        try
-        {
-			doc.getDocumentElement().normalize();
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File(filePath));
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.transform(source, result);
-			System.out.println(" Duty Type XML file updated successfully");
-			
-		} catch (TransformerException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+       updateXML();
 	}
     public String[] getAllDutyTypStringsFor(String cName, String vName)
     {
@@ -183,7 +169,12 @@ public class DutyTypeDataModel
         familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
         DutyTypesTag.appendChild(familyElement);
         
-        try
+        updateXML();
+	
+	}
+	private void updateXML()
+	{
+		try
         {
 			doc.getDocumentElement().normalize();
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -199,24 +190,29 @@ public class DutyTypeDataModel
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
 	}
-	public void updateAttributeValue(String uid,String attr, String value)
+	public void updateAttributeValue(String uid,Map<String,String> values)
 	{
+
 		NodeList DutyType = doc.getElementsByTagName("DutyType");
         Element emp = null;
         //loop for each employee
         for(int i=0; i<DutyType.getLength();i++)
         {
             emp = (Element) DutyType.item(i);
-            String gender = emp.getElementsByTagName("gender").item(0).getFirstChild().getNodeValue();
-            if(gender.equalsIgnoreCase("male")){
-                //prefix id attribute with M
-                emp.setAttribute("id", "M"+emp.getAttribute("id"));
-            }else{
-                //prefix id attribute with F
-                emp.setAttribute("id", "F"+emp.getAttribute("id"));
+            NamedNodeMap abc = emp.getAttributes();
+            Node s = abc.getNamedItem("uid");
+            if(s.getNodeValue().equalsIgnoreCase(uid))
+            {
+            	for (Map.Entry<String, String> entry : values.entrySet())
+            	{
+            	    //System.out.println(entry.getKey() + "/" + entry.getValue());
+            	    emp.setAttribute(entry.getKey(),entry.getValue());
+            	}
+            	updateXML();
             }
+            
         }
     }
 	public DutyType getDutyTypeByUID(String uid)
@@ -253,4 +249,32 @@ public class DutyTypeDataModel
     		    }
 		return dutyType;
     }
+	public void updateAttributeValue(DutyType newDutyType)
+	{
+		NodeList DutyType = doc.getElementsByTagName("DutyType");
+        Element emp = null;
+        //loop for each employee
+        for(int i=0; i<DutyType.getLength();i++)
+        {
+            emp = (Element) DutyType.item(i);
+            NamedNodeMap abc = emp.getAttributes();
+            Node s = abc.getNamedItem("uid");
+            if(s!=null &&s.getNodeValue().equalsIgnoreCase(String.valueOf(newDutyType.getUid())))
+            {
+            	/*for (Map.Entry<String, String> entry : values.entrySet())
+            	{*/
+            	    //System.out.println(entry.getKey() + "/" + entry.getValue());
+            	    emp.setAttribute("km",String.valueOf(newDutyType.getKm()));
+            	    emp.setAttribute("Rate",String.valueOf(newDutyType.getPackageRate()));
+            	    emp.setAttribute("cName",String.valueOf(newDutyType.getCustomerName()));
+            	    emp.setAttribute("dutyTypeString",String.valueOf(newDutyType.getDutyTypeString()));
+            	    emp.setAttribute("hours",String.valueOf(newDutyType.getHours()));
+            	    emp.setAttribute("id",String.valueOf(newDutyType.getId()));
+            	    emp.setAttribute("vName",String.valueOf(newDutyType.getVehicleType()));
+            	//}
+            	updateXML();
+            }
+            
+        }
+	}
 }

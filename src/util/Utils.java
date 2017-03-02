@@ -230,7 +230,7 @@ public class Utils
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
 		{
 			JLabel lbl= (JLabel) Panel.getComponent(2);
-			return lbl.getText().isEmpty()?"":lbl.getText();
+			return lbl.getText();
 		}
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JTextField)
 		{

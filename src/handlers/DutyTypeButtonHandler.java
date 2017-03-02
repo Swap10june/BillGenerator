@@ -3,6 +3,7 @@ package handlers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
+
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -78,9 +79,34 @@ public class DutyTypeButtonHandler implements ActionListener {
 			JComboBox comboDutyType = (JComboBox) panelCombo.getComponent(2);
 			DutyType dutyType = new DutyTypeDataModel().getDutyType(comboDutyType.getSelectedItem().toString());
 			
+			JPanel enterHours = (JPanel) map.get("enterHours");
+			JTextField textHours = (JTextField) enterHours.getComponent(2);
+			DutyType newDutyType = new DutyType();
+			
+			newDutyType.setUid(dutyType.getUid());
+			newDutyType.setHours(Integer.parseInt(textHours.getText()));
+			
+			JPanel enterKmValue = (JPanel) map.get("enterKmValue");
+			JTextField textKm = (JTextField) enterKmValue.getComponent(2);
+			newDutyType.setKm(Integer.parseInt(textKm.getText()));
+			
+			JPanel enterPkgRate = (JPanel) map.get("enterPkgRate");
+			JTextField textpkgRate = (JTextField) enterPkgRate.getComponent(2);
+			newDutyType.setPackageRate(Double.parseDouble(textpkgRate.getText()));
+			
+			JPanel customer = (JPanel) map.get("customer");
+			JTextField textCustomer = (JTextField) customer.getComponent(2);
+			newDutyType.setCustomerName(textCustomer.getText());
+			
+			JPanel vehicle = (JPanel) map.get("vehicle");
+			JTextField textVehicle = (JTextField) vehicle.getComponent(2);
+			newDutyType.setVehicleType(textVehicle.getText());
+			
+			newDutyType.generateID();
 			DutyTypeDataModel objDutyTypeDataModel = new DutyTypeDataModel();
-			DutyType oldDutyType = objDutyTypeDataModel.getDutyTypeByUID(String.valueOf(dutyType.getUid()));
-			objDutyTypeDataModel.updateAttributeValue(String.valueOf(oldDutyType.getUid()), "km", "11111");
+			objDutyTypeDataModel.updateAttributeValue(newDutyType);
+			new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
+			parent.dispose();
 		}
 		if(event.getActionCommand().equalsIgnoreCase("Cancel"))
 		{

@@ -44,6 +44,10 @@ public class DutyType
 		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 		map.put(id, this);
 	}
+	public DutyType()
+	{
+		// TODO Auto-generated constructor stub
+	}
 	public int getHours() {
 		return hours;
 	}
@@ -102,6 +106,11 @@ public class DutyType
 	 */
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+	public void generateID()
+	{
+		this.dutyTypeString = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 	}
 	
 }

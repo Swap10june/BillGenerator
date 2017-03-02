@@ -48,8 +48,8 @@ public class ComboItemListner implements ItemListener{
 			JButton btnToatl = (JButton) TelcoBOM.getComponentMap().get("btnTotal");
 			btnToatl.setEnabled(true);
 			
-			JPanel panelTotalDistance = (JPanel) TelcoBOM.getComponentMap().get("panelTotalDistance");
-			JLabel lblTotalDistanceValue = (JLabel) panelTotalDistance.getComponent(2);
+			JPanel panelTotalPkgKm = (JPanel) TelcoBOM.getComponentMap().get("panelTotalPkgKm");
+			JLabel lblTotalDistanceValue = (JLabel) panelTotalPkgKm.getComponent(2);
 			
 			String dutyTypeID = e.getItem().toString();
 			

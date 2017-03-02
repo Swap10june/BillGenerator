@@ -167,8 +167,8 @@ public class TelcoBOM extends JDialog {
 		final JPanel panelDutyType = templates.getLabelWithCombo("panelDutyType",reg.getValueFor("L_Duty_Type"),UI_ID+reg.getValueFor("ID_DUTY_TYPE_COMBO"), dutyTypeArray, billGenerateUIComponentsMap);
 		panelMiddleBody.add(panelDutyType);
 		
-		final JPanel panelTotalDistance = templates.getLabelWithLabel("panelTotalDistance",reg.getValueFor("L_Total_Distance1"), "", billGenerateUIComponentsMap);
-		panelMiddleBody.add(panelTotalDistance);
+		final JPanel panelTotalPkgKm = templates.getLabelWithLabel("panelTotalPkgKm",reg.getValueFor("L_Total_PKG_KM"), "", billGenerateUIComponentsMap);
+		panelMiddleBody.add(panelTotalPkgKm);
 		
 		final JPanel panelRate = templates.getLabelWithLabel("panelRate",reg.getValueFor("L_Rate"), "", billGenerateUIComponentsMap);
 		panelMiddleBody.add(panelRate);
@@ -254,9 +254,9 @@ public class TelcoBOM extends JDialog {
 				bom.setEndKM(utility.getStringValueFromPanelComponent(panelEndKM, 2));
 				bom.setStartTime(utility.getStringValueFromPanelComponent(panelStartTime, 2));
 				bom.setEndTime(utility.getStringValueFromPanelComponent(panelEndTime, 2));
-				bom.setTotalKM(utility.getStringValueFromPanelComponent(panelTotalDistance, 2));
+				bom.setTotalKM(utility.getStringValueFromPanelComponent(panelTotalKM, 2));
 				bom.setDutyType(utility.getStringValueFromPanelComponent(panelDutyType, 2));
-				bom.setPackageKM(utility.getStringValueFromPanelComponent(panelTotalKM, 2));
+				bom.setPackageKM(utility.getStringValueFromPanelComponent(panelTotalPkgKm, 2));
 				bom.setPackageRate(utility.getStringValueFromPanelComponent(panelRate, 2));
 				bom.setPakageAmount(utility.getStringValueFromPanelComponent(panelAmount, 2));
 				bom.setExtraKM(utility.getStringValueFromPanelComponent(panelTotalExtraKM, 2));
