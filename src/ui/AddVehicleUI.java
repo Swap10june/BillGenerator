@@ -59,10 +59,11 @@ public class AddVehicleUI extends JDialog
 			{
 				if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty())
 				{
-					int uid = 0 + (int)(Math.random() * 1000); 
-					Vehicle vehicle = new Vehicle(uid,txtVName.getText(), txtCName.getText());
+					VehicleDataModel model = new VehicleDataModel();
+					int uid = model.getAllVehicles().length;
+					Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText());
 					// TODO: add to db
-					new VehicleDataModel().addVehicle(vehicle);
+					model.addVehicle(vehicle);
 					new PopupDialogs("Vehicle Added Successfully",PopupDialogs.PLAIN_MESSAGE);
 					owner .dispose();
 				}

@@ -33,7 +33,7 @@ public class Home extends JDialog {
 				xPos= 10;
 			}
 			btnArray[i] = new JButton(SConstants.HOME_BUTTONS_NAMES[i]);
-			btnArray[i].setBounds(xPos,yPos, 150, 25);
+			btnArray[i].setBounds(xPos,yPos, 150, 30);
 			owner.add(btnArray[i]);
 			btnArray[i].addActionListener(new HomeButtonHandler(owner));
 		}

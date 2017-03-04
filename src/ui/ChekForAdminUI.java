@@ -23,11 +23,12 @@ public class ChekForAdminUI extends JDialog
 	private static final long serialVersionUID = 1L;
 	private JDialog parent = null;
 	private UITemplates templates = new UITemplates();
-	Map<String, Object> checkForAdminUIComponent  =  new HashMap<String, Object>();
+	Map<String, Object> checkForAdminUIComponent  ;
 	public ChekForAdminUI(JDialog owner)
 	{
 		super(owner);
 		this.setParent(owner);
+		checkForAdminUIComponent =  new HashMap<String, Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Check For Admin");
 		initUI(owner);
 		owner.setVisible(true);

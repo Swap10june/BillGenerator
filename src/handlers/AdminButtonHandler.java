@@ -12,7 +12,7 @@ import ui.AddVehicleUI;
 import ui.CustomerProfileUI;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
-import ui.Vehicle_ProfileUI;
+import ui.EditVehicleUI;
 import util.Dao;
 import util.SConstants;
 import util.Utils;
@@ -48,7 +48,7 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.EDIT_VEHICLE_WIN_NAME:
 			{
-				new Vehicle_ProfileUI(new javax.swing.JDialog(),"Edit");
+				new EditVehicleUI(new javax.swing.JDialog(),"Edit Vehicle");
 			}
 			
 			break;

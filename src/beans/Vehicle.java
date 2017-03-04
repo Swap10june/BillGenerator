@@ -3,6 +3,7 @@ package beans;
 public class Vehicle {
 
 	private int uid = 0;
+	private String stringUID = null;
 	private String vehicleName = null;
 	private String customerName = null;
 	public Vehicle(int uid, String vehicleName,String customerName)
@@ -10,6 +11,7 @@ public class Vehicle {
 		this.setUid(uid);
 		this.setVehicleName(vehicleName);
 		this.setCustomerName(customerName);
+		this.setStringUID(vehicleName);
 	}
 	/**
 	 * @return the vehicleName
@@ -46,6 +48,18 @@ public class Vehicle {
 	 */
 	public void setUid(int uid) {
 		this.uid = uid;
+	}
+	/**
+	 * @return the stringUID
+	 */
+	public String getStringUID() {
+		return stringUID;
+	}
+	/**
+	 * @param stringUID the stringUID to set
+	 */
+	public void setStringUID(String stringUID) {
+		this.stringUID = stringUID;
 	}
 	
 }

@@ -27,7 +27,7 @@ public class EditDutyTypeUI extends JDialog
 	 * 
 	 */
 	public static final String UI_ID = "AddDutyTypeUI"; 
-	private static Map<String, Object> editDutyTypeUIComponent = new HashMap<String, Object>();
+	private static Map<String, Object> editDutyTypeUIComponent ;
 	private UITemplates templates = new UITemplates();
 	private Registry reg = SConstants.reg;
 	private static List<Object> list = new ArrayList<Object>();
@@ -38,13 +38,11 @@ public class EditDutyTypeUI extends JDialog
 	public EditDutyTypeUI(JDialog owner) 
 	{
 		super(owner);
+		editDutyTypeUIComponent = new HashMap<String, Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Edit Duty Type");
 		initUI(owner);
 		owner.setVisible(true);
 	}
-		
-	
-	
 	private void initUI(JDialog owner) 
 	{
 		JPanel bodyLeftPanel = new JPanel();

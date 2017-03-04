@@ -282,4 +282,31 @@ public class DutyTypeDataModel
             
         }
 	}
+	public int noOfDutyTypes()
+	{
+
+    	List<String> values = new ArrayList<String>();
+    	 try 
+    	 {
+    		 doc.getDocumentElement().normalize();
+    		 NodeList nList = doc.getElementsByTagName("DutyType");
+    		 for (int temp = 0; temp < nList.getLength(); temp++)
+    		 {
+    			 Node nNode = nList.item(temp);
+
+    		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+    				{
+    		            Element eElement = (Element) nNode;
+    		            values.add(eElement.getAttribute("id"));
+    		            //System.out.println("Staff id : " + eElement.getAttribute("id"));
+    		        }
+    		    }
+    		    }
+    			catch (Exception e)
+    			{
+    				e.printStackTrace();
+    		    }
+		return values.size();
+    
+	}
 }

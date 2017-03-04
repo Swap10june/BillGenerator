@@ -1,8 +1,5 @@
 package beans;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class DutyType
 {
 	private int hours 	= 	0;
@@ -46,10 +43,6 @@ public class DutyType
 		this.id = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 		//map.put(id, this);
-	}
-	public DutyType()
-	{
-		// TODO Auto-generated constructor stub
 	}
 	public int getHours() {
 		return hours;

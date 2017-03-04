@@ -64,10 +64,11 @@ public class DutyTypeButtonHandler implements ActionListener {
 			}
 			else
 			{
-				int uid = 0 + (int)(Math.random() * 1000); 
-				DutyType dutyType = new DutyType(uid,Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName);
+				DutyTypeDataModel model = new DutyTypeDataModel();
+				int uid = model.noOfDutyTypes();
+				DutyType dutyType = new DutyType((uid+1),Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName);
 				//new Dao().addDutyType(dutyType);
-				new DutyTypeDataModel().addDutyType(dutyType);
+				model.addDutyType(dutyType);
 				new PopupDialogs("Duty Type Added Successfully",PopupDialogs.PLAIN_MESSAGE);
 				parent .dispose();
 			}
@@ -85,32 +86,29 @@ public class DutyTypeButtonHandler implements ActionListener {
 			
 			JPanel enterHours = (JPanel) map.get("enterHours");
 			JTextField textHours = (JTextField) enterHours.getComponent(2);
-			DutyType newDutyType = new DutyType();
-			
-			newDutyType.setUid(dutyType.getUid());
-			newDutyType.setHours(Integer.parseInt(textHours.getText()));
+			int hours = Integer.parseInt(textHours.getText());
 			
 			JPanel enterKmValue = (JPanel) map.get("enterKmValue");
 			JTextField textKm = (JTextField) enterKmValue.getComponent(2);
-			newDutyType.setKm(Integer.parseInt(textKm.getText()));
+			int km = Integer.parseInt(textKm.getText());
 			
 			JPanel enterPkgRate = (JPanel) map.get("enterPkgRate");
 			JTextField textpkgRate = (JTextField) enterPkgRate.getComponent(2);
-			newDutyType.setPackageRate(Double.parseDouble(textpkgRate.getText()));
+			double rate = Double.parseDouble(textpkgRate.getText());
 			
 			JPanel enterExtraKmRate = (JPanel) map.get("enterExtraKmRate");
 			JTextField textExtraKmRate = (JTextField) enterExtraKmRate.getComponent(2);
-			newDutyType.setExtraKmRate(Double.parseDouble(textExtraKmRate.getText()));
+			double extraKmRate = Double.parseDouble(textExtraKmRate.getText());
 			
 			JPanel customer = (JPanel) map.get("customer");
 			JTextField textCustomer = (JTextField) customer.getComponent(2);
-			newDutyType.setCustomerName(textCustomer.getText());
+			String cName = textCustomer.getText();
 			
 			JPanel vehicle = (JPanel) map.get("vehicle");
 			JTextField textVehicle = (JTextField) vehicle.getComponent(2);
-			newDutyType.setVehicleType(textVehicle.getText());
+			String vName = textVehicle.getText();
 			
-			newDutyType.generateID();
+			DutyType newDutyType = new DutyType(dutyType.getUid(), hours, km, rate, extraKmRate, cName, vName);
 			DutyTypeDataModel objDutyTypeDataModel = new DutyTypeDataModel();
 			objDutyTypeDataModel.updateAttributeValue(newDutyType);
 			new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);

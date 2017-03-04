@@ -35,7 +35,7 @@ public class TelcoBOM extends JDialog {
 	 */
 	public static final String UI_ID = "TelcoBOM"; 
 	private static final long serialVersionUID = 1L;
-	private static Map<String,Object> billGenerateUIComponentsMap = new HashMap<String,Object>();
+	private static Map<String,Object> billGenerateUIComponentsMap;
 	private Registry reg = SConstants.reg;
 	
 	Utils utility = Utils.getUtilityInstance();
@@ -58,8 +58,7 @@ public class TelcoBOM extends JDialog {
 	public TelcoBOM(JDialog owner)
 	{
 		super(owner);
-		billGenerateUIComponentsMap.clear();
-		billGenerateUIComponentsMap.put("reg", reg);
+		billGenerateUIComponentsMap = new HashMap<String,Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,reg.getValueFor("TEL_BILL_GEN_UI_NAME"));
 		initUI(owner);
 		owner.setVisible(true);

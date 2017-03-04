@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -53,6 +54,7 @@ public class VehicleDataModel {
         Element newVehicleTag = doc.createElement("Vehicle");
         newVehicleTag.setAttribute("vName",vehicle.getVehicleName());
         newVehicleTag.setAttribute("uid",String.valueOf(vehicle.getUid()));
+        newVehicleTag.setAttribute("sUid", vehicle.getStringUID());
         newVehicleTag.setAttribute("cName",vehicle.getCustomerName());
         vehicleTag.appendChild(newVehicleTag);
        updateXML();
@@ -103,5 +105,59 @@ public class VehicleDataModel {
 			e.printStackTrace();
 		}
 		
+	}
+	public Vehicle getVehicle(String suid)
+	{
+		Vehicle vehicle = null;
+   	 try 
+   	 {
+   		 doc.getDocumentElement().normalize();
+   		 NodeList nList = doc.getElementsByTagName("Vehicle");
+   		 for (int temp = 0; temp < nList.getLength(); temp++)
+   		 {
+   			 Node nNode = nList.item(temp);
+
+   		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+   				{
+   		            Element eElement = (Element) nNode;
+   		            if(eElement.getAttribute("sUid").equalsIgnoreCase(suid))
+   		            {
+   		            	vehicle = new Vehicle
+   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"));
+   		            }
+   		           
+   		        }
+   		    }
+   		    }
+   			catch (Exception e)
+   			{
+   				e.printStackTrace();
+   		    }
+		return vehicle;
+	}
+	public void updateAttributeValue(Vehicle newVehicle)
+	{
+		NodeList vehicleTags = doc.getElementsByTagName("Vehicle");
+        Element tag = null;
+        //loop for each employee
+        for(int i=0; i<vehicleTags.getLength();i++)
+        {
+            tag = (Element) vehicleTags.item(i);
+            NamedNodeMap abc = tag.getAttributes();
+            Node s = abc.getNamedItem("uid");
+            if(s!=null &&s.getNodeValue().equalsIgnoreCase(String.valueOf(newVehicle.getUid())))
+            {
+            	/*for (Map.Entry<String, String> entry : values.entrySet())
+            	{*/
+            	    //System.out.println(entry.getKey() + "/" + entry.getValue());
+            	    tag.setAttribute("uid",String.valueOf(newVehicle.getUid()));
+            	    tag.setAttribute("sUid",String.valueOf(newVehicle.getStringUID()));
+            	    tag.setAttribute("cName",newVehicle.getCustomerName());
+            	    tag.setAttribute("vName",newVehicle.getVehicleName());
+            	//}
+            	updateXML();
+            }
+            
+        }
 	}
 }
