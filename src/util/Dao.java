@@ -9,7 +9,7 @@ import java.util.List;
 import exceptions.PopupDialogs;
 
 import beans.BOM;
-import beans.Customer;
+import beans.Customer1;
 import beans.DutyType;
 import beans.Rate;
 
@@ -74,7 +74,7 @@ public class Dao {
 		return vehicleList;
 	}
 	
-	public void addCustomers(Customer customerBean){		
+	public void addCustomers(Customer1 customerBean){		
 		
 		try {
 			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(ADD_CUSTOMER);
@@ -112,7 +112,7 @@ public class Dao {
 			
 	}
 	
-public void editCustomer(Customer customerBean){		
+public void editCustomer(Customer1 customerBean){		
 		
 		try {
 			pStmtDao = DBConnection.getConnectionInstance().prepareStatement(EDIT_CUSTOMER);
@@ -152,8 +152,8 @@ public void editVehicle(Rate vehicle){
 		
 }
 
-public Customer getCustomer(String customereName){		
-	Customer customer = new Customer();
+public Customer1 getCustomer(String customereName){		
+	Customer1 customer = new Customer1();
 	try {
 		pStmtDao = DBConnection.getConnectionInstance().prepareStatement(GET_CUSTOMER);
 		ResultSet Rset = pStmtDao.executeQuery();

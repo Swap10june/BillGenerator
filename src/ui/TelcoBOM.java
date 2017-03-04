@@ -20,6 +20,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import listners.TelcoBillComboItemListner;
+import model.CustomerDataModel;
 import model.DutyTypeDataModel;
 import model.TelcoBillDataModel;
 import model.VehicleDataModel;
@@ -114,8 +115,15 @@ public class TelcoBOM extends JDialog {
 		JComboBox vehiCleType = (JComboBox) panelVehicleType.getComponent(2);
 		vehiCleType.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_Vehicle_TYPE_COMBO"), true));
 		
-		final JPanel panelTOCustomer = templates.getLabelWithCombo("panelTOCustomer",reg.getValueFor("L_TO"),UI_ID+reg.getValueFor("ID_TO_CUSTOMER_COMBO"), SConstants.CUSSTOMER_LIST, billGenerateUIComponentsMap);
+		
+		String [] customerList = new CustomerDataModel().getAllCustomers();
+		final JPanel panelTOCustomer = templates.getLabelWithComboWOListner("panelTOCustomer",reg.getValueFor("L_TO"),UI_ID+reg.getValueFor("ID_TO_CUSTOMER_COMBO"), customerList, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelTOCustomer);
+		
+		@SuppressWarnings("rawtypes")
+		JComboBox customerCombo = (JComboBox) panelTOCustomer.getComponent(2);
+		customerCombo.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_TO_CUSTOMER_COMBO"), true));
+		
 		
 		final JPanel panelDateOfTravels = templates.getLabelWithTextFieldDatePicker("panelDateOfTravels",reg.getValueFor("L_Start_Date"),billGenerateUIComponentsMap);
 		panelLeftBody.add(panelDateOfTravels);

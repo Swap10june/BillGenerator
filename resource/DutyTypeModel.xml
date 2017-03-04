@@ -17,4 +17,5 @@
 <DutyType Rate="1050.0" cName="TAL" dutyTypeString="TATA INDICA-8 Hrs 80 KM" eKmRate="10.0" hours="8" id="TATA INDICA-8 Hrs 80 KM" km="80" uid="15" vName="TATA INDICA"/>
 <DutyType Rate="700.0" cName="TAL" dutyTypeString="TATA INDIGO-4 Hrs 40 KM" eKmRate="12.0" hours="4" id="TATA INDIGO-4 Hrs 40 KM" km="40" uid="16" vName="TATA INDIGO"/>
 <DutyType Rate="1300.0" cName="TAL" dutyTypeString="TATA INDIGO-8 Hrs 80 KM" eKmRate="11.0" hours="8" id="TATA INDIGO-8 Hrs 80 KM" km="80" uid="17" vName="TATA INDIGO"/>
+<DutyType Rate="520.0" cName="Mahindra" dutyTypeString="TATA SAFARI-4 Hrs 40 KM" eKmRate="15.0" hours="4" id="TATA SAFARI-4 Hrs 40 KM" km="40" uid="18" vName="TATA SAFARI"/>
 </DutyTypes>

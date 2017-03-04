@@ -7,7 +7,8 @@ import java.util.Map;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import beans.Customer;
+import beans.Customer1;
+import ui.AddCustomerUI;
 import ui.AddVehicleUI;
 import ui.CustomerProfileUI;
 import ui.AddDutyTypeUI;
@@ -30,7 +31,7 @@ public class AdminButtonHandler implements ActionListener {
 		{
 			case SConstants.ADD_CUST_WIN_NAME:
 			{
-				new CustomerProfileUI(new javax.swing.JDialog(),"Add");
+				new AddCustomerUI(new javax.swing.JDialog(),"Add New Customer");
 			}
 			
 			break;
@@ -73,7 +74,7 @@ public class AdminButtonHandler implements ActionListener {
 				String vendorAddress = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorAddress"), 1);
 				String oldVendorName = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelTOCustomer"), 1);
 				Dao dao = new Dao();
-				Customer customerBean = new Customer(vendorName,vendorAddress,vendorNumber,oldVendorName);
+				Customer1 customerBean = new Customer1(vendorName,vendorAddress,vendorNumber,oldVendorName);
 				dao.editCustomer(customerBean);
 				
 			}

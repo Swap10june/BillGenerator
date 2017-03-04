@@ -22,13 +22,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import beans.Customer2;
 import beans.Vehicle;
 
-public class VehicleDataModel {
+public class CustomerDataModel {
 
 	private Document doc;
-	private String filePath = "resource/VehicleModel.xml";
-	public VehicleDataModel()
+	private String filePath = "resource/CustomerModel.xml";
+	public CustomerDataModel()
 	{
 		try
 	      {
@@ -47,27 +48,28 @@ public class VehicleDataModel {
 	    	  e.printStackTrace();
 	      } 
 	}
-	public void addVehicle(Vehicle vehicle)
+	public void addCustomer(Customer2 customer)
 	{
-		NodeList totalNumberOfVehiclesTags = doc.getElementsByTagName("Vehicles");
-        Element vehicleTag = (Element) totalNumberOfVehiclesTags.item(0);
-        Element newVehicleTag = doc.createElement("Vehicle");
-        newVehicleTag.setAttribute("vName",vehicle.getVehicleName());
-        newVehicleTag.setAttribute("vNbr",vehicle.getVehicleNumber());
-        newVehicleTag.setAttribute("uid",String.valueOf(vehicle.getUid()));
-        newVehicleTag.setAttribute("sUid", vehicle.getStringUID());
-        newVehicleTag.setAttribute("cName",vehicle.getCustomerName());
-        vehicleTag.appendChild(newVehicleTag);
+		NodeList customersTags = doc.getElementsByTagName("Customers");
+        Element vehicleTag = (Element) customersTags.item(0);
+        Element newCustomerTag = doc.createElement("Customer");
+        newCustomerTag.setAttribute("uid",String.valueOf(customer.getUid()));
+        newCustomerTag.setAttribute("suid", customer.getSuid());
+        newCustomerTag.setAttribute("cName",customer.getcName());
+        newCustomerTag.setAttribute("cAdd",customer.getcAddress());
+        newCustomerTag.setAttribute("cVCode",customer.getcVendorCode());
+        newCustomerTag.setAttribute("cDept",customer.getCustomerDepartmentName());
+        vehicleTag.appendChild(newCustomerTag);
        updateXML();
 	}
-	public String[] getAllVehicles()
+	public String[] getAllCustomers()
 	{
 
     	List<String> values = new ArrayList<String>();
     	 try 
     	 {
     		 doc.getDocumentElement().normalize();
-    		 NodeList nList = doc.getElementsByTagName("Vehicle");
+    		 NodeList nList = doc.getElementsByTagName("Customer");
     		 for (int temp = 0; temp < nList.getLength(); temp++)
     		 {
     			 Node nNode = nList.item(temp);
@@ -75,7 +77,7 @@ public class VehicleDataModel {
     		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
     				{
     		            Element eElement = (Element) nNode;
-    		            values.add(eElement.getAttribute("vName"));
+    		            values.add(eElement.getAttribute("suid"));
     		            //System.out.println("Staff id : " + eElement.getAttribute("id"));
     		        }
     		    }
@@ -107,13 +109,13 @@ public class VehicleDataModel {
 		}
 		
 	}
-	public Vehicle getVehicle(String suid)
+	public Customer2 getCustomer(String suid)
 	{
-		Vehicle vehicle = null;
+		Customer2 customer2 = null;
    	 try 
    	 {
    		 doc.getDocumentElement().normalize();
-   		 NodeList nList = doc.getElementsByTagName("Vehicle");
+   		 NodeList nList = doc.getElementsByTagName("Customer");
    		 for (int temp = 0; temp < nList.getLength(); temp++)
    		 {
    			 Node nNode = nList.item(temp);
@@ -121,10 +123,16 @@ public class VehicleDataModel {
    		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
    				{
    		            Element eElement = (Element) nNode;
-   		            if(eElement.getAttribute("sUid").equalsIgnoreCase(suid))
+   		            if(eElement.getAttribute("suid").equalsIgnoreCase(suid))
    		            {
-   		            	vehicle = new Vehicle
-   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr"));
+   		            	customer2 = new Customer2
+   		            			(
+   		            					Integer.parseInt(eElement.getAttribute("uid")), 
+   		            					eElement.getAttribute("cName"), 
+   		            					eElement.getAttribute("cAdd"),
+   		            					eElement.getAttribute("cVCode"),
+   		            					eElement.getAttribute("cDept")
+   		            			);
    		            }
    		           
    		        }
@@ -134,7 +142,7 @@ public class VehicleDataModel {
    			{
    				e.printStackTrace();
    		    }
-		return vehicle;
+		return customer2;
 	}
 	public void updateAttributeValue(Vehicle newVehicle)
 	{
@@ -155,7 +163,6 @@ public class VehicleDataModel {
             	    tag.setAttribute("sUid",String.valueOf(newVehicle.getStringUID()));
             	    tag.setAttribute("cName",newVehicle.getCustomerName());
             	    tag.setAttribute("vName",newVehicle.getVehicleName());
-            	    tag.setAttribute("vNbr",newVehicle.getVehicleNumber());
             	//}
             	updateXML();
             }

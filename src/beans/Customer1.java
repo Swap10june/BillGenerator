@@ -1,6 +1,6 @@
 package beans;
 
-public class Customer
+public class Customer1
 {
 	private String name						=		null;
 	private String oldName					=		null;
@@ -15,7 +15,7 @@ public class Customer
 	
 	
 	
-	public Customer(String name, String address, String vendorCode,
+	public Customer1(String name, String address, String vendorCode,
 			String customerPersonName, String customerDepartmentName)
 	{
 		this.name = name;
@@ -24,7 +24,7 @@ public class Customer
 		this.customerPersonName = customerPersonName;
 		this.customerDepartmentName = customerDepartmentName;
 	}
-	public Customer(String name, String address, String vendorCode,String oldName)
+	public Customer1(String name, String address, String vendorCode,String oldName)
 	{
 		this.name = name;
 		this.address = address;
@@ -33,7 +33,7 @@ public class Customer
 	}
 	
 	
-	public Customer() {
+	public Customer1() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -25,7 +25,7 @@ import beans.BOM;
 public class TelcoBillDataModel
 {
 	private Document doc;
-	private String filePath = "resource/telcoBillModel.xml";
+	private String filePath = "resource/TelcoBillModel.xml";
 	
 	public TelcoBillDataModel()
 	{

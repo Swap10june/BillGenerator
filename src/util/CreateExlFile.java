@@ -309,7 +309,7 @@ public class CreateExlFile
             sheet.addMergedRegion(dutyTypeValueRowSpan);
             
             HSSFCell DatesRow19_1 = DatesRow19.createCell(2);
-            DatesRow19_1.setCellValue(bom.getDutyType());
+            DatesRow19_1.setCellValue(bom.getDutyType().split("-")[1]);
                         
             HSSFCell DatesRow19_2 = DatesRow19.createCell(4);
             DatesRow19_2.setCellValue(bom.getPackageKM());

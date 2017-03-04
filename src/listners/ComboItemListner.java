@@ -27,7 +27,6 @@ public class ComboItemListner implements ItemListener{
 	{
 		this.comboFrom = string;
 	}
-	@SuppressWarnings("unchecked")
 	@Override
 	public void itemStateChanged(ItemEvent e)
 	{
@@ -86,32 +85,6 @@ public class ComboItemListner implements ItemListener{
 			 
 			
 			 
-		}
-		if(comboFrom.equalsIgnoreCase(TelcoBOM.UI_ID+reg.getValueFor("ID_TO_CUSTOMER_COMBO")))
-		{
-			JPanel panelTOCustomer = (JPanel) TelcoBOM.getComponentMap().get("panelTOCustomer");
-			@SuppressWarnings("rawtypes")
-			JComboBox customerSelectionCombo = (JComboBox) panelTOCustomer.getComponent(2);
-			
-			JPanel panelDutyType = (JPanel) TelcoBOM.getComponentMap().get("panelDutyType");
-			@SuppressWarnings("rawtypes")
-			JComboBox DutySelectionCombo = (JComboBox) panelDutyType.getComponent(2);
-			
-			JPanel panelVehicleType = (JPanel) TelcoBOM.getComponentMap().get("panelVehicleType");
-			@SuppressWarnings("rawtypes")
-			JComboBox vehicleSelectionCombo = (JComboBox) panelVehicleType.getComponent(2);
-			String cName = customerSelectionCombo.getSelectedItem().toString();
-			String vName = vehicleSelectionCombo.getSelectedItem().toString();
-			
-			String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(cName,vName);
-			DutySelectionCombo.removeAllItems();
-			for (int i = 0; i < dutyTypeArray.length; i++)
-			{
-				DutySelectionCombo.addItem(dutyTypeArray[i].toString());
-			}
-			
-			
-			
 		}
 		if(comboFrom.equalsIgnoreCase(EditDutyTypeUI.UI_ID+reg .getValueFor("ID_SELECT_DUTY_TYPE_COMBO")))
 		{

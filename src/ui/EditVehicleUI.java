@@ -84,6 +84,10 @@ public class EditVehicleUI extends JDialog
 				JTextField vName = (JTextField) enterVehicleName.getComponent(2);
 				vName.setText(vehicle.getVehicleName());
 				
+				JPanel enterVNumber = (JPanel) editVehicleUIComponent.get("enterVNumber");
+				JTextField vNo = (JTextField) enterVNumber.getComponent(2);
+				vNo.setText(vehicle.getVehicleNumber());
+				
 				JPanel enterCustomerName = (JPanel) editVehicleUIComponent.get("enterCustomerName");
 				JTextField cname = (JTextField) enterCustomerName.getComponent(2);
 				cname.setText(vehicle.getCustomerName());
@@ -96,6 +100,11 @@ public class EditVehicleUI extends JDialog
 		bodyLeftPanel.add(enterVehicleName);
 		enterVehicleName.setVisible(false);
 		list.add(enterVehicleName);
+		
+		JPanel enterVNumber = templates .getLabelWithTextField("enterVNumber", "Enter Vehicle No", "Edit No Here", 10,false, editVehicleUIComponent);
+		bodyLeftPanel.add(enterVNumber);
+		enterVNumber.setVisible(false);
+		list.add(enterVNumber);
 		
 		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Edit Name Here",10,false, editVehicleUIComponent);
 		bodyLeftPanel.add(enterCustomerName);
@@ -120,12 +129,16 @@ public class EditVehicleUI extends JDialog
 				JTextField vName = (JTextField) enterVehicleName.getComponent(2);
 				String vNameValue = vName.getText();
 				
+				JPanel enterVNumber = (JPanel) getEditDutyTypeUIComponent().get("enterVNumber");
+				JTextField vNo = (JTextField) enterVNumber.getComponent(2);
+				String vNoValue = vNo.getText();
+				
 				JPanel enterCustomerName = (JPanel) getEditDutyTypeUIComponent().get("enterCustomerName");
 				JTextField cName = (JTextField) enterCustomerName.getComponent(2);
 				String cNameValue = cName.getText();
 				
 				
-				Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue);
+				Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue);
 				getModel().updateAttributeValue(newVehicle);
 				new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 				owner.dispose();

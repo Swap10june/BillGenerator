@@ -7,9 +7,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import model.CustomerDataModel;
 import model.DutyTypeDataModel;
+import model.VehicleDataModel;
+import beans.Customer2;
 import beans.DutyType;
+import beans.Vehicle;
 import ui.TelcoBOM;
 import util.SConstants;
 
@@ -96,6 +101,41 @@ public class TelcoBillComboItemListner implements ItemListener
 			{
 				DutySelectionCombo.addItem(dutyTypeArray[i].toString());
 			}
+			
+			Vehicle vehicle = new VehicleDataModel().getVehicle(vName);
+			JPanel panelVehicleNumber = (JPanel) TelcoBOM.getComponentMap().get("panelVehicleNumber");
+			JTextField txtVehicleText = (JTextField) panelVehicleNumber.getComponent(2);
+			txtVehicleText.setText(vehicle.getVehicleNumber());
+		}
+		
+		if(comboId.equalsIgnoreCase(SConstants.reg.getValueFor("ID_TO_CUSTOMER_COMBO")))
+		{
+			JPanel panelTOCustomer = (JPanel) TelcoBOM.getComponentMap().get("panelTOCustomer");
+			@SuppressWarnings("rawtypes")
+			JComboBox customerSelectionCombo = (JComboBox) panelTOCustomer.getComponent(2);
+			
+			JPanel panelDutyType = (JPanel) TelcoBOM.getComponentMap().get("panelDutyType");
+			@SuppressWarnings("rawtypes")
+			JComboBox DutySelectionCombo = (JComboBox) panelDutyType.getComponent(2);
+			
+			JPanel panelVehicleType = (JPanel) TelcoBOM.getComponentMap().get("panelVehicleType");
+			@SuppressWarnings("rawtypes")
+			JComboBox vehicleSelectionCombo = (JComboBox) panelVehicleType.getComponent(2);
+			String cName = customerSelectionCombo.getSelectedItem().toString();
+			String vName = vehicleSelectionCombo.getSelectedItem().toString();
+			
+			String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(cName,vName);
+			DutySelectionCombo.removeAllItems();
+			for (int i = 0; i < dutyTypeArray.length; i++)
+			{
+				DutySelectionCombo.addItem(dutyTypeArray[i].toString());
+			}
+			Customer2 customer = new CustomerDataModel().getCustomer(cName);
+			
+			JPanel panelVendorNumber = (JPanel) TelcoBOM.getComponentMap().get("panelVendorNumber");
+			JTextField textVCode =  (JTextField) panelVendorNumber.getComponent(2);
+			textVCode.setText(customer.getcVendorCode().isEmpty()?"-":customer.getcVendorCode());
+			
 		}
 	}
 

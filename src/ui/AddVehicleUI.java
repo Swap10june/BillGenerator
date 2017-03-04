@@ -25,8 +25,8 @@ public class AddVehicleUI extends JDialog
 	private static final long serialVersionUID = 1L;
 	public static final String UI_ID = "AddVehicleUI"; 
 	private UITemplates templates = new UITemplates();
-	private Map<String, Object> addVehicleUIComponentMap;
-	private static Map<String, Object> addVehicleUIComponent = new HashMap<String, Object>();
+	private static Map<String, Object> addVehicleUIComponentMap;
+	//private static Map<String, Object> addVehicleUIComponent = new HashMap<String, Object>();
 	public AddVehicleUI(JDialog owner, String windowName)
 	{
 		super(owner);
@@ -45,6 +45,10 @@ public class AddVehicleUI extends JDialog
 		bodyPanel.add(enterVehicleName);
 		JTextField txtVName = (JTextField) enterVehicleName.getComponent(2);
 		
+		JPanel enterVNumber = templates.getLabelWithTextField("enterVNumber", " Enter Vehicle No", "Enter Veh. No here", 10, false, addVehicleUIComponentMap);
+		bodyPanel.add(enterVNumber);
+		JTextField txtVNo= (JTextField) enterVNumber.getComponent(2);
+		
 		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Enter Customer Name here", 10, false, addVehicleUIComponentMap);
 		bodyPanel.add(enterCustomerName);
 		JTextField txtCName = (JTextField) enterCustomerName.getComponent(2);
@@ -57,11 +61,11 @@ public class AddVehicleUI extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty())
+				if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty() || !txtVNo.getText().isEmpty())
 				{
 					VehicleDataModel model = new VehicleDataModel();
 					int uid = model.getAllVehicles().length;
-					Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText());
+					Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText(),txtVNo.getText());
 					// TODO: add to db
 					model.addVehicle(vehicle);
 					new PopupDialogs("Vehicle Added Successfully",PopupDialogs.PLAIN_MESSAGE);
@@ -94,13 +98,13 @@ public class AddVehicleUI extends JDialog
 	 * @return the addVehicleUIComponent
 	 */
 	public static Map<String, Object> getAddVehicleUIComponent() {
-		return addVehicleUIComponent;
+		return addVehicleUIComponentMap;
 	}
 	/**
 	 * @param addVehicleUIComponent the addVehicleUIComponent to set
 	 */
 	public static void setAddVehicleUIComponent(Map<String, Object> addVehicleUIComponent) {
-		AddVehicleUI.addVehicleUIComponent = addVehicleUIComponent;
+		AddVehicleUI.addVehicleUIComponentMap = addVehicleUIComponent;
 	}
 
 }
