@@ -18,10 +18,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+
+import listners.TelcoBillComboItemListner;
+import model.DutyTypeDataModel;
+import model.TelcoBillDataModel;
+import model.VehicleDataModel;
 import util.Registry;
 import util.SConstants;
-import ModelXml.DutyTypeDataModel;
-import ModelXml.TelcoBillDataModel;
 import util.Utils;
 import beans.BOM;
 
@@ -105,8 +108,12 @@ public class TelcoBOM extends JDialog {
 		panelLeftBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelLeftBody.setLayout(new GridLayout(14, 1));
 		
-		final JPanel panelVehicleType = templates.getLabelWithCombo("panelVehicleType",reg.getValueFor("L_Veh_Type"),UI_ID+reg.getValueFor("ID_Vehicle_TYPE_COMBO"), SConstants.VEHICLE_TYPES,billGenerateUIComponentsMap);
+		String [] vehicleList = new VehicleDataModel().getAllVehicles();
+		final JPanel panelVehicleType = templates.getLabelWithComboWOListner("panelVehicleType",reg.getValueFor("L_Veh_Type"),UI_ID+reg.getValueFor("ID_Vehicle_TYPE_COMBO"),vehicleList,billGenerateUIComponentsMap);
 		panelLeftBody.add(panelVehicleType);
+		@SuppressWarnings("rawtypes")
+		JComboBox vehiCleType = (JComboBox) panelVehicleType.getComponent(2);
+		vehiCleType.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_Vehicle_TYPE_COMBO"), true));
 		
 		final JPanel panelTOCustomer = templates.getLabelWithCombo("panelTOCustomer",reg.getValueFor("L_TO"),UI_ID+reg.getValueFor("ID_TO_CUSTOMER_COMBO"), SConstants.CUSSTOMER_LIST, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelTOCustomer);
@@ -165,8 +172,10 @@ public class TelcoBOM extends JDialog {
 		
 		String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(customerSelectionCombo.getSelectedItem().toString(),vehicleSelectionCombo.getSelectedItem().toString());
 		
-		final JPanel panelDutyType = templates.getLabelWithComboSeperate("panelDutyType",reg.getValueFor("L_Duty_Type"),reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"), dutyTypeArray, billGenerateUIComponentsMap);
-		//panelDutyType.setVisible(false);
+		final JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType",reg.getValueFor("L_Duty_Type"),reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"), dutyTypeArray, billGenerateUIComponentsMap);
+		@SuppressWarnings("rawtypes")
+		JComboBox comboDutyType = (JComboBox) panelDutyType.getComponent(2);
+		comboDutyType.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"),true));
 		panelMiddleBody.add(panelDutyType);
 		/*JTextField textTotalKm = (JTextField) panelTotalKM.getComponent(2);
 		textTotalKm.addCaretListener(new CaretListener() {

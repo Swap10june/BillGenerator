@@ -12,8 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import ModelXml.DutyTypeDataModel;
-
+import model.DutyTypeDataModel;
 import util.Registry;
 import util.SConstants;
 import util.Utils;

@@ -22,8 +22,6 @@ import javax.swing.SpinnerNumberModel;
 
 import listners.ComboItemListner;
 import listners.SpinnerChangeListner;
-import listners.TelcoBillComboItemListner;
-
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
@@ -140,7 +138,7 @@ public class UITemplates
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JComboBox<String> textValue = new JComboBox<String>(vehicleTypes);
-		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXX");
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXX");
 		textValue.addItemListener(new ComboItemListner(comboID));
 		panel.add(labelkey);
 		panel.add(Box.createHorizontalStrut(10));
@@ -211,15 +209,15 @@ public class UITemplates
 		billGenerateUIComponentsMap.put(mapKey, panel);
 		return panel;
 	}
-	public JPanel getLabelWithComboSeperate(String mapKey, String labelKey,String comboID, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap)
+	public JPanel getLabelWithComboWOListner(String mapKey, String labelKey,String comboID, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JComboBox<String> textValue = new JComboBox<String>(dutyTypeArray);
-		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXX");
-		textValue.addItemListener(new TelcoBillComboItemListner(comboID,true));
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXX");
+		//textValue.addItemListener(new TelcoBillComboItemListner(comboID,true));
 		panel.add(labelkey);
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);

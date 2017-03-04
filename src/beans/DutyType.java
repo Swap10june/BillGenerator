@@ -16,7 +16,7 @@ public class DutyType
 	private String dutyTypeString =null;
 	private int uid = 0;
 	
-	public  static Map<String,DutyType>  map = new HashMap<String,DutyType>();
+	//public  static Map<String,DutyType>  map = new HashMap<String,DutyType>();
 	
 	
 	public String getId() {
@@ -43,8 +43,9 @@ public class DutyType
 		this.customerName = customerName;
 		this.vehicleType = vehicleType;
 		
-		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
-		map.put(id, this);
+		this.id = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		//map.put(id, this);
 	}
 	public DutyType()
 	{
@@ -66,13 +67,13 @@ public class DutyType
 		return dutyTypeString;
 	}
 	public void setDutyTypeString() {
-		this.dutyTypeString = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";;
+		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";;
 	}
-	public DutyType getDutyType(String id)
+	/*public DutyType getDutyType(String id)
 	{
 		return map.get(id);
 		
-	}
+	}*/
 	/**
 	 * @return the customerName
 	 */
@@ -111,8 +112,8 @@ public class DutyType
 	}
 	public void generateID()
 	{
-		this.dutyTypeString = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
-		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		this.id = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 	}
 	
 	/**

@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DutyTypes>
-<DutyType Rate="100.0" cName="TAL" dutyTypeString="1 Hrs 10 KM" eKmRate="10" hours="1" id="1 Hrs 10 KM" km="10" uid="593" vName="Indica"/>
-<DutyType Rate="200.0" cName="TAL" dutyTypeString="2 Hrs 22 KM" eKmRate="10" hours="2" id="2 Hrs 22 KM" km="22" uid="318" vName="Tavera"/>
-<DutyType Rate="300.0" cName="Mahindra" dutyTypeString="3 Hrs 33 KM" eKmRate="20" hours="3" id="3 Hrs 33 KM" km="33" uid="637" vName="Indica"/>
-<DutyType Rate="400.0" cName="Mahindra" dutyTypeString="4 Hrs 44 KM" eKmRate="20" hours="4" id="4 Hrs 44 KM" km="44" uid="525" vName="Tavera"/>
-<DutyType Rate="600.0" cName="TAL" dutyTypeString="6 Hrs 60 KM" eKmRate="10" hours="6" id="6 Hrs 60 KM" km="60" uid="768" vName="Indica"/>
-<DutyType Rate="800.0" cName="TAL" dutyTypeString="8 Hrs 80 KM" eKmRate="10.0" hours="8" id="8 Hrs 80 KM" km="80" uid="907" vName="Indica"/>
-<DutyType Rate="1200.0" cName="TAL" dutyTypeString="12 Hrs 120 KM" eKmRate="40.0" hours="12" id="12 Hrs 120 KM" km="120" uid="581" vName="Indica"/>
+<DutyType Rate="1000.0" cName="TAL" dutyTypeString="TATA SAFARI-4 Hrs 40 KM" eKmRate="15.0" hours="4" id="TATA SAFARI-4 Hrs 40 KM" km="40" uid="910" vName="TATA SAFARI"/>
+<DutyType Rate="1800.0" cName="TAL" dutyTypeString="TATA SAFARI-8 Hrs 80 KM" eKmRate="15.0" hours="8" id="TATA SAFARI-8 Hrs 80 KM" km="80" uid="692" vName="TATA SAFARI"/>
+<DutyType Rate="4500.0" cName="TAL" dutyTypeString="TATA SAFARI-0 Hrs 300 KM" eKmRate="15.0" hours="0" id="TATA SAFARI-0 Hrs 300 KM" km="300" uid="897" vName="TATA SAFARI"/>
+<DutyType Rate="5200.0" cName="TAL" dutyTypeString="TATA SAFARI-24 Hrs 370 KM" eKmRate="15.0" hours="24" id="TATA SAFARI-24 Hrs 370 KM" km="370" uid="668" vName="TATA SAFARI"/>
+<DutyType Rate="1000.0" cName="TAL" dutyTypeString="TATA ARIA-4 Hrs 40 KM" eKmRate="15.0" hours="4" id="TATA ARIA-4 Hrs 40 KM" km="40" uid="393" vName="TATA ARIA"/>
+<DutyType Rate="1800.0" cName="TAL" dutyTypeString="TATA ARIA-8 Hrs 80 KM" eKmRate="15.0" hours="8" id="TATA ARIA-8 Hrs 80 KM" km="80" uid="105" vName="TATA ARIA"/>
+<DutyType Rate="4500.0" cName="TAL" dutyTypeString="TATA ARIA-0 Hrs 300 KM" eKmRate="15.0" hours="0" id="TATA ARIA-0 Hrs 300 KM" km="300" uid="589" vName="TATA ARIA"/>
+<DutyType Rate="5200.0" cName="TAL" dutyTypeString="TATA ARIA-24 Hrs 370 KM" eKmRate="15.0" hours="24" id="TATA ARIA-24 Hrs 370 KM" km="370" uid="546" vName="TATA ARIA"/>
+<DutyType Rate="1000.0" cName="TAL" dutyTypeString="INNOVA-4 Hrs 40 KM" eKmRate="15.0" hours="4" id="INNOVA-4 Hrs 40 KM" km="40" uid="97" vName="INNOVA"/>
+<DutyType Rate="1800.0" cName="TAL" dutyTypeString="INNOVA-8 Hrs 80 KM" eKmRate="15.0" hours="8" id="INNOVA-8 Hrs 80 KM" km="80" uid="725" vName="INNOVA"/>
+<DutyType Rate="4500.0" cName="TAL" dutyTypeString="INNOVA-0 Hrs 300 KM" eKmRate="15.0" hours="0" id="INNOVA-0 Hrs 300 KM" km="300" uid="70" vName="INNOVA"/>
+<DutyType Rate="5200.0" cName="TAL" dutyTypeString="INNOVA-24 Hrs 370 KM" eKmRate="15.0" hours="24" id="INNOVA-24 Hrs 370 KM" km="370" uid="776" vName="INNOVA"/>
+<DutyType Rate="27500.0" cName="TAL" dutyTypeString="MONTHLY INDICA-10 Hrs 2000 KM" eKmRate="10.0" hours="10" id="MONTHLY INDICA-10 Hrs 2000 KM" km="2000" uid="689" vName="MONTHLY INDICA"/>
+<DutyType Rate="520.0" cName="TAL" dutyTypeString="TATA INDICA-4 Hrs 40 KM" eKmRate="10.0" hours="4" id="TATA INDICA-4 Hrs 40 KM" km="40" uid="291" vName="TATA INDICA"/>
+<DutyType Rate="1050.0" cName="TAL" dutyTypeString="TATA INDICA-8 Hrs 80 KM" eKmRate="10.0" hours="8" id="TATA INDICA-8 Hrs 80 KM" km="80" uid="616" vName="TATA INDICA"/>
+<DutyType Rate="700.0" cName="TAL" dutyTypeString="TATA INDIGO-4 Hrs 40 KM" eKmRate="12.0" hours="4" id="TATA INDIGO-4 Hrs 40 KM" km="40" uid="503" vName="TATA INDIGO"/>
 </DutyTypes>

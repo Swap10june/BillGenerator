@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Vehicles>
+ <Vehicle cName="TAL" uid="494" vName="TATA SAFARI"/>
+<Vehicle cName="TAL" uid="874" vName="TATA ARIA"/>
+<Vehicle cName="TAL" uid="557" vName="INNOVA"/>
+<Vehicle cName="TAL" uid="158" vName="MONTHLY INDICA"/>
+<Vehicle cName="TAL" uid="533" vName="TATA INDICA"/>
+<Vehicle cName="TAL" uid="368" vName="TATA INDIGO"/>
+<Vehicle cName="TAL" uid="682" vName="TATA MANZA"/>
+<Vehicle cName="TAL" uid="613" vName="TATA SUMO"/>
+</Vehicles>

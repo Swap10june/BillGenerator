@@ -41,10 +41,12 @@ public class ChekForAdminUI extends JDialog
 		JPanel panelUserName = templates.getLabelWithTextField("panelUserName", "Enter UserId", "Enter User id Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserName);
 		JTextField txtUserName = (JTextField) panelUserName.getComponent(2);
+		txtUserName.setText("swap");
 		
 		JPanel panelUserPass = templates.getLabelWithTextField("panelUserName", "Enter Password", "Enter password Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserPass);
 		JTextField txtUserPass = (JTextField) panelUserPass.getComponent(2);
+		txtUserPass.setText("swap");
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(150, 200, 100, 30);
@@ -78,7 +80,6 @@ public class ChekForAdminUI extends JDialog
 				owner.dispose();
 			}
 		});
-	
 		owner.add(bodyPanel);
 		owner.add(btnLogin);
 		owner.add(btnCancel);

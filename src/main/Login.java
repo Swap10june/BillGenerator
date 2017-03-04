@@ -127,8 +127,9 @@ public class Login extends JDialog
                         		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
                         {
                             System.out.println("Login Successful :: "+txtUserName.getText());
+                            owner.dispose();
                             new Home(new javax.swing.JDialog());
-                        	owner.dispose();
+                        	
                         }
                         else
 							new PopupDialogs(reg.getValueFor("E_LOGIN_EXCEPTION_STRING"),PopupDialogs.ERROR_MESSAGE);

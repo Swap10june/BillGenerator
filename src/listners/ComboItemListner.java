@@ -11,13 +11,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.DutyTypeDataModel;
 import exceptions.PopupDialogs;
 import beans.DutyType;
 import ui.EditDutyTypeUI;
 import ui.TelcoBOM;
 import util.Registry;
 import util.SConstants;
-import ModelXml.DutyTypeDataModel;
 
 public class ComboItemListner implements ItemListener{
 

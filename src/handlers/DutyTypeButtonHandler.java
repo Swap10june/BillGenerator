@@ -9,11 +9,11 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.DutyTypeDataModel;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
 import util.Registry;
 import util.SConstants;
-import ModelXml.DutyTypeDataModel;
 import beans.DutyType;
 import exceptions.PopupDialogs;
 

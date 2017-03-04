@@ -15,7 +15,7 @@ public class SConstants
 	
 	public static final Date 			TODAYS_DATE 			= 		new Date();
 	
-	public static final String[] 		VEHICLE_TYPES 			= 		{"Indica","Tavera"};
+	public static final String[] 		VEHICLE_TYPES 			= 		{"TATA SAFARI","TATA ARIA","INNOVA","MONTHLY INDICA","TATA INDICA","TATA INDIGO","TATA MANZA","TATA SUMO"};
 	public static final String[] 		CUSSTOMER_LIST 			= 		{"TAL","Mahindra"};
 	public static final String[] 		HOME_BUTTONS_NAMES		= 		{"Generate Bill","Admin","History"};
 	public static final String[] 		ADMIN_BUTTONS_NAMES		= 		{"Add Customer","Edit Customer","Add Vehicle","edit vehicle","Add Duty Type","Edit Duty Type"};
