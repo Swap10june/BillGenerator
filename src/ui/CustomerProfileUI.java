@@ -16,7 +16,7 @@ import util.Registry;
 import util.SConstants;
 import util.Utils;
 
-public class Customer_ProfileUI extends JDialog {
+public class CustomerProfileUI extends JDialog {
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class Customer_ProfileUI extends JDialog {
 		return CustomerProfileUIComponentsMap;
 	}
 	private UITemplates templates = new UITemplates();
-	public Customer_ProfileUI(JDialog owner,String action)
+	public CustomerProfileUI(JDialog owner,String action)
 	{
 		super(owner);
 		this.action=action;
@@ -52,24 +52,26 @@ public class Customer_ProfileUI extends JDialog {
 		
 		if(action.equals("Add"))
 		{
-		JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8,false, CustomerProfileUIComponentsMap);
-
-		//panelVendorNumber.setBounds(550, 170, 400, 35);
-		panelCustProfileBody.add(panelVendorName);
-		
-		owner.add(panelCustProfileBody);
-		
-		JPanel panelVendorNumber = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("L_Vendor_Code"),"Enter Vendor No",8,false, CustomerProfileUIComponentsMap);
-		//panelVendorNumber.setBounds(550, 170, 400, 35);
-		panelCustProfileBody.add(panelVendorNumber);
-		
-		owner.add(panelCustProfileBody);
-		
-		JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8,false, CustomerProfileUIComponentsMap);
-		//panelVendorNumber.setBounds(550, 170, 400, 35);
-		panelCustProfileBody.add(panelVendorAddress);
+			JPanel panelVendorName = templates.getLabelWithTextField("panelVendorName",reg.getValueFor("C_Vendor_NAME"),"Enter Vendor Name",8,false, CustomerProfileUIComponentsMap);
+	
+			//panelVendorNumber.setBounds(550, 170, 400, 35);
+			panelCustProfileBody.add(panelVendorName);
+			
+			owner.add(panelCustProfileBody);
+			
+			JPanel panelVendorNumber = templates.getLabelWithTextField("panelVendorNumber",reg.getValueFor("L_Vendor_Code"),"Enter Vendor No",8,false, CustomerProfileUIComponentsMap);
+			//panelVendorNumber.setBounds(550, 170, 400, 35);
+			panelCustProfileBody.add(panelVendorNumber);
+			
+			owner.add(panelCustProfileBody);
+			
+			JPanel panelVendorAddress = templates.getLabelWithTextField("panelVendorAddress",reg.getValueFor("C_VENDOR_ADDESSS"),"Enter Vendor Address",8,false, CustomerProfileUIComponentsMap);
+			//panelVendorNumber.setBounds(550, 170, 400, 35);
+			panelCustProfileBody.add(panelVendorAddress);
 				
-		}else{
+		}
+		else
+		{
 			
 			JPanel panelTOCustomer = templates.getLabelWithCombo("panelTOCustomer",reg.getValueFor("C_Vendor_NAME"),reg.getValueFor("ID_TO_CUSTOMER_Combo"), SConstants.CUSSTOMER_LIST, CustomerProfileUIComponentsMap);
 			//panelCustomer.setBounds(5, 3, 120, 32);

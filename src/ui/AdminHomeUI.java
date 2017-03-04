@@ -9,7 +9,7 @@ import handlers.AdminButtonHandler;
 import util.SConstants;
 import util.Utils;
 
-public class Admin_homeUI extends JDialog {
+public class AdminHomeUI extends JDialog {
 
 	/**
 	 * 
@@ -20,7 +20,7 @@ public class Admin_homeUI extends JDialog {
 	{
 		return billGenerateUIComponentsMap;
 	}
-	public Admin_homeUI(JDialog owner)
+	public AdminHomeUI(JDialog owner)
 	{
 		super(owner);
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,"Admin");

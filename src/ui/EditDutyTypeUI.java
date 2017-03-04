@@ -31,7 +31,7 @@ public class EditDutyTypeUI extends JDialog
 	private static Map<String, Object> editDutyTypeUIComponent = new HashMap<String, Object>();
 	private UITemplates templates = new UITemplates();
 	private Registry reg = SConstants.reg;
-	private static List<JPanel> list = new ArrayList<JPanel>();
+	private static List<Object> list = new ArrayList<Object>();
 	
 	
 
@@ -49,8 +49,8 @@ public class EditDutyTypeUI extends JDialog
 	private void initUI(JDialog owner) 
 	{
 		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 500, 150);
-		bodyLeftPanel.setLayout(new GridLayout(2, 2));
+		bodyLeftPanel.setBounds(10, 30, 500, 200);
+		bodyLeftPanel.setLayout(new GridLayout(3, 2));
 		
 		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypes();
 		
@@ -72,6 +72,11 @@ public class EditDutyTypeUI extends JDialog
 		enterPkgRate.setVisible(false);
 		list.add(enterPkgRate);
 		
+		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Extra Km Rate", "Enter Ex Rate Here", 10, true,editDutyTypeUIComponent);
+		bodyLeftPanel.add(enterExtraKmRate);
+		enterExtraKmRate.setVisible(false);
+		list.add(enterExtraKmRate);
+		
 		JPanel customer = templates.getLabelWithTextField("customer", "Select Customer", "Edit Customer",10,false, editDutyTypeUIComponent);
 		bodyLeftPanel.add(customer);
 		customer.setVisible(false);
@@ -83,11 +88,15 @@ public class EditDutyTypeUI extends JDialog
 		list.add(vehicle);
 		
 		JButton btnAddDutyType = new JButton(reg.getValueFor("BTN_STRING_EDIT_DUTY_TYPE"));
-		btnAddDutyType.setBounds(150, 200, 150, 30);
+		btnAddDutyType.setBounds(150, 300, 150, 30);
+		btnAddDutyType.setEnabled(false);
+		list.add(btnAddDutyType);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(350, 200, 150, 30);
+		btnCancel.setBounds(350, 300, 150, 30);
+		btnCancel.setEnabled(false);
+		list.add(btnCancel);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		owner.add(bodyLeftPanel);
@@ -120,7 +129,7 @@ public class EditDutyTypeUI extends JDialog
 	}
 
 	
-	public static List<JPanel> getList() {
+	public static List<Object> getList() {
 		return list;
 	}
 

@@ -22,6 +22,7 @@ import javax.swing.SpinnerNumberModel;
 
 import listners.ComboItemListner;
 import listners.SpinnerChangeListner;
+import listners.TelcoBillComboItemListner;
 
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.prompt.PromptSupport;
@@ -175,7 +176,7 @@ public class UITemplates
 	    billGenerateUIComponent.put(mapKey,panel );
 	    return panel;
 	}
-	public JPanel getLabelWithIntSpinner(String mapKey,String labelKey,int value,int min,int max,int step,Map<String,Object> billGenerateUIComponent)
+	public JPanel getLabelWithIntSpinner(String mapKey,String labelKey,double value,double min,double max,double step,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
@@ -187,14 +188,12 @@ public class UITemplates
 		SpinnerModel spinnermodel = new SpinnerNumberModel(value,min,max,step);
 		//spinnermodel.setCalendarField(Calendar.MINUTE);
 		spinner .setModel(spinnermodel);
-		spinner.addChangeListener(new SpinnerChangeListner());
+		if(!mapKey.equalsIgnoreCase("panelStartKM"))
+			spinner.addChangeListener(new SpinnerChangeListner());
 		
 	    panel.add(labelkey);
-	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_key")), labelkey);
 	    panel.add(Box.createHorizontalStrut(10));
 	    panel.add(spinner);
-	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinner")), spinner);
-	    //billGenerateUIComponent.put(Utils.getComponentName(key, reg.getValueFor("L_spinnermodel")), spinnermodel);
 	    billGenerateUIComponent.put(mapKey,panel );
 	    return panel;
 	}
@@ -206,6 +205,21 @@ public class UITemplates
 		JLabel labelkey = new JLabel(valueFor +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JCheckBox textValue = new JCheckBox();
+		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(textValue);
+		billGenerateUIComponentsMap.put(mapKey, panel);
+		return panel;
+	}
+	public JPanel getLabelWithComboSeperate(String mapKey, String labelKey,String comboID, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		JComboBox<String> textValue = new JComboBox<String>(dutyTypeArray);
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXX");
+		textValue.addItemListener(new TelcoBillComboItemListner(comboID,true));
 		panel.add(labelkey);
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);

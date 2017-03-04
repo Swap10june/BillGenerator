@@ -18,7 +18,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
 import util.Registry;
 import util.SConstants;
 import ModelXml.DutyTypeDataModel;
@@ -56,6 +55,7 @@ public class TelcoBOM extends JDialog {
 	public TelcoBOM(JDialog owner)
 	{
 		super(owner);
+		billGenerateUIComponentsMap.clear();
 		billGenerateUIComponentsMap.put("reg", reg);
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,reg.getValueFor("TEL_BILL_GEN_UI_NAME"));
 		initUI(owner);
@@ -152,10 +152,11 @@ public class TelcoBOM extends JDialog {
 		owner.add(panelLeftBody);
 		
 		// Body Panel
-		JPanel panelMiddleBody = new JPanel();
+		final JPanel panelMiddleBody = new JPanel();
 		panelMiddleBody.setBounds(370, 100, 400, 400);
 		panelMiddleBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelMiddleBody.setLayout(new GridLayout(9,1));
+		//panelMiddleBody.setVisible(false);
 		@SuppressWarnings("rawtypes")
 		JComboBox customerSelectionCombo = (JComboBox) panelTOCustomer.getComponent(2);
 		
@@ -164,8 +165,18 @@ public class TelcoBOM extends JDialog {
 		
 		String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(customerSelectionCombo.getSelectedItem().toString(),vehicleSelectionCombo.getSelectedItem().toString());
 		
-		final JPanel panelDutyType = templates.getLabelWithCombo("panelDutyType",reg.getValueFor("L_Duty_Type"),UI_ID+reg.getValueFor("ID_DUTY_TYPE_COMBO"), dutyTypeArray, billGenerateUIComponentsMap);
+		final JPanel panelDutyType = templates.getLabelWithComboSeperate("panelDutyType",reg.getValueFor("L_Duty_Type"),reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"), dutyTypeArray, billGenerateUIComponentsMap);
+		//panelDutyType.setVisible(false);
 		panelMiddleBody.add(panelDutyType);
+		/*JTextField textTotalKm = (JTextField) panelTotalKM.getComponent(2);
+		textTotalKm.addCaretListener(new CaretListener() {
+			
+			@Override
+			public void caretUpdate(CaretEvent e) {
+				panelMiddleBody.setVisible(true);
+				
+			}
+		});*/
 		
 		final JPanel panelTotalPkgKm = templates.getLabelWithLabel("panelTotalPkgKm",reg.getValueFor("L_Total_PKG_KM"), "", billGenerateUIComponentsMap);
 		panelMiddleBody.add(panelTotalPkgKm);
@@ -274,6 +285,7 @@ public class TelcoBOM extends JDialog {
 				}
 				//new Dao().addBill(bom);
 				new TelcoBillDataModel().addBillTransaction(bom);
+				billGenerateUIComponentsMap.remove("totalKM");
 				owner.dispose();
 			}
 		});

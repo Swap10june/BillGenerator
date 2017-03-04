@@ -62,6 +62,7 @@ public class DutyTypeDataModel
         familyElement.setAttribute("cName",dutyType.getCustomerName());
         familyElement.setAttribute("vName",dutyType.getVehicleType());
         familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
+        familyElement.setAttribute("eKmRate",String.valueOf(dutyType.getExtraKmRate()));
         DutyTypesTag.appendChild(familyElement);
        updateXML();
 	}
@@ -113,6 +114,7 @@ public class DutyTypeDataModel
     		            			Integer.parseInt(eElement.getAttribute("hours")),
 	            					Integer.parseInt(eElement.getAttribute("km")),
 	            					Double.parseDouble(eElement.getAttribute("Rate")),
+	            					Double.parseDouble(eElement.getAttribute("eKmRate")),
 	            					eElement.getAttribute("cName"),
 	            					eElement.getAttribute("vName"));
     		            }
@@ -167,6 +169,7 @@ public class DutyTypeDataModel
         familyElement.setAttribute("cName",dutyType.getCustomerName());
         familyElement.setAttribute("vName",dutyType.getVehicleType());
         familyElement.setAttribute("Rate",String.valueOf(dutyType.getPackageRate()));
+        familyElement.setAttribute("eKmRate",String.valueOf(dutyType.getExtraKmRate()));
         DutyTypesTag.appendChild(familyElement);
         
         updateXML();
@@ -236,6 +239,7 @@ public class DutyTypeDataModel
     		            			Integer.parseInt(eElement.getAttribute("hours")),
 	            					Integer.parseInt(eElement.getAttribute("km")),
 	            					Double.parseDouble(eElement.getAttribute("Rate")),
+	            					Double.parseDouble(eElement.getAttribute("eKmRate")),
 	            					eElement.getAttribute("cName"),
 	            					eElement.getAttribute("vName"));
     		            }
@@ -266,6 +270,7 @@ public class DutyTypeDataModel
             	    //System.out.println(entry.getKey() + "/" + entry.getValue());
             	    emp.setAttribute("km",String.valueOf(newDutyType.getKm()));
             	    emp.setAttribute("Rate",String.valueOf(newDutyType.getPackageRate()));
+            	    emp.setAttribute("eKmRate",String.valueOf(newDutyType.getExtraKmRate()));
             	    emp.setAttribute("cName",String.valueOf(newDutyType.getCustomerName()));
             	    emp.setAttribute("dutyTypeString",String.valueOf(newDutyType.getDutyTypeString()));
             	    emp.setAttribute("hours",String.valueOf(newDutyType.getHours()));

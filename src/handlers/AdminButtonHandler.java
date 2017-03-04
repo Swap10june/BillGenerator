@@ -8,7 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import beans.Customer;
-import ui.Customer_ProfileUI;
+import ui.CustomerProfileUI;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
 import ui.Vehicle_ProfileUI;
@@ -29,13 +29,13 @@ public class AdminButtonHandler implements ActionListener {
 		{
 			case SConstants.ADD_CUST_WIN_NAME:
 			{
-				new Customer_ProfileUI(new javax.swing.JDialog(),"Add");
+				new CustomerProfileUI(new javax.swing.JDialog(),"Add");
 			}
 			
 			break;
 			case SConstants.EDIT_CUST_WIN_NAME:
 			{
-				new Customer_ProfileUI(new javax.swing.JDialog(),"Edit");
+				new CustomerProfileUI(new javax.swing.JDialog(),"Edit");
 			}
 			
 			break;
@@ -66,7 +66,7 @@ public class AdminButtonHandler implements ActionListener {
 			case SConstants.CUST_EDIT_BUTTON:
 			{
 				Utils util = Utils.getUtilityInstance();
-				Map<String, Object> componentMap = Customer_ProfileUI.getComponentMap();
+				Map<String, Object> componentMap = CustomerProfileUI.getComponentMap();
 				String vendorName = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorName"), 1);
 				String vendorNumber = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorNumber"), 1);
 				String vendorAddress = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorAddress"), 1);

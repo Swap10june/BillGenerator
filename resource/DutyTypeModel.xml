@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DutyTypes>
-<DutyType Rate="100.0" cName="TAL" dutyTypeString="1 Hrs 10 KM" hours="1" id="1 Hrs 10 KM" km="10" uid="593" vName="Indica"/>
-<DutyType Rate="200.0" cName="TAL" dutyTypeString="2 Hrs 22 KM" hours="2" id="2 Hrs 22 KM" km="22" uid="318" vName="Tavera"/>
-<DutyType Rate="300.0" cName="Mahindra" dutyTypeString="3 Hrs 30 KM" hours="3" id="3 Hrs 30 KM" km="30" uid="637" vName="Indica"/>
-<DutyType Rate="400.0" cName="Mahindra" dutyTypeString="4 Hrs 44 KM" hours="4" id="4 Hrs 44 KM" km="44" uid="525" vName="Tavera"/>
+<DutyType Rate="100.0" cName="TAL" dutyTypeString="1 Hrs 10 KM" eKmRate="10" hours="1" id="1 Hrs 10 KM" km="10" uid="593" vName="Indica"/>
+<DutyType Rate="200.0" cName="TAL" dutyTypeString="2 Hrs 22 KM" eKmRate="10" hours="2" id="2 Hrs 22 KM" km="22" uid="318" vName="Tavera"/>
+<DutyType Rate="300.0" cName="Mahindra" dutyTypeString="3 Hrs 33 KM" eKmRate="20" hours="3" id="3 Hrs 33 KM" km="33" uid="637" vName="Indica"/>
+<DutyType Rate="400.0" cName="Mahindra" dutyTypeString="4 Hrs 44 KM" eKmRate="20" hours="4" id="4 Hrs 44 KM" km="44" uid="525" vName="Tavera"/>
+<DutyType Rate="600.0" cName="TAL" dutyTypeString="6 Hrs 60 KM" eKmRate="10" hours="6" id="6 Hrs 60 KM" km="60" uid="768" vName="Indica"/>
+<DutyType Rate="800.0" cName="TAL" dutyTypeString="8 Hrs 80 KM" eKmRate="10.0" hours="8" id="8 Hrs 80 KM" km="80" uid="907" vName="Indica"/>
+<DutyType Rate="1200.0" cName="TAL" dutyTypeString="12 Hrs 120 KM" eKmRate="40.0" hours="12" id="12 Hrs 120 KM" km="120" uid="581" vName="Indica"/>
 </DutyTypes>

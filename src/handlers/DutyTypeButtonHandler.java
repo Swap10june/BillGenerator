@@ -45,6 +45,10 @@ public class DutyTypeButtonHandler implements ActionListener {
 			JTextField lblPkgValue = (JTextField) enterPkgRate.getComponent(2);
 			String pkgValue = lblPkgValue.getText();
 			
+			JPanel enterExtraKmRate = (JPanel) dutyTypeComponentMap.get("enterExtraKmRate");
+			JTextField lblextraKmRate = (JTextField) enterExtraKmRate.getComponent(2);
+			String extraKmRateValue = lblextraKmRate.getText();
+			
 			JPanel panelCustomer = (JPanel) dutyTypeComponentMap.get("panelCustomer");
 			@SuppressWarnings("rawtypes")
 			JComboBox comboCustomer = (JComboBox) panelCustomer.getComponent(2);
@@ -54,14 +58,14 @@ public class DutyTypeButtonHandler implements ActionListener {
 			@SuppressWarnings("rawtypes")
 			JComboBox comboVehicle = (JComboBox) panelVehicle.getComponent(2);
 			String vName = comboVehicle.getSelectedItem().toString();
-			if(hoursValue.isEmpty() ||  cName.isEmpty() || kmValue.isEmpty() || pkgValue.isEmpty() || vName.isEmpty())
+			if(hoursValue.isEmpty() ||  cName.isEmpty() || kmValue.isEmpty() || pkgValue.isEmpty() || vName.isEmpty() || extraKmRateValue.isEmpty())
 			{
 				new PopupDialogs("Please Fill All the fields...",PopupDialogs.ERROR_MESSAGE);
 			}
 			else
 			{
 				int uid = 0 + (int)(Math.random() * 1000); 
-				DutyType dutyType = new DutyType(uid,Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue), cName, vName);
+				DutyType dutyType = new DutyType(uid,Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName);
 				//new Dao().addDutyType(dutyType);
 				new DutyTypeDataModel().addDutyType(dutyType);
 				new PopupDialogs("Duty Type Added Successfully",PopupDialogs.PLAIN_MESSAGE);
@@ -93,6 +97,10 @@ public class DutyTypeButtonHandler implements ActionListener {
 			JPanel enterPkgRate = (JPanel) map.get("enterPkgRate");
 			JTextField textpkgRate = (JTextField) enterPkgRate.getComponent(2);
 			newDutyType.setPackageRate(Double.parseDouble(textpkgRate.getText()));
+			
+			JPanel enterExtraKmRate = (JPanel) map.get("enterExtraKmRate");
+			JTextField textExtraKmRate = (JTextField) enterExtraKmRate.getComponent(2);
+			newDutyType.setExtraKmRate(Double.parseDouble(textExtraKmRate.getText()));
 			
 			JPanel customer = (JPanel) map.get("customer");
 			JTextField textCustomer = (JTextField) customer.getComponent(2);

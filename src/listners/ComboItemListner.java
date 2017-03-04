@@ -119,11 +119,14 @@ public class ComboItemListner implements ItemListener{
 			JPanel panelCombo = (JPanel) map.get("panelDutyType");
 			@SuppressWarnings("rawtypes")
 			JComboBox comboDutyType = (JComboBox) panelCombo.getComponent(2);
-			List<JPanel> pnelList = EditDutyTypeUI.getList();
+			List<Object> pnelList = EditDutyTypeUI.getList();
 			DutyType dutyType = new DutyTypeDataModel().getDutyType(comboDutyType.getSelectedItem().toString());
 			for (int i = 0; i < pnelList.size(); i++)
 			{
-				pnelList.get(i).setVisible(true);
+				if(pnelList.get(i) instanceof JPanel)
+					((JPanel) pnelList.get(i)).setVisible(true);
+				if(pnelList.get(i) instanceof JButton)
+					((JButton) pnelList.get(i)).setEnabled(true);
 			}
 			JPanel enterHours = (JPanel) map.get("enterHours");
 			JTextField textHours = (JTextField) enterHours.getComponent(2);
@@ -136,6 +139,10 @@ public class ComboItemListner implements ItemListener{
 			JPanel enterPkgRate = (JPanel) map.get("enterPkgRate");
 			JTextField textPkg = (JTextField) enterPkgRate.getComponent(2);
 			textPkg.setText(String.valueOf(dutyType.getPackageRate()));
+			
+			JPanel enterExtraRate = (JPanel) map.get("enterExtraKmRate");
+			JTextField textExtraKmRate = (JTextField) enterExtraRate.getComponent(2);
+			textExtraKmRate.setText(String.valueOf(dutyType.getExtraKmRate()));
 			
 			JPanel customer = (JPanel) map.get("customer");
 			JTextField textCustomer = (JTextField) customer.getComponent(2);

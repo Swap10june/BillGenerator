@@ -11,6 +11,7 @@ public class DutyType
 	private String id = null;
 	private String customerName = null;
 	private String vehicleType  = null;
+	private double extraKmRate = 0;
 	
 	private String dutyTypeString =null;
 	private int uid = 0;
@@ -32,12 +33,13 @@ public class DutyType
 	public void setPackageRate(double packageRate) {
 		this.packageRate = packageRate;
 	}
-	public DutyType(int uid, int hours, int km,double packageRate,String customerName, String vehicleType)
+	public DutyType(int uid, int hours, int km,double packageRate, double extraKmRate, String customerName, String vehicleType)
 	{
 		this.setUid(uid);
 		this.hours = hours;
 		this.km = km;
 		this.packageRate = packageRate;
+		this.extraKmRate = extraKmRate;
 		this.customerName = customerName;
 		this.vehicleType = vehicleType;
 		
@@ -111,6 +113,19 @@ public class DutyType
 	{
 		this.dutyTypeString = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
 		this.id = String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+	}
+	
+	/**
+	 * @return the extraKmRate
+	 */
+	public double getExtraKmRate() {
+		return extraKmRate;
+	}
+	/**
+	 * @param extraKmRate the extraKmRate to set
+	 */
+	public void setExtraKmRate(double extraKmRate) {
+		this.extraKmRate = extraKmRate;
 	}
 	
 }

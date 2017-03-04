@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
-import ui.Admin_homeUI;
+import ui.AdminHomeUI;
 import ui.TelcoBOM;
 import util.SConstants;
 
@@ -28,7 +28,7 @@ public class HomeButtonHandler implements ActionListener {
 			break;
 			case SConstants.ADMIN_WIN_NAME:
 			{
-				new Admin_homeUI(new javax.swing.JDialog());
+				new AdminHomeUI(new javax.swing.JDialog());
 			}
 			
 			break;

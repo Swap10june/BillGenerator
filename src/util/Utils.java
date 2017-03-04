@@ -90,8 +90,8 @@ public class Utils
 		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
-	    owner.setLocation(300,200);
-	    owner.setSize(new Dimension(600, 300));
+	    owner.setLocation(300,250);
+	    owner.setSize(new Dimension(600, 400));
 	    owner.setModal(true);
 	    owner.setResizable(false);
 	    owner.setTitle(string);

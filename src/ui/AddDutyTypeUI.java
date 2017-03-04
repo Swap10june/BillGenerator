@@ -2,7 +2,6 @@ package ui;
 
 import handlers.DutyTypeButtonHandler;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,9 +48,9 @@ public class AddDutyTypeUI extends JDialog
 	private void initUI(JDialog owner)
 	{
 		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 280, 150);
+		bodyLeftPanel.setBounds(10, 30, 280, 200);
 		bodyLeftPanel.setLayout(new GridLayout(3, 1));
-		bodyLeftPanel.setBackground(Color.cyan);
+		//bodyLeftPanel.setBackground(Color.cyan);
 		JPanel enterHours = templates.getLabelWithTextField("enterHours", "Enter Hrs.", "Enter Hours Here", 10,true, dutyTypeUIComponent);
 		bodyLeftPanel.add(enterHours);
 		
@@ -62,8 +61,12 @@ public class AddDutyTypeUI extends JDialog
 		bodyLeftPanel.add(enterPkgRate);
 		
 		JPanel bodyRightPanel = new JPanel();
-		bodyRightPanel.setBounds(300, 30, 350, 100);
-		bodyRightPanel.setLayout(new GridLayout(2, 1));
+		bodyRightPanel.setBounds(300, 30, 350, 200);
+		bodyRightPanel.setLayout(new GridLayout(3, 1));
+		
+
+		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", 10, true,dutyTypeUIComponent);
+		bodyRightPanel.add(enterExtraKmRate);
 		
 		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", UI_ID+reg.getValueFor("ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO"), SConstants.CUSSTOMER_LIST, dutyTypeUIComponent);
 		bodyRightPanel.add(panelCustomer);
@@ -72,11 +75,11 @@ public class AddDutyTypeUI extends JDialog
 		bodyRightPanel.add(panelVehicle);
 		
 		JButton btnAddDutyType = new JButton(reg.getValueFor("ID_BTN_ADD_DUTY_TYPE"));
-		btnAddDutyType.setBounds(150, 200, 150, 30);
+		btnAddDutyType.setBounds(150, 250, 150, 30);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton("Cancel");
-		btnCancel.setBounds(350, 200, 150, 30);
+		btnCancel.setBounds(350, 250, 150, 30);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		owner.add(bodyLeftPanel);

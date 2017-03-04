@@ -10,6 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import exceptions.PopupDialogs;
+
 import ui.TelcoBOM;
 import util.Registry;
 import util.SConstants;
@@ -46,7 +47,7 @@ public class SpinnerChangeListner implements ChangeListener
 		{
 			
 			new PopupDialogs(reg.getValueFor("E_KM_EXCEPTION_STRING"),PopupDialogs.ERROR_MESSAGE);
-			textTotalKM.setText(String.valueOf(0));
+			//textTotalKM.setText(String.valueOf(0));
 			//textEnd.setValue(textEnd.getPreviousValue());
 		}
 				
