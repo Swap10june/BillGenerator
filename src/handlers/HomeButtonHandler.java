@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
 
-import ui.AdminHomeUI;
+import ui.ChekForAdminUI;
 import ui.TelcoBOM;
 import util.SConstants;
 
@@ -28,7 +28,13 @@ public class HomeButtonHandler implements ActionListener {
 			break;
 			case SConstants.ADMIN_WIN_NAME:
 			{
-				new AdminHomeUI(new javax.swing.JDialog());
+				new ChekForAdminUI(new javax.swing.JDialog());
+				//new AdminHomeUI(new javax.swing.JDialog());
+				/*}
+				else
+				{
+					new PopupDialogs("Please Check Admin Credentials.", PopupDialogs.ERROR_MESSAGE);
+				}*/
 			}
 			
 			break;

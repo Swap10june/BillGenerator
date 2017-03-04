@@ -84,7 +84,7 @@ public class Utils
 	    owner.add(footerLabel);
 	}
 
-	public static void applyBasicSettingsOnWindow_Small(JDialog owner, String string)
+	public void applyBasicSettingsOnWindow_Small(JDialog owner, String string)
 	{
 		owner.setLayout(null);
 		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();

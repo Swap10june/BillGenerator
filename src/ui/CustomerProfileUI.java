@@ -35,8 +35,7 @@ public class CustomerProfileUI extends JDialog {
 	{
 		super(owner);
 		this.action=action;
-		Utils.getUtilityInstance();
-		Utils.applyBasicSettingsOnWindow_Small(owner,"Admin");
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Admin");
 		initUI(owner);
 		owner.setVisible(true);
 		

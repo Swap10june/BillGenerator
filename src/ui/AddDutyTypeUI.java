@@ -40,7 +40,7 @@ public class AddDutyTypeUI extends JDialog
 	{
 		super(owner);
 		this.setAction(action);
-		Utils.applyBasicSettingsOnWindow_Small(owner,action);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,action);
 		initUI(owner);
 		owner.setVisible(true);
 	}

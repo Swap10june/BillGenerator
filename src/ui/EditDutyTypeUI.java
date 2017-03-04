@@ -39,7 +39,7 @@ public class EditDutyTypeUI extends JDialog
 	public EditDutyTypeUI(JDialog owner) 
 	{
 		super(owner);
-		Utils.applyBasicSettingsOnWindow_Small(owner,"Edit Duty Type");
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Edit Duty Type");
 		initUI(owner);
 		owner.setVisible(true);
 	}
