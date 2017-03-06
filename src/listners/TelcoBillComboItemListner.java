@@ -22,24 +22,22 @@ public class TelcoBillComboItemListner implements ItemListener
 {
 
 	private String comboId = null;
-	private boolean status = false;
-	public TelcoBillComboItemListner(String comboID, boolean status)
+	public TelcoBillComboItemListner(String comboID)
 	{
 		this.setComboId(comboID);
-		this.setStatus(status);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void itemStateChanged(ItemEvent e) 
 	{
-		if(comboId.equalsIgnoreCase(SConstants.reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL")))
+		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE))
 		{
 			double totalKM = 0.0;
 			if(TelcoBOM.getComponentMap().containsKey("totalKM"))
 			{
 				totalKM = (double) TelcoBOM.getComponentMap().get("totalKM");
-				JButton btnToatl = (JButton) TelcoBOM.getComponentMap().get("btnTotal");
+				JButton btnToatl = (JButton) TelcoBOM.getComponentMap().get(SConstants.GET_TOTAL_BTN_STRING);
 				btnToatl.setEnabled(true);
 				
 				JPanel panelTotalPkgKm = (JPanel) TelcoBOM.getComponentMap().get("panelTotalPkgKm");
@@ -79,7 +77,7 @@ public class TelcoBillComboItemListner implements ItemListener
 				lblExtraAMount.setText(String.valueOf(extraKM*dutyType.getExtraKmRate()));
 			}
 		}
-		if(comboId.equalsIgnoreCase(SConstants.reg.getValueFor("ID_Vehicle_TYPE_COMBO")))
+		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_VEHICLE_TYPE))
 		{
 			JPanel panelTOCustomer = (JPanel) TelcoBOM.getComponentMap().get("panelTOCustomer");
 			@SuppressWarnings("rawtypes")
@@ -108,7 +106,7 @@ public class TelcoBillComboItemListner implements ItemListener
 			txtVehicleText.setText(vehicle.getVehicleNumber());
 		}
 		
-		if(comboId.equalsIgnoreCase(SConstants.reg.getValueFor("ID_TO_CUSTOMER_COMBO")))
+		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_CUSTOMER))
 		{
 			JPanel panelTOCustomer = (JPanel) TelcoBOM.getComponentMap().get("panelTOCustomer");
 			@SuppressWarnings("rawtypes")
@@ -151,20 +149,6 @@ public class TelcoBillComboItemListner implements ItemListener
 	 */
 	public void setComboId(String comboId) {
 		this.comboId = comboId;
-	}
-
-	/**
-	 * @return the status
-	 */
-	public boolean isStatus() {
-		return status;
-	}
-
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(boolean status) {
-		this.status = status;
 	}
 
 }

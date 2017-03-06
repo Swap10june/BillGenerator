@@ -20,21 +20,15 @@ public class HomeButtonHandler implements ActionListener {
 	{
 		switch (arg0.getActionCommand())
 		{
-			case SConstants.BILL_GEN_WIN_NAME:
+			case SConstants.TAL_BILL_BTN_STRING:
 			{
-				new TelcoBOM(new javax.swing.JDialog());
+				new TelcoBOM(new javax.swing.JDialog(),SConstants.TAL_BILL_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.ADMIN_WIN_NAME:
+			case SConstants.ADMIN_BTN_STRING:
 			{
-				new ChekForAdminUI(new javax.swing.JDialog());
-				//new AdminHomeUI(new javax.swing.JDialog());
-				/*}
-				else
-				{
-					new PopupDialogs("Please Check Admin Credentials.", PopupDialogs.ERROR_MESSAGE);
-				}*/
+				new ChekForAdminUI(new javax.swing.JDialog(),SConstants.ADMIN_BTN_STRING);
 			}
 			
 			break;

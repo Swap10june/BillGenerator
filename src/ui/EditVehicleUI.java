@@ -1,5 +1,7 @@
 package ui;
 
+import handlers.VehicleButtonHandler;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,9 +18,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import exceptions.PopupDialogs;
 import beans.Vehicle;
 import model.VehicleDataModel;
+import util.SConstants;
 import util.Utils;
 
 public class EditVehicleUI extends JDialog
@@ -33,7 +35,7 @@ public class EditVehicleUI extends JDialog
 	public static final String UI_ID = "EditVehicleUI"; 
 	private static Map<String, Object> editVehicleUIComponent ;
 	private UITemplates templates = new UITemplates();
-	private VehicleDataModel model = null;
+	private static VehicleDataModel model = null;
 	private static List<Object> list = new ArrayList<Object>();
 	
 	
@@ -50,7 +52,7 @@ public class EditVehicleUI extends JDialog
 		
 	
 	
-	private void initUI(JDialog owner) 
+	private void initUI(final JDialog owner) 
 	{
 		JPanel bodyLeftPanel = new JPanel();
 		bodyLeftPanel.setBounds(10, 30, 500, 200);
@@ -58,10 +60,10 @@ public class EditVehicleUI extends JDialog
 		setModel(new VehicleDataModel());
 		String [] vehicleList = getModel().getAllVehicles();
 		
-		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle","VehicleEditCombo", vehicleList, editVehicleUIComponent);
+		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle", vehicleList, editVehicleUIComponent);
 		bodyLeftPanel.add(panelSelectVehicle);
 		@SuppressWarnings("unchecked")
-		JComboBox<String> comboEditVehicle= (JComboBox<String>) panelSelectVehicle.getComponent(2);
+		final JComboBox<String> comboEditVehicle= (JComboBox<String>) panelSelectVehicle.getComponent(2);
 		comboEditVehicle.addItemListener(new ItemListener()
 		{
 			
@@ -113,11 +115,12 @@ public class EditVehicleUI extends JDialog
 		
 		
 		
-		JButton btnEdit = new JButton("Edit");
+		JButton btnEdit = new JButton(SConstants.EDIT_BTN_STRING);
 		btnEdit.setBounds(150, 300, 150, 30);
 		btnEdit.setEnabled(false);
 		list.add(btnEdit);
-		btnEdit.addActionListener(new ActionListener() {
+		btnEdit.addActionListener(new VehicleButtonHandler(owner));
+				/*new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0)
@@ -143,9 +146,9 @@ public class EditVehicleUI extends JDialog
 				new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 				owner.dispose();
 			}
-		});
+		});*/
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
 		btnCancel.setBounds(350, 300, 150, 30);
 		btnCancel.setEnabled(false);
 		list.add(btnCancel);
@@ -197,7 +200,7 @@ public class EditVehicleUI extends JDialog
 	/**
 	 * @return the model
 	 */
-	public VehicleDataModel getModel() {
+	public static VehicleDataModel getModel() {
 		return model;
 	}
 
@@ -207,7 +210,7 @@ public class EditVehicleUI extends JDialog
 	 * @param model the model to set
 	 */
 	public void setModel(VehicleDataModel model) {
-		this.model = model;
+		EditVehicleUI.model = model;
 	}
 
 

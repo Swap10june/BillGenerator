@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -38,6 +39,8 @@ public class Utils
 	
 	private static final String HTML = "<html>";
     private static final String HTML_END = "</html>";
+
+	private ArrayList<String> customersList = null;;
     
     private Utils()
     {
@@ -275,5 +278,32 @@ public class Utils
 		}
 		return string;
 		
+	}
+	public void applyIntelisense(JTextField text, JDialog owner, final String[] allCustomers)
+	{
+		@SuppressWarnings("unused")
+		AutoSuggestor autoSuggestor = new AutoSuggestor(text, owner, null, Color.WHITE.brighter(), Color.BLUE, Color.RED, 0.75f)
+		{
+		    protected boolean wordTyped(String typedWord) {
+
+		        //create list for dictionary this in your case might be done via calling a method which queries db and returns results as arraylist
+		        ArrayList<String> words = new ArrayList<>();
+
+		       for (String string : allCustomers)
+		       {
+		    	   words.add(string);
+		       }
+		       
+				if(customersList==null)
+		        {
+			        customersList  = new ArrayList<String>(new LinkedHashSet<String>(words));
+		        }
+		        
+		        setDictionary(customersList);
+		        //addToDictionary("bye");//adds a single word
+
+		        return super.wordTyped(typedWord);//now call super to check for any matches against newest dictionary
+		    }
+		};
 	}
 }

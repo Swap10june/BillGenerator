@@ -10,24 +10,18 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import util.Registry;
+import model.CustomerDataModel;
+import model.VehicleDataModel;
 import util.SConstants;
 import util.Utils;
 
 public class AddDutyTypeUI extends JDialog
 {
 
-	/**
-	 * 
-	 */
-	public static final String UI_ID = "AddDutyTypeUI"; 
 	private static final long serialVersionUID = 1L;
 	private String action;
 	private UITemplates templates = new UITemplates();
 	private static Map<String, Object> addDutyTypeUIComponent ;
-	private Registry reg = SConstants.reg;
-	
-	
 	public static Map<String, Object> getDutyTypeUIComponent() {
 		return addDutyTypeUIComponent;
 	}
@@ -69,13 +63,16 @@ public class AddDutyTypeUI extends JDialog
 		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", 10, true,addDutyTypeUIComponent);
 		bodyRightPanel.add(enterExtraKmRate);
 		
-		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", UI_ID+reg.getValueFor("ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO"), SConstants.CUSSTOMER_LIST, addDutyTypeUIComponent);
+		String [] customerList = new CustomerDataModel().getAllCustomers();
+		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", SConstants.ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO,customerList, addDutyTypeUIComponent);
 		bodyRightPanel.add(panelCustomer);
 		
-		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle	", UI_ID+reg.getValueFor("ID_VEHICLE_SELECT_DUTY_TYPE_COMBO"), SConstants.VEHICLE_TYPES, addDutyTypeUIComponent);
+		
+		String [] vehicleList = new VehicleDataModel().getAllVehicles();
+		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle	",SConstants.ID_VEHICLE_SELECT_DUTY_TYPE_COMBO, vehicleList, addDutyTypeUIComponent);
 		bodyRightPanel.add(panelVehicle);
 		
-		JButton btnAddDutyType = new JButton(reg.getValueFor("ID_BTN_ADD_DUTY_TYPE"));
+		JButton btnAddDutyType = new JButton(SConstants.ADD_BTN_STRING);
 		btnAddDutyType.setBounds(150, 250, 150, 30);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		

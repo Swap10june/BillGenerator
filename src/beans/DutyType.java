@@ -40,8 +40,8 @@ public class DutyType
 		this.customerName = customerName;
 		this.vehicleType = vehicleType;
 		
-		this.id = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
-		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";
+		this.id = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM"+"-("+String.valueOf(customerName.charAt(0))+")";
+		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM"+"-("+String.valueOf(customerName.charAt(0))+")";
 		//map.put(id, this);
 	}
 	public int getHours() {
@@ -60,7 +60,7 @@ public class DutyType
 		return dutyTypeString;
 	}
 	public void setDutyTypeString() {
-		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM";;
+		this.dutyTypeString = this.vehicleType+"-"+String.valueOf(hours)+" Hrs "+String.valueOf(km)+" KM"+"-("+String.valueOf(customerName.charAt(0))+")";
 	}
 	/*public DutyType getDutyType(String id)
 	{

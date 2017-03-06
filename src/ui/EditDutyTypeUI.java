@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
+import listners.DutyTypeComboListner;
+import model.CustomerDataModel;
 import model.DutyTypeDataModel;
-import util.Registry;
 import util.SConstants;
 import util.Utils;
 
@@ -23,36 +26,40 @@ public class EditDutyTypeUI extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
-	public static final String UI_ID = "AddDutyTypeUI"; 
 	private static Map<String, Object> editDutyTypeUIComponent ;
 	private UITemplates templates = new UITemplates();
-	private Registry reg = SConstants.reg;
 	private static List<Object> list = new ArrayList<Object>();
 	
 	
 
 
-	public EditDutyTypeUI(JDialog owner) 
+	public EditDutyTypeUI(JDialog owner, String winName) 
 	{
 		super(owner);
 		editDutyTypeUIComponent = new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Edit Duty Type");
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,winName);
 		initUI(owner);
 		owner.setVisible(true);
 	}
 	private void initUI(JDialog owner) 
 	{
-		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 500, 200);
-		bodyLeftPanel.setLayout(new GridLayout(3, 2));
+		
+		JPanel topPanel  = new JPanel();
+		topPanel.setBounds(150, 30, 400, 100);
+		topPanel.setLayout(new GridLayout(2,2));
 		
 		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypes();
+		JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType", "Select Duty Type", dutyTypes, editDutyTypeUIComponent);
+		topPanel.add(panelDutyType);
+		@SuppressWarnings("unchecked")
+		JComboBox<String> comboSelectDutyType = (JComboBox<String>) panelDutyType.getComponent(2);
+		comboSelectDutyType.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		comboSelectDutyType.addItemListener(new DutyTypeComboListner(SConstants.COMBO_EDIT_DUTY_TYPE_SELCT_DUTY_TYPE));
 		
-		JPanel panelDutyType = templates.getLabelWithCombo("panelDutyType", "Select Duty Type", UI_ID+reg .getValueFor("ID_SELECT_DUTY_TYPE_COMBO"), dutyTypes, editDutyTypeUIComponent);
-		bodyLeftPanel.add(panelDutyType);
+ 		JPanel bodyLeftPanel = new JPanel();
+		bodyLeftPanel.setBounds(10, 120, 400, 150);
+		bodyLeftPanel.setLayout(new GridLayout(2,4));
+		
 		
 		JPanel enterHours = templates .getLabelWithTextField("enterHours", "Enter Hrs.", "Edit Hours Here", 10,true, editDutyTypeUIComponent);
 		bodyLeftPanel.add(enterHours);
@@ -78,24 +85,29 @@ public class EditDutyTypeUI extends JDialog
 		bodyLeftPanel.add(customer);
 		customer.setVisible(false);
 		list.add(customer);
+		JTextField text = (JTextField) customer.getComponent(2);
+		
+		Utils.getUtilityInstance().applyIntelisense(text,owner,new CustomerDataModel().getAllCustomers());
+		
 		
 		JPanel vehicle = templates.getLabelWithTextField("vehicle", "Select Vehicle", "Edit type", 10, false,editDutyTypeUIComponent);
 		bodyLeftPanel.add(vehicle);
 		vehicle.setVisible(false);
 		list.add(vehicle);
 		
-		JButton btnAddDutyType = new JButton(reg.getValueFor("BTN_STRING_EDIT_DUTY_TYPE"));
+		JButton btnAddDutyType = new JButton(SConstants.EDIT_BTN_STRING);
 		btnAddDutyType.setBounds(150, 300, 150, 30);
 		btnAddDutyType.setEnabled(false);
 		list.add(btnAddDutyType);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
 		btnCancel.setBounds(350, 300, 150, 30);
 		btnCancel.setEnabled(false);
 		list.add(btnCancel);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
+		owner.add(topPanel);
 		owner.add(bodyLeftPanel);
 		owner.add(btnAddDutyType);
 		owner.add(btnCancel);

@@ -1,5 +1,7 @@
 package ui;
 
+import handlers.VehicleButtonHandler;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,11 +11,7 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-
-import model.VehicleDataModel;
-import beans.Vehicle;
-import exceptions.PopupDialogs;
+import util.SConstants;
 import util.Utils;
 
 public class AddVehicleUI extends JDialog
@@ -35,7 +33,7 @@ public class AddVehicleUI extends JDialog
 		initUI(owner);
 		owner.setVisible(true);
 	}
-	private void initUI(JDialog owner)
+	private void initUI(final JDialog owner)
 	{
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setLayout(new GridLayout(2, 2));
@@ -43,43 +41,21 @@ public class AddVehicleUI extends JDialog
 		
 		JPanel enterVehicleName = templates.getLabelWithTextField("enterVehicleName", " Enter Vehicle Name", "Enter Veh. Name here", 10, false, addVehicleUIComponentMap);
 		bodyPanel.add(enterVehicleName);
-		JTextField txtVName = (JTextField) enterVehicleName.getComponent(2);
+		
 		
 		JPanel enterVNumber = templates.getLabelWithTextField("enterVNumber", " Enter Vehicle No", "Enter Veh. No here", 10, false, addVehicleUIComponentMap);
 		bodyPanel.add(enterVNumber);
-		JTextField txtVNo= (JTextField) enterVNumber.getComponent(2);
+		
 		
 		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Enter Customer Name here", 10, false, addVehicleUIComponentMap);
 		bodyPanel.add(enterCustomerName);
-		JTextField txtCName = (JTextField) enterCustomerName.getComponent(2);
 		
-		JButton btnLogin = new JButton("Add");
+		
+		JButton btnLogin = new JButton(SConstants.ADD_BTN_STRING);
 		btnLogin.setBounds(150, 200, 100, 30);
-		btnLogin.addActionListener(new ActionListener()
-		{
-			
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty() || !txtVNo.getText().isEmpty())
-				{
-					VehicleDataModel model = new VehicleDataModel();
-					int uid = model.getAllVehicles().length;
-					Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText(),txtVNo.getText());
-					// TODO: add to db
-					model.addVehicle(vehicle);
-					new PopupDialogs("Vehicle Added Successfully",PopupDialogs.PLAIN_MESSAGE);
-					owner .dispose();
-				}
-				else
-				{
-					new PopupDialogs("Please fill all the fields", PopupDialogs.ERROR_MESSAGE);
-				}
-			}
-		});
+		btnLogin.addActionListener(new VehicleButtonHandler(owner));
 		
-		
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
 		btnCancel.setBounds(350, 200, 100, 30);
 		btnCancel.addActionListener(new ActionListener() {
 			

@@ -13,7 +13,6 @@ import beans.BOM;
 public class CreateExlFile
 {
 	private ExcelUtils utility = null;
-	private Registry reg = SConstants.reg;
 	
     public  void CreateBOMExcel(File filename,BOM bom)
     {
@@ -45,7 +44,7 @@ public class CreateExlFile
             
             
             HSSFCell addressRowSpan_cell0 = addressRow.createCell(0);
-            String address = reg.getValueFor("V_CLIENT_ADDRESS");
+            String address = SConstants.V_CLIENT_ADDRESS;
             addressRowSpan_cell0.setCellValue(address);
             addressRowSpan_cell0.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short)10));
             
@@ -79,7 +78,7 @@ public class CreateExlFile
             
             
             HSSFCell PanRowSpan_cell0 = PanRow.createCell(0);
-            String pan = "PAN:"+"   "+reg.getValueFor("V_PAN_NO");
+            String pan = "PAN:"+"   "+SConstants.V_PAN_NO;
             PanRowSpan_cell0.setCellValue(pan);
             
             HSSFCell PanRowSpan_cell2 = PanRow.createCell(5);

@@ -25,17 +25,13 @@ import listners.SpinnerChangeListner;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import util.Registry;
 import util.SConstants;
 import util.Utils;
 
 public class UITemplates 
-{
-
-	Registry reg = SConstants.reg;
-	
+{	
 	@SuppressWarnings("deprecation")
-	public JPanel getLabelWithLabel(String mapKey, String labelKey,Object value,Map<String,Object> billGenerateUIComponent)
+	public JPanel getLabelWithValueLabel(String mapKey, String labelKey,Object value,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
@@ -68,6 +64,23 @@ public class UITemplates
 		return panel;
 		
 	}
+	public JPanel getLabelWithEmptyLabel(String mapKey, String labelKey,Map<String,Object> billGenerateUIComponent)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		JLabel labelValue = new JLabel();
+		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(labelValue);
+		
+		billGenerateUIComponent.put(mapKey, panel);
+		
+		return panel;
+		
+	}
+	
 	public JPanel getLabelWithTextFieldDatePicker(String mapKey, String labelKey,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -138,7 +151,7 @@ public class UITemplates
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JComboBox<String> textValue = new JComboBox<String>(vehicleTypes);
-		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXX");
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXX");
 		textValue.addItemListener(new ComboItemListner(comboID));
 		panel.add(labelkey);
 		panel.add(Box.createHorizontalStrut(10));
@@ -209,7 +222,7 @@ public class UITemplates
 		billGenerateUIComponentsMap.put(mapKey, panel);
 		return panel;
 	}
-	public JPanel getLabelWithComboWOListner(String mapKey, String labelKey,String comboID, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap)
+	public JPanel getLabelWithComboWOListner(String mapKey, String labelKey, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);

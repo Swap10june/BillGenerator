@@ -24,29 +24,29 @@ public class ChekForAdminUI extends JDialog
 	private JDialog parent = null;
 	private UITemplates templates = new UITemplates();
 	Map<String, Object> checkForAdminUIComponent  ;
-	public ChekForAdminUI(JDialog owner)
+	public ChekForAdminUI(JDialog owner, String adminBtnString)
 	{
 		super(owner);
 		this.setParent(owner);
 		checkForAdminUIComponent =  new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,"Check For Admin");
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,adminBtnString);
 		initUI(owner);
 		owner.setVisible(true);
 		
 	}
-	private void initUI(JDialog owner) 
+	private void initUI(final JDialog owner) 
 	{
 		JPanel bodyPanel = new JPanel();
 		bodyPanel.setLayout(new GridLayout(2, 2));
 		bodyPanel.setBounds(10, 50, 500, 150);
 		JPanel panelUserName = templates.getLabelWithTextField("panelUserName", "Enter UserId", "Enter User id Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserName);
-		JTextField txtUserName = (JTextField) panelUserName.getComponent(2);
+		final JTextField txtUserName = (JTextField) panelUserName.getComponent(2);
 		txtUserName.setText("swap");
 		
 		JPanel panelUserPass = templates.getLabelWithTextField("panelUserName", "Enter Password", "Enter password Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserPass);
-		JTextField txtUserPass = (JTextField) panelUserPass.getComponent(2);
+		final JTextField txtUserPass = (JTextField) panelUserPass.getComponent(2);
 		txtUserPass.setText("swap");
 		
 		JButton btnLogin = new JButton("Login");

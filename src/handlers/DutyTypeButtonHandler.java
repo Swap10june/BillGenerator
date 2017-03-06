@@ -12,14 +12,12 @@ import javax.swing.JTextField;
 import model.DutyTypeDataModel;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
-import util.Registry;
 import util.SConstants;
 import beans.DutyType;
 import exceptions.PopupDialogs;
 
 public class DutyTypeButtonHandler implements ActionListener {
 
-	private Registry reg = SConstants.reg;
 	private JDialog parent = null;
 	public DutyTypeButtonHandler(JDialog owner)
 	{
@@ -29,7 +27,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent event)
 	{
-		if(event.getActionCommand().equalsIgnoreCase(reg.getValueFor("ID_BTN_ADD_DUTY_TYPE")))
+		if(event.getActionCommand().equalsIgnoreCase(SConstants.ADD_BTN_STRING))
 		{
 			Map<String, Object> dutyTypeComponentMap = AddDutyTypeUI.getDutyTypeUIComponent();
 			
@@ -76,7 +74,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 			
 			
 		}
-		if(event.getActionCommand().equalsIgnoreCase(reg.getValueFor("BTN_STRING_EDIT_DUTY_TYPE")))
+		if(event.getActionCommand().equalsIgnoreCase(SConstants.EDIT_BTN_STRING))
 		{
 			Map<String, Object> map = EditDutyTypeUI.getEditDutyTypeUIComponent();
 			JPanel panelCombo = (JPanel) map.get("panelDutyType");
@@ -114,7 +112,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 			new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();
 		}
-		if(event.getActionCommand().equalsIgnoreCase("Cancel"))
+		if(event.getActionCommand().equalsIgnoreCase(SConstants.CANCEL_BTN_STRING))
 		{
 			parent.dispose();
 		}

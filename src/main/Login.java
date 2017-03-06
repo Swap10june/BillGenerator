@@ -18,7 +18,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
 
 import exceptions.PopupDialogs;
 import ui.Home;
-import util.Registry;
 import util.SConstants;
 import util.Utils;
 
@@ -28,8 +27,6 @@ public class Login extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Registry reg = SConstants.reg;
-	
 	public Login(JDialog owner)
 	{
 		super(owner);
@@ -132,7 +129,7 @@ public class Login extends JDialog
                         	
                         }
                         else
-							new PopupDialogs(reg.getValueFor("E_LOGIN_EXCEPTION_STRING"),PopupDialogs.ERROR_MESSAGE);
+							new PopupDialogs(SConstants.E_LOGIN_EXCEPTION_STRING,PopupDialogs.ERROR_MESSAGE);
                         txtUserPass.setText("");
                     }
                     });

@@ -1,16 +1,8 @@
 package util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import exceptions.PopupDialogs;
-
 public class Registry
 {
-	private Properties property = null;
+	/*private Properties property = null;
 	
 	public Registry(File propertyFile)
 	{
@@ -29,5 +21,5 @@ public class Registry
 	public String getValueFor(String key)
 	{
 		return property.getProperty(key);	
-	}
+	}*/
 }

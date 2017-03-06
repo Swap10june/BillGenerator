@@ -2,21 +2,13 @@ package handlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
-
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-
-import beans.Customer1;
 import ui.AddCustomerUI;
 import ui.AddVehicleUI;
-import ui.CustomerProfileUI;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
 import ui.EditVehicleUI;
-import util.Dao;
 import util.SConstants;
-import util.Utils;
 
 public class AdminButtonHandler implements ActionListener {
 
@@ -29,43 +21,43 @@ public class AdminButtonHandler implements ActionListener {
 	{
 		switch (arg0.getActionCommand())
 		{
-			case SConstants.ADD_CUST_WIN_NAME:
+			case SConstants.ADD_CUSTOMER_BTN_STRING:
 			{
-				new AddCustomerUI(new javax.swing.JDialog(),"Add New Customer");
+				new AddCustomerUI(new javax.swing.JDialog(),SConstants.ADD_CUSTOMER_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.EDIT_CUST_WIN_NAME:
+			case SConstants.EDIT_CUSTOMER_BTN_STRING:
 			{
-				new CustomerProfileUI(new javax.swing.JDialog(),"Edit");
+				//new CustomerProfileUI(new javax.swing.JDialog(),"Edit");
 			}
 			
 			break;
-			case SConstants.ADD_VEHICLE_WIN_NAME:
+			case SConstants.ADD_VEHICLE_BTN_STRING:
 			{
-				new AddVehicleUI(new javax.swing.JDialog(),"Add New Vehicle");
+				new AddVehicleUI(new javax.swing.JDialog(),SConstants.ADD_VEHICLE_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.EDIT_VEHICLE_WIN_NAME:
+			case SConstants.EDIT_VEHICLE_BTN_STRING:
 			{
-				new EditVehicleUI(new javax.swing.JDialog(),"Edit Vehicle");
+				new EditVehicleUI(new javax.swing.JDialog(),SConstants.EDIT_VEHICLE_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.ADD_DUTY_TYPE:
+			case SConstants.ADD_DUTY_TYPE_BTN_STRING:
 			{
-				new AddDutyTypeUI(new javax.swing.JDialog(),"Add");
+				new AddDutyTypeUI(new javax.swing.JDialog(),SConstants.ADD_DUTY_TYPE_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.EDIT_DUTY_TYPE:
+			case SConstants.EDIT_DUTY_TYPE_BTN_STRING:
 			{
-				new EditDutyTypeUI(new javax.swing.JDialog());
+				new EditDutyTypeUI(new javax.swing.JDialog(),SConstants.EDIT_DUTY_TYPE_BTN_STRING);
 			}
 			
 			break;
-			case SConstants.CUST_EDIT_BUTTON:
+			/*case SConstants.CUST_EDIT_BUTTON:
 			{
 				Utils util = Utils.getUtilityInstance();
 				Map<String, Object> componentMap = CustomerProfileUI.getComponentMap();
@@ -79,7 +71,7 @@ public class AdminButtonHandler implements ActionListener {
 				
 			}
 			
-			break;
+			break;*/
 			
 
 		default:

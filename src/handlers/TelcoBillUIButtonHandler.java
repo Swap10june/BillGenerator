@@ -12,13 +12,11 @@ import javax.swing.JTextField;
 
 import ui.TelcoBOM;
 import util.NumToWords;
-import util.Registry;
 import util.SConstants;
 
 public class TelcoBillUIButtonHandler implements ActionListener
 {
 
-	Registry reg = SConstants.reg;
 	Map<String, Object> componentMap;
 	public TelcoBillUIButtonHandler()
 	{
@@ -32,7 +30,7 @@ public class TelcoBillUIButtonHandler implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent arg0)
 	{
-		if(arg0.getActionCommand().equalsIgnoreCase(reg.getValueFor("V_TOTAL_BTN_STRING")))
+		if(arg0.getActionCommand().equalsIgnoreCase(SConstants.GET_TOTAL_BTN_STRING))
 		{			
 			JPanel panelAmount = (JPanel) componentMap.get("panelAmount");
 			JLabel lblAMountValue = (JLabel) panelAmount.getComponent(2);
