@@ -29,7 +29,7 @@ public class SConstants
 	
 
 	// Admin Button and its constants
-	public static final String[] 		ADMIN_BUTTONS_NAMES		= 		{"Add Customer","Edit Customer","Add Vehicle","Edit Vehicle","Add Duty Type","Edit Duty Type"};
+	public static final String[] 		ADMIN_BUTTONS_NAMES		= 		{"Add Customer","Edit Customer","Add Vehicle","Edit Vehicle","Add Duty Type","Edit Duty Type","Update"};
 	
 	public static  final String 		ADD_VEHICLE_BTN_STRING 				= 		"Add Vehicle";
 	public static  final String 		EDIT_VEHICLE_BTN_STRING 			= 		"Edit Vehicle";
@@ -39,6 +39,8 @@ public class SConstants
 	
 	public static  final String 		ADD_DUTY_TYPE_BTN_STRING 			= 		"Add Duty Type";
 	public static  final String 		EDIT_DUTY_TYPE_BTN_STRING 			= 		"Edit Duty Type";
+	
+	public static  final String 		UPDATE_BTN_STRING					= 		"Update";
 	
 	
 	// Home Page Button and its constants

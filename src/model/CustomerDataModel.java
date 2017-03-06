@@ -62,7 +62,7 @@ public class CustomerDataModel {
         vehicleTag.appendChild(newCustomerTag);
        updateXML();
 	}
-	public String[] getAllCustomers()
+	public String[] getAllCustomerNames()
 	{
 
     	List<String> values = new ArrayList<String>();
@@ -168,5 +168,35 @@ public class CustomerDataModel {
             }
             
         }
+	}
+	public List<Customer2> getAllCustomers()
+	{
+
+		List<Customer2> cList = new ArrayList<Customer2>();
+    	 try 
+    	 {
+    		 doc.getDocumentElement().normalize();
+       		 NodeList nList = doc.getElementsByTagName("Customer");
+       		 for (int temp = 0; temp < nList.getLength(); temp++)
+       		 {
+       			 Node nNode = nList.item(temp);
+
+       		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+       				{
+       		            Element eElement = (Element) nNode;
+       		            cList.add(new Customer2 (Integer.parseInt(eElement.getAttribute("uid")),eElement.getAttribute("cName"),eElement.getAttribute("cAdd"),
+       		            					eElement.getAttribute("cVCode"),
+       		            					eElement.getAttribute("cDept")
+       		            			));
+       		        }
+       		           
+       		 }
+       	}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+	    }
+		return cList;
+    
 	}
 }

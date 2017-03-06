@@ -128,7 +128,7 @@ public class DutyTypeDataModel
     		    }
 		return dutyType;
     }
-	public String[] getAllDutyTypes()
+	public String[] getAllDutyTypeStrings()
 	{
 
     	List<String> values = new ArrayList<String>();
@@ -308,5 +308,39 @@ public class DutyTypeDataModel
     		    }
 		return values.size();
     
+	}
+	public List<DutyType> getAllDutyTypes()
+	{
+		List<DutyType> dutyTypeList = new ArrayList<DutyType>();
+   	 try 
+   	 {
+   		 doc.getDocumentElement().normalize();
+   		 NodeList nList = doc.getElementsByTagName("DutyType");
+   		 for (int temp = 0; temp < nList.getLength(); temp++)
+   		 {
+   			 Node nNode = nList.item(temp);
+
+   		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+   				{
+   		            Element eElement = (Element) nNode;
+   		            dutyTypeList.add(new DutyType
+   		            		(
+   		            			Integer.parseInt(eElement.getAttribute("uid")),
+   		            			Integer.parseInt(eElement.getAttribute("hours")),
+	            					Integer.parseInt(eElement.getAttribute("km")),
+	            					Double.parseDouble(eElement.getAttribute("Rate")),
+	            					Double.parseDouble(eElement.getAttribute("eKmRate")),
+	            					eElement.getAttribute("cName"),
+	            					eElement.getAttribute("vName"))
+   		            		);
+   		         }
+   		           
+   		 }
+   	 }
+	catch (Exception e)
+	{
+		e.printStackTrace();
+    }
+		return dutyTypeList;
 	}
 }

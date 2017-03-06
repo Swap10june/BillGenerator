@@ -7,6 +7,8 @@ public class Vehicle {
 	private String vehicleName = null;
 	private String vehicleNumber = null;
 	private String customerName = null;
+	
+	
 	public Vehicle(int uid, String vehicleName,String customerName, String vNumber)
 	{
 		this.setUid(uid);

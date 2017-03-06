@@ -43,7 +43,7 @@ public class VehicleButtonHandler implements ActionListener {
 			if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty() || !txtVNo.getText().isEmpty())
 			{
 				VehicleDataModel model = new VehicleDataModel();
-				int uid = model.getAllVehicles().length;
+				int uid = model.getAllVehicleNames().length;
 				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText(),txtVNo.getText());
 				// TODO: add to db
 				model.addVehicle(vehicle);

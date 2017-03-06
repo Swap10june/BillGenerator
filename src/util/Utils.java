@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -115,40 +112,14 @@ public class Utils
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
 	}
-    public  ResultSet querySELECT(String Query) throws ClassNotFoundException, SQLException
-    {
-	  
-        System.out.println("Select query fired: "+Query);
-        ResultSet set=null;
-        Statement statement = DBConnection.getConnectionInstance().createStatement();
-        set=statement.executeQuery(Query.toUpperCase());
-        return set;     
-	
-    }
+    
     public void setComponenet(JComponent component, Map<String,JComponent> componenetMap)
 	{
 		component.setName(component.toString());
 		componenetMap.put(component.getName(), component);
 	}
 	
-	public ArrayList<String> getValueListForColumnName(String tableName,String colmnName)
-	{
-		try
-		{
-			ArrayList<String> list = new ArrayList<String>();
-			ResultSet set = querySELECT("select "+colmnName+" from "+tableName);
-			while(set.next())
-			{
-				list.add(set.getString(colmnName));
-			}
-			return list;
-			
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 	public String getFileExtension(File file)
 	{
 	    String name = file.getName();

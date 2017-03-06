@@ -48,7 +48,7 @@ public class EditDutyTypeUI extends JDialog
 		topPanel.setBounds(150, 30, 400, 100);
 		topPanel.setLayout(new GridLayout(2,2));
 		
-		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypes();
+		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypeStrings();
 		JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType", "Select Duty Type", dutyTypes, editDutyTypeUIComponent);
 		topPanel.add(panelDutyType);
 		@SuppressWarnings("unchecked")
@@ -87,7 +87,7 @@ public class EditDutyTypeUI extends JDialog
 		list.add(customer);
 		JTextField text = (JTextField) customer.getComponent(2);
 		
-		Utils.getUtilityInstance().applyIntelisense(text,owner,new CustomerDataModel().getAllCustomers());
+		Utils.getUtilityInstance().applyIntelisense(text,owner,new CustomerDataModel().getAllCustomerNames());
 		
 		
 		JPanel vehicle = templates.getLabelWithTextField("vehicle", "Select Vehicle", "Edit type", 10, false,editDutyTypeUIComponent);

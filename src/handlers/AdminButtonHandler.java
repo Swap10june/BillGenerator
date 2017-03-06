@@ -2,12 +2,23 @@ package handlers;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JDialog;
+
+import exceptions.PopupDialogs;
+import model.CustomerDataModel;
+import model.DutyTypeDataModel;
+import model.VehicleDataModel;
+import beans.Customer2;
+import beans.DutyType;
+import beans.Vehicle;
 import ui.AddCustomerUI;
 import ui.AddVehicleUI;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
 import ui.EditVehicleUI;
+import util.DBUtils;
 import util.SConstants;
 
 public class AdminButtonHandler implements ActionListener {
@@ -73,7 +84,24 @@ public class AdminButtonHandler implements ActionListener {
 			
 			break;*/
 			
-
+			case SConstants.UPDATE_BTN_STRING:
+			{
+				//updating vehicle
+				List<Vehicle> vehicleList = new VehicleDataModel().getAllVehicles();
+				new DBUtils().updateOrInsertVehicleIntoDB(vehicleList);
+				
+				//updating customer
+				List<Customer2> customerList = new CustomerDataModel().getAllCustomers();
+				new DBUtils().updateOrInsertCustomerIntoDB(customerList);
+				
+				//updating dutyType
+				List<DutyType> dutyTypeList = new DutyTypeDataModel().getAllDutyTypes();
+				new DBUtils().updateOrInsertDutyTypesIntoDB(dutyTypeList);
+				
+				new PopupDialogs("Updated Successfully", PopupDialogs.INFORMATION_MESSAGE);
+			}
+			
+			break;
 		default:
 			break;
 		}

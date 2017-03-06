@@ -60,7 +60,7 @@ public class VehicleDataModel {
         vehicleTag.appendChild(newVehicleTag);
        updateXML();
 	}
-	public String[] getAllVehicles()
+	public String[] getAllVehicleNames()
 	{
 
     	List<String> values = new ArrayList<String>();
@@ -161,5 +161,32 @@ public class VehicleDataModel {
             }
             
         }
+	}
+	public List<Vehicle> getAllVehicles()
+	{
+		List<Vehicle> vehicleList = new ArrayList<Vehicle>();
+		
+   	 try 
+   	 {
+   		 doc.getDocumentElement().normalize();
+   		 NodeList nList = doc.getElementsByTagName("Vehicle");
+   		 for (int temp = 0; temp < nList.getLength(); temp++)
+   		 {
+   			 Node nNode = nList.item(temp);
+
+   		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+   				{
+   		            Element eElement = (Element) nNode;
+   		            vehicleList.add(new Vehicle
+   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr")));
+   				}
+   		           
+   		 }
+    }
+	catch (Exception e)
+	{
+		e.printStackTrace();
+    }
+		return vehicleList;
 	}
 }

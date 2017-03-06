@@ -1,38 +1,22 @@
 package ui;
 
-import handlers.TelcoBillUIButtonHandler;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 
-import listners.TelcoBillComboItemListner;
-import model.CustomerDataModel;
-import model.DutyTypeDataModel;
-import model.TelcoBillDataModel;
-import model.VehicleDataModel;
-import util.SConstants;
-import util.Utils;
-import beans.BOM;
+public class GeneralBOM extends JDialog {
 
-public class TelcoBOM extends JDialog {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;/*
 
-
+	*//**
+	 * 
+	 *//*
+	public static final String UI_ID = "GeneralBOM"; 
 	private static final long serialVersionUID = 1L;
-	private static Map<String,Object> billGenerateUIComponentsMap;
+	private static Map<String,Object> generalBOMUIComponentsMap;
+	private Registry reg = SConstants.reg;
+	
 	Utils utility = Utils.getUtilityInstance();
 	
 	// Bill Component
@@ -47,14 +31,14 @@ public class TelcoBOM extends JDialog {
 	
 	public static Map<String, Object> getComponentMap()
 	{
-		return billGenerateUIComponentsMap;
+		return generalBOMUIComponentsMap;
 	}
 	private UITemplates templates = new UITemplates();
-	public TelcoBOM(JDialog owner, String talBillBtnString)
+	public GeneralBOM(JDialog owner,String winName)
 	{
 		super(owner);
-		billGenerateUIComponentsMap = new HashMap<String,Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,talBillBtnString);
+		generalBOMUIComponentsMap = new HashMap<String,Object>();
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,winName);
 		initUI(owner);
 		owner.setVisible(true);
 	}
@@ -78,19 +62,19 @@ public class TelcoBOM extends JDialog {
 		//8411989003
 		String billNo = "TAL "+String.valueOf(no)+":"+String.valueOf(dateYear)+"-"+String.valueOf(dateYear+1);
 		
-		final JPanel panelBillNo = templates.getLabelWithValueLabel("panelBillNo",SConstants.L_BILL_NO,billNo,billGenerateUIComponentsMap);
+		final JPanel panelBillNo = templates.getLabelWithLabel("panelBillNo",reg.getValueFor("L_BILL_NO"),billNo,generalBOMUIComponentsMap);
 		panelBillHeader.add(panelBillNo);
 		
-		final JPanel panelBillDate = templates.getLabelWithValueLabel("panelBillDate",SConstants.L_TEL_BILL_DTAE, SConstants.TODAYS_DATE,billGenerateUIComponentsMap);
+		final JPanel panelBillDate = templates.getLabelWithLabel("panelBillDate",reg.getValueFor("L_TEL_BILL_DTAE"), SConstants.TODAYS_DATE,generalBOMUIComponentsMap);
 		panelBillHeader.add(panelBillDate);
 		
-		final JPanel panelContactNumber = templates.getLabelWithValueLabel("panelContactNumber",SConstants.L_TEL_CONTACT_NO,SConstants.V_CLIENT_MOB1,billGenerateUIComponentsMap);
+		final JPanel panelContactNumber = templates.getLabelWithLabel("panelContactNumber",reg.getValueFor("L_TEL_CONTACT_NO"),reg.getValueFor("V_CLIENT_MOB1"),generalBOMUIComponentsMap);
 		panelBillHeader.add(panelContactNumber);
 		
-		final JPanel panelPanNumber = templates.getLabelWithValueLabel("panelPanNumber",SConstants.L_PAN_NO,SConstants.V_PAN_NO,billGenerateUIComponentsMap);
+		final JPanel panelPanNumber = templates.getLabelWithLabel("panelPanNumber",reg.getValueFor("L_PAN_NO"),reg.getValueFor("V_PAN_NO"),generalBOMUIComponentsMap);
 		panelBillHeader.add(panelPanNumber);
 		
-		final JPanel panelEmail = templates.getLabelWithValueLabel("panelEmail",SConstants.L_E_MAIl,SConstants.V_E_Mail,billGenerateUIComponentsMap);
+		final JPanel panelEmail = templates.getLabelWithLabel("panelEmail",reg.getValueFor("L_E_Mail"),reg.getValueFor("V_E_Mail"),generalBOMUIComponentsMap);
 		panelBillHeader.add(panelEmail);
 		
 		owner.add(panelBillHeader);
@@ -102,59 +86,59 @@ public class TelcoBOM extends JDialog {
 		panelLeftBody.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelLeftBody.setLayout(new GridLayout(14, 1));
 		
-		String [] vehicleList = new VehicleDataModel().getAllVehicleNames();
-		final JPanel panelVehicleType = templates.getLabelWithComboWOListner("panelVehicleType",SConstants.L_VEHICLE_TYPE,vehicleList,billGenerateUIComponentsMap);
+		String [] vehicleList = new VehicleDataModel().getAllVehicles();
+		final JPanel panelVehicleType = templates.getLabelWithComboWOListner("panelVehicleType",reg.getValueFor("L_Veh_Type"),UI_ID+reg.getValueFor("ID_Vehicle_TYPE_COMBO"),vehicleList,generalBOMUIComponentsMap);
 		panelLeftBody.add(panelVehicleType);
 		@SuppressWarnings("rawtypes")
 		JComboBox vehiCleType = (JComboBox) panelVehicleType.getComponent(2);
-		vehiCleType.addItemListener(new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_VEHICLE_TYPE));
+		vehiCleType.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_Vehicle_TYPE_COMBO"), true));
 		
 		
-		String [] customerList = new CustomerDataModel().getAllCustomerNames();
-		final JPanel panelTOCustomer = templates.getLabelWithComboWOListner("panelTOCustomer",SConstants.L_TO, customerList, billGenerateUIComponentsMap);
+		String [] customerList = new CustomerDataModel().getAllCustomers();
+		final JPanel panelTOCustomer = templates.getLabelWithComboWOListner("panelTOCustomer",reg.getValueFor("L_TO"),UI_ID+reg.getValueFor("ID_TO_CUSTOMER_COMBO"), customerList, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelTOCustomer);
 		
 		@SuppressWarnings("rawtypes")
 		JComboBox customerCombo = (JComboBox) panelTOCustomer.getComponent(2);
-		customerCombo.addItemListener(new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_CUSTOMER));
+		customerCombo.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_TO_CUSTOMER_COMBO"), true));
 		
 		
-		final JPanel panelDateOfTravels = templates.getLabelWithTextFieldDatePicker("panelDateOfTravels",SConstants.L_START_DATE,billGenerateUIComponentsMap);
+		final JPanel panelDateOfTravels = templates.getLabelWithTextFieldDatePicker("panelDateOfTravels",reg.getValueFor("L_Start_Date"),generalBOMUIComponentsMap);
 		panelLeftBody.add(panelDateOfTravels);
 		
-		final JPanel panelDateOfReturn = templates.getLabelWithTextFieldDatePicker("panelDateOfReturn",SConstants.L_RETRUN_DATE, billGenerateUIComponentsMap);
+		final JPanel panelDateOfReturn = templates.getLabelWithTextFieldDatePicker("panelDateOfReturn",reg.getValueFor("L_Return_Date"), generalBOMUIComponentsMap);
 		panelLeftBody.add(panelDateOfReturn);
 		
 		
-		final JPanel panelVehicleNumber = templates.getLabelWithTextField("panelVehicleNumber",SConstants.L_VEHICLE_NO,"Enter Vehicle Number here",15, false,billGenerateUIComponentsMap);
+		final JPanel panelVehicleNumber = templates.getLabelWithTextField("panelVehicleNumber",reg.getValueFor("L_Veh_Number"),"Enter Vehicle Number here",15, false,generalBOMUIComponentsMap);
 		panelLeftBody.add(panelVehicleNumber);
 		
-		final JPanel panelVendorNumber = templates.getLabelWithTextField("panelVendorNumber", SConstants.L_VENDOR_CODE,"Enter Vendor No here",15,false, billGenerateUIComponentsMap);
+		final JPanel panelVendorNumber = templates.getLabelWithTextField("panelVendorNumber", reg.getValueFor("L_Vendor_Code"),"Enter Vendor No here",15,false, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelVendorNumber);
 		
-		final JPanel panelEmployeeName = templates.getLabelWithTextField("panelEmployeeName",SConstants.L_EMP_NAME,"Enter Employee Name here",15,false, billGenerateUIComponentsMap);
+		final JPanel panelEmployeeName = templates.getLabelWithTextField("panelEmployeeName",reg.getValueFor("L_Emp_Name"),"Enter Employee Name here",15,false, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelEmployeeName);
 		
-		final JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",SConstants.L_START_KM,0,0,100000000,1, billGenerateUIComponentsMap);
+		final JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",reg.getValueFor("L_Start_KM"),0,0,100000000,1, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelStartKM);
 		
-		final JPanel panelEndKM = templates.getLabelWithIntSpinner("panelEndKM",SConstants.L_END_KM,0,0,100000000,1, billGenerateUIComponentsMap);
+		final JPanel panelEndKM = templates.getLabelWithIntSpinner("panelEndKM",reg.getValueFor("L_End_KM"),0,0,100000000,1, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelEndKM);
 		
-		final JPanel panelStartTime = templates.getLabelWithTimeSpinner("panelStartTime",SConstants.L_START_TIME, billGenerateUIComponentsMap);
+		final JPanel panelStartTime = templates.getLabelWithTimeSpinner("panelStartTime",reg.getValueFor("L_Start_Time"), generalBOMUIComponentsMap);
 		panelLeftBody.add(panelStartTime);
 		
-		final JPanel panelEndTime = templates.getLabelWithTimeSpinner("panelEndTime", SConstants.L_END_TIME, billGenerateUIComponentsMap);
+		final JPanel panelEndTime = templates.getLabelWithTimeSpinner("panelEndTime", reg.getValueFor("L_End_Time"), generalBOMUIComponentsMap);
 		panelLeftBody.add(panelEndTime);
 		
-		final JPanel panelTotalKM = templates.getLabelWithTextField("panelTotalKM",SConstants.L_TOTAL_KM,"0",11,true, billGenerateUIComponentsMap);
+		final JPanel panelTotalKM = templates.getLabelWithTextField("panelTotalKM",reg.getValueFor("L_Total_KM"),"0",11,true, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelTotalKM);
 		
-		final JPanel panelTollAmount = templates.getLabelWithTextField("panelTollAmount",SConstants.L_TOLL_AMOUNT, "0.0", 10,true, billGenerateUIComponentsMap);
+		final JPanel panelTollAmount = templates.getLabelWithTextField("panelTollAmount",reg.getValueFor("L_TOLL_AMOUNT"), "0.0", 10,true, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelTollAmount);
 		
 
-		final JPanel panelNightHaltAmount = templates.getLabelWithTextField("panelNightHaltAmount",  SConstants.L_NIGHT_HALT_AMOUNT, "0.0", 10,true, billGenerateUIComponentsMap);
+		final JPanel panelNightHaltAmount = templates.getLabelWithTextField("panelNightHaltAmount",  reg.getValueFor("L_NIGHT_HALT_AMOUNT"), "0.0", 10,true, generalBOMUIComponentsMap);
 		panelLeftBody.add(panelNightHaltAmount);
 		
 		owner.add(panelLeftBody);
@@ -173,13 +157,12 @@ public class TelcoBOM extends JDialog {
 		
 		String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(customerSelectionCombo.getSelectedItem().toString(),vehicleSelectionCombo.getSelectedItem().toString());
 		
-		final JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType",SConstants.L_DUTY_TYPE, dutyTypeArray, billGenerateUIComponentsMap);
-		@SuppressWarnings("unchecked")
-		JComboBox<String> comboDutyType = (JComboBox<String>) panelDutyType.getComponent(2);
-		comboDutyType.addItemListener(new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE));
-		comboDutyType.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		final JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType",reg.getValueFor("L_Duty_Type"),reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"), dutyTypeArray, generalBOMUIComponentsMap);
+		@SuppressWarnings("rawtypes")
+		JComboBox comboDutyType = (JComboBox) panelDutyType.getComponent(2);
+		comboDutyType.addItemListener(new TelcoBillComboItemListner(reg.getValueFor("ID_DUTY_TYPE_COMBO_ON_TELCO_BILL"),true));
 		panelMiddleBody.add(panelDutyType);
-		/*JTextField textTotalKm = (JTextField) panelTotalKM.getComponent(2);
+		JTextField textTotalKm = (JTextField) panelTotalKM.getComponent(2);
 		textTotalKm.addCaretListener(new CaretListener() {
 			
 			@Override
@@ -187,38 +170,38 @@ public class TelcoBOM extends JDialog {
 				panelMiddleBody.setVisible(true);
 				
 			}
-		});*/
+		});
 		
-		final JPanel panelTotalPkgKm = templates.getLabelWithEmptyLabel("panelTotalPkgKm",SConstants.L_TOTAL_PKG_KM, billGenerateUIComponentsMap);
+		final JPanel panelTotalPkgKm = templates.getLabelWithLabel("panelTotalPkgKm",reg.getValueFor("L_Total_PKG_KM"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelTotalPkgKm);
 		
-		final JPanel panelRate = templates.getLabelWithEmptyLabel("panelRate",SConstants.L_RATE, billGenerateUIComponentsMap);
+		final JPanel panelRate = templates.getLabelWithLabel("panelRate",reg.getValueFor("L_Rate"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelRate);
 		
-		final JPanel panelAmount = templates.getLabelWithEmptyLabel("panelAmount",SConstants.L_AMOUNT, billGenerateUIComponentsMap);
+		final JPanel panelAmount = templates.getLabelWithLabel("panelAmount",reg.getValueFor("L_Amount"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelAmount);
 		
-		final JPanel panelExtraKM = templates.getLabelWithEmptyLabel("panelExtraKM",SConstants.L_EXTRA_KM, billGenerateUIComponentsMap);
+		final JPanel panelExtraKM = templates.getLabelWithLabel("panelExtraKM",reg.getValueFor("L_Extra_KM"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelExtraKM);
 		
-		final JPanel panelTotalExtraKM = templates.getLabelWithEmptyLabel("panelTotalExtraKM",SConstants.L_TOTAL_EXTRA_KM, billGenerateUIComponentsMap);
+		final JPanel panelTotalExtraKM = templates.getLabelWithLabel("panelTotalExtraKM",reg.getValueFor("L_Total_Extra_KM"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelTotalExtraKM);
 		
-		final JPanel panelExtraKMRate = templates.getLabelWithEmptyLabel("panelExtraKMRate",SConstants.L_EXTRA_KM_RATE, billGenerateUIComponentsMap);
+		final JPanel panelExtraKMRate = templates.getLabelWithLabel("panelExtraKMRate",reg.getValueFor("L_Extra_KM_Rate"), "", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelExtraKMRate);
 		
-		final JPanel panelExtraKMAmount = templates.getLabelWithEmptyLabel("panelExtraKMAmount", SConstants.L_EXTRA_AMOUNT,billGenerateUIComponentsMap);
+		final JPanel panelExtraKMAmount = templates.getLabelWithLabel("panelExtraKMAmount", reg.getValueFor("L_Extra_Amount"),"", generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelExtraKMAmount);
 		
-		final JPanel panelServiceTax = templates.getLabelWithTextField("panelServiceTax", "Service Tax", "Zero", 15,true, billGenerateUIComponentsMap);
+		final JPanel panelServiceTax = templates.getLabelWithTextField("panelServiceTax", "Service Tax", "Zero", 15,true, generalBOMUIComponentsMap);
 		panelMiddleBody.add(panelServiceTax);
 		
-		JButton btnTotal = new JButton(SConstants.GET_TOTAL_BTN_STRING);
+		JButton btnTotal = new JButton(reg.getValueFor("V_TOTAL_BTN_STRING"));
 		btnTotal.setSize(btnDimension);
 		btnTotal.setBounds(525, 510	, 100, 30);
 		btnTotal.setEnabled(false);
 		owner.add(btnTotal);
-		billGenerateUIComponentsMap.put(SConstants.GET_TOTAL_BTN_STRING,btnTotal );
+		generalBOMUIComponentsMap.put("btnTotal",btnTotal );
 		btnTotal.addActionListener(new TelcoBillUIButtonHandler());
 		
 		owner.add(panelMiddleBody);
@@ -229,10 +212,10 @@ public class TelcoBOM extends JDialog {
 		panelGross.setBackground(Color.lightGray);
 		panelGross.setLayout(new GridLayout(2,1));
 		
-		final JPanel panelFinalAmount = templates.getLabelWithValueLabel("panelFinalAmount",SConstants.L_GROSS_AMOUNT, "0.0", billGenerateUIComponentsMap);
+		final JPanel panelFinalAmount = templates.getLabelWithLabel("panelFinalAmount",reg.getValueFor("L_GROSS_AMOUNT"), "0.0", generalBOMUIComponentsMap);
 		panelGross.add(panelFinalAmount);
 		
-		final JPanel panelAmountInWords = templates.getLabelWithValueLabel("panelAmountInWords",SConstants.L_AMOUNTS_IN_WORDS, "0.0", billGenerateUIComponentsMap);
+		final JPanel panelAmountInWords = templates.getLabelWithLabel("panelAmountInWords",reg.getValueFor("L_AMOUNTS_IN_WORDS"), "0.0", generalBOMUIComponentsMap);
 		panelGross.add(panelAmountInWords);
 		
 		
@@ -243,7 +226,7 @@ public class TelcoBOM extends JDialog {
 		panelBtns.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelBtns.setLayout(new GridLayout());
 		
-		final JPanel panelGenerateExcelCheck = templates.getLabelWithCheckBox("panelGenerateExcelCheck",SConstants.L_GENERATE_EXCEL_CHECK, billGenerateUIComponentsMap);
+		final JPanel panelGenerateExcelCheck = templates.getLabelWithCheckBox("panelGenerateExcelCheck",reg.getValueFor("L_GENERATE_EXCEL_CHECK"), generalBOMUIComponentsMap);
 		final JCheckBox generateBillCheck = (JCheckBox) panelGenerateExcelCheck.getComponent(2);
 		panelBtns.add(panelGenerateExcelCheck);
 		
@@ -252,7 +235,7 @@ public class TelcoBOM extends JDialog {
 		btnGenerate.setBounds(800, 300, 100, 30);
 		btnGenerate.setEnabled(false);
 		owner.add(btnGenerate);
-		billGenerateUIComponentsMap.put("btnGenerate",btnGenerate );
+		generalBOMUIComponentsMap.put("btnGenerate",btnGenerate );
 		btnGenerate.addActionListener(new ActionListener()
 		{
 			
@@ -295,8 +278,8 @@ public class TelcoBOM extends JDialog {
 					
 				}
 				//new Dao().addBill(bom);
-				new TelcoBillDataModel().addBillTransaction(bom);
-				billGenerateUIComponentsMap.remove("totalKM");
+				new TelcoBillDataModel().addTelcoBOM(bom);
+				generalBOMUIComponentsMap.remove("totalKM");
 				owner.dispose();
 			}
 		});
@@ -311,53 +294,53 @@ public class TelcoBOM extends JDialog {
 	public void setLblBillNoValue(String lblBillNoValue) {
 		this.lblBillNoValue = lblBillNoValue;
 	}
-	/**
+	*//**
 	 * @return the lblMobNoValue
-	 */
+	 *//*
 	public String getLblMobNoValue() {
 		return lblMobNoValue;
 	}
-	/**
+	*//**
 	 * @param lblMobNoValue the lblMobNoValue to set
-	 */
+	 *//*
 	public void setLblMobNoValue(String lblMobNoValue) {
 		this.lblMobNoValue = lblMobNoValue;
 	}
-	/**
+	*//**
 	 * @return the lblPanNoValue
-	 */
+	 *//*
 	public String getLblPanNoValue()
 	{
 		return lblPanNoValue;
 	}
-	/**
+	*//**
 	 * @param lblPanNoValue the lblPanNoValue to set
-	 */
+	 *//*
 	public void setLblPanNoValue(String lblPanNoValue) {
 		this.lblPanNoValue = lblPanNoValue;
 	}
-	/**
+	*//**
 	 * @return the lblEmailValue
-	 */
+	 *//*
 	public String getLblEmailValue() {
 		return lblEmailValue;
 	}
-	/**
+	*//**
 	 * @param lblEmailValue the lblEmailValue to set
-	 */
+	 *//*
 	public void setLblEmailValue(String lblEmailValue) {
 		this.lblEmailValue = lblEmailValue;
 	}
-	/**
+	*//**
 	 * @return the lblBillDateValue
-	 */
+	 *//*
 	public String getLblBillDateValue() {
 		return lblBillDateValue;
 	}
-	/**
+	*//**
 	 * @param lblBillDateValue the lblBillDateValue to set
-	 */
+	 *//*
 	public void setLblBillDateValue(String lblBillDateValue) {
 		this.lblBillDateValue = lblBillDateValue;
 	}
-}
+*/}

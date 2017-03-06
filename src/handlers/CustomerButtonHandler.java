@@ -44,7 +44,7 @@ public class CustomerButtonHandler implements ActionListener {
 			if(!txtCName.getText().isEmpty()|| !txtCAdd.getText().isEmpty() ||!txtCVCode.getText().isEmpty() || !txtCDept.getText().isEmpty())
 			{
 				CustomerDataModel model = new CustomerDataModel();
-				int uid = model.getAllCustomers().length;
+				int uid = model.getAllCustomerNames().length;
 				Customer2 customer = new Customer2((uid+1),txtCName.getText(), txtCAdd.getText(),txtCVCode.getText(),txtCDept.getText());
 				// TODO: add to db
 				model.addCustomer(customer);

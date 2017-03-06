@@ -63,12 +63,12 @@ public class AddDutyTypeUI extends JDialog
 		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", 10, true,addDutyTypeUIComponent);
 		bodyRightPanel.add(enterExtraKmRate);
 		
-		String [] customerList = new CustomerDataModel().getAllCustomers();
+		String [] customerList = new CustomerDataModel().getAllCustomerNames();
 		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", SConstants.ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO,customerList, addDutyTypeUIComponent);
 		bodyRightPanel.add(panelCustomer);
 		
 		
-		String [] vehicleList = new VehicleDataModel().getAllVehicles();
+		String [] vehicleList = new VehicleDataModel().getAllVehicleNames();
 		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle	",SConstants.ID_VEHICLE_SELECT_DUTY_TYPE_COMBO, vehicleList, addDutyTypeUIComponent);
 		bodyRightPanel.add(panelVehicle);
 		

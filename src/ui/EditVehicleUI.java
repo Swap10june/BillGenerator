@@ -58,7 +58,7 @@ public class EditVehicleUI extends JDialog
 		bodyLeftPanel.setBounds(10, 30, 500, 200);
 		bodyLeftPanel.setLayout(new GridLayout(3, 2));
 		setModel(new VehicleDataModel());
-		String [] vehicleList = getModel().getAllVehicles();
+		String [] vehicleList = getModel().getAllVehicleNames();
 		
 		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle", vehicleList, editVehicleUIComponent);
 		bodyLeftPanel.add(panelSelectVehicle);
