@@ -49,14 +49,17 @@ public class EditCustomer extends JDialog
 	
 	private void initUI(final JDialog owner) 
 	{
-		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 500, 200);
-		bodyLeftPanel.setLayout(new GridLayout(3, 2));
+		
 		setModel(new CustomerDataModel());
 		String [] customerList = getModel().getAllCustomerNames();
 		
+		JPanel topPanel  = new JPanel();
+		topPanel.setBounds(150, 30, 600, 100);
+		topPanel.setLayout(new GridLayout(2,2));
+		
 		JPanel panelSelectCustomer = templates.getLabelWithComboWOListner("panelSelectCustomer", "Select Customer", customerList, editCustomerUIComponent);
-		bodyLeftPanel.add(panelSelectCustomer);
+		topPanel.add(panelSelectCustomer);
+		owner.add(topPanel);
 		@SuppressWarnings("unchecked")
 		final JComboBox<String> comboEditCustomer= (JComboBox<String>) panelSelectCustomer.getComponent(2);
 		comboEditCustomer.addItemListener(new ItemListener()
@@ -96,6 +99,15 @@ public class EditCustomer extends JDialog
 				
 			}
 		});
+		
+		
+		
+		JPanel bodyLeftPanel = new JPanel();
+		bodyLeftPanel.setBounds(0, 120, 600, 150);
+		bodyLeftPanel.setLayout(new GridLayout(2, 4));
+		
+		
+		
 		
 		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Enter Customer Name here", 10, false, editCustomerUIComponent);
 		bodyLeftPanel.add(enterCustomerName);

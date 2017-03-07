@@ -43,7 +43,7 @@ public class AddDutyTypeUI extends JDialog
 	private void initUI(JDialog owner)
 	{
 		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 280, 200);
+		bodyLeftPanel.setBounds(10, 30, 300, 200);
 		bodyLeftPanel.setLayout(new GridLayout(3, 1));
 		//bodyLeftPanel.setBackground(Color.cyan);
 		JPanel enterHours = templates.getLabelWithTextField("enterHours", "Enter Hrs.", "Enter Hours Here", 10,true, addDutyTypeUIComponent);

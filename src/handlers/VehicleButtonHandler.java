@@ -75,8 +75,9 @@ public class VehicleButtonHandler implements ActionListener {
 			String vNoValue = vNo.getText();
 			
 			JPanel enterCustomerName = (JPanel) compoMap.get("enterCustomerName");
-			JTextField cName = (JTextField) enterCustomerName.getComponent(2);
-			String cNameValue = cName.getText();
+			@SuppressWarnings("unchecked")
+			JComboBox<String> cName = (JComboBox<String>) enterCustomerName.getComponent(2);
+			String cNameValue = cName.getSelectedItem().toString();
 			
 			
 			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue);

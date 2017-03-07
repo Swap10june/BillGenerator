@@ -17,7 +17,7 @@ import ui.AddCustomer;
 import ui.AddVehicleUI;
 import ui.AddDutyTypeUI;
 import ui.EditCustomer;
-import ui.EditDutyTypeUI;
+import ui.EditDutyType;
 import ui.EditVehicleUI;
 import util.Dao;
 import util.SConstants;
@@ -65,7 +65,7 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.EDIT_DUTY_TYPE_BTN_STRING:
 			{
-				new EditDutyTypeUI(new javax.swing.JDialog(),SConstants.EDIT_DUTY_TYPE_BTN_STRING);
+				new EditDutyType(new javax.swing.JDialog(),SConstants.EDIT_DUTY_TYPE_BTN_STRING);
 			}
 			
 			break;

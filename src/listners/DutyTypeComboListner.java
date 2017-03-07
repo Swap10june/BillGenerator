@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.DutyTypeDataModel;
-import ui.EditDutyTypeUI;
+import ui.EditDutyType;
 import util.SConstants;
 import beans.DutyType;
 
@@ -29,11 +29,11 @@ public class DutyTypeComboListner implements ItemListener
 	{
 		if(comboId.equalsIgnoreCase(SConstants.COMBO_EDIT_DUTY_TYPE_SELCT_DUTY_TYPE))
 		{
-			Map<String, Object> map = EditDutyTypeUI.getEditDutyTypeUIComponent();
+			Map<String, Object> map = EditDutyType.getEditDutyTypeUIComponent();
 			JPanel panelCombo = (JPanel) map.get("panelDutyType");
 			@SuppressWarnings("rawtypes")
 			JComboBox comboDutyType = (JComboBox) panelCombo.getComponent(2);
-			List<Object> pnelList = EditDutyTypeUI.getList();
+			List<Object> pnelList = EditDutyType.getList();
 			DutyType dutyType = new DutyTypeDataModel().getDutyType(comboDutyType.getSelectedItem().toString());
 			for (int i = 0; i < pnelList.size(); i++)
 			{
@@ -59,12 +59,14 @@ public class DutyTypeComboListner implements ItemListener
 			textExtraKmRate.setText(String.valueOf(dutyType.getExtraKmRate()));
 			
 			JPanel customer = (JPanel) map.get("customer");
-			JTextField textCustomer = (JTextField) customer.getComponent(2);
-			textCustomer.setText(String.valueOf(dutyType.getCustomerName()));
+			@SuppressWarnings("unchecked")
+			JComboBox<String> textCustomer = (JComboBox<String>) customer.getComponent(2);
+			textCustomer.setSelectedItem(String.valueOf(dutyType.getCustomerName()));
 			
 			JPanel vehicle = (JPanel) map.get("vehicle");
-			JTextField textVehicle = (JTextField) vehicle.getComponent(2);
-			textVehicle.setText(String.valueOf(dutyType.getVehicleType()));
+			@SuppressWarnings("unchecked")
+			JComboBox<String> textVehicle = (JComboBox<String>) vehicle.getComponent(2);
+			textVehicle.setSelectedItem(String.valueOf(dutyType.getVehicleType()));
 		}
 	}
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <Customers>
 <Customer cAdd="Pune" cDept="EnTC" cName="TAL" cVCode="ABC-123" suid="TAL" uid="1"/>
-<Customer cAdd="Mumbai" cDept="Mechanical" cName="Mahindra" cVCode="SDR-256" suid="Mahindra" uid="2"/>
+<Customer cAdd="Mumbai" cDept="Mechanical" cName="Mahindra" cVCode="SDR-257" sUid="Mahindra" suid="Mahindra" uid="2"/>
 <Customer cAdd="Bhosri" cDept="IT" cName="UIT" cVCode="UIT-1112" sUid="UIT" suid="UIT" uid="3"/>
 </Customers>

@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import beans.Vehicle;
+import model.CustomerDataModel;
 import model.VehicleDataModel;
 import util.SConstants;
 import util.Utils;
@@ -29,10 +30,6 @@ public class EditVehicleUI extends JDialog
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
-	public static final String UI_ID = "EditVehicleUI"; 
 	private static Map<String, Object> editVehicleUIComponent ;
 	private UITemplates templates = new UITemplates();
 	private static VehicleDataModel model = null;
@@ -54,14 +51,15 @@ public class EditVehicleUI extends JDialog
 	
 	private void initUI(final JDialog owner) 
 	{
-		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 500, 200);
-		bodyLeftPanel.setLayout(new GridLayout(3, 2));
 		setModel(new VehicleDataModel());
-		String [] vehicleList = getModel().getAllVehicleNames();
+		JPanel topPanel  = new JPanel();
+		topPanel.setBounds(150, 30, 600, 100);
+		topPanel.setLayout(new GridLayout(2,2));
 		
+		String [] vehicleList = getModel().getAllVehicleNames();
 		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle", vehicleList, editVehicleUIComponent);
-		bodyLeftPanel.add(panelSelectVehicle);
+		topPanel.add(panelSelectVehicle);
+		owner.add(topPanel);
 		@SuppressWarnings("unchecked")
 		final JComboBox<String> comboEditVehicle= (JComboBox<String>) panelSelectVehicle.getComponent(2);
 		comboEditVehicle.addItemListener(new ItemListener()
@@ -91,12 +89,18 @@ public class EditVehicleUI extends JDialog
 				vNo.setText(vehicle.getVehicleNumber());
 				
 				JPanel enterCustomerName = (JPanel) editVehicleUIComponent.get("enterCustomerName");
-				JTextField cname = (JTextField) enterCustomerName.getComponent(2);
-				cname.setText(vehicle.getCustomerName());
+				@SuppressWarnings("unchecked")
+				JComboBox<String> cname = (JComboBox<String>) enterCustomerName.getComponent(2);
+				cname.setSelectedItem(vehicle.getCustomerName().toString());
 				
 				
 			}
 		});
+		
+		JPanel bodyLeftPanel = new JPanel();
+		bodyLeftPanel.setBounds(10, 120, 600, 150);
+		bodyLeftPanel.setLayout(new GridLayout(2, 4));
+		
 		
 		JPanel enterVehicleName = templates .getLabelWithTextField("enterVehicleName", "Enter Vehicle Name", "Edit Name Here", 10,false, editVehicleUIComponent);
 		bodyLeftPanel.add(enterVehicleName);
@@ -108,7 +112,12 @@ public class EditVehicleUI extends JDialog
 		enterVNumber.setVisible(false);
 		list.add(enterVNumber);
 		
-		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Edit Name Here",10,false, editVehicleUIComponent);
+		/*JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Edit Name Here",10,false, editVehicleUIComponent);
+		bodyLeftPanel.add(enterCustomerName);
+		enterCustomerName.setVisible(false);
+		list.add(enterCustomerName);*/
+		String [] customers = new CustomerDataModel().getAllCustomerNames();
+		JPanel enterCustomerName  = templates.getLabelWithComboWOListner("enterCustomerName", "Select Customer", customers, editVehicleUIComponent);
 		bodyLeftPanel.add(enterCustomerName);
 		enterCustomerName.setVisible(false);
 		list.add(enterCustomerName);
