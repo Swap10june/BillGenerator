@@ -81,7 +81,7 @@ public class VehicleButtonHandler implements ActionListener {
 			
 			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue);
 			EditVehicleUI.getModel().updateAttributeValue(newVehicle);
-			new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
+			new PopupDialogs("Vehicle Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();
 		}
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.CANCEL_BTN_STRING))

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,7 +12,8 @@ import javax.swing.JTextField;
 import beans.Customer2;
 import model.CustomerDataModel;
 import exceptions.PopupDialogs;
-import ui.AddCustomerUI;
+import ui.AddCustomer;
+import ui.EditCustomer;
 import util.SConstants;
 
 public class CustomerButtonHandler implements ActionListener {
@@ -28,7 +30,7 @@ public class CustomerButtonHandler implements ActionListener {
 
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.ADD_BTN_STRING))
 		{
-			Map<String, Object> compMap = AddCustomerUI.getAddCustomerUIComponentMap();
+			Map<String, Object> compMap = AddCustomer.getAddCustomerUIComponentMap();
 			
 			JPanel enterCustomerName =  (JPanel) compMap.get("enterCustomerName");
 			final JTextField txtCName = (JTextField) enterCustomerName.getComponent(2);
@@ -56,7 +58,40 @@ public class CustomerButtonHandler implements ActionListener {
 				new PopupDialogs("Please fill all the fields", PopupDialogs.ERROR_MESSAGE);
 			}
 		}
+		if(event.getActionCommand().equalsIgnoreCase(SConstants.EDIT_BTN_STRING))
+		{
+			Map<String, Object> compoMap = EditCustomer.getEditCustomerUIComponent();
+			
+			JPanel panelSelectCustomer = (JPanel) compoMap.get("panelSelectCustomer");
+			@SuppressWarnings("unchecked")
+			JComboBox<String> comboEditCustomer  = (JComboBox<String>) panelSelectCustomer.getComponent(2);
+			
+			Customer2 oldCustomer = EditCustomer.getModel().getCustomer(comboEditCustomer.getSelectedItem().toString());
+			
+			JPanel enterCustomerName = (JPanel) compoMap.get("enterCustomerName");
+			JTextField cNameText = (JTextField) enterCustomerName.getComponent(2);
+			String cName = cNameText.getText();
+			
+			
+			JPanel enterAddress = (JPanel) compoMap.get("enterAddress");
+			JTextField cAddText = (JTextField) enterAddress.getComponent(2);
+			String cAdd = cAddText.getText();
+			
+			JPanel enterVendorCode = (JPanel) compoMap.get("enterVendorCode");
+			JTextField cVCodeText = (JTextField) enterVendorCode.getComponent(2);
+			String cVCode = cVCodeText.getText();
+			
+			JPanel cDeptPanel = (JPanel) compoMap.get("cDeptPanel");
+			JTextField cDeptText = (JTextField) cDeptPanel.getComponent(2);
+			String cDept = cDeptText.getText();
 		
+			
+			
+			Customer2 customer = new Customer2(oldCustomer.getUid(), cName, cAdd, cVCode, cDept);
+			EditCustomer.getModel().updateAttributeValue(customer);
+			new PopupDialogs("Customer Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
+			parent.dispose();
+		}
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.CANCEL_BTN_STRING))
 		{
 			parent.dispose();

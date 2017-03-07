@@ -13,12 +13,13 @@ import model.VehicleDataModel;
 import beans.Customer2;
 import beans.DutyType;
 import beans.Vehicle;
-import ui.AddCustomerUI;
+import ui.AddCustomer;
 import ui.AddVehicleUI;
 import ui.AddDutyTypeUI;
+import ui.EditCustomer;
 import ui.EditDutyTypeUI;
 import ui.EditVehicleUI;
-import util.DBUtils;
+import util.Dao;
 import util.SConstants;
 
 public class AdminButtonHandler implements ActionListener {
@@ -34,13 +35,13 @@ public class AdminButtonHandler implements ActionListener {
 		{
 			case SConstants.ADD_CUSTOMER_BTN_STRING:
 			{
-				new AddCustomerUI(new javax.swing.JDialog(),SConstants.ADD_CUSTOMER_BTN_STRING);
+				new AddCustomer(new javax.swing.JDialog(),SConstants.ADD_CUSTOMER_BTN_STRING);
 			}
 			
 			break;
 			case SConstants.EDIT_CUSTOMER_BTN_STRING:
 			{
-				//new CustomerProfileUI(new javax.swing.JDialog(),"Edit");
+				new EditCustomer(new javax.swing.JDialog(), SConstants.EDIT_CUSTOMER_BTN_STRING);
 			}
 			
 			break;
@@ -86,17 +87,18 @@ public class AdminButtonHandler implements ActionListener {
 			
 			case SConstants.UPDATE_BTN_STRING:
 			{
+				Dao daoObect = new Dao();
 				//updating vehicle
 				List<Vehicle> vehicleList = new VehicleDataModel().getAllVehicles();
-				new DBUtils().updateOrInsertVehicleIntoDB(vehicleList);
+				daoObect.updateOrInsertVehicleIntoDB(vehicleList);
 				
 				//updating customer
 				List<Customer2> customerList = new CustomerDataModel().getAllCustomers();
-				new DBUtils().updateOrInsertCustomerIntoDB(customerList);
+				daoObect.updateOrInsertCustomerIntoDB(customerList);
 				
 				//updating dutyType
 				List<DutyType> dutyTypeList = new DutyTypeDataModel().getAllDutyTypes();
-				new DBUtils().updateOrInsertDutyTypesIntoDB(dutyTypeList);
+				daoObect.updateOrInsertDutyTypesIntoDB(dutyTypeList);
 				
 				new PopupDialogs("Updated Successfully", PopupDialogs.INFORMATION_MESSAGE);
 			}

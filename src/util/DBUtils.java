@@ -1,21 +1,9 @@
 package util;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import beans.Customer2;
-import beans.DutyType;
-import beans.Vehicle;
-
 public class DBUtils 
 {
 
-	Dao dao = new Dao();
+	/*Dao dao = new Dao();
     public  ResultSet querySELECT(String Query) throws ClassNotFoundException, SQLException
     {
       
@@ -148,5 +136,5 @@ public class DBUtils
 		}
 		return uids;
 	}
-
+*/
 }

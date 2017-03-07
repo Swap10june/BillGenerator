@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import model.DutyTypeDataModel;
 import ui.AddDutyTypeUI;
 import ui.EditDutyTypeUI;
+import util.Dao;
 import util.SConstants;
 import beans.DutyType;
 import exceptions.PopupDialogs;
@@ -67,7 +68,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 				DutyType dutyType = new DutyType((uid+1),Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName);
 				//new Dao().addDutyType(dutyType);
 				model.addDutyType(dutyType);
-				new PopupDialogs("Duty Type Added Successfully",PopupDialogs.PLAIN_MESSAGE);
+				new PopupDialogs("DutyType Added Successfully",PopupDialogs.PLAIN_MESSAGE);
 				parent .dispose();
 			}
 			
@@ -109,7 +110,8 @@ public class DutyTypeButtonHandler implements ActionListener {
 			DutyType newDutyType = new DutyType(dutyType.getUid(), hours, km, rate, extraKmRate, cName, vName);
 			DutyTypeDataModel objDutyTypeDataModel = new DutyTypeDataModel();
 			objDutyTypeDataModel.updateAttributeValue(newDutyType);
-			new PopupDialogs("Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
+			new Dao().editDutyType(newDutyType);
+			new PopupDialogs("DutyType Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();
 		}
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.CANCEL_BTN_STRING))

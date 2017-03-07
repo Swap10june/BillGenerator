@@ -23,7 +23,6 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import beans.Customer2;
-import beans.Vehicle;
 
 public class CustomerDataModel {
 
@@ -144,25 +143,27 @@ public class CustomerDataModel {
    		    }
 		return customer2;
 	}
-	public void updateAttributeValue(Vehicle newVehicle)
+	public void updateAttributeValue(Customer2 newCustomer)
 	{
-		NodeList vehicleTags = doc.getElementsByTagName("Vehicle");
+		NodeList customerTags = doc.getElementsByTagName("Customer");
         Element tag = null;
         //loop for each employee
-        for(int i=0; i<vehicleTags.getLength();i++)
+        for(int i=0; i<customerTags.getLength();i++)
         {
-            tag = (Element) vehicleTags.item(i);
+            tag = (Element) customerTags.item(i);
             NamedNodeMap abc = tag.getAttributes();
             Node s = abc.getNamedItem("uid");
-            if(s!=null &&s.getNodeValue().equalsIgnoreCase(String.valueOf(newVehicle.getUid())))
+            if(s!=null &&s.getNodeValue().equalsIgnoreCase(String.valueOf(newCustomer.getUid())))
             {
             	/*for (Map.Entry<String, String> entry : values.entrySet())
             	{*/
             	    //System.out.println(entry.getKey() + "/" + entry.getValue());
-            	    tag.setAttribute("uid",String.valueOf(newVehicle.getUid()));
-            	    tag.setAttribute("sUid",String.valueOf(newVehicle.getStringUID()));
-            	    tag.setAttribute("cName",newVehicle.getCustomerName());
-            	    tag.setAttribute("vName",newVehicle.getVehicleName());
+            	    tag.setAttribute("uid",String.valueOf(newCustomer.getUid()));
+            	    tag.setAttribute("sUid",String.valueOf(newCustomer.getSuid()));
+            	    tag.setAttribute("cName",newCustomer.getcName());
+            	    tag.setAttribute("cAdd",newCustomer.getcAddress());
+            	    tag.setAttribute("cVCode",newCustomer.getcVendorCode());
+            	    tag.setAttribute("cDept",newCustomer.getCustomerDepartmentName());
             	//}
             	updateXML();
             }

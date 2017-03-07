@@ -2,5 +2,5 @@
 <Customers>
 <Customer cAdd="Pune" cDept="EnTC" cName="TAL" cVCode="ABC-123" suid="TAL" uid="1"/>
 <Customer cAdd="Mumbai" cDept="Mechanical" cName="Mahindra" cVCode="SDR-256" suid="Mahindra" uid="2"/>
-<Customer cAdd="Bhosri" cDept="IT" cName="UIT" cVCode="UIT-111" suid="UIT" uid="3"/>
+<Customer cAdd="Bhosri" cDept="IT" cName="UIT" cVCode="UIT-1112" sUid="UIT" suid="UIT" uid="3"/>
 </Customers>

@@ -12,18 +12,17 @@ import javax.swing.JPanel;
 import util.SConstants;
 import util.Utils;
 
-public class AddCustomerUI extends JDialog
+public class AddCustomer extends JDialog
 {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String UI_ID = "AddCustomerUI"; 
 	private UITemplates templates = new UITemplates();
 	private static Map<String, Object> addCustomerUIComponentMap;
 	
-	public AddCustomerUI(JDialog owner, String windowName)
+	public AddCustomer(JDialog owner, String windowName)
 	{
 		super(owner);
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,windowName);
@@ -70,7 +69,7 @@ public class AddCustomerUI extends JDialog
 	}
 	public void setAddCustomerUIComponentMap(
 			Map<String, Object> addCustomerUIComponentMap) {
-		AddCustomerUI.addCustomerUIComponentMap = addCustomerUIComponentMap;
+		AddCustomer.addCustomerUIComponentMap = addCustomerUIComponentMap;
 	}
 	
 }
