@@ -22,7 +22,7 @@ public class Dao
 	private static String ADD_DUTY_TYPE = "insert into SDUTYTYPE values(?,?,?,?,?,?,?,?,?)";
 	private static String ADD_CUSTOMER ="insert into SCUSTOMER values(?,?,?,?,?,?)";
 	private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
-	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?)";
+	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?)";
 	private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
 	private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";
 	private static String GET_VEHICLE_LIST ="select DISTINCT VEHICLE_TYPE FROM RATES where CUSTOMER=?;";
@@ -110,6 +110,8 @@ public class Dao
 			pStmtDao.setString(3,vehicle.getVehicleName());
 			pStmtDao.setString(4,vehicle.getCustomerName());
 			pStmtDao.setString(5,vehicle.getVehicleNumber());
+			pStmtDao.setString(6,vehicle.getMonthlyRate());
+			pStmtDao.setString(7,vehicle.getExtraKmRate());
 			pStmtDao.executeUpdate();
 			pStmtDao.close();
 			
@@ -256,6 +258,40 @@ public void addDutyType(DutyType dutyType)
 			e.printStackTrace();
 		}
 	}
+	public void editCustomer(Customer2 customer)
+	{
+		removeCustomerFromDB(String.valueOf(customer.getUid()));
+		addCustomers(customer);
+	}
+	private void removeCustomerFromDB(String cuid)
+	{
+		try
+		{
+			String Query = "delete from SCUSTOMER where CUID='"+cuid+"'";
+			System.out.println("delete query fired: "+Query);
+			DBConnection.getConnectionInstance().createStatement().executeQuery(Query.toUpperCase());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void editVehicle(Vehicle vehicle)
+	{
+		removeVehicleFromDB(String.valueOf(vehicle.getUid()));
+		addVehicles(vehicle);
+	}
+	private void removeVehicleFromDB(String vuid)
+	{
+		try
+		{
+			String Query = "delete from SVEHICLE where VUID='"+vuid+"'";
+			System.out.println("delete query fired: "+Query);
+			DBConnection.getConnectionInstance().createStatement().executeQuery(Query.toUpperCase());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	private  ResultSet querySELECT(String Query) throws ClassNotFoundException, SQLException
     {
       
@@ -295,7 +331,7 @@ public void addDutyType(DutyType dutyType)
     		{
 				uids.put(
 						rSet.getString("VUID"),
-						new Vehicle(Integer.parseInt(rSet.getString("VUID")), rSet.getString("VEHICLENAME"), rSet.getString("CUSTOMERNAME"), rSet.getString("VEHICLENUMBER")));
+						new Vehicle(Integer.parseInt(rSet.getString("VUID")), rSet.getString("VEHICLENAME"), rSet.getString("CUSTOMERNAME"), rSet.getString("VEHICLENUMBER"),rSet.getString("MRATE"),rSet.getString("EXKMRATE")));
     		}
 			
 		} catch (ClassNotFoundException |SQLException e)

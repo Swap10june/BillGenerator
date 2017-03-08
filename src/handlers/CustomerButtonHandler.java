@@ -14,6 +14,7 @@ import model.CustomerDataModel;
 import exceptions.PopupDialogs;
 import ui.AddCustomer;
 import ui.EditCustomer;
+import util.Dao;
 import util.SConstants;
 
 public class CustomerButtonHandler implements ActionListener {
@@ -85,10 +86,9 @@ public class CustomerButtonHandler implements ActionListener {
 			JTextField cDeptText = (JTextField) cDeptPanel.getComponent(2);
 			String cDept = cDeptText.getText();
 		
-			
-			
 			Customer2 customer = new Customer2(oldCustomer.getUid(), cName, cAdd, cVCode, cDept);
 			EditCustomer.getModel().updateAttributeValue(customer);
+			new Dao().editCustomer(customer);
 			new PopupDialogs("Customer Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();
 		}

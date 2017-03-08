@@ -51,6 +51,13 @@ public class AddVehicleUI extends JDialog
 		bodyPanel.add(enterCustomerName);
 		
 		
+		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate", 10, true, addVehicleUIComponentMap);
+		bodyPanel.add(enterMonthlyRate);
+		
+		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Extra Km Rate", "Enter Extra Km Rate", 0, true, addVehicleUIComponentMap);
+		bodyPanel.add(enterExKmRate);
+		
+		
 		JButton btnLogin = new JButton(SConstants.ADD_BTN_STRING);
 		btnLogin.setBounds(150, 200, 100, 30);
 		btnLogin.addActionListener(new VehicleButtonHandler(owner));

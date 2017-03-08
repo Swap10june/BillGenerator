@@ -57,6 +57,8 @@ public class VehicleDataModel {
         newVehicleTag.setAttribute("uid",String.valueOf(vehicle.getUid()));
         newVehicleTag.setAttribute("sUid", vehicle.getStringUID());
         newVehicleTag.setAttribute("cName",vehicle.getCustomerName());
+        newVehicleTag.setAttribute("mRate",vehicle.getMonthlyRate());
+        newVehicleTag.setAttribute("eKmRate",vehicle.getExtraKmRate());
         vehicleTag.appendChild(newVehicleTag);
        updateXML();
 	}
@@ -124,7 +126,7 @@ public class VehicleDataModel {
    		            if(eElement.getAttribute("sUid").equalsIgnoreCase(suid))
    		            {
    		            	vehicle = new Vehicle
-   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr"));
+   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr"),eElement.getAttribute("mRate"),eElement.getAttribute("eKmRate"));
    		            }
    		           
    		        }
@@ -156,6 +158,8 @@ public class VehicleDataModel {
             	    tag.setAttribute("cName",newVehicle.getCustomerName());
             	    tag.setAttribute("vName",newVehicle.getVehicleName());
             	    tag.setAttribute("vNbr",newVehicle.getVehicleNumber());
+            	    tag.setAttribute("mRate", newVehicle.getMonthlyRate());
+            	    tag.setAttribute("eKmRate", newVehicle.getExtraKmRate());
             	//}
             	updateXML();
             }
@@ -178,7 +182,7 @@ public class VehicleDataModel {
    				{
    		            Element eElement = (Element) nNode;
    		            vehicleList.add(new Vehicle
-   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr")));
+   		            			(Integer.parseInt(eElement.getAttribute("uid")), eElement.getAttribute("vName"),eElement.getAttribute("cName"),eElement.getAttribute("vNbr"),eElement.getAttribute("mRate"),eElement.getAttribute("eKmRate")));
    				}
    		           
    		 }

@@ -14,6 +14,7 @@ import beans.Vehicle;
 import model.VehicleDataModel;
 import ui.AddVehicleUI;
 import ui.EditVehicleUI;
+import util.Dao;
 import util.SConstants;
 
 public class VehicleButtonHandler implements ActionListener {
@@ -40,11 +41,18 @@ public class VehicleButtonHandler implements ActionListener {
 			JPanel enterCustomerName =  (JPanel) compMap.get("enterCustomerName");
 			final JTextField txtCName = (JTextField) enterCustomerName.getComponent(2);
 			
-			if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty() || !txtVNo.getText().isEmpty())
+			JPanel enterMonthlyRate =  (JPanel) compMap.get("enterMonthlyRate");
+			final JTextField txtMRate = (JTextField) enterMonthlyRate.getComponent(2);
+			
+			
+			JPanel enterExKmRate =  (JPanel) compMap.get("enterExKmRate");
+			final JTextField txtExKmRate = (JTextField) enterExKmRate.getComponent(2);
+			
+			if(!txtVName.getText().isEmpty()|| !txtCName.getText().isEmpty() || !txtVNo.getText().isEmpty() ||!txtMRate.getText().isEmpty() ||!txtExKmRate.getText().isEmpty())
 			{
 				VehicleDataModel model = new VehicleDataModel();
 				int uid = model.getAllVehicleNames().length;
-				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText(),txtVNo.getText());
+				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getText(),txtVNo.getText(),txtMRate.getText(),txtExKmRate.getText());
 				// TODO: add to db
 				model.addVehicle(vehicle);
 				new PopupDialogs("Vehicle Added Successfully",PopupDialogs.PLAIN_MESSAGE);
@@ -79,9 +87,16 @@ public class VehicleButtonHandler implements ActionListener {
 			JComboBox<String> cName = (JComboBox<String>) enterCustomerName.getComponent(2);
 			String cNameValue = cName.getSelectedItem().toString();
 			
+			JPanel enterMonthlyRate = (JPanel) compoMap.get("enterMonthlyRate");
+			JTextField vMRateText = (JTextField) enterMonthlyRate.getComponent(2);
+			String mRate = vMRateText.getText();
 			
-			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue);
+			JPanel enterExKmRate =  (JPanel) compoMap.get("enterExKmRate");
+			final JTextField txtExKmRate = (JTextField) enterExKmRate.getComponent(2);
+			
+			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue,mRate,txtExKmRate.getText());
 			EditVehicleUI.getModel().updateAttributeValue(newVehicle);
+			new Dao().editVehicle(newVehicle);
 			new PopupDialogs("Vehicle Updated Successfully", PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();
 		}

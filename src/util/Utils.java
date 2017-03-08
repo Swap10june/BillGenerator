@@ -277,4 +277,32 @@ public class Utils
 		    }
 		};
 	}
+	public void applyBasicSettingsOnWindow_Row(JDialog owner, String string)
+	{
+		owner.setLayout(null);
+		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
+	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
+	    owner.setLocation(350,70);
+	    owner.setSize(new Dimension(450,600));
+	    owner.setModal(true);
+	    owner.setResizable(false);
+	    owner.setTitle(string);
+	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    
+	    
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0, 450, 30);
+        //set font for JLabel
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    Border border = BorderFactory.createLineBorder(Color.blue);
+	    headerLabel.setBorder(border);
+	    owner.add(headerLabel);
+	    
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, 542, 450, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    footerLabel.setBorder(border);
+	    owner.add(footerLabel);
+	}
 }

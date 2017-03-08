@@ -44,10 +44,10 @@ public class SConstants
 	
 	
 	// Home Page Button and its constants
-	public static final String[] 		HOME_BUTTONS_NAMES			= 		{"Generate TAL Bill","General Bill","Admin","History"};
-	public static  final String 		TAL_BILL_BTN_STRING 		= 		"Generate TAL Bill";
-	public static  final String			GENEARL_BILL_BTN_STRING		=		"General Bill";
-	public static  final String 		ADMIN_BTN_STRING 			= 		"Admin";
+	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"TAL Bill","Monthly Bill","Admin","History"};
+	public static final String 		TAL_BILL_BTN_STRING 		= 		"TAL Bill";
+	public static final String 		ADMIN_BTN_STRING 			= 		"Admin";
+	public static final String 		MONTHLY_BOM_BTN_STRING 		= 		"Monthly Bill";
 	
 	
 	
@@ -143,4 +143,6 @@ public class SConstants
 	// EXCEPTIONS STRING
 	public static final String	 	E_KM_EXCEPTION_STRING 				=  "Total KM Should Be Greater Than Zero(0), Start KM Should be less than End KM";
 	public static final String		E_LOGIN_EXCEPTION_STRING 			= 	"InValid Credentials...please try again";
+
+	
 }

@@ -7,14 +7,18 @@ public class Vehicle {
 	private String vehicleName = null;
 	private String vehicleNumber = null;
 	private String customerName = null;
+	private String monthlyRate	= null;
+	private String extraKmRate	= null;
 	
 	
-	public Vehicle(int uid, String vehicleName,String customerName, String vNumber)
+	public Vehicle(int uid, String vehicleName,String customerName, String vNumber,String monthlyRate,String extraKmRate )
 	{
 		this.setUid(uid);
 		this.setVehicleName(vehicleName);
 		this.setCustomerName(customerName);
 		this.setVehicleNumber(vNumber);
+		this.setMonthlyRate(monthlyRate);
+		this.setExtraKmRate(extraKmRate);
 		
 		this.setStringUID(vehicleName);
 	}
@@ -77,6 +81,30 @@ public class Vehicle {
 	 */
 	public void setVehicleNumber(String vehicleNumber) {
 		this.vehicleNumber = vehicleNumber;
+	}
+	/**
+	 * @return the monthlyRate
+	 */
+	public String getMonthlyRate() {
+		return monthlyRate;
+	}
+	/**
+	 * @param monthlyRate the monthlyRate to set
+	 */
+	public void setMonthlyRate(String monthlyRate) {
+		this.monthlyRate = monthlyRate;
+	}
+	/**
+	 * @return the extraKmRate
+	 */
+	public String getExtraKmRate() {
+		return extraKmRate;
+	}
+	/**
+	 * @param extraKmRate the extraKmRate to set
+	 */
+	public void setExtraKmRate(String extraKmRate) {
+		this.extraKmRate = extraKmRate;
 	}
 	
 }

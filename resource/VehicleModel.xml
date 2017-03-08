@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Vehicles>
- <Vehicle cName="TAL" sUid="TATA SAFARI" uid="1" vName="TATA SAFARI" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="TATA ARIA" uid="2" vName="TATA ARIA" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="INNOVA" uid="3" vName="INNOVA" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="MONTHLY INDICA" uid="4" vName="MONTHLY INDICA" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="TATA INDICA" uid="5" vName="TATA INDICA" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="TATA INDIGO" uid="6" vName="TATA INDIGO" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="TAL" sUid="TATA MANZA" uid="7" vName="TATA MANZA" vNbr="MH-16 BF 8720"/>
-<Vehicle cName="UIT" sUid="TATA SUMO" uid="8" vName="TATA SUMO" vNbr="MH-16 BF 0157"/>
-<Vehicle cName="UIT" sUid="Shine" uid="9" vName="Shine" vNbr="MH 16 bf 0157"/>
+ <Vehicle cName="TAL" eKmRate="10.0" mRate="17.40" sUid="TATA SAFARI" uid="1" vName="TATA SAFARI" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="11.0" mRate="17.60" sUid="TATA ARIA" uid="2" vName="TATA ARIA" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="10.0" mRate="18.00" sUid="INNOVA" uid="3" vName="INNOVA" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="10.0" mRate="18.10" sUid="MONTHLY INDICA" uid="4" vName="MONTHLY INDICA" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="10.0" mRate="18.20" sUid="TATA INDICA" uid="5" vName="TATA INDICA" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="10.0" mRate="18.30" sUid="TATA INDIGO" uid="6" vName="TATA INDIGO" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="TAL" eKmRate="10.0" mRate="18.40" sUid="TATA MANZA" uid="7" vName="TATA MANZA" vNbr="MH-16 BF 8720"/>
+<Vehicle cName="UIT" eKmRate="10.0" mRate="18.50" sUid="TATA SUMO" uid="8" vName="TATA SUMO" vNbr="MH-16 BF 0157"/>
+<Vehicle cName="UIT" eKmRate="17.43" mRate="18.43" sUid="Shine" uid="9" vName="Shine" vNbr="MH 16 bf 0157"/>
 </Vehicles>

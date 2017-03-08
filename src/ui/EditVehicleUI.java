@@ -93,6 +93,14 @@ public class EditVehicleUI extends JDialog
 				JComboBox<String> cname = (JComboBox<String>) enterCustomerName.getComponent(2);
 				cname.setSelectedItem(vehicle.getCustomerName().toString());
 				
+				JPanel enterMonthlyRate = (JPanel) editVehicleUIComponent.get("enterMonthlyRate");
+				JTextField vMRate = (JTextField) enterMonthlyRate.getComponent(2);
+				vMRate.setText(vehicle.getMonthlyRate());
+				
+				JPanel enterExKmRate = (JPanel) editVehicleUIComponent.get("enterExKmRate");
+				JTextField vExKmRate = (JTextField) enterExKmRate.getComponent(2);
+				vExKmRate.setText(vehicle.getExtraKmRate());
+				
 				
 			}
 		});
@@ -121,6 +129,16 @@ public class EditVehicleUI extends JDialog
 		bodyLeftPanel.add(enterCustomerName);
 		enterCustomerName.setVisible(false);
 		list.add(enterCustomerName);
+		
+		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate", 10, true, editVehicleUIComponent);
+		bodyLeftPanel.add(enterMonthlyRate);
+		enterMonthlyRate.setVisible(false);
+		list.add(enterMonthlyRate);
+		
+		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Ex Km Rate", "Enter Ex Km Rate", 0, true, editVehicleUIComponent);
+		bodyLeftPanel.add(enterExKmRate);
+		enterExKmRate.setVisible(false);
+		list.add(enterExKmRate);
 		
 		
 		

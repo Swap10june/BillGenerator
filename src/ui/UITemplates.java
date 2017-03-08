@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -15,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;
 import javax.swing.SpinnerModel;
@@ -22,6 +24,7 @@ import javax.swing.SpinnerNumberModel;
 
 import listners.ComboItemListner;
 import listners.SpinnerChangeListner;
+
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
@@ -131,11 +134,10 @@ public class UITemplates
 			textValue.addKeyListener(new KeyAdapter() {
 		    public void keyTyped(KeyEvent e) {
 		      char c = e.getKeyChar();
-		      if (!((c >= '0') && (c <= '9') ||
-		         (c == KeyEvent.VK_BACK_SPACE) ||
-		         (c == KeyEvent.VK_DELETE))) {
-		       // getToolkit().beep();
-		        e.consume();
+		      if (! ((c >= '0') && (c <= '9') || (c == '.')||  (c == KeyEvent.VK_BACK_SPACE) ||  (c == KeyEvent.VK_DELETE))) 
+		      {
+		          //getToolkit().beep();
+		    	  e.consume();
 		      }
 		    }
 		  });
@@ -235,6 +237,69 @@ public class UITemplates
 		panel.add(Box.createHorizontalStrut(10));
 		panel.add(textValue);
 		billGenerateUIComponentsMap.put(mapKey, panel);
+		return panel;
+	}
+	public JPanel getLabelWithTextArea(String mapKey,String labelKey,String TextValue,boolean IntegerStatus , Map<String,Object> billGenerateUIComponent)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		@SuppressWarnings("unused")
+		String str = "";
+		if(TextValue instanceof String)
+		{
+			str = (String) TextValue;
+		}
+		JTextArea textValue = new JTextArea();
+		PromptSupport.setPrompt(TextValue, textValue);
+		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(textValue);
+		billGenerateUIComponent.put(mapKey, panel);
+		if(IntegerStatus)
+		{
+			textValue.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		      char c = e.getKeyChar();
+		      if (!((c >= '0') && (c <= '9') ||
+		         (c == KeyEvent.VK_BACK_SPACE) ||
+		         (c == KeyEvent.VK_DELETE))) {
+		       // getToolkit().beep();
+		        e.consume();
+		      }
+		    }
+		  });
+		}
+		
+		return panel;
+	}
+	public JPanel getLabelWithIntSpinnerWOListner(String mapKey,String labelKey,double value,double min,double max,double step,Map<String,Object> billGenerateUIComponent)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		//labelkey.setBorder(Registry.BORDER_BLUE_1);
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		
+		JSpinner spinner = new JSpinner();
+		SpinnerModel spinnermodel = new SpinnerNumberModel(value,min,max,step);
+		//spinnermodel.setCalendarField(Calendar.MINUTE);
+		spinner .setModel(spinnermodel);
+		/*if(!mapKey.equalsIgnoreCase("panelStartKM"))
+			spinner.addChangeListener(new SpinnerChangeListner());*/
+		
+	    panel.add(labelkey);
+	    panel.add(Box.createHorizontalStrut(10));
+	    panel.add(spinner);
+	    billGenerateUIComponent.put(mapKey,panel );
+	    return panel;
+	}
+	public Component getLabelWithValueLabelWOMap(String key,String value) 
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panel.add(new JLabel(key));
+		panel.add(new JLabel(value));
 		return panel;
 	}
 	
