@@ -1,60 +1,178 @@
 package handlers;
 
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-import javax.swing.JDialog;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
+import model.MonthlyBillDataModel;
+
+import org.jdesktop.swingx.JXDatePicker;
+
+import beans.BillRow;
 import ui.CreateMonthlyBillRow;
+import ui.MonthlyBOM;
+import ui.UITemplates;
 import util.SConstants;
+import util.Utils;
 
 public class MonthlyBOMButtonHandler implements ActionListener {
-
-	private JPanel parentPanel = null;
-	private JDialog parentFrame = null;
-	private static Map<String,Object> rows= new HashMap<String,Object>(); 
-	public MonthlyBOMButtonHandler(JDialog owner, JPanel rowsPanel) 
+ 
+	UITemplates templates = new UITemplates();
+	private JTextField TotalAmount;
+	private MonthlyBOM source =null;
+	private String action = null;
+	public MonthlyBOMButtonHandler(MonthlyBOM monthlyBOM, String action) 
 	{
-		this.parentPanel  = rowsPanel;
-		this.parentFrame = owner;
+		this.source  = monthlyBOM;
+		this.action = action;		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) 
 	{
-		if(event.getActionCommand().equalsIgnoreCase(SConstants.ADD_BTN_STRING))
+		if(action.equalsIgnoreCase(SConstants.ADD_BTN_STRING))
 		{
-			//parentPanel.setLayout(new GridLayout(11,1));
-			JPanel panel = new CreateMonthlyBillRow().getBillRowPanel();
-			panel.setSize(parentPanel.getSize());
-			panel.setBackground(Color.cyan);
-			parentPanel.add(panel);
-			
-			
-			parentFrame.add(parentPanel);
-			parentFrame.setVisible(true);
+			BillRow billRow = new BillRow();
+			new CreateMonthlyBillRow(source.getBillrows());	
+			addLabels(billRow);
+			source.getBillRowList().add(billRow);
+		}
+		if(action.equalsIgnoreCase(SConstants.GENEARTE_BILL_BTN_STRING))
+		{
+			//Utils.getUtilityInstance().generateMonthlyBill(source.getBillRowList());
+			new MonthlyBillDataModel().addBillTransaction(source.getBillRowList());
 		}
 
 	}
 
-	/**
-	 * @return the rows
-	 */
-	public static Map<String,Object> getRows() {
-		return rows;
+	private void addLabels(BillRow billRow)
+	{
+		@SuppressWarnings("unchecked")
+		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyBOM.counter));
+		if(billRowComponents!=null && billRowComponents.size()>0)
+		{
+			Map<String, JPanel> map = source.getRowsMap();
+			JPanel pan = map.get("pan"+String.valueOf(MonthlyBOM.counter));
+			pan.setVisible(true);
+			List<JLabel> listLabels = new ArrayList<JLabel>();
+			for (int i = 0; i <pan.getComponentCount(); i++)
+			{
+				if(pan.getComponent(i) instanceof JLabel)
+					listLabels.add((JLabel)pan.getComponent(i));
+			}
+			
+			if(billRowComponents.containsKey("fromDatePanel"))
+			{
+				JXDatePicker fromDate = (JXDatePicker) ((JPanel)billRowComponents.get("fromDatePanel")).getComponent(2);
+				listLabels.get(0).setText("From:");
+				listLabels.get(0).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				@SuppressWarnings("deprecation")
+				String fromDateString =fromDate.getDate().toLocaleString();
+				listLabels.get(1).setText(fromDateString);
+				billRow.setFromDate(fromDateString);
+			}
+			if(billRowComponents.containsKey("toDatePanel"))
+			{
+				JXDatePicker toDate = (JXDatePicker) ((JPanel)billRowComponents.get("toDatePanel")).getComponent(2);
+				listLabels.get(2).setText("To:");
+				listLabels.get(2).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				@SuppressWarnings("deprecation")
+				String toDateString = toDate.getDate().toLocaleString();
+				listLabels.get(3).setText(toDateString);
+				billRow.setToDate(toDateString);
+			}
+			if(billRowComponents.containsKey("vehicleDesc"))
+			{
+				JTextArea desc = (JTextArea) ((JPanel)billRowComponents.get("vehicleDesc")).getComponent(2);
+				listLabels.get(4).setText("Vehicle Desc:");
+				listLabels.get(4).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(5).setText(desc.getText());
+				billRow.setVehicleDesc(desc.getText().isEmpty()?"":desc.getText());
+			}
+			if(billRowComponents.containsKey("monthlyKm"))
+			{
+				JSpinner monthlyKm = (JSpinner) ((JPanel)billRowComponents.get("monthlyKm")).getComponent(2);
+				listLabels.get(6).setText("Monthly Km:");
+				listLabels.get(6).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(7).setText(monthlyKm.getModel().getValue().toString());
+				int km = (int)Double.parseDouble(monthlyKm.getModel().getValue().toString());
+				billRow.setMonthlyKm(km);
+			}
+			if(billRowComponents.containsKey("extraKm"))
+			{
+				JSpinner extraKm = (JSpinner) ((JPanel)billRowComponents.get("extraKm")).getComponent(2);
+				listLabels.get(8).setText("Extra Km:");
+				listLabels.get(8).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(9).setText(extraKm.getModel().getValue().toString());
+				int extraKmValue = (int)Double.parseDouble(extraKm.getModel().getValue().toString());
+				billRow.setExtraKm(extraKmValue);
+			}
+			if(billRowComponents.containsKey("vehicle"))
+			{
+				@SuppressWarnings("unchecked")
+				JComboBox<String> vehicle = (JComboBox<String>) ((JPanel)billRowComponents.get("vehicle")).getComponent(2);
+				listLabels.get(10).setText("Vehicle:");
+				listLabels.get(10).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(11).setText(vehicle.getSelectedItem().toString());
+				billRow.setVehicle(vehicle.getSelectedItem().toString());
+			}
+			if(billRowComponents.containsKey("rate"))
+			{
+				JTextField rate = (JTextField) ((JPanel)billRowComponents.get("rate")).getComponent(2);
+				listLabels.get(12).setText("Rate:");
+				listLabels.get(12).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(13).setText(rate.getText().toString());
+				billRow.setRate(Double.parseDouble(rate.getText().toString().isEmpty()?"0":rate.getText().toString()));
+				
+			}
+			if(billRowComponents.containsKey("amount"))
+			{
+				JTextField amount = (JTextField) ((JPanel)billRowComponents.get("amount")).getComponent(2);
+				listLabels.get(14).setText("Amount:");
+				listLabels.get(14).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(15).setText(amount.getText());
+				billRow.setAmount(Double.parseDouble(amount.getText().isEmpty()?"0":amount.getText()));
+			}
+			if(billRowComponents.containsKey("ExtraKmRate"))
+			{
+				JTextField ExtraKmRate = (JTextField) ((JPanel)billRowComponents.get("ExtraKmRate")).getComponent(2);
+				listLabels.get(16).setText("Extra Km Rate:");
+				listLabels.get(16).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(17).setText(ExtraKmRate.getText());
+				billRow.setExtraKmRate(Double.parseDouble(ExtraKmRate.getText().isEmpty()?"0":ExtraKmRate.getText()));
+			}
+			if(billRowComponents.containsKey("ExKmAmount"))
+			{
+				JTextField ExKmAmount = (JTextField) ((JPanel)billRowComponents.get("ExKmAmount")).getComponent(2);
+				listLabels.get(18).setText("Extra Km Amount:");
+				listLabels.get(18).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(19).setText(ExKmAmount.getText());
+				billRow.setExtraKmAmpount(Double.parseDouble(listLabels.get(19).getText().isEmpty()?"0":listLabels.get(19).getText()));
+			}
+			if(billRowComponents.containsKey("TotalAmount"))
+			{
+				TotalAmount = (JTextField) ((JPanel)billRowComponents.get("TotalAmount")).getComponent(2);
+				listLabels.get(20).setText("Total Amount:");
+				listLabels.get(20).setFont(SConstants.FONT_COURRIER_BOLD_13);
+				listLabels.get(21).setText(TotalAmount.getText());
+				MonthlyBOM.totalAmount = MonthlyBOM.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
+				billRow.setTotalAmount(Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText()));
+			}
+			MonthlyBOM.counter++;
+			//billRowComponents.clear();
+			source.updateTotalAmountValues();
+			
+		}
 	}
 
-	/**
-	 * @param rows the rows to set
-	 */
-	public static void setRows(Map<String,Object> rows) {
-		MonthlyBOMButtonHandler.rows = rows;
-	}
-
+	
 }

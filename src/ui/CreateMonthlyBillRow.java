@@ -1,9 +1,5 @@
 package ui;
 
-import handlers.MonthlyBOMButtonHandler;
-
-import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,13 +8,10 @@ import java.awt.event.ItemListener;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -27,6 +20,7 @@ import javax.swing.SpinnerModel;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import beans.BillRow;
 import util.SConstants;
 import util.Utils;
 import model.VehicleDataModel;
@@ -40,10 +34,8 @@ public class CreateMonthlyBillRow extends JDialog
 	private static final long serialVersionUID = 1L;
 	private UITemplates templates= new UITemplates();
 	private Map<String, Object> billRowComponents;
-	
-	public CreateMonthlyBillRow()
+	public CreateMonthlyBillRow(Map<String, Object> map)
 	{
-		
 		billRowComponents = new HashMap<String, Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Row(this,"Bill Row");
 		this.setLayout(null);
@@ -82,24 +74,24 @@ public class CreateMonthlyBillRow extends JDialog
 				JTextField textAmount = (JTextField) ((JPanel)billRowComponents.get("amount")).getComponent(2);
 				textAmount.setText(String.valueOf(km*rate));
 				
+				
 				//Extra km 
 				double exKmRate = Double.parseDouble((new VehicleDataModel().getVehicle(vehicleCombo.getSelectedItem().toString())).getExtraKmRate());
 				JTextField textExRate = (JTextField) ((JPanel)billRowComponents.get("ExtraKmRate")).getComponent(2);
 				textExRate.setText(String.valueOf(exKmRate));
 				
+				
 				JSpinner spinner1  =(JSpinner) ((JPanel) billRowComponents.get("extraKm")).getComponent(2);
 				SpinnerModel txtExtraKm=spinner1.getModel();
 				int extraKm = (int)Double.parseDouble(txtExtraKm.getValue().toString());
-				
 				JTextField textExtraAmount = (JTextField) ((JPanel)billRowComponents.get("ExKmAmount")).getComponent(2);
 				textExtraAmount.setText(String.valueOf(extraKm*exKmRate));
+				
 				
 				JTextField TotalAmount = (JTextField) ((JPanel)billRowComponents.get("TotalAmount")).getComponent(2);
 				TotalAmount.setText(String.valueOf(
 						Double.parseDouble(textExtraAmount.getText().isEmpty()?"0":textExtraAmount.getText())+
 						Double.parseDouble(textAmount.getText().isEmpty()?"0":textAmount.getText())));
-				
-				
 			}
 		});
 		
@@ -123,7 +115,7 @@ public class CreateMonthlyBillRow extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				MonthlyBOMButtonHandler.getRows().put("components", billRowComponents);
+				map.put("components"+String.valueOf(MonthlyBOM.counter), billRowComponents);
 				dispose();
 			}
 		});
@@ -135,13 +127,13 @@ public class CreateMonthlyBillRow extends JDialog
 		
 	}
 
-	@SuppressWarnings("deprecation")
+	/*@SuppressWarnings("deprecation")
 	public JPanel getBillRowPanel()
 	{
 		JPanel Panel = new JPanel();
-		Panel.setLayout(new GridLayout(5,3));
-		Panel.setSize(1000, 190);
-		//Panel.setBackground(Color.cyan);*/
+		Panel.setLayout(new GridLayout(15,1));
+		//Panel.setSize(1000, 190);
+		//Panel.setBackground(Color.cyan);
 		LinkedHashMap <String, String> temp = new LinkedHashMap <String, String>();
 		if(billRowComponents.containsKey("fromDatePanel"))
 		{
@@ -205,6 +197,6 @@ public class CreateMonthlyBillRow extends JDialog
 		}
 		
 		return Panel;
-	}
+	}*/
 
 }

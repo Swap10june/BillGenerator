@@ -1,7 +1,7 @@
 package util;
 import java.awt.Desktop;
 import  java.io.*;
-
+import java.util.List;
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import  org.apache.poi.hssf.usermodel.HSSFRow;
@@ -9,6 +9,7 @@ import  org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import beans.BOM;
+import beans.BillRow;
 
 public class CreateExlFile
 {
@@ -466,4 +467,81 @@ public class CreateExlFile
             System.out.println(ex);
         }
     }
+
+	public void CreateMonthlyBOMExcel(File excel, List<BillRow> billrows)
+	{
+		try
+        {
+        	if(!excel.exists() && billrows.size()>0)
+        		excel.createNewFile();
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            utility  = new ExcelUtils(workbook);
+            HSSFSheet sheet = workbook.createSheet("Bill"); 
+            int width = sheet.getColumnWidth(8)+sheet.getColumnWidth(8)/2;
+            sheet.setColumnWidth(8, width+100);
+            // Header Row ---0
+            int row = 0;
+            HSSFRow headerRow = sheet.createRow((short)row);
+            CellRangeAddress headerRowSpan = CellRangeAddress.valueOf("A1:I1");
+            sheet.addMergedRegion(headerRowSpan);
+            
+            
+            HSSFCell headerRow_cell0 = headerRow.createCell(0);
+            headerRow_cell0.setCellValue("SIAKRUPA TRANSPORT");
+            headerRow_cell0.setCellStyle(utility.getExcelHeaderRowStyle());
+        
+            // ADRESS ROW --1
+            row =1;
+            HSSFRow addressRow = sheet.createRow((short)row);
+            CellRangeAddress addressSpan = CellRangeAddress.valueOf("A2:I2");
+            sheet.addMergedRegion(addressSpan);
+            
+            
+            HSSFCell addressRowSpan_cell0 = addressRow.createCell(0);
+            String address = SConstants.V_CLIENT_ADDRESS;
+            addressRowSpan_cell0.setCellValue(address);
+            addressRowSpan_cell0.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short)10));
+            
+          // Bill no and Contact No row ---2
+            row =2;
+            HSSFRow billNoContactNoRow = sheet.createRow((short)row);
+            CellRangeAddress billNoRowSpan = CellRangeAddress.valueOf("A3:E3");
+            sheet.addMergedRegion(billNoRowSpan);
+            
+            HSSFCell billNoRowSpan_cell0 = billNoContactNoRow.createCell(0);
+            //String BillNo = "Bill No:"+"   "+bom.getBillNumber();
+            //billNoRowSpan_cell0.setCellValue(BillNo);
+            
+            
+            CellRangeAddress contactNoRowSpan = CellRangeAddress.valueOf("F3:I3");
+            sheet.addMergedRegion(contactNoRowSpan);
+            
+            HSSFCell billNoRowSpan_cell1 = billNoContactNoRow.createCell(5);
+            String contact = "Mobile No:"+"   "+SConstants.V_CLIENT_MOB1;
+            billNoRowSpan_cell1.setCellValue(contact);
+            billNoRowSpan_cell1.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
+            
+            //PAN NO and EMAIL Row--3
+            row = 3;
+            HSSFRow PanRow = sheet.createRow((short)row);
+            CellRangeAddress PanRowSpan = CellRangeAddress.valueOf("A4:E4");
+            sheet.addMergedRegion(PanRowSpan);
+            
+            CellRangeAddress emailRowSpan = CellRangeAddress.valueOf("F4:I4");
+            sheet.addMergedRegion(emailRowSpan);
+            
+            
+            HSSFCell PanRowSpan_cell0 = PanRow.createCell(0);
+            String pan = "PAN:"+"   "+SConstants.V_PAN_NO;
+            PanRowSpan_cell0.setCellValue(pan);
+            
+            HSSFCell PanRowSpan_cell2 = PanRow.createCell(5);
+            String email = "E-Mail:"+"   "+SConstants.V_E_Mail;
+            PanRowSpan_cell2.setCellValue(email);
+            PanRowSpan_cell2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
+        }catch (Exception e)
+        {
+        	// TODO: handle exception
+		}
+	}
 }

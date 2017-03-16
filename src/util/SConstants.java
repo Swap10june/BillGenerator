@@ -145,4 +145,10 @@ public class SConstants
 	public static final String		E_LOGIN_EXCEPTION_STRING 			= 	"InValid Credentials...please try again";
 
 	
+	// Mothly BOM UI Btns Strings
+	public static final String 		GENEARTE_BILL_BTN_STRING 			= 	"Bill";
+
+	public static final String 		REMOVE_BTN_STRING 					= 	"Remove";
+
+	
 }
