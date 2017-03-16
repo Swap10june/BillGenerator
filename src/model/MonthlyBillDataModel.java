@@ -20,7 +20,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import beans.BOM;
 import beans.BillRow;
 
 public class MonthlyBillDataModel
@@ -48,21 +47,37 @@ public class MonthlyBillDataModel
 	    	  e.printStackTrace();
 	      } 
 	}
-    public void addBillTransaction(List<BillRow> billrows)
+    public int addBillTransaction(List<BillRow> billrows)
     {
     	
     	NodeList totalNoOfSecondRootTags = doc.getElementsByTagName("MBills");
         Element eElement = (Element) totalNoOfSecondRootTags.item(0);
         Element element = doc.createElement("Bill");
-        
+        double fAmount = 0.0;
+        for (int i = 0; i < billrows.size(); i++)
+        {
+        	fAmount+=billrows.get(i).getTotalAmount();
+		}
+        element.setAttribute("uid",String.valueOf(getAllMonthlyBillsUID().length+1) );
+        element.setAttribute("fAmount",String.valueOf(fAmount) );
         BillRow row = null;
         Element childElement = null;
         for (int i = 0; i < billrows.size(); i++)
         {
         	row = billrows.get(i);
         	childElement = doc.createElement("BillRow");
-            childElement.setAttribute("billNumber",String.valueOf(row.getAmount()));
-            //element.setAttribute("admin",bOM.getAdmin());
+            childElement.setAttribute("BillNo","MB:"+String.valueOf(getAllMonthlyBillsUID().length+1));
+            childElement.setAttribute("FromDate", row.getFromDate());
+            childElement.setAttribute("ToDate", row.getToDate());
+            childElement.setAttribute("vDesc", row.getVehicleDesc());
+            childElement.setAttribute("vName", row.getVehicle());
+            childElement.setAttribute("pKm", String.valueOf(row.getMonthlyKm()));
+            childElement.setAttribute("eKm", String.valueOf(row.getExtraKm()));
+            childElement.setAttribute("pRate", String.valueOf(row.getRate()));
+            childElement.setAttribute("pAmount", String.valueOf(row.getAmount()));
+            childElement.setAttribute("eKmRate", String.valueOf(row.getExtraKmRate()));
+            childElement.setAttribute("eKmAmount", String.valueOf(row.getExtraKmAmpount()));
+            childElement.setAttribute("tAmount", String.valueOf(row.getTotalAmount()));
             element.appendChild(childElement);
 		}
         
@@ -119,14 +134,15 @@ public class MonthlyBillDataModel
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return 0;
 	}
-    public String[] getAllDutyTypStrings()
+    public String[] getAllMonthlyBillsUID()
     {
     	List<String> values = new ArrayList<String>();
     	 try 
     	 {
     		 doc.getDocumentElement().normalize();
-    		 NodeList nList = doc.getElementsByTagName("DutyType");
+    		 NodeList nList = doc.getElementsByTagName("Bill");
     		 for (int temp = 0; temp < nList.getLength(); temp++)
     		 {
     			 Node nNode = nList.item(temp);
@@ -134,7 +150,7 @@ public class MonthlyBillDataModel
     		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
     				{
     		            Element eElement = (Element) nNode;
-    		            values.add(eElement.getAttribute("id"));
+    		            values.add(eElement.getAttribute("uid"));
     		            //System.out.println("Staff id : " + eElement.getAttribute("id"));
     		        }
     		    }

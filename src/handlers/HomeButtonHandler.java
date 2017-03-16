@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 import ui.ChekForAdminUI;
-import ui.MonthlyBOM;
+import ui.MonthlyBOMUI;
 import ui.TelcoBOM;
 import util.SConstants;
 
@@ -35,7 +35,7 @@ public class HomeButtonHandler implements ActionListener {
 			break;
 			case SConstants.MONTHLY_BOM_BTN_STRING:
 			{
-				new MonthlyBOM(new javax.swing.JDialog(),SConstants.MONTHLY_BOM_BTN_STRING);
+				new MonthlyBOMUI(new javax.swing.JDialog(),SConstants.MONTHLY_BOM_BTN_STRING);
 			}
 			
 			break;

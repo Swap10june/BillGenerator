@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -30,7 +29,7 @@ import org.w3c.dom.NodeList;
 
 import exceptions.PopupDialogs;
 import beans.BOM;
-import beans.BillRow;
+import beans.MonthlyBOM;
 
 public class Utils 
 {
@@ -307,11 +306,9 @@ public class Utils
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
 	}
-	public void generateMonthlyBill(List<BillRow> billrows)
+	public void generateMonthlyBill(MonthlyBOM bom)
 	{
-		if(billrows.size()>0)
-		{
-			String str = "ACC";
+		String str = bom.getBillNumber();
 			str= str.replace(" ", "");
 			str = str.replace(":", "");
 			str= str.replace("-", "");
@@ -321,16 +318,10 @@ public class Utils
 			{
 				if(!excel.exists())
 					excel.createNewFile();
-				new CreateExlFile().CreateMonthlyBOMExcel(excel,billrows);
+				new CreateExlFile().CreateMonthlyBOMExcel(excel,bom);
 			} catch (IOException e)
 			{
 				new PopupDialogs("File Not Found",PopupDialogs.ERROR_MESSAGE);
 			}
 		}
-		else
-		{
-			new PopupDialogs("Input not met upto requirement", PopupDialogs.ERROR_MESSAGE);
-		}
-		
-	}
 }

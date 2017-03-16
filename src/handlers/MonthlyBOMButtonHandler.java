@@ -17,9 +17,10 @@ import model.MonthlyBillDataModel;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import exceptions.PopupDialogs;
 import beans.BillRow;
 import ui.CreateMonthlyBillRow;
-import ui.MonthlyBOM;
+import ui.MonthlyBOMUI;
 import ui.UITemplates;
 import util.SConstants;
 import util.Utils;
@@ -28,9 +29,9 @@ public class MonthlyBOMButtonHandler implements ActionListener {
  
 	UITemplates templates = new UITemplates();
 	private JTextField TotalAmount;
-	private MonthlyBOM source =null;
+	private MonthlyBOMUI source =null;
 	private String action = null;
-	public MonthlyBOMButtonHandler(MonthlyBOM monthlyBOM, String action) 
+	public MonthlyBOMButtonHandler(MonthlyBOMUI monthlyBOM, String action) 
 	{
 		this.source  = monthlyBOM;
 		this.action = action;		
@@ -41,15 +42,38 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 	{
 		if(action.equalsIgnoreCase(SConstants.ADD_BTN_STRING))
 		{
-			BillRow billRow = new BillRow();
-			new CreateMonthlyBillRow(source.getBillrows());	
-			addLabels(billRow);
-			source.getBillRowList().add(billRow);
+			System.out.println("size:"+source.getBillRowList().size());
+			if(source.getBillRowList().size()<5)
+			{
+				BillRow billRow = new BillRow();
+				new CreateMonthlyBillRow(source.getBillrows());	
+				addLabels(billRow);
+				source.getBillRowList().add(billRow);
+				source.getChkExcel().setEnabled(true);
+			}
+			else
+			{
+				new PopupDialogs("Only 5 Rows are allowed...Sorry", PopupDialogs.ERROR_MESSAGE);
+			}
 		}
 		if(action.equalsIgnoreCase(SConstants.GENEARTE_BILL_BTN_STRING))
 		{
-			//Utils.getUtilityInstance().generateMonthlyBill(source.getBillRowList());
-			new MonthlyBillDataModel().addBillTransaction(source.getBillRowList());
+			source.getMonthlyBom().setBillRows(source.getBillRowList());
+			if(source.getChkExcel().isSelected())
+			{
+				Utils.getUtilityInstance().generateMonthlyBill(source.getMonthlyBom());
+			}
+			int status = new MonthlyBillDataModel().addBillTransaction(source.getBillRowList());
+			if(status==0)
+			{
+				new PopupDialogs("Added Successfully", PopupDialogs.INFORMATION_MESSAGE);
+				source.getParent().dispose();
+			}
+			else
+			{
+				new PopupDialogs("Error", PopupDialogs.ERROR_MESSAGE);
+			}
+				
 		}
 
 	}
@@ -57,11 +81,11 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 	private void addLabels(BillRow billRow)
 	{
 		@SuppressWarnings("unchecked")
-		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyBOM.counter));
+		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyBOMUI.counter));
 		if(billRowComponents!=null && billRowComponents.size()>0)
 		{
 			Map<String, JPanel> map = source.getRowsMap();
-			JPanel pan = map.get("pan"+String.valueOf(MonthlyBOM.counter));
+			JPanel pan = map.get("pan"+String.valueOf(MonthlyBOMUI.counter));
 			pan.setVisible(true);
 			List<JLabel> listLabels = new ArrayList<JLabel>();
 			for (int i = 0; i <pan.getComponentCount(); i++)
@@ -164,10 +188,10 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 				listLabels.get(20).setText("Total Amount:");
 				listLabels.get(20).setFont(SConstants.FONT_COURRIER_BOLD_13);
 				listLabels.get(21).setText(TotalAmount.getText());
-				MonthlyBOM.totalAmount = MonthlyBOM.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
+				MonthlyBOMUI.totalAmount = MonthlyBOMUI.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
 				billRow.setTotalAmount(Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText()));
 			}
-			MonthlyBOM.counter++;
+			MonthlyBOMUI.counter++;
 			//billRowComponents.clear();
 			source.updateTotalAmountValues();
 			

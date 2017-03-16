@@ -1,7 +1,8 @@
 package util;
 import java.awt.Desktop;
 import  java.io.*;
-import java.util.List;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import  org.apache.poi.hssf.usermodel.HSSFSheet;
 import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import  org.apache.poi.hssf.usermodel.HSSFRow;
@@ -10,6 +11,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import beans.BOM;
 import beans.BillRow;
+import beans.MonthlyBOM;
 
 public class CreateExlFile
 {
@@ -454,29 +456,44 @@ public class CreateExlFile
             DatesRow29_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             DatesRow29_4.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short) 10));
             
-            FileOutputStream fileOut = new FileOutputStream(filename);
-            workbook.write(fileOut);
-            fileOut.close();
-            //new ConvertExcelIntoPDF().convert(filename);
-            System.out.println("Your excel file has been generated!");
-
-            if(filename.exists())
-            	Desktop.getDesktop().open(filename);
+            flushIntoFile(filename,workbook);
         } catch ( Exception ex )
         {
             System.out.println(ex);
         }
     }
 
-	public void CreateMonthlyBOMExcel(File excel, List<BillRow> billrows)
+	private void flushIntoFile(File filename, HSSFWorkbook workbook)
+	{
+		try 
+		{
+			FileOutputStream fileOut = new FileOutputStream(filename);
+			workbook.write(fileOut);
+			fileOut.close();
+			//new ConvertExcelIntoPDF().convert(filename);
+			System.out.println("Your excel file has been generated!");
+
+			if(filename.exists())
+				Desktop.getDesktop().open(filename);
+		} catch (FileNotFoundException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void CreateMonthlyBOMExcel(File excel, MonthlyBOM bom)
 	{
 		try
         {
-        	if(!excel.exists() && billrows.size()>0)
+        	if(!excel.exists() && bom.getBillRows().size()>0)
         		excel.createNewFile();
             HSSFWorkbook workbook = new HSSFWorkbook();
             utility  = new ExcelUtils(workbook);
-            HSSFSheet sheet = workbook.createSheet("Bill"); 
+            HSSFSheet sheet = workbook.createSheet("MBill"); 
             int width = sheet.getColumnWidth(8)+sheet.getColumnWidth(8)/2;
             sheet.setColumnWidth(8, width+100);
             // Header Row ---0
@@ -508,16 +525,16 @@ public class CreateExlFile
             CellRangeAddress billNoRowSpan = CellRangeAddress.valueOf("A3:E3");
             sheet.addMergedRegion(billNoRowSpan);
             
-            HSSFCell billNoRowSpan_cell0 = billNoContactNoRow.createCell(0);
-            //String BillNo = "Bill No:"+"   "+bom.getBillNumber();
-            //billNoRowSpan_cell0.setCellValue(BillNo);
+			HSSFCell billNoRowSpan_cell0 = billNoContactNoRow.createCell(0);
+            String BillNo = "Bill No:"+"   "+bom.getBillNumber();
+            billNoRowSpan_cell0.setCellValue(BillNo);
             
             
             CellRangeAddress contactNoRowSpan = CellRangeAddress.valueOf("F3:I3");
             sheet.addMergedRegion(contactNoRowSpan);
             
             HSSFCell billNoRowSpan_cell1 = billNoContactNoRow.createCell(5);
-            String contact = "Mobile No:"+"   "+SConstants.V_CLIENT_MOB1;
+            String contact = "Mobile No:"+"   "+bom.getContactNumber();
             billNoRowSpan_cell1.setCellValue(contact);
             billNoRowSpan_cell1.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
             
@@ -536,9 +553,215 @@ public class CreateExlFile
             PanRowSpan_cell0.setCellValue(pan);
             
             HSSFCell PanRowSpan_cell2 = PanRow.createCell(5);
-            String email = "E-Mail:"+"   "+SConstants.V_E_Mail;
+            String email = "E-Mail:"+"   "+bom.getEmail();
             PanRowSpan_cell2.setCellValue(email);
             PanRowSpan_cell2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
+            
+            //Header Row after 1 empty row
+            row = 5;
+            HSSFRow headerRow1 = sheet.createRow((short)row);
+            //CellRangeAddress PanRowSpan = CellRangeAddress.valueOf("A4:E4");
+            //sheet.addMergedRegion(PanRowSpan);
+            
+            CellRangeAddress perticulars = CellRangeAddress.valueOf("C6:E6");
+            sheet.addMergedRegion(perticulars);
+            
+            HSSFCellStyle headerStyle = utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT);
+            headerStyle.setFont(utility.getExcelCellFont_Arial_Blue_Bold((short)10));
+           
+            HSSFCell headerRow1_cell0 = headerRow1.createCell(0);
+            String date = "Date";
+            headerRow1_cell0.setCellValue(date);
+            headerRow1_cell0.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell1 = headerRow1.createCell(1);
+            String vehicle = "V.NO";
+            headerRow1_cell1.setCellValue(vehicle);
+            headerRow1_cell1.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell2 = headerRow1.createCell(2);
+            String perticulares = "Perticulars";
+            headerRow1_cell2.setCellValue(perticulares);
+            headerRow1_cell2.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell5 = headerRow1.createCell(5);
+            String km = "KM";
+            headerRow1_cell5.setCellValue(km);
+            headerRow1_cell5.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell6 = headerRow1.createCell(6);
+            String rate = "Rate";
+            headerRow1_cell6.setCellValue(rate);
+            headerRow1_cell6.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell7 = headerRow1.createCell(7);
+            String extra = "Extra";
+            headerRow1_cell7.setCellValue(extra);
+            headerRow1_cell7.setCellStyle(headerStyle);
+            
+            HSSFCell headerRow1_cell8 = headerRow1.createCell(8);
+            String amount = "Amount(Rs)";
+            headerRow1_cell8.setCellValue(amount);
+            headerRow1_cell8.setCellStyle(headerStyle);
+            HSSFCellStyle headerStyleRow = utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT);
+            int rowValue = 5;
+            for (int i = 1,count = 0; i <=bom.getBillRows().size(); i++,count++)
+            {
+            	 BillRow billRowBean = bom.getBillRows().get(count);
+            	 row = i+rowValue;
+            	 HSSFRow billRow1 = sheet.createRow((short)row);
+            	 
+            	 String perticularRowString = "C"+String.valueOf(row+1)+":E"+String.valueOf(row+1);
+            	 CellRangeAddress perticularsRow = CellRangeAddress.valueOf(perticularRowString);
+                 sheet.addMergedRegion(perticularsRow);
+                 
+                 String toDateString = "A"+String.valueOf(row+1)+":A"+String.valueOf(row+2);
+                 CellRangeAddress toDate = CellRangeAddress.valueOf(toDateString);;
+                 sheet.addMergedRegion(toDate);
+                 
+                 HSSFCell dateCell = billRow1.createCell(0);
+                 String dateValue = billRowBean.getFromDate();
+                 dateCell.setCellValue(dateValue);
+                 dateCell.setCellStyle(headerStyleRow);
+                 
+                 String vehicleString = "B"+String.valueOf(row+1)+":B"+String.valueOf(row+2);
+                 CellRangeAddress vehicleRange = CellRangeAddress.valueOf(vehicleString);;
+                 sheet.addMergedRegion(vehicleRange);
+                 
+                 HSSFCell vehicleCell = billRow1.createCell(1);
+                 String vehicleValue = billRowBean.getVehicle();
+                 vehicleCell.setCellValue(vehicleValue);
+                 vehicleCell.setCellStyle(headerStyleRow);
+                 
+                 HSSFRow billRow2 = sheet.createRow((short)(row+1));
+                 String perticularRowString2 = "C"+String.valueOf(row+2)+":E"+String.valueOf(row+2);
+            	 CellRangeAddress perticularsRow2 = CellRangeAddress.valueOf(perticularRowString2);
+                 sheet.addMergedRegion(perticularsRow2);
+                 
+                 HSSFCell monthlyKm = billRow2.createCell(2);
+                 String monthlyKmValue = "Monthly Km";
+                 monthlyKm.setCellValue(monthlyKmValue);
+                 monthlyKm.setCellStyle(headerStyleRow);
+            	             
+                 String kmString = "F"+String.valueOf(row+1)+":F"+String.valueOf(row+2);
+                 CellRangeAddress kmRange = CellRangeAddress.valueOf(kmString);;
+                 sheet.addMergedRegion(kmRange);
+                 
+                 HSSFCell Km = billRow1.createCell(5);
+                 String kmValue = String.valueOf(billRowBean.getMonthlyKm());
+                 Km.setCellValue(kmValue);
+                 Km.setCellStyle(headerStyleRow);
+                 
+                 String rateString = "G"+String.valueOf(row+1)+":G"+String.valueOf(row+2);
+                 CellRangeAddress rateRange = CellRangeAddress.valueOf(rateString);;
+                 sheet.addMergedRegion(rateRange);
+                 
+                 HSSFCell rate1 = billRow1.createCell(6);
+                 String rateValue = String.valueOf(billRowBean.getRate());
+                 rate1.setCellValue(rateValue);
+                 rate1.setCellStyle(headerStyleRow);
+                 
+                 String extraString = "H"+String.valueOf(row+1)+":H"+String.valueOf(row+2);
+                 CellRangeAddress extraRange = CellRangeAddress.valueOf(extraString);;
+                 sheet.addMergedRegion(extraRange);
+                 
+                 HSSFCell extra1 = billRow1.createCell(7);
+                 String extraValue = String.valueOf(billRowBean.getExtraCharges());
+                 extra1.setCellValue(extraValue);
+                 extra1.setCellStyle(headerStyleRow);
+                 
+                 String amountString = "I"+String.valueOf(row+1)+":I"+String.valueOf(row+2);
+                 CellRangeAddress amountRange = CellRangeAddress.valueOf(amountString);;
+                 sheet.addMergedRegion(amountRange);
+                 
+                 HSSFCell amount1 = billRow1.createCell(8);
+                 String amountValue = String.valueOf(billRowBean.getAmount());
+                 amount1.setCellValue(amountValue);
+                 amount1.setCellStyle(headerStyleRow);
+                 
+                 
+                 ////
+                 row = i+rowValue+2;
+            	 HSSFRow billRow3 = sheet.createRow((short)row);
+            	 
+            	 String perticularRowString1 = "C"+String.valueOf(row+1)+":E"+String.valueOf(row+1);
+            	 CellRangeAddress perticularsRow1 = CellRangeAddress.valueOf(perticularRowString1);
+                 sheet.addMergedRegion(perticularsRow1);
+                 
+                 String toDateString1 = "A"+String.valueOf(row+1)+":A"+String.valueOf(row+2);
+                 CellRangeAddress toDate1 = CellRangeAddress.valueOf(toDateString1);;
+                 sheet.addMergedRegion(toDate1);
+                 
+                 HSSFCell dateCell1 = billRow3.createCell(0);
+                 String dateValue1 = billRowBean.getToDate();
+                 dateCell1.setCellValue(dateValue1);
+                 dateCell1.setCellStyle(headerStyleRow);
+                 
+                 String vehicleString1 = "B"+String.valueOf(row+1)+":B"+String.valueOf(row+2);
+                 CellRangeAddress vehicleRange1 = CellRangeAddress.valueOf(vehicleString1);;
+                 sheet.addMergedRegion(vehicleRange1);
+                 
+                 HSSFCell vehicleCell3 = billRow3.createCell(1);
+                 String vehicleValue3 = billRowBean.getVehicle();
+                 vehicleCell3.setCellValue(vehicleValue3);
+                 vehicleCell3.setCellStyle(headerStyleRow);
+                 
+                 HSSFRow billRow23 = sheet.createRow((short)(row+1));
+                 String perticularRowString23 = "C"+String.valueOf(row+2)+":E"+String.valueOf(row+2);
+            	 CellRangeAddress perticularsRow23 = CellRangeAddress.valueOf(perticularRowString23);
+                 sheet.addMergedRegion(perticularsRow23);
+                 
+                 HSSFCell monthlyKm3 = billRow23.createCell(2);
+                 String monthlyKmValue3 = "Extra Km";
+                 monthlyKm3.setCellValue(monthlyKmValue3);
+                 monthlyKm3.setCellStyle(headerStyleRow);
+            	             
+                 String kmString3 = "F"+String.valueOf(row+1)+":F"+String.valueOf(row+2);
+                 CellRangeAddress kmRange3 = CellRangeAddress.valueOf(kmString3);;
+                 sheet.addMergedRegion(kmRange3);
+                 
+                 HSSFCell Km3 = billRow3.createCell(5);
+                 String kmValue3 = String.valueOf(billRowBean.getExtraKm());
+                 Km3.setCellValue(kmValue3);
+                 Km3.setCellStyle(headerStyleRow);
+                 
+                 String rateString3 = "G"+String.valueOf(row+1)+":G"+String.valueOf(row+2);
+                 CellRangeAddress rateRange3 = CellRangeAddress.valueOf(rateString3);;
+                 sheet.addMergedRegion(rateRange3);
+                 
+                 HSSFCell rate13 = billRow3.createCell(6);
+                 String rateValue3 = String.valueOf(billRowBean.getExtraKmRate());
+                 rate13.setCellValue(rateValue3);
+                 rate13.setCellStyle(headerStyleRow);
+                 
+                 String extraString3 = "H"+String.valueOf(row+1)+":H"+String.valueOf(row+2);
+                 CellRangeAddress extraRange3 = CellRangeAddress.valueOf(extraString3);;
+                 sheet.addMergedRegion(extraRange3);
+                 
+                 HSSFCell extra13 = billRow3.createCell(7);
+                 String extraValue3 = String.valueOf(billRowBean.getExtraCharges());
+                 extra13.setCellValue(extraValue3);
+                 extra13.setCellStyle(headerStyleRow);
+                 
+                 String amountString3 = "I"+String.valueOf(row+1)+":I"+String.valueOf(row+2);
+                 CellRangeAddress amountRange3 = CellRangeAddress.valueOf(amountString3);;
+                 sheet.addMergedRegion(amountRange3);
+                 
+                 HSSFCell amount13 = billRow3.createCell(8);
+                 String amountValue3 = String.valueOf(billRowBean.getExtraKmAmpount());
+                 amount13.setCellValue(amountValue3);
+                 amount13.setCellStyle(headerStyleRow);
+                 rowValue=rowValue+4;
+			}
+            
+            
+            //headerStyle.setFont(utility.getExcelCellFont_Arial_Blue_Bold((short)10));
+           
+            
+            
+            
+            
+            flushIntoFile(excel, workbook);
         }catch (Exception e)
         {
         	// TODO: handle exception

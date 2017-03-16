@@ -15,6 +15,7 @@ public class BillRow
 	private double extraKmRate			=		0.0;
 	private double extraKmAmpount		=		0.0;
 	private double totalAmount			=		0.0;
+	private double extraCharges			=		0.0;
 	public BillRow(
 			String fromDate, String toDate, String vehicleDesc,String vehicle, int monthlyKm, int extraKm, double rate,
 			double amount, double extraKmRate, double extraKmAmpount,double totalAmount)
@@ -165,6 +166,10 @@ public class BillRow
 	 */
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+	public double getExtraCharges()
+	{
+		return extraCharges;
 	}
 	
 	

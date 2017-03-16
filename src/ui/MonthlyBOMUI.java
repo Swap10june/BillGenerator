@@ -26,12 +26,13 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import beans.BillRow;
-import model.TelcoBillDataModel;
+import beans.MonthlyBOM;
+import model.MonthlyBillDataModel;
 import util.NumToWords;
 import util.SConstants;
 import util.Utils;
 
-public class MonthlyBOM extends JDialog{
+public class MonthlyBOMUI extends JDialog{
 
 	/**
 	 * 
@@ -46,10 +47,10 @@ public class MonthlyBOM extends JDialog{
 
 	private JPanel finalPanel;
 
-	private Map<String,Object> billrows = new HashMap<String,Object>();
+	private Map<String,Object> billrows = null;
 
 	private Map<String,JPanel> rowsMap = null;
-	private List<BillRow> billRowList = new ArrayList<BillRow>();
+	private List<BillRow> billRowList = null;
 
 	public static int counter = 1;
 
@@ -61,14 +62,24 @@ public class MonthlyBOM extends JDialog{
     private JPopupMenu menuPopup = new JPopupMenu();
 
 	private JButton btnGenerateBill;
-	public MonthlyBOM(JDialog owner, String monthlyBomBtnString)
+
+	private JCheckBox chkExcel = null;
+	private MonthlyBOM monthlyBom = null;
+	public JCheckBox getChkExcel() {
+		return chkExcel;
+	}
+	public MonthlyBOMUI(JDialog owner, String monthlyBomBtnString)
 	{
 		
 		super(owner);
 		this.setParent(owner);
-		
+		counter=1;
+		billRowList = new ArrayList<BillRow>();
+		billrows = new HashMap<String,Object>();
+		totalAmount = 0;
 		setMonthlyBillUIComponentsMap(new HashMap<String,Object>());
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,monthlyBomBtnString);
+		monthlyBom = new MonthlyBOM();
 		initUI(owner);
 		menuPopup.add(menuItem);
 		menuItem.addActionListener(new ActionListener() {
@@ -120,7 +131,7 @@ public class MonthlyBOM extends JDialog{
 		panelBillHeader.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelBillHeader.setLayout(new FlowLayout());
 		
-		int no = new TelcoBillDataModel().getNoOfTagsUnderTag("Bill");
+		int no = new MonthlyBillDataModel().getNoOfTagsUnderTag("MBills");
 		@SuppressWarnings("deprecation")
 		String str = ((new Date().toLocaleString().split(",")[1]).split(" ")[1]).substring(2);
 		int dateYear = Integer.parseInt(str);
@@ -135,18 +146,23 @@ public class MonthlyBOM extends JDialog{
 		
 		final JPanel panelBillNo = templates.getLabelWithValueLabel("panelBillNo",SConstants.L_BILL_NO,billNo,monthlyBillUIComponentsMap);
 		panelBillHeader.add(panelBillNo);
+		monthlyBom.setBillNumber(((JLabel)panelBillNo.getComponent(2)).getText().isEmpty()?"-NA-":((JLabel)panelBillNo.getComponent(2)).getText());
 		
 		final JPanel panelBillDate = templates.getLabelWithValueLabel("panelBillDate",SConstants.L_TEL_BILL_DTAE, SConstants.TODAYS_DATE,monthlyBillUIComponentsMap);
 		panelBillHeader.add(panelBillDate);
+		monthlyBom.setBillDate(((JLabel)panelBillDate.getComponent(2)).getText().isEmpty()?"-NA-":((JLabel)panelBillDate.getComponent(2)).getText());
 		
 		final JPanel panelContactNumber = templates.getLabelWithValueLabel("panelContactNumber",SConstants.L_TEL_CONTACT_NO,SConstants.V_CLIENT_MOB1,monthlyBillUIComponentsMap);
 		panelBillHeader.add(panelContactNumber);
+		monthlyBom.setContactNumber(((JLabel)panelContactNumber.getComponent(2)).getText().isEmpty()?"-NA-":((JLabel)panelContactNumber.getComponent(2)).getText());
 		
 		final JPanel panelPanNumber = templates.getLabelWithValueLabel("panelPanNumber",SConstants.L_PAN_NO,SConstants.V_PAN_NO,monthlyBillUIComponentsMap);
 		panelBillHeader.add(panelPanNumber);
 		
+		
 		final JPanel panelEmail = templates.getLabelWithValueLabel("panelEmail",SConstants.L_E_MAIl,SConstants.V_E_Mail,monthlyBillUIComponentsMap);
 		panelBillHeader.add(panelEmail);
+		monthlyBom.setEmail(((JLabel)panelEmail.getComponent(2)).getText().isEmpty()?"-NA-":((JLabel)panelEmail.getComponent(2)).getText());
 		
 		owner.add(panelBillHeader);
 		
@@ -198,7 +214,7 @@ public class MonthlyBOM extends JDialog{
 		finalPanel.add(mothlyTotalAmountInWords);
 		owner.add(finalPanel);
 		
-		JCheckBox chkExcel = new JCheckBox();
+		chkExcel = new JCheckBox();
 		chkExcel.setBounds(10, 150, 50, 50);
 		chkExcel.setEnabled(false);
 		owner.add(chkExcel);
@@ -328,6 +344,18 @@ public class MonthlyBOM extends JDialog{
 	 */
 	public void setBillRowList(List<BillRow> billRowList) {
 		this.billRowList = billRowList;
+	}
+	/**
+	 * @return the monthlyBom
+	 */
+	public MonthlyBOM getMonthlyBom() {
+		return monthlyBom;
+	}
+	/**
+	 * @param monthlyBom the monthlyBom to set
+	 */
+	public void setMonthlyBom(MonthlyBOM monthlyBom) {
+		this.monthlyBom = monthlyBom;
 	}
 	
 }

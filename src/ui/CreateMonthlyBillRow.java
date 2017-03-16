@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
@@ -14,13 +13,9 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 
-import org.jdesktop.swingx.JXDatePicker;
-
-import beans.BillRow;
 import util.SConstants;
 import util.Utils;
 import model.VehicleDataModel;
@@ -34,7 +29,7 @@ public class CreateMonthlyBillRow extends JDialog
 	private static final long serialVersionUID = 1L;
 	private UITemplates templates= new UITemplates();
 	private Map<String, Object> billRowComponents;
-	public CreateMonthlyBillRow(Map<String, Object> map)
+	public CreateMonthlyBillRow(final Map<String, Object> map)
 	{
 		billRowComponents = new HashMap<String, Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Row(this,"Bill Row");
@@ -115,7 +110,7 @@ public class CreateMonthlyBillRow extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				map.put("components"+String.valueOf(MonthlyBOM.counter), billRowComponents);
+				map.put("components"+String.valueOf(MonthlyBOMUI.counter), billRowComponents);
 				dispose();
 			}
 		});
