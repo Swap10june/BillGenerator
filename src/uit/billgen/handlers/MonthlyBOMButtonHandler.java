@@ -45,7 +45,7 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 			if(source.getBillRowList().size()<5)
 			{
 				BillRow billRow = new BillRow();
-				new CreateMonthlyBillRow(source.getBillrows());	
+				new CreateMonthlyBillRow(source.getBillrows(),billRow);	
 				addLabels(billRow);
 				source.getBillRowList().add(billRow);
 				source.getChkExcel().setEnabled(true);

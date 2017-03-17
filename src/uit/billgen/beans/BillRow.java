@@ -2,6 +2,7 @@ package uit.billgen.beans;
 
 public class BillRow 
 {
+	private String id					=	null;
 	private String fromDate				=		null;
 	private String toDate				=		null;
 	private String vehicleDesc			=		null;
@@ -170,6 +171,18 @@ public class BillRow
 	public double getExtraCharges()
 	{
 		return extraCharges;
+	}
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

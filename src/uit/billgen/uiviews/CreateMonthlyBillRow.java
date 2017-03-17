@@ -16,6 +16,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 
+import uit.billgen.beans.BillRow;
 import uit.billgen.datamodel.VehicleDataModel;
 import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
@@ -29,8 +30,10 @@ public class CreateMonthlyBillRow extends JDialog
 	private static final long serialVersionUID = 1L;
 	private UITemplates templates= new UITemplates();
 	private Map<String, Object> billRowComponents;
-	public CreateMonthlyBillRow(final Map<String, Object> map)
+	private BillRow billrow;
+	public CreateMonthlyBillRow(final Map<String, Object> map, BillRow billRow)
 	{
+		this.billrow = billRow;
 		billRowComponents = new HashMap<String, Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Row(this,"Bill Row");
 		this.setLayout(null);
@@ -111,6 +114,7 @@ public class CreateMonthlyBillRow extends JDialog
 			public void actionPerformed(ActionEvent e) 
 			{
 				map.put("components"+String.valueOf(MonthlyBOMUI.counter), billRowComponents);
+				billrow.setId("components"+String.valueOf(MonthlyBOMUI.counter));
 				dispose();
 			}
 		});

@@ -95,7 +95,17 @@ public class MonthlyBOMUI extends JDialog{
 				for (int i = 0; i < billrows.size(); i++)
 				{
 					if(root.getName().equalsIgnoreCase(String.valueOf(i)))
+					{
 						billrows.remove("components"+String.valueOf(i+1));
+						BillRow row = null;
+						for (int j = 0; j < billRowList.size(); j++)
+						{
+							if(billRowList.get(i).getId().equalsIgnoreCase("components"+String.valueOf(i+1)))
+								row = billRowList.get(i);
+						}
+						if(row!=null)
+							billRowList.remove(row);
+					}
 					//monthlyBom.getBillRows().remove(billrows.get("components"+String.valueOf(i+1)));
 				}
 				panMain.repaint();
