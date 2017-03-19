@@ -42,7 +42,7 @@ public class Login extends JDialog
 		 imagePanel.setLayout(new BorderLayout());
 		 JLabel pic = new JLabel();
 		 imagePanel.add(pic);
-		 ImageIcon test = new ImageIcon("images/login.png"); 
+		 ImageIcon test = new ImageIcon("/UIT-BillGen/src/uit/billgen/images/login.png"); 
 		 pic.setIcon(test);
 		 //imagePanel.setBackground(Color.CYAN);
 		 imagePanel.setBounds(30, 100, 410, 350);
@@ -64,7 +64,7 @@ public class Login extends JDialog
 		 //Label for user name image icon
 		 JLabel lblUserNameIcon = new JLabel();
 		 //Helper.setComponent(lblUserNameIcon, "lblUserNameIcon");
-		 lblUserNameIcon.setIcon(new ImageIcon("images/user.png"));
+		 lblUserNameIcon.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/user.png"));
 		 lblUserNameIcon.setBounds(790, 140, 40, 30);
 		 
 		 //Label for password
@@ -86,7 +86,7 @@ public class Login extends JDialog
 		//Label for user password image icon
 		 JLabel lblUserPassIcon = new JLabel();
 		 //Helper.setComponent(lblUserPassIcon, "lblUserPassIcon");
-		 lblUserPassIcon.setIcon(new ImageIcon("images/passwordKey.png"));
+		 lblUserPassIcon.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/passwordKey.png"));
 		 lblUserPassIcon.setBounds(790, 240, 40, 30);
 		 
 		 //Check box to show password
@@ -120,8 +120,8 @@ public class Login extends JDialog
 					@Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name", "resource/users.xml")) 
-                        		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/users.xml")))
+                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name",SConstants.USER_XML_FILE_PATH)) 
+                        		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.USER_XML_FILE_PATH)))
                         {
                             //System.out.println("Login Successful :: "+txtUserName.getText());
                             owner.dispose();

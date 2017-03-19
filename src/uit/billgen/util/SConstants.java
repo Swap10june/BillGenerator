@@ -155,14 +155,14 @@ public class SConstants
 	public static final String 		ID_ATTR						 		= "Id";
 	
 	// customer data model constants
-	public static final String 		CUSTOMER_DATA_MODEL_FILE_PATH 			= "resource/CustomerModel.xml";
+	public static final String 		CUSTOMER_DATA_MODEL_FILE_PATH 			= "/UIT-BillGen/src/uit/billgen/resources/CustomerModel.xml";
 	public static final String 		CUSTOMER_DATA_MODEL_CUSTOMERS_TAG 		= "Customers";
 	public static final String 		CUSTOMER_DATA_MODEL_CUSTOMER_TAG		= "Customer";
 	public static final String 		CUSTOMER_DATA_MODEL_CUST_CODE_ATTR 		= "cCode";
 	public static final String 		CUSTOMER_DATA_MODEL_CUST_DEPT_ATTR 		= "cDept";
 
 	// duty type data model constants
-	public static final String 		DUTY_TYPE_DATA_MODEL_FILE_PATH 			= "resource/DutyTypeModel.xml";
+	public static final String 		DUTY_TYPE_DATA_MODEL_FILE_PATH 			= "/UIT-BillGen/src/uit/billgen/resources/DutyTypeModel.xml";
 	public static final String 		DUTY_TYPE_DATA_MODEL_DUTYTYPES_TAG 		= "DutyTypes";
 	public static final String 		DUTY_TYPE_DATA_MODEL_DUTYTYPE_TAG		= "DutyType";
 	public static final String 		UID_ATTR						 		= "UId";
@@ -177,7 +177,7 @@ public class SConstants
 	public static final String		EXTRA_KM_RATE							= "exKMRate";
 
 	//Monthly bill data model
-	public static final String 		MBILL_DM_FILE_PATH 							= "resource/MonthlyBillModel.xml";
+	public static final String 		MBILL_DM_FILE_PATH 							= "/UIT-BillGen/src/uit/billgen/resources/MonthlyBillModel.xml";
 	public static final String 		MBILL_DM_MBILLS_TAG 						= "MBills";
 	public static final String 		BILL_TAG 									= "Bill";
 	public static final String 		BILL_ROW_STRING 							= "BillRow";
@@ -194,7 +194,7 @@ public class SConstants
 	public static final String 		TOTAL_FINAL_AMOUNT_ATTR 					= "fAmount";
 
 	// telco bill
-	public static final String 		TELCO_BILL_FILE_PATH 						= "resource/TelcoBillModel.xml";
+	public static final String 		TELCO_BILL_FILE_PATH 						= "/UIT-BillGen/src/uit/billgen/resources/TelcoBillModel.xml";
 	public static final String 		TBILLS_TAG 									= "TBills";
 	public static final String 		ADMIN_ATTR 									= "admin";
 	public static final String 		BILL_DATE_ATTR 								= "BillDate";
@@ -219,7 +219,7 @@ public class SConstants
 	public static final String 		GRAND_TOTAL 								= "GTotal";
 
 	// vehicle data model
-	public static final String 		VEHICLE_DATA_MODEL_FILE_PATH 				= "resource/VehicleModel.xml";
+	public static final String 		VEHICLE_DATA_MODEL_FILE_PATH 				= "/UIT-BillGen/src/uit/billgen/resources/VehicleModel.xml";
 	public static final String 		VEHICLES_TAG 								= "Vehicles";
 	public static final String 		VEHICLE_TAG 								= "Vehicle";
 	public static final String 		MONTHLY_VEHICLE_RATE_ATTR 					= "MRate";
@@ -243,5 +243,8 @@ public class SConstants
 	public static final String DB_PW = "swap";
 
 	public static final String DB_ORACLE_CLASS_FORNAME = "oracle.jdbc.driver.OracleDriver";
+	
+	public static final String ADMIN_XML_FILE_PATH = "/UIT-BillGen/src/uit/billgen/resources/admin.xml";
+	public static final String USER_XML_FILE_PATH = "/UIT-BillGen/src/uit/billgen/resources/users.xml";
 	
 }

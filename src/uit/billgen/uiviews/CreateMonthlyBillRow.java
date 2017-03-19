@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
+
+import org.jdesktop.swingx.JXDatePicker;
 
 import uit.billgen.beans.BillRow;
 import uit.billgen.datamodel.VehicleDataModel;
@@ -60,17 +64,24 @@ public class CreateMonthlyBillRow extends JDialog
 			@Override
 			public void itemStateChanged(ItemEvent e)
 			{
+				Calendar startCalendar = new GregorianCalendar();
+				startCalendar.setTime(((JXDatePicker)((JPanel)billRowComponents.get("fromDatePanel")).getComponent(2)).getDate());
+				Calendar endCalendar = new GregorianCalendar();
+				endCalendar.setTime(((JXDatePicker)((JPanel)billRowComponents.get("toDatePanel")).getComponent(2)).getDate());
+
+				int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+				int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
 				double rate = Double.parseDouble((new VehicleDataModel().getVehicle(vehicleCombo.getSelectedItem().toString())).getMonthlyRate());
 				
 				JTextField textRate = (JTextField) ((JPanel)billRowComponents.get("rate")).getComponent(2);
 				textRate.setText(String.valueOf(rate));
 				
-				JSpinner spinner  =(JSpinner) ((JPanel) billRowComponents.get("monthlyKm")).getComponent(2);
-				SpinnerModel txtMonthlyKm=spinner.getModel();
-				int km = (int)Double.parseDouble(txtMonthlyKm.getValue().toString());
+				//JSpinner spinner  =(JSpinner) ((JPanel) billRowComponents.get("monthlyKm")).getComponent(2);
+				//SpinnerModel txtMonthlyKm=spinner.getModel();
+				//int km = (int)Double.parseDouble(txtMonthlyKm.getValue().toString());
 				
 				JTextField textAmount = (JTextField) ((JPanel)billRowComponents.get("amount")).getComponent(2);
-				textAmount.setText(String.valueOf(km*rate));
+				textAmount.setText(String.valueOf(rate*diffMonth));
 				
 				
 				//Extra km 

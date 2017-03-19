@@ -177,7 +177,7 @@ public class MonthlyBOMUI extends JDialog{
 		owner.add(panelBillHeader);
 		
 		JButton btnAddBillRow = new JButton();
-		btnAddBillRow.setIcon(new ImageIcon("images/addDocument.png"));
+		btnAddBillRow.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/addDocument.png"));
 		btnAddBillRow.addActionListener(new MonthlyBOMButtonHandler(this,SConstants.ADD_BTN_STRING));
 		btnAddBillRow.setBounds(10,100, 50, 50);
 		owner.add(btnAddBillRow);
@@ -231,7 +231,7 @@ public class MonthlyBOMUI extends JDialog{
 		
 		
 		JButton btnRemoveRow = new JButton();
-		btnRemoveRow.setIcon(new ImageIcon("images/delete.png"));
+		btnRemoveRow.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/delete.png"));
 		btnRemoveRow.setBounds(10, 200, 50, 50);
 		btnRemoveRow.setEnabled(false);
 		owner.add(btnRemoveRow);

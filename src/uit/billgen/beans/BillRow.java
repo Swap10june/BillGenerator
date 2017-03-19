@@ -5,6 +5,7 @@ public class BillRow
 	private String id					=	null;
 	private String fromDate				=		null;
 	private String toDate				=		null;
+	private int noOfMonth				=	0;
 	private String vehicleDesc			=		null;
 	private String vehicle				=		null;
 	
@@ -17,7 +18,7 @@ public class BillRow
 	private double extraKmAmpount		=		0.0;
 	private double totalAmount			=		0.0;
 	private double extraCharges			=		0.0;
-	public BillRow(
+	/*public BillRow(
 			String fromDate, String toDate, String vehicleDesc,String vehicle, int monthlyKm, int extraKm, double rate,
 			double amount, double extraKmRate, double extraKmAmpount,double totalAmount)
 	{
@@ -32,7 +33,7 @@ public class BillRow
 		this.extraKmRate = extraKmRate;
 		this.extraKmAmpount = extraKmAmpount;
 		this.totalAmount = totalAmount;
-	}
+	}*/
 	public BillRow() {
 		// TODO Auto-generated constructor stub
 	}
@@ -183,6 +184,18 @@ public class BillRow
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	/**
+	 * @return the noOfMonth
+	 */
+	public int getNoOfMonth() {
+		return noOfMonth;
+	}
+	/**
+	 * @param noOfMonth the noOfMonth to set
+	 */
+	public void setNoOfMonth(int noOfMonth) {
+		this.noOfMonth = noOfMonth;
 	}
 	
 	

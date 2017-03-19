@@ -3,6 +3,8 @@ package uit.billgen.handlers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +32,10 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 	private JTextField TotalAmount;
 	private MonthlyBOMUI source =null;
 	private String action = null;
+	private JXDatePicker fromDate;
+	private JXDatePicker toDate;
+	private GregorianCalendar endCalendar;
+	private GregorianCalendar startCalendar;
 	public MonthlyBOMButtonHandler(MonthlyBOMUI monthlyBOM, String action) 
 	{
 		this.source  = monthlyBOM;
@@ -79,6 +85,11 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 
 	private void addLabels(BillRow billRow)
 	{
+		
+		
+		
+
+		
 		@SuppressWarnings("unchecked")
 		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyBOMUI.counter));
 		if(billRowComponents!=null && billRowComponents.size()>0)
@@ -95,23 +106,27 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 			
 			if(billRowComponents.containsKey("fromDatePanel"))
 			{
-				JXDatePicker fromDate = (JXDatePicker) ((JPanel)billRowComponents.get("fromDatePanel")).getComponent(2);
+				fromDate = (JXDatePicker) ((JPanel)billRowComponents.get("fromDatePanel")).getComponent(2);
 				listLabels.get(0).setText("From:");
 				listLabels.get(0).setFont(SConstants.FONT_COURRIER_BOLD_13);
 				@SuppressWarnings("deprecation")
 				String fromDateString =fromDate.getDate().toLocaleString();
 				listLabels.get(1).setText(fromDateString);
 				billRow.setFromDate(fromDateString);
+				startCalendar = new GregorianCalendar();
+				startCalendar.setTime(fromDate.getDate());
 			}
 			if(billRowComponents.containsKey("toDatePanel"))
 			{
-				JXDatePicker toDate = (JXDatePicker) ((JPanel)billRowComponents.get("toDatePanel")).getComponent(2);
+				toDate = (JXDatePicker) ((JPanel)billRowComponents.get("toDatePanel")).getComponent(2);
 				listLabels.get(2).setText("To:");
 				listLabels.get(2).setFont(SConstants.FONT_COURRIER_BOLD_13);
 				@SuppressWarnings("deprecation")
 				String toDateString = toDate.getDate().toLocaleString();
 				listLabels.get(3).setText(toDateString);
 				billRow.setToDate(toDateString);
+				endCalendar = new GregorianCalendar();
+				endCalendar.setTime(toDate.getDate());
 			}
 			if(billRowComponents.containsKey("vehicleDesc"))
 			{
@@ -189,7 +204,11 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 				listLabels.get(21).setText(TotalAmount.getText());
 				MonthlyBOMUI.totalAmount = MonthlyBOMUI.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
 				billRow.setTotalAmount(Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText()));
+				int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+				int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+				billRow.setNoOfMonth(diffMonth);
 			}
+			
 			MonthlyBOMUI.counter++;
 			//billRowComponents.clear();
 			source.updateTotalAmountValues();

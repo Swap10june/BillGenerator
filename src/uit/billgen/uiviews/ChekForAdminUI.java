@@ -58,8 +58,8 @@ public class ChekForAdminUI extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("admin", "resource/admin.xml")) 
-                		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", "resource/admin.xml")))
+				if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("admin",SConstants.ADMIN_XML_FILE_PATH)) 
+                		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.ADMIN_XML_FILE_PATH)))
                 {
                     //System.out.println("Admin Login Successful :: "+txtUserName.getText());
                     new AdminHomeUI(new javax.swing.JDialog());
