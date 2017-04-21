@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <Customers>
-<Customer UId="1" cAdd="Pune" cCode="TAL-123" cDept="IT" cName="TAL" sUId="TAL"/>
-<Customer UId="2" cAdd="Mumbai" cCode="MAH-456" cDept="m" cName="MAHINDRA" sUId="MAHINDRA"/>
+<Customer UId="1" cAdd="Pune" cCode="TAL-123" cDept="Mechanical" cName="TAL" sUId="TAL"/>
+<Customer UId="2" cAdd="Pune" cCode="MAH-524" cDept="IT" cName="MAHINDRA" sUId="MAHINDRA"/>
 </Customers>

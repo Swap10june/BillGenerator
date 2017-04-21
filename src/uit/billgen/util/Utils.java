@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -83,6 +85,33 @@ public class Utils
 	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
+	}public void applyBasicSettingsOnWindow_Small_Login(JDialog owner, String string)
+	{
+		owner.setLayout(null);
+		/*Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - owner.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - owner.getHeight()) / 2);*/
+	    owner.setLocation(350,150);
+	    owner.setSize(new Dimension(500, 300));
+	    owner.setModal(true);
+	    owner.setResizable(false);
+	    owner.setTitle(string);
+	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    
+	    
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0, 694, 30);
+        //set font for JLabel
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    Border border = BorderFactory.createLineBorder(Color.blue);
+	    headerLabel.setBorder(border);
+	    owner.add(headerLabel);
+	    
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, 442, 694, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    footerLabel.setBorder(border);
+	    owner.add(footerLabel);
 	}
 
 	public void applyBasicSettingsOnWindow_Small(JDialog owner, String string)
@@ -91,8 +120,92 @@ public class Utils
 		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
 	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
-	    owner.setLocation(300,150);
-	    owner.setSize(new Dimension(700, 400));
+	    owner.setLocation(350,150);
+	    owner.setSize(new Dimension(550, 300));
+	    owner.setModal(true);
+	    owner.setResizable(false);
+	    owner.setTitle(string);
+	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    
+	    
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0, 694, 30);
+        //set font for JLabel
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    Border border = BorderFactory.createLineBorder(Color.blue);
+	    headerLabel.setBorder(border);
+	    owner.add(headerLabel);
+	    
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, 442, 694, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    footerLabel.setBorder(border);
+	    owner.add(footerLabel);
+	}
+	public void applyBasicSettingsOnWindow_400X150(JDialog owner, String string)
+	{
+		owner.setLayout(null);
+		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
+	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
+	    owner.setLocation(350,150);
+	    owner.setSize(new Dimension(400, 150));
+	    owner.setModal(true);
+	    owner.setResizable(false);
+	    owner.setTitle(string);
+	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    
+	    
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0, 694, 30);
+        //set font for JLabel
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    Border border = BorderFactory.createLineBorder(Color.blue);
+	    headerLabel.setBorder(border);
+	    owner.add(headerLabel);
+	    
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, 442, 694, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    footerLabel.setBorder(border);
+	    owner.add(footerLabel);
+	}
+	public void applyBasicSettingsOnWindow_550X300(JDialog owner, String string)
+	{
+		owner.setLayout(null);
+		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
+	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
+	    owner.setLocation(350,150);
+	    owner.setSize(new Dimension(550, 300));
+	    owner.setModal(true);
+	    owner.setResizable(false);
+	    owner.setTitle(string);
+	    owner.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	    
+	    
+	    JLabel headerLabel = new JLabel(SConstants.PRPJECT_HEADING,SwingConstants.CENTER);
+	    headerLabel.setBounds(0, 0, 694, 30);
+        //set font for JLabel
+	    headerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    Border border = BorderFactory.createLineBorder(Color.blue);
+	    headerLabel.setBorder(border);
+	    owner.add(headerLabel);
+	    
+	    JLabel footerLabel = new JLabel(SConstants.MY_COMPANY_NAME,SwingConstants.CENTER);
+	    footerLabel.setBounds(0, 442, 694, 30);
+	    footerLabel.setFont(SConstants.FONT_COURRIER_BOLD_18);
+	    footerLabel.setBorder(border);
+	    owner.add(footerLabel);
+	}
+	public void applyBasicSettingsOnWindow_500X400(JDialog owner, String string)
+	{
+		owner.setLayout(null);
+		//Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	   // int x = (int) ((dimension.getWidth() - owner.getWidth()) / 10);
+	    //int y = (int) ((dimension.getHeight() - owner.getHeight()) / 10);
+	    owner.setLocation(350,150);
+	    owner.setSize(new Dimension(500, 400));
 	    owner.setModal(true);
 	    owner.setResizable(false);
 	    owner.setTitle(string);
@@ -199,7 +312,6 @@ public class Utils
 		}
 		
 	}
-	@SuppressWarnings("deprecation")
 	public String getStringValueFromPanelComponent(JPanel Panel,int ComponentPosition)
 	{
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JLabel)
@@ -232,7 +344,9 @@ public class Utils
 		if(Panel.getComponent(ComponentPosition)!=null && Panel.getComponent(ComponentPosition) instanceof JXDatePicker)
 		{
 			JXDatePicker lbl= (JXDatePicker) Panel.getComponent(2);
-			return lbl.getDate().toLocaleString();
+			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			String startDate = df.format(lbl.getDate());
+			return startDate;
 		}
 		return "";
 		

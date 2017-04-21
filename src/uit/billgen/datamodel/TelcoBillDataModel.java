@@ -51,7 +51,7 @@ public class TelcoBillDataModel
         Element element = doc.createElement(SConstants.BILL_TAG);
         
         element.setAttribute(SConstants.BILL_NO_STRING_ATTR,bOM.getBillNumber());
-        element.setAttribute(SConstants.ADMIN_ATTR,bOM.getAdmin());
+       // element.setAttribute(SConstants.ADMIN_ATTR,bOM.getAdmin());
         element.setAttribute(SConstants.CUSTOMER_NAME_ATTR,bOM.getCustomerName());
         element.setAttribute(SConstants.BILL_DATE_ATTR,bOM.getBillDate());
         element.setAttribute(SConstants.CLIENT_MOB_NO_ATTR,bOM.getContactNumber());
@@ -71,12 +71,12 @@ public class TelcoBillDataModel
         element.setAttribute(SConstants.DUTY_TYPE_ATTR,bOM.getDutyType());
         element.setAttribute(SConstants.PKG_KM_ATTR,bOM.getPackageKM());
         element.setAttribute(SConstants.PGK_AMOUNT_ATTR, bOM.getPakageAmount());
-        element.setAttribute(SConstants.PKG_TOTAL_AMOUNT,bOM.getPkgtotalAmount());
+        //element.setAttribute(SConstants.PKG_TOTAL_AMOUNT,bOM.getPkgtotalAmount());
         element.setAttribute(SConstants.PKG_RATE_ATTR,bOM.getPackageRate());
         element.setAttribute(SConstants.EXTRA_KM_ATTR,bOM.getExtraKM());
         element.setAttribute(SConstants.EXTRA_KM_RATE,bOM.getExtraRate());
         element.setAttribute(SConstants.EXTRA_KM_AMOUNT_ATTR,bOM.getExtraTotalAmount());
-        element.setAttribute(SConstants.EXTRA_TIME_HOURS_ATTR,bOM.getExtraTimeHours());
+        //element.setAttribute(SConstants.EXTRA_TIME_HOURS_ATTR,bOM.getExtraTimeHours());
         element.setAttribute(SConstants.TOLL_CHARG_ATTR, bOM.getTollCharges());
         element.setAttribute(SConstants.MONTHLY_EXTRA_CHARGES_ATTR,bOM.getMonthlyExtraCharges());
         element.setAttribute(SConstants.SERVICE_TAX_ATTR,bOM.getServiceTaxCarges());

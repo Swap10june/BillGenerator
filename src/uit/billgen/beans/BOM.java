@@ -4,39 +4,40 @@ public class BOM
 {
 	
 	private String 		billNumber 				= 		null;
-	private String		admin					=		null;
-	private String		customer				=		null;
-	private String 		customerName			=		null;
 	private String		billDate				=		null;
 	private String 		contactNumber			=		null;
 	private String 		email					= 		null;
+	private String 		customerName			=		null;
 	private String		dateOfTravels			=		null;
 	private String		dateOfreturn			=		null;
 	private String 		typeOfVehicle			=		null;
 	private String 		vehicleNumber			=		null;
 	private String 		vendorCode				=		null;
 	private String 		employeeNameUsedVehicle	=		null;
-	private String 		packageType				=		null;
 	private String		startKM					=		null;
 	private String		endKM					=		null;
-	private String 		totalKM					=		null;
 	private	String		startTime				=		null;
 	private String		endTime					=		null;
+	private String 		totalKM					=		null;
 	private	String		dutyType				=		null;
+	private String 		packageType				=		null;
 	private String		packageKM				=		null;
+	private String		packageRate				=		null;
 	private String 		pakageAmount			=		null;
 	private String 		extraKM					=		null;
-	private String		packageRate				=		null;
 	private String		extraRate				=		null;
-	private String		pkgtotalAmount			=		null;
 	private String		extraTotalAmount		=		null;
-	private String		extraTimeHours			=		null;	
 	private String		tollCharges				=		null;
-	private String		monthlyExtraCharges		=		null;
-	private String		serviceTaxCarges		=		null;
 	private String		nightHaltRate			=		null;
 	private	String		grandTotal				=		null;
+	private String		serviceTaxCarges		=		null;
 	private String		totalWithoutTax			=		null;
+	private String		extraTimeHours			=		null;	
+	private String		monthlyExtraCharges		=		null;
+	
+	
+	
+	
 	
 	public String getBillNumber() {
 		return billNumber;
@@ -44,18 +45,7 @@ public class BOM
 	public void setBillNumber(String billNumber) {
 		this.billNumber = billNumber;
 	}
-	public String getAdmin() {
-		return admin;
-	}
-	public void setAdmin(String admin) {
-		this.admin = admin;
-	}
-	public String getCustomer() {
-		return customer;
-	}
-	public void setCustomer(String customer) {
-		this.customer = customer;
-	}
+	
 	public String getBillDate() {
 		return billDate;
 	}
@@ -158,12 +148,7 @@ public class BOM
 	public void setExtraRate(String extraRate) {
 		this.extraRate = extraRate;
 	}
-	public String getPkgtotalAmount() {
-		return pkgtotalAmount;
-	}
-	public void setPkgtotalAmount(String pkgtotalAmount) {
-		this.pkgtotalAmount = pkgtotalAmount;
-	}
+	
 	public String getExtraTotalAmount() {
 		return extraTotalAmount;
 	}

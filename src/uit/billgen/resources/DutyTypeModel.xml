@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <DutyTypes>
-<DutyType Id="TATA MANZA-4 Hrs 40 KM-(T)" KM="40" Rate="1000.0" UId="1" cName="TAL" dutyTypeString="TATA MANZA-4 Hrs 40 KM-(T)" exKMRate="15.0" hours="4" vName="TATA MANZA"/>
-<DutyType Id="TATA MANZA-8 Hrs 80 KM-(T)" KM="80" Rate="1800.0" UId="2" cName="TAL" dutyTypeString="TATA MANZA-8 Hrs 80 KM-(T)" exKMRate="15.0" hours="8" vName="TATA MANZA"/>
+<DutyType Id="TATA INDICA-4 Hrs 40 KM-(T)" KM="40" Rate="520.0" UId="1" cName="TAL" dutyTypeString="TATA INDICA-4 Hrs 40 KM-(T)" exKMRate="10.0" hours="4" vName="TATA INDICA"/>
+<DutyType Id="TATA INDICA-8 Hrs 80 KM-(T)" KM="80" Rate="1050.0" UId="2" cName="TAL" dutyTypeString="TATA INDICA-8 Hrs 80 KM-(T)" exKMRate="10.0" hours="8" vName="TATA INDICA"/>
+<DutyType Id="TATA INDICA-0 Hrs 300 KM-(T)" KM="300" Rate="3000.0" UId="3" cName="TAL" dutyTypeString="TATA INDICA-0 Hrs 300 KM-(T)" exKMRate="10.0" hours="0" vName="TATA INDICA"/>
+<DutyType Id="TATA INDICA-24 Hrs 370 KM-(T)" KM="370" Rate="3100.0" UId="4" cName="TAL" dutyTypeString="TATA INDICA-24 Hrs 370 KM-(T)" exKMRate="10.0" hours="24" vName="TATA INDICA"/>
+<DutyType Id="TATA INDICA-24 Hrs 370 KM-(T)" KM="370" Rate="3100.0" UId="4" cName="TAL" dutyTypeString="TATA INDICA-24 Hrs 370 KM-(T)" exKMRate="10.0" hours="24" vName="TATA INDICA"/>
 </DutyTypes>

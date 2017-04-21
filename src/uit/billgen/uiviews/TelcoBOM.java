@@ -24,6 +24,7 @@ import uit.billgen.datamodel.TelcoBillDataModel;
 import uit.billgen.datamodel.VehicleDataModel;
 import uit.billgen.handlers.TelcoBillUIButtonHandler;
 import uit.billgen.listners.TelcoBillComboItemListner;
+import uit.billgen.util.Dao;
 import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
@@ -134,11 +135,12 @@ public class TelcoBOM extends JDialog {
 		final JPanel panelEmployeeName = templates.getLabelWithTextField("panelEmployeeName",SConstants.L_EMP_NAME,"Enter Employee Name here",15,false, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelEmployeeName);
 		
-		final JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",SConstants.L_START_KM,0,0,100000000,1, billGenerateUIComponentsMap);
-		panelLeftBody.add(panelStartKM);
-		
+
 		final JPanel panelEndKM = templates.getLabelWithIntSpinner("panelEndKM",SConstants.L_END_KM,0,0,100000000,1, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelEndKM);
+		
+		final JPanel panelStartKM = templates.getLabelWithIntSpinner("panelStartKM",SConstants.L_START_KM,0,0,100000000,1, billGenerateUIComponentsMap);
+		panelLeftBody.add(panelStartKM);
 		
 		final JPanel panelStartTime = templates.getLabelWithTimeSpinner("panelStartTime",SConstants.L_START_TIME, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelStartTime);
@@ -148,6 +150,7 @@ public class TelcoBOM extends JDialog {
 		
 		final JPanel panelTotalKM = templates.getLabelWithTextField("panelTotalKM",SConstants.L_TOTAL_KM,"0",11,true, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelTotalKM);
+		
 		
 		final JPanel panelTollAmount = templates.getLabelWithTextField("panelTollAmount",SConstants.L_TOLL_AMOUNT, "0.0", 10,true, billGenerateUIComponentsMap);
 		panelLeftBody.add(panelTollAmount);
@@ -178,16 +181,7 @@ public class TelcoBOM extends JDialog {
 		comboDutyType.addItemListener(new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE));
 		comboDutyType.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		panelMiddleBody.add(panelDutyType);
-		/*JTextField textTotalKm = (JTextField) panelTotalKM.getComponent(2);
-		textTotalKm.addCaretListener(new CaretListener() {
-			
-			@Override
-			public void caretUpdate(CaretEvent e) {
-				panelMiddleBody.setVisible(true);
 				
-			}
-		});*/
-		
 		final JPanel panelTotalPkgKm = templates.getLabelWithEmptyLabel("panelTotalPkgKm",SConstants.L_TOTAL_PKG_KM, billGenerateUIComponentsMap);
 		panelMiddleBody.add(panelTotalPkgKm);
 		
@@ -237,15 +231,10 @@ public class TelcoBOM extends JDialog {
 		
 		owner.add(panelGross);
 		
-		final JPanel panelBtns = new JPanel();
-		panelBtns.setBounds(780, 100, 200, 100);
-		panelBtns.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelBtns.setLayout(new GridLayout());
-		
-		final JPanel panelGenerateExcelCheck = templates.getLabelWithCheckBox("panelGenerateExcelCheck",SConstants.L_GENERATE_EXCEL_CHECK, billGenerateUIComponentsMap);
-		final JCheckBox generateBillCheck = (JCheckBox) panelGenerateExcelCheck.getComponent(2);
-		panelBtns.add(panelGenerateExcelCheck);
-		
+		final JCheckBox panelGenerateExcelCheck = new JCheckBox("Excel");
+		panelGenerateExcelCheck.setBounds(800, 250, 100, 30);
+		//panelGenerateExcelCheck.setEnabled(false);
+		owner.add(panelGenerateExcelCheck);
 		
 		JButton btnGenerate = new JButton(SConstants.GENEARTE_BILL_BTN_STRING);
 		btnGenerate.setBounds(800, 300, 100, 30);
@@ -273,10 +262,12 @@ public class TelcoBOM extends JDialog {
 				bom.setEmployeeNameUsedVehicle(utility.getStringValueFromPanelComponent(panelEmployeeName, 2));
 				bom.setStartKM(utility.getStringValueFromPanelComponent(panelStartKM, 2));
 				bom.setEndKM(utility.getStringValueFromPanelComponent(panelEndKM, 2));
+				//String time = utility.getStringValueFromPanelComponent(panelStartTime, 2);
 				bom.setStartTime(utility.getStringValueFromPanelComponent(panelStartTime, 2));
 				bom.setEndTime(utility.getStringValueFromPanelComponent(panelEndTime, 2));
 				bom.setTotalKM(utility.getStringValueFromPanelComponent(panelTotalKM, 2));
 				bom.setDutyType(utility.getStringValueFromPanelComponent(panelDutyType, 2));
+				bom.setPackageType(utility.getStringValueFromPanelComponent(panelDutyType, 2));
 				bom.setPackageKM(utility.getStringValueFromPanelComponent(panelTotalPkgKm, 2));
 				bom.setPackageRate(utility.getStringValueFromPanelComponent(panelRate, 2));
 				bom.setPakageAmount(utility.getStringValueFromPanelComponent(panelAmount, 2));
@@ -288,7 +279,7 @@ public class TelcoBOM extends JDialog {
 				bom.setGrandTotal(utility.getStringValueFromPanelComponent(panelFinalAmount, 2));
 				bom.setServiceTaxCarges(utility.getStringValueFromPanelComponent(panelServiceTax, 2));
 				bom.setTotalWithoutTax(String.valueOf(Double.parseDouble(utility.getStringValueFromPanelComponent(panelFinalAmount, 2))-Double.parseDouble(utility.getStringValueFromPanelComponent(panelServiceTax, 2))));
-				if(generateBillCheck.isSelected())
+				if(panelGenerateExcelCheck.isSelected())
 				{
 					Utils.getUtilityInstance().generateBill(bom);
 					
@@ -296,11 +287,12 @@ public class TelcoBOM extends JDialog {
 				//new Dao().addBill(bom);
 				new TelcoBillDataModel().addBillTransaction(bom);
 				billGenerateUIComponentsMap.remove(SConstants.TOTAL_KM_ATTR);
+				new Dao().addBOM(bom);
+				//BOM boma = new Dao().getBOM("date",new java.sql.Date(new java.util.Date().getTime()));
 				owner.dispose();
 			}
 		});
 		
-		owner.add(panelBtns);
 	}
 	
 	

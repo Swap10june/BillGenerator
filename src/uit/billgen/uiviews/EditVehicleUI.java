@@ -34,14 +34,11 @@ public class EditVehicleUI extends JDialog
 	private static VehicleDataModel model = null;
 	private static List<Object> list = new ArrayList<Object>();
 	
-	
-
-
 	public EditVehicleUI(JDialog owner, String windowName) 
 	{
 		super(owner);
 		editVehicleUIComponent = new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,windowName);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_500X400(owner,windowName);
 		initUI(owner);
 		owner.setVisible(true);
 	}
@@ -52,8 +49,8 @@ public class EditVehicleUI extends JDialog
 	{
 		setModel(new VehicleDataModel());
 		JPanel topPanel  = new JPanel();
-		topPanel.setBounds(150, 30, 600, 100);
-		topPanel.setLayout(new GridLayout(2,2));
+		topPanel.setBounds(50, 30, owner.getWidth(), 30);
+		topPanel.setLayout(new GridLayout(1,2));
 		
 		String [] vehicleList = getModel().getAllVehicleNames();
 		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle", vehicleList, editVehicleUIComponent);
@@ -105,36 +102,32 @@ public class EditVehicleUI extends JDialog
 		});
 		
 		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 120, 600, 150);
-		bodyLeftPanel.setLayout(new GridLayout(2, 4));
+		bodyLeftPanel.setBounds(0, 60, owner.getWidth(), 200);
+		bodyLeftPanel.setLayout(new GridLayout(5, 1));
 		
 		
-		JPanel enterVehicleName = templates .getLabelWithTextField("enterVehicleName", "Enter Vehicle Name", "Edit Name Here", 10,false, editVehicleUIComponent);
+		JPanel enterVehicleName = templates .getLabelWithTextField("enterVehicleName", "Enter Vehicle Name", "Edit Name Here", SConstants.TEXT_COL_SIZE_15,false, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyLeftPanel.add(enterVehicleName);
 		enterVehicleName.setVisible(false);
 		list.add(enterVehicleName);
 		
-		JPanel enterVNumber = templates .getLabelWithTextField("enterVNumber", "Enter Vehicle No", "Edit No Here", 10,false, editVehicleUIComponent);
+		JPanel enterVNumber = templates .getLabelWithTextField("enterVNumber", "Enter Vehicle No", "Edit No Here", SConstants.TEXT_COL_SIZE_15,false, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyLeftPanel.add(enterVNumber);
 		enterVNumber.setVisible(false);
 		list.add(enterVNumber);
 		
-		/*JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Edit Name Here",10,false, editVehicleUIComponent);
-		bodyLeftPanel.add(enterCustomerName);
-		enterCustomerName.setVisible(false);
-		list.add(enterCustomerName);*/
 		String [] customers = new CustomerDataModel().getAllCustomerNames();
-		JPanel enterCustomerName  = templates.getLabelWithComboWOListner("enterCustomerName", "Select Customer", customers, editVehicleUIComponent);
+		JPanel enterCustomerName  = templates.getLabelWithComboWOListner("enterCustomerName", "Select Customer", customers, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyLeftPanel.add(enterCustomerName);
 		enterCustomerName.setVisible(false);
 		list.add(enterCustomerName);
 		
-		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate", 10, true, editVehicleUIComponent);
+		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate",  SConstants.TEXT_COL_SIZE_15, true, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyLeftPanel.add(enterMonthlyRate);
 		enterMonthlyRate.setVisible(false);
 		list.add(enterMonthlyRate);
 		
-		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Ex Km Rate", "Enter Ex Km Rate", 0, true, editVehicleUIComponent);
+		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Ex Km Rate", "Enter Ex Km Rate",  SConstants.TEXT_COL_SIZE_15, true, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyLeftPanel.add(enterExKmRate);
 		enterExKmRate.setVisible(false);
 		list.add(enterExKmRate);
@@ -142,12 +135,12 @@ public class EditVehicleUI extends JDialog
 		
 		
 		JButton btnEdit = new JButton(SConstants.EDIT_BTN_STRING);
-		btnEdit.setBounds(150, 300, 150, 30);
+		btnEdit.setBounds(100, 300, 150, 30);
 		btnEdit.setEnabled(false);
 		list.add(btnEdit);
 		btnEdit.addActionListener(new VehicleButtonHandler(owner));
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 300, 150, 30);
+		btnCancel.setBounds(300, 300, 150, 30);
 		btnCancel.setEnabled(false);
 		list.add(btnCancel);
 		btnCancel.addActionListener(new ActionListener() {

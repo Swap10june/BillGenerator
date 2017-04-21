@@ -48,7 +48,6 @@ public class TelcoBillComboItemListner implements ItemListener
 				DutyType dutyType = new DutyTypeDataModel().getDutyType(dutyTypeID);
 				lblTotalDistanceValue.setText(String.valueOf(dutyType.getKm()));
 				
-				
 				JPanel panelRate = (JPanel) TelcoBOM.getComponentMap().get("panelRate");
 				JLabel lblRate = (JLabel) panelRate.getComponent(2);
 				lblRate.setText(String.valueOf(dutyType.getPackageRate()));
@@ -58,25 +57,50 @@ public class TelcoBillComboItemListner implements ItemListener
 				JLabel lblAMountValue = (JLabel) panelAmount.getComponent(2);
 				lblAMountValue.setText(String.valueOf(dutyType.getPackageRate()));
 				 
-				 
-				JPanel panelTotalExtraKM = (JPanel) TelcoBOM.getComponentMap().get("panelTotalExtraKM");
-				JLabel lblExtraKM = (JLabel) panelTotalExtraKM.getComponent(2);
-				
 				int extraKM = (int) (totalKM-dutyType.getKm());
-				lblExtraKM.setText(String.valueOf(extraKM));
-				 
+				if(extraKM>0)
+				{
 				
-				JPanel panelExtraKMRate = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMRate");
-				JLabel lblExtraRate = (JLabel) panelExtraKMRate.getComponent(2);
-				lblExtraRate.setText(String.valueOf(dutyType.getExtraKmRate()));
-				 
+					JPanel panelTotalExtraKM = (JPanel) TelcoBOM.getComponentMap().get("panelTotalExtraKM");
+					JLabel lblExtraKM = (JLabel) panelTotalExtraKM.getComponent(2);
+					
+					
+					lblExtraKM.setText(String.valueOf(extraKM));
 				
-				
-				JPanel panelExtraKMAmount = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMAmount");
-				JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
-				lblExtraAMount.setText(String.valueOf(extraKM*dutyType.getExtraKmRate()));
+					JPanel panelExtraKMRate = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMRate");
+					JLabel lblExtraRate = (JLabel) panelExtraKMRate.getComponent(2);
+					lblExtraRate.setText(String.valueOf(dutyType.getExtraKmRate()));
+					 
+					
+					
+					JPanel panelExtraKMAmount = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMAmount");
+					JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
+					lblExtraAMount.setText(String.valueOf(extraKM*dutyType.getExtraKmRate()));
+				}
+				else
+				{
+					JPanel panelTotalExtraKM = (JPanel) TelcoBOM.getComponentMap().get("panelTotalExtraKM");
+					JLabel lblExtraKM = (JLabel) panelTotalExtraKM.getComponent(2);
+					
+					
+					lblExtraKM.setText(String.valueOf(0));
+					 
+					
+					
+					JPanel panelExtraKMRate = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMRate");
+					JLabel lblExtraRate = (JLabel) panelExtraKMRate.getComponent(2);
+					lblExtraRate.setText(String.valueOf(0));
+					 
+					
+					
+					JPanel panelExtraKMAmount = (JPanel) TelcoBOM.getComponentMap().get("panelExtraKMAmount");
+					JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
+					lblExtraAMount.setText(String.valueOf(0));
+				}
 			}
 		}
+		
+			
 		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_VEHICLE_TYPE))
 		{
 			JPanel panelTOCustomer = (JPanel) TelcoBOM.getComponentMap().get("panelTOCustomer");

@@ -204,4 +204,29 @@ public class CustomerDataModel {
 		return cList;
     
 	}
+	public ArrayList<String> getAllCustomersList()
+	{
+		ArrayList<String> cList = new ArrayList<String>();
+   	 try 
+   	 {
+   		 doc.getDocumentElement().normalize();
+      		 NodeList nList = doc.getElementsByTagName(SConstants.CUSTOMER_DATA_MODEL_CUSTOMER_TAG);
+      		 for (int temp = 0; temp < nList.getLength(); temp++)
+      		 {
+      			 Node nNode = nList.item(temp);
+
+      		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+      				{
+      		            Element eElement = (Element) nNode;
+      		            cList.add(eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR));
+      		        }
+      		           
+      		 }
+      	}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+	    }
+		return cList;
+	}
 }

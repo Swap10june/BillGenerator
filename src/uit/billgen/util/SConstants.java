@@ -44,10 +44,12 @@ public class SConstants
 	
 	
 	// Home Page Button and its constants
-	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"TAL Bill","Monthly Bill","Admin","History"};
+	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"TAL Bill","Monthly Bill","Admin","History","Update"};
 	public static final String 		TAL_BILL_BTN_STRING 		= 		"TAL Bill";
 	public static final String 		ADMIN_BTN_STRING 			= 		"Admin";
 	public static final String 		MONTHLY_BOM_BTN_STRING 		= 		"Monthly Bill";
+	public static final String 		HISTORY_BTN_STRING 			= 		"History";
+	//public static final String 		UPDATE_BTN_STRING			=		"Update";
 	
 	
 	
@@ -226,25 +228,37 @@ public class SConstants
 
 	
 	// general
-	public static final String MSG_UPDATED_SUCCESSFULLY = "Updated Successfully";
+	public static final String 		MSG_UPDATED_SUCCESSFULLY 		= "Updated Successfully";
 
-	public static final String MSG_ADDED_SUCCESSFULLY = "Added Successfully";
+	public static final String 		MSG_ADDED_SUCCESSFULLY 			= "Added Successfully";
 
-	public static final String MSG_PLZ_FILL_ALL_THE_FIELDS = "Please fill all the fields";
+	public static final String 		MSG_PLZ_FILL_ALL_THE_FIELDS 	= "Please fill all the fields";
 
-	public static final String MSG_ONLY_5_ROWS_ALLOWED = "Only 5 Rows are allowed...Sorry";
+	public static final String 		MSG_ONLY_5_ROWS_ALLOWED 		= "Only 5 Rows are allowed...Sorry";
 
-	public static final String LOGIN_BTN_STRING = "Login";
+	public static final String 		LOGIN_BTN_STRING 				= "Login";
 
-	public static final String DBCONNECTION_URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	public static final String 		DBCONNECTION_URL 				= "jdbc:oracle:thin:@localhost:1521:xe";
 
-	public static final String DB_UN = "swap";
+	public static final String 		DB_UN 							= "swap";
 
-	public static final String DB_PW = "swap";
+	public static final String 		DB_PW 							= "swap";
 
-	public static final String DB_ORACLE_CLASS_FORNAME = "oracle.jdbc.driver.OracleDriver";
+	public static final String 		DB_ORACLE_CLASS_FORNAME 		= "oracle.jdbc.driver.OracleDriver";
 	
-	public static final String ADMIN_XML_FILE_PATH = "/UIT-BillGen/src/uit/billgen/resources/admin.xml";
-	public static final String USER_XML_FILE_PATH = "/UIT-BillGen/src/uit/billgen/resources/users.xml";
+	public static final String 		ADMIN_XML_FILE_PATH 			= "/UIT-BillGen/src/uit/billgen/resources/admin.xml";
+	public static final String 		USER_XML_FILE_PATH 				= "/UIT-BillGen/src/uit/billgen/resources/users.xml";
+
+	public static final String 		ADMIN_WINDOW_TITLE = "Admin";
+
+	public static final int 		ADD_CUSTOMER_TEXTFIELD_COL_SIZE 	= 15;
+	public static final int 		ADD_CUSTOMER_LABLE_NAME_SIZE 		= 23;
+	public static final int 		ADD_DUTY_TYPE_TEXTFILED_COL_SIZE 	= 15;
+	public static final int 		ADD_DUTY_TYPE_LABEL_NAME_SIZE 		= 17;
+	public static final int 		TEXT_COL_SIZE_15 					= 15;
+	public static final int 		UI_LABEL_NAME_SIZE_20				= 20;
+	public static final int 		UI_LABEL_NAME_SIZE_25				= 25;
+
+	public static final String SEARCH_STRING = "Search";
 	
 }

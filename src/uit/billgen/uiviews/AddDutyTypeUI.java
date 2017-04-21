@@ -34,7 +34,7 @@ public class AddDutyTypeUI extends JDialog
 		super(owner);
 		this.setAction(action);
 		addDutyTypeUIComponent = new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,action);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_500X400(owner,action);
 		initUI(owner);
 		owner.setVisible(true);
 	}
@@ -42,47 +42,38 @@ public class AddDutyTypeUI extends JDialog
 	private void initUI(JDialog owner)
 	{
 		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(10, 30, 300, 200);
-		bodyLeftPanel.setLayout(new GridLayout(4, 1));
-		//bodyLeftPanel.setBackground(Color.cyan);
-		JPanel enterHours = templates.getLabelWithTextField("enterHours", "Enter Hrs.", "Enter Hours Here", 10,true, addDutyTypeUIComponent);
+		bodyLeftPanel.setBounds(10, 50, 400, 250);
+		bodyLeftPanel.setLayout(new GridLayout(6, 1));
+		JPanel enterHours = templates.getLabelWithTextField("enterHours", "Enter Hrs.", "Enter Hours Here", SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE,true, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterHours);
 		
-		JPanel enterKmValue = templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Enter Km Here",10,true, addDutyTypeUIComponent);
+		JPanel enterKmValue = templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Enter Km Here",SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE,true, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterKmValue);
 		
-		JPanel enterPkgRate = templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Enter Rate Here", 10, true,addDutyTypeUIComponent);
+		JPanel enterPkgRate = templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Enter Rate Here", SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE, true,addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterPkgRate);
 		
-		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", 10, true,addDutyTypeUIComponent);
+		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE, true,addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterExtraKmRate);
 		
-		JPanel bodyRightPanel = new JPanel();
-		bodyRightPanel.setBounds(320, 30, 300, 200);
-		bodyRightPanel.setLayout(new GridLayout(2, 1));
-		//bodyRightPanel.setBackground(Color.MAGENTA);
-		
-		
 		String [] customerList = new CustomerDataModel().getAllCustomerNames();
-		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", SConstants.ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO,customerList, addDutyTypeUIComponent);
-		bodyRightPanel.add(panelCustomer);
+		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", SConstants.ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO,customerList, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
+		bodyLeftPanel.add(panelCustomer);
 		
 		
 		String [] vehicleList = new VehicleDataModel().getAllVehicleNames();
-		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle	",SConstants.ID_VEHICLE_SELECT_DUTY_TYPE_COMBO, vehicleList, addDutyTypeUIComponent);
-		bodyRightPanel.add(panelVehicle);
+		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle",SConstants.ID_VEHICLE_SELECT_DUTY_TYPE_COMBO, vehicleList, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
+		bodyLeftPanel.add(panelVehicle);
 		
 		JButton btnAddDutyType = new JButton(SConstants.ADD_BTN_STRING);
-		btnAddDutyType.setBounds(150, 250, 150, 30);
+		btnAddDutyType.setBounds(100, 320, 150, 30);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 250, 150, 30);
+		btnCancel.setBounds(300, 320, 150, 30);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		owner.add(bodyLeftPanel);
-		owner.add(bodyRightPanel);
-		
 		owner.add(btnAddDutyType);
 		owner.add(btnCancel);
 	}

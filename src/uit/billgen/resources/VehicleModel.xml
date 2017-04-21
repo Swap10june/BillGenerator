@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Vehicles>
-<Vehicle MRate="30000" UId="1" cName="TAL" exKMRate="12.00" sUId="TATA MANZA" vName="TATA MANZA" vNo="MH 16 NH 1236"/>
-<Vehicle MRate="35000" UId="2" cName="MAHINDRA" exKMRate="14.50" sUId="TATA SUMO" vName="TATA SUMO" vNo="MH 14 BF 4589"/>
-<Vehicle MRate="27500" UId="3" cName="MAHINDRA" exKMRate="10.00" sUId="TATA INDICA" vName="TATA INDICA" vNo="MH 34 LK5628"/>
-<Vehicle MRate="38520" UId="4" cName="TAL" exKMRate="12.00" sUId="TATA INDIGO" vName="TATA INDIGO" vNo="MH13 KI3462"/>
+<Vehicle MRate="27500" UId="1" cName="TAL" exKMRate="10.00" sUId="TATA INDICA" vName="TATA INDICA" vNo="MH-14 KM 2562"/>
+<Vehicle MRate="27500" UId="2" cName="MAHINDRA" exKMRate="10.00" sUId="INDICA" vName="INDICA" vNo="MH- 14 DH1236"/>
+<Vehicle MRate="" UId="3" cName="TAL" exKMRate="" sUId="" vName="" vNo=""/>
 </Vehicles>

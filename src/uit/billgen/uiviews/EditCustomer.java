@@ -33,9 +33,6 @@ public class EditCustomer extends JDialog
 	private static CustomerDataModel model = null;
 	private static List<Object> list = new ArrayList<Object>();
 	
-	
-
-
 	public EditCustomer(JDialog owner, String windowName) 
 	{
 		super(owner);
@@ -44,20 +41,19 @@ public class EditCustomer extends JDialog
 		initUI(owner);
 		owner.setVisible(true);
 	}
-		
-	
 	
 	private void initUI(final JDialog owner) 
 	{
 		
 		setModel(new CustomerDataModel());
+		System.out.println("");
 		String [] customerList = getModel().getAllCustomerNames();
 		
 		JPanel topPanel  = new JPanel();
-		topPanel.setBounds(150, 30, 600, 100);
-		topPanel.setLayout(new GridLayout(2,2));
+		topPanel.setBounds(50, 30, owner.getWidth(), 30);
+		topPanel.setLayout(new GridLayout(1,2));
 		
-		JPanel panelSelectCustomer = templates.getLabelWithComboWOListner("panelSelectCustomer", "Select Customer", customerList, editCustomerUIComponent);
+		JPanel panelSelectCustomer = templates.getLabelWithComboWOListner("panelSelectCustomer", "Select Customer", customerList, editCustomerUIComponent,SConstants.UI_LABEL_NAME_SIZE_25);
 		topPanel.add(panelSelectCustomer);
 		owner.add(topPanel);
 		@SuppressWarnings("unchecked")
@@ -100,48 +96,43 @@ public class EditCustomer extends JDialog
 			}
 		});
 		
+		JPanel bodyPanel = new JPanel();
+		bodyPanel.setBounds(0, 60, owner.getWidth(), 150);
+		bodyPanel.setLayout(new GridLayout(4, 1));
 		
-		
-		JPanel bodyLeftPanel = new JPanel();
-		bodyLeftPanel.setBounds(0, 120, 600, 150);
-		bodyLeftPanel.setLayout(new GridLayout(2, 4));
-		
-		
-		
-		
-		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Enter Customer Name here", 10, false, editCustomerUIComponent);
-		bodyLeftPanel.add(enterCustomerName);
+		JPanel enterCustomerName = templates.getLabelWithTextField("enterCustomerName", "Enter Customer Name", "Enter Customer Name here", SConstants.TEXT_COL_SIZE_15, false, editCustomerUIComponent,SConstants.UI_LABEL_NAME_SIZE_25);
+		bodyPanel.add(enterCustomerName);
 		enterCustomerName.setVisible(false);
 		list.add(enterCustomerName);
 		
-		JPanel enterAddress = templates.getLabelWithTextField("enterAddress", "Enter Customer Address", "Enter Customer Add here", 10, false, editCustomerUIComponent);
-		bodyLeftPanel.add(enterAddress);
+		JPanel enterAddress = templates.getLabelWithTextField("enterAddress", "Enter Customer Address", "Enter Customer Add here", SConstants.TEXT_COL_SIZE_15, false, editCustomerUIComponent,SConstants.UI_LABEL_NAME_SIZE_25);
+		bodyPanel.add(enterAddress);
 		enterAddress.setVisible(false);
 		list.add(enterAddress);
 		
-		JPanel enterVendorCode = templates.getLabelWithTextField("enterVendorCode", "Enter Vendor Code", "Enter Vendor Code here", 10, false, editCustomerUIComponent);
-		bodyLeftPanel.add(enterVendorCode);
+		JPanel enterVendorCode = templates.getLabelWithTextField("enterVendorCode", "Enter Vendor Code", "Enter Vendor Code here",  SConstants.TEXT_COL_SIZE_15, false, editCustomerUIComponent,SConstants.UI_LABEL_NAME_SIZE_25);
+		bodyPanel.add(enterVendorCode);
 		enterVendorCode.setVisible(false);
 		list.add(enterVendorCode);
 		
-		JPanel cDeptPanel = templates.getLabelWithTextField("cDeptPanel", "Enter Dept", "Enter Dept here", 10, false, editCustomerUIComponent);
-		bodyLeftPanel.add(cDeptPanel);
+		JPanel cDeptPanel = templates.getLabelWithTextField("cDeptPanel", "Enter Dept", "Enter Dept here",  SConstants.TEXT_COL_SIZE_15, false, editCustomerUIComponent,SConstants.UI_LABEL_NAME_SIZE_25);
+		bodyPanel.add(cDeptPanel);
 		cDeptPanel.setVisible(false);
 		list.add(cDeptPanel);
 		
 		JButton btnEdit = new JButton(SConstants.EDIT_BTN_STRING);
-		btnEdit.setBounds(150, 300, 150, 30);
+		btnEdit.setBounds(100, 220, 150, 30);
 		btnEdit.setEnabled(false);
 		list.add(btnEdit);
 		btnEdit.addActionListener(new CustomerButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 300, 150, 30);
+		btnCancel.setBounds(300, 220, 150, 30);
 		btnCancel.setEnabled(false);
 		list.add(btnCancel);
 		btnCancel.addActionListener(new CustomerButtonHandler(owner));
 		
-		owner.add(bodyLeftPanel);
+		owner.add(bodyPanel);
 		owner.add(btnEdit);
 		owner.add(btnCancel);
 	}

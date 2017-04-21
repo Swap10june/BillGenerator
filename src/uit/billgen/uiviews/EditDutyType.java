@@ -29,14 +29,11 @@ public class EditDutyType extends JDialog
 	private UITemplates templates = new UITemplates();
 	private static List<Object> list = new ArrayList<Object>();
 	
-	
-
-
 	public EditDutyType(JDialog owner, String winName) 
 	{
 		super(owner);
 		editDutyTypeUIComponent = new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,winName);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_500X400(owner,winName);
 		initUI(owner);
 		owner.setVisible(true);
 	}
@@ -44,8 +41,8 @@ public class EditDutyType extends JDialog
 	{
 		
 		JPanel topPanel  = new JPanel();
-		topPanel.setBounds(150, 30, 600, 100);
-		topPanel.setLayout(new GridLayout(2,2));
+		topPanel.setBounds(50, 30, owner.getWidth(), 30);
+		topPanel.setLayout(new GridLayout(1,2));
 		
 		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypeStrings();
 		JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType", "Select Duty Type", dutyTypes, editDutyTypeUIComponent);
@@ -56,48 +53,48 @@ public class EditDutyType extends JDialog
 		comboSelectDutyType.addItemListener(new DutyTypeComboListner(SConstants.COMBO_EDIT_DUTY_TYPE_SELCT_DUTY_TYPE));
 		
  		JPanel bodyMiddlePanel = new JPanel();
-		bodyMiddlePanel.setBounds(10, 120, 600, 150);
-		bodyMiddlePanel.setLayout(new GridLayout(2,4));
+		bodyMiddlePanel.setBounds(0, 60, owner.getWidth(), 200);
+		bodyMiddlePanel.setLayout(new GridLayout(6,1));
 		
 		
-		JPanel enterHours = templates .getLabelWithTextField("enterHours", "Enter Hrs.", "Edit Hours Here", 10,true, editDutyTypeUIComponent);
+		JPanel enterHours = templates .getLabelWithTextField("enterHours", "Enter Hrs.", "Edit Hours Here", SConstants.TEXT_COL_SIZE_15,true, editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterHours);
 		enterHours.setVisible(false);
 		list.add(enterHours);
 		
-		JPanel enterKmValue = templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Edit Km Here",10,true, editDutyTypeUIComponent);
+		JPanel enterKmValue = templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Edit Km Here",SConstants.TEXT_COL_SIZE_15,true, editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterKmValue);
 		enterKmValue.setVisible(false);
 		list.add(enterKmValue);
 		
-		JPanel enterPkgRate = templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Edit Rate Here", 10, true,editDutyTypeUIComponent);
+		JPanel enterPkgRate = templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Edit Rate Here", SConstants.TEXT_COL_SIZE_15, true,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterPkgRate);
 		enterPkgRate.setVisible(false);
 		list.add(enterPkgRate);
 		
-		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Extra Km Rate", "Enter Ex Rate Here", 10, true,editDutyTypeUIComponent);
+		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Extra Km Rate", "Enter Ex Rate Here", SConstants.TEXT_COL_SIZE_15, true,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterExtraKmRate);
 		enterExtraKmRate.setVisible(false);
 		list.add(enterExtraKmRate);
 		
-		JPanel customer = templates.getLabelWithComboWOListner("customer", "Select Customer", new CustomerDataModel().getAllCustomerNames(), editDutyTypeUIComponent);
+		JPanel customer = templates.getLabelWithComboWOListner("customer", "Select Customer", new CustomerDataModel().getAllCustomerNames(), editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(customer);
 		customer.setVisible(false);
 		list.add(customer);
 		
-		JPanel vehicle = templates.getLabelWithComboWOListner("vehicle", "Select Vehicle", new VehicleDataModel().getAllVehicleNames(),editDutyTypeUIComponent);
+		JPanel vehicle = templates.getLabelWithComboWOListner("vehicle", "Select Vehicle", new VehicleDataModel().getAllVehicleNames(),editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(vehicle);
 		vehicle.setVisible(false);
 		list.add(vehicle);
 		
 		JButton btnAddDutyType = new JButton(SConstants.EDIT_BTN_STRING);
-		btnAddDutyType.setBounds(150, 300, 150, 30);
+		btnAddDutyType.setBounds(100, 300, 150, 30);
 		btnAddDutyType.setEnabled(false);
 		list.add(btnAddDutyType);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 300, 150, 30);
+		btnCancel.setBounds(300, 300, 150, 30);
 		btnCancel.setEnabled(false);
 		list.add(btnCancel);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));

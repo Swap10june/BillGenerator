@@ -14,10 +14,10 @@ public class AdminHomeUI extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public AdminHomeUI(JDialog owner)
+	public AdminHomeUI(JDialog owner, String adminWindowTitle)
 	{
 		super(owner);
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,"Admin");
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,adminWindowTitle);
 		initUI(owner);
 		owner.setVisible(true);
 	}
@@ -27,7 +27,7 @@ public class AdminHomeUI extends JDialog {
 		JButton [] btnArray = new JButton[SConstants.ADMIN_BUTTONS_NAMES.length]; 
 		for (int i = 0 , xPos= 10, yPos=60;i < btnArray.length; i++,xPos+=180)
 		{
-			if(i%3==0 && i!=0)
+			if(i%5==0 && i!=0)
 			{	
 				yPos+=60;
 				xPos= 10;

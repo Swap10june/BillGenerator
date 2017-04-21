@@ -13,5 +13,6 @@
 	<classpathentry kind="lib" path="src/uit/billgen/libs/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="src/uit/billgen/libs/swingx-0.9.4.jar"/>
 	<classpathentry kind="lib" path="src/uit/billgen/libs/swingx-core-1.6.2.jar"/>
+	<classpathentry kind="lib" path="src/uit/billgen/libs/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

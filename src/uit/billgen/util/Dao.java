@@ -5,24 +5,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import uit.billgen.beans.BOM;
 import uit.billgen.beans.Customer2;
 import uit.billgen.beans.DutyType;
 import uit.billgen.beans.Vehicle;
+import uit.billgen.db.SQliteConnection;
 import uit.billgen.exceptions.PopupDialogs;
 
 
 public class Dao
 {
-	private Connection connection = DBConnection.getConnectionInstance();
+	private Connection connection = SQliteConnection.getSQliteConnection("BillGen.db");/*DBConnection.getConnectionInstance();*/
 	private static String ADD_DUTY_TYPE = "insert into SDUTYTYPE values(?,?,?,?,?,?,?,?,?)";
 	private static String ADD_CUSTOMER ="insert into SCUSTOMER values(?,?,?,?,?,?)";
 	//private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
 	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?)";
+	private static String ADD_BOM ="insert into SBOM values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	//private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
 	//private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";
 	//private static String GET_VEHICLE_LIST ="select DISTINCT VEHICLE_TYPE FROM RATES where CUSTOMER=?;";
@@ -78,7 +85,7 @@ public class Dao
 		return vehicleList;
 	}*/
 	
-	public void addCustomers(Customer2 customer2)
+	public void addCustomer(Customer2 customer2)
 	{		
 		if(connection!=null)
 		{
@@ -252,7 +259,57 @@ public void addDutyType(DutyType dutyType)
 		}
 	}
 }
+public void addBOM(BOM bom)
+{		
+	if(connection!=null)
+	{
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		try
+		{
+			
+			
+		   
+		    pStmtDao = connection.prepareStatement(ADD_BOM);
+			pStmtDao.setString(1,bom.getBillNumber());
+			pStmtDao.setString(2,bom.getCustomerName());
+			pStmtDao.setDate(3,new java.sql.Date( df.parse(bom.getBillDate()).getTime()));
+			pStmtDao.setDate(4,new java.sql.Date( df.parse(bom.getDateOfTravels()).getTime()));
+			pStmtDao.setDate(5,new java.sql.Date( df.parse(bom.getDateOfReturn()).getTime()));
+			pStmtDao.setString(6,bom.getTypeOfVehicle());
+			pStmtDao.setString(7, bom.getVehicleNumber());
+			pStmtDao.setString(8, bom.getVendorCode());
+			pStmtDao.setDouble(9,Double.parseDouble(bom.getStartKM()));
+			pStmtDao.setDouble(10,Double.parseDouble(bom.getEndKM()));
+			pStmtDao.setString(11, bom.getStartTime());
+			pStmtDao.setString(12, bom.getEndTime());
+			pStmtDao.setDouble(13,Double.parseDouble(bom.getTotalKM()));
+			pStmtDao.setString(14,bom.getDutyType());
+			pStmtDao.setDouble(15,Double.parseDouble(bom.getPackageKM()));
+			pStmtDao.setDouble(16,Double.parseDouble(bom.getPackageRate()));
+			pStmtDao.setDouble(17,Double.parseDouble(bom.getPakageAmount()));
+			pStmtDao.setDouble(18,Double.parseDouble(bom.getExtraKM()));
+			pStmtDao.setDouble(19,Double.parseDouble(bom.getExtraRate()));
+			pStmtDao.setDouble(20,Double.parseDouble(bom.getExtraTotalAmount()));
+			pStmtDao.setDouble(21,Double.parseDouble(bom.getTollCharges()));
+			pStmtDao.setDouble(22,Double.parseDouble(bom.getNightHaltRate()));
+			pStmtDao.setDouble(23,Double.parseDouble(bom.getGrandTotal()));
+			pStmtDao.setDouble(24,Double.parseDouble(bom.getServiceTaxCarges()));
+			pStmtDao.setDouble(25,Double.parseDouble(bom.getTotalWithoutTax()));
+			
+			
+			pStmtDao.executeUpdate();
+			pStmtDao.close();
 
+		}
+		catch (SQLException e)
+		{
+			new PopupDialogs("DB Error", PopupDialogs.ERROR_MESSAGE);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
 	public void editDutyType(DutyType newDutyType)
 	{
 		removeDutyType(String.valueOf(newDutyType.getUid()));
@@ -277,7 +334,7 @@ public void addDutyType(DutyType dutyType)
 	public void editCustomer(Customer2 customer)
 	{
 		removeCustomerFromDB(String.valueOf(customer.getUid()));
-		addCustomers(customer);
+		addCustomer(customer);
 	}
 	private void removeCustomerFromDB(String cuid)
 	{
@@ -446,7 +503,7 @@ public void addDutyType(DutyType dutyType)
 				continue;
 			else
 			{
-				addCustomers(customerList.get(i));
+				addCustomer(customerList.get(i));
 			}
 				
 		}
@@ -492,6 +549,27 @@ public void addDutyType(DutyType dutyType)
 			new PopupDialogs("DB Error", PopupDialogs.ERROR_MESSAGE);
 		}
 		return uids;
+	}
+
+	public BOM getBOM(String string, java.sql.Date date) 
+	{
+		try 
+		{
+			ResultSet set = querySELECT("select * from SBOM");
+			while(set.next())
+			{
+				System.out.println(set.getDate("billDate"));
+				System.out.println(set.getDate("dateOfTravels"));
+				System.out.println(set.getDate("dateOfreturn"));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

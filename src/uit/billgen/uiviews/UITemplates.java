@@ -3,8 +3,10 @@ package uit.billgen.uiviews;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +33,6 @@ import uit.billgen.util.Utils;
 
 public class UITemplates 
 {	
-	@SuppressWarnings("deprecation")
 	public JPanel getLabelWithValueLabel(String mapKey, String labelKey,Object value,Map<String,Object> billGenerateUIComponent)
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -42,7 +43,9 @@ public class UITemplates
 		if(value instanceof  Date)
 		{
 			Date date = (Date) value;
-			str = date.toLocaleString();
+			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			String startDate = df.format(date);
+			str = startDate;
 		}
 		else if(value instanceof String)
 		{
@@ -116,6 +119,49 @@ public class UITemplates
 		}
 		JTextField textValue = new JTextField(TextColumnSize);
 		textValue.setHorizontalAlignment(JTextField.RIGHT);
+		if(mapKey.equalsIgnoreCase("panelTotalKM"))
+			textValue.setEditable(false);
+		//textValue.setToolTipText(TextValue);
+		//textValue.setText(labelKey);
+		PromptSupport.setPrompt(TextValue, textValue);
+		panel.add(labelkey);
+		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_key")), labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(textValue);
+		//System.out.println(labelText);
+		//System.out.println(Utils.getComponentName(labelText,reg.getValueFor("L_value")));
+		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_value")), textValue);
+		billGenerateUIComponent.put(mapKey, panel);
+		if(IntegerStatus)
+		{
+			textValue.addKeyListener(new KeyAdapter() {
+		    public void keyTyped(KeyEvent e) {
+		      char c = e.getKeyChar();
+		      if (! ((c >= '0') && (c <= '9') || (c == '.')||  (c == KeyEvent.VK_BACK_SPACE) ||  (c == KeyEvent.VK_DELETE))) 
+		      {
+		          //getToolkit().beep();
+		    	  e.consume();
+		      }
+		    }
+		  });
+		}
+		
+		return panel;
+	}
+	public JPanel getLabelWithTextField(String mapKey,String labelKey,String TextValue,int TextColumnSize,boolean IntegerStatus , Map<String,Object> billGenerateUIComponent,int lNameSize)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,lNameSize);
+		JLabel labelkey = new JLabel(labelKey +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		@SuppressWarnings("unused")
+		String str = "";
+		if(TextValue instanceof String)
+		{
+			str = (String) TextValue;
+		}
+		JTextField textValue = new JTextField(TextColumnSize);
+		textValue.setHorizontalAlignment(JTextField.RIGHT);
 		//textValue.setToolTipText(TextValue);
 		//textValue.setText(labelKey);
 		PromptSupport.setPrompt(TextValue, textValue);
@@ -147,6 +193,24 @@ public class UITemplates
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		//labelkey.setBorder(Registry.BORDER_BLUE_1);
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		JComboBox<String> textValue = new JComboBox<String>(vehicleTypes);
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXX");
+		//textValue.addItemListener(new ComboItemListner(comboID));
+		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(textValue);
+		//billGenerateUIComponent.put(Utils.getComponentName(string, reg.getValueFor("L_key")), labelkey);
+		//billGenerateUIComponent.put(Utils.getComponentName(string, reg.getValueFor("L_value")), textValue);
+		billGenerateUIComponent.put(mapKey, panel);
+		return panel;
+	}
+	public JPanel getLabelWithCombo(String mapKey,String labelKey,String comboID, String[] vehicleTypes,Map<String,Object> billGenerateUIComponent,int lNameSize)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,lNameSize);
 		JLabel labelkey = new JLabel(labelKey +":");
 		//labelkey.setBorder(Registry.BORDER_BLUE_1);
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
@@ -199,9 +263,8 @@ public class UITemplates
 		SpinnerModel spinnermodel = new SpinnerNumberModel(value,min,max,step);
 		//spinnermodel.setCalendarField(Calendar.MINUTE);
 		spinner .setModel(spinnermodel);
-		if(!mapKey.equalsIgnoreCase("panelStartKM"))
+		//if(!mapKey.equalsIgnoreCase("panelStartKM"))
 			spinner.addChangeListener(new SpinnerChangeListner());
-		
 	    panel.add(labelkey);
 	    panel.add(Box.createHorizontalStrut(10));
 	    panel.add(spinner);
@@ -211,7 +274,7 @@ public class UITemplates
 	public JPanel getLabelWithCheckBox(String mapKey, String valueFor,
 			Map<String, Object> billGenerateUIComponentsMap)
 	{
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel panel = new JPanel(new GridLayout(2,1));
 		valueFor = Utils.getUtilityInstance().getStringOfCharacters(valueFor,13);
 		JLabel labelkey = new JLabel(valueFor +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
@@ -226,6 +289,21 @@ public class UITemplates
 	{
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
+		JLabel labelkey = new JLabel(labelKey +":");
+		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
+		JComboBox<String> textValue = new JComboBox<String>(dutyTypeArray);
+		textValue.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXX");
+		//textValue.addItemListener(new TelcoBillComboItemListner(comboID,true));
+		panel.add(labelkey);
+		panel.add(Box.createHorizontalStrut(10));
+		panel.add(textValue);
+		billGenerateUIComponentsMap.put(mapKey, panel);
+		return panel;
+	}
+	public JPanel getLabelWithComboWOListner(String mapKey, String labelKey, String[] dutyTypeArray,Map<String, Object> billGenerateUIComponentsMap,int lNameSize)
+	{
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,lNameSize);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
 		JComboBox<String> textValue = new JComboBox<String>(dutyTypeArray);

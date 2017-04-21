@@ -41,7 +41,14 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.EDIT_CUSTOMER_BTN_STRING:
 			{
-				new EditCustomer(new javax.swing.JDialog(), SConstants.EDIT_CUSTOMER_BTN_STRING);
+				if(new CustomerDataModel().getAllCustomerNames().length == 0)
+				{
+					new PopupDialogs("Sorry..!No Customer added to Edit, Please Add Customer First",PopupDialogs.INFORMATION_MESSAGE  );
+				}
+				else
+					{
+						new EditCustomer(new javax.swing.JDialog(), SConstants.EDIT_CUSTOMER_BTN_STRING);
+					}
 			}
 			
 			break;
@@ -53,7 +60,14 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.EDIT_VEHICLE_BTN_STRING:
 			{
-				new EditVehicleUI(new javax.swing.JDialog(),SConstants.EDIT_VEHICLE_BTN_STRING);
+				if(new VehicleDataModel().getAllVehicleNames().length == 0)
+				{
+					new PopupDialogs("Sorry..!No Vehicle added to Edit, Please Add Vehicle First",PopupDialogs.INFORMATION_MESSAGE  );
+				}
+				else
+				{
+					new EditVehicleUI(new javax.swing.JDialog(),SConstants.EDIT_VEHICLE_BTN_STRING);
+				}
 			}
 			
 			break;
@@ -65,26 +79,17 @@ public class AdminButtonHandler implements ActionListener {
 			break;
 			case SConstants.EDIT_DUTY_TYPE_BTN_STRING:
 			{
-				new EditDutyType(new javax.swing.JDialog(),SConstants.EDIT_DUTY_TYPE_BTN_STRING);
+				if(new DutyTypeDataModel().getAllDutyTypeStrings().length == 0)
+				{
+					new PopupDialogs("Sorry..!No DutyType added to Edit, Please Add DutyType First",PopupDialogs.INFORMATION_MESSAGE  );
+				}
+				else
+				{
+					new EditDutyType(new javax.swing.JDialog(),SConstants.EDIT_DUTY_TYPE_BTN_STRING);
+				}
 			}
 			
 			break;
-			/*case SConstants.CUST_EDIT_BUTTON:
-			{
-				Utils util = Utils.getUtilityInstance();
-				Map<String, Object> componentMap = CustomerProfileUI.getComponentMap();
-				String vendorName = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorName"), 1);
-				String vendorNumber = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorNumber"), 1);
-				String vendorAddress = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelVendorAddress"), 1);
-				String oldVendorName = util.getStringValueFromPanelComponent((JPanel)componentMap.get("panelTOCustomer"), 1);
-				Dao dao = new Dao();
-				Customer1 customerBean = new Customer1(vendorName,vendorAddress,vendorNumber,oldVendorName);
-				dao.editCustomer(customerBean);
-				
-			}
-			
-			break;*/
-			
 			case SConstants.UPDATE_BTN_STRING:
 			{
 				Dao daoObect = new Dao();

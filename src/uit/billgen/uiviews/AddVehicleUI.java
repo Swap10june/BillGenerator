@@ -24,11 +24,10 @@ public class AddVehicleUI extends JDialog
 	private static final long serialVersionUID = 1L;
 	private UITemplates templates = new UITemplates();
 	private static Map<String, Object> addVehicleUIComponentMap;
-	//private static Map<String, Object> addVehicleUIComponent = new HashMap<String, Object>();
 	public AddVehicleUI(JDialog owner, String windowName)
 	{
 		super(owner);
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,windowName);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_550X300(owner,windowName);
 		addVehicleUIComponentMap = new HashMap<String, Object>();
 		initUI(owner);
 		owner.setVisible(true);
@@ -36,34 +35,34 @@ public class AddVehicleUI extends JDialog
 	private void initUI(final JDialog owner)
 	{
 		JPanel bodyPanel = new JPanel();
-		bodyPanel.setLayout(new GridLayout(2, 2));
-		bodyPanel.setBounds(10, 50, 600, 150);
+		bodyPanel.setLayout(new GridLayout(5, 1));
+		bodyPanel.setBounds(10, 50, 400, 150);
 		
-		JPanel enterVehicleName = templates.getLabelWithTextField("enterVehicleName", " Enter Vehicle Name", "Enter Veh. Name here", 10, false, addVehicleUIComponentMap);
+		JPanel enterVehicleName = templates.getLabelWithTextField("enterVehicleName", " Enter Vehicle Name", "Enter Veh. Name here",SConstants.TEXT_COL_SIZE_15 , false, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterVehicleName);
 		
 		
-		JPanel enterVNumber = templates.getLabelWithTextField("enterVNumber", " Enter Vehicle No", "Enter Veh. No here", 10, false, addVehicleUIComponentMap);
+		JPanel enterVNumber = templates.getLabelWithTextField("enterVNumber", " Enter Vehicle No", "Enter Veh. No here", SConstants.TEXT_COL_SIZE_15, false, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterVNumber);
 		
 		
-		JPanel enterCustomerName = templates.getLabelWithComboWOListner("enterCustomerName", "Enter Customer Name", new CustomerDataModel().getAllCustomerNames(), addVehicleUIComponentMap);
+		JPanel enterCustomerName = templates.getLabelWithComboWOListner("enterCustomerName", "Enter Customer Name", new CustomerDataModel().getAllCustomerNames(), addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterCustomerName);
 		
 		
-		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate", 10, true, addVehicleUIComponentMap);
+		JPanel enterMonthlyRate = templates.getLabelWithTextField("enterMonthlyRate", "Enter Monthly Rate", "Enter Monthly Rate", SConstants.TEXT_COL_SIZE_15, true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterMonthlyRate);
 		
-		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Extra Km Rate", "Enter Extra Km Rate", 0, true, addVehicleUIComponentMap);
+		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Extra Km Rate", "Enter Extra Km Rate", SConstants.TEXT_COL_SIZE_15, true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterExKmRate);
 		
 		
 		JButton btnLogin = new JButton(SConstants.ADD_BTN_STRING);
-		btnLogin.setBounds(150, 200, 100, 30);
+		btnLogin.setBounds(150, 220, 100, 30);
 		btnLogin.addActionListener(new VehicleButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 200, 100, 30);
+		btnCancel.setBounds(350, 220, 100, 30);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override

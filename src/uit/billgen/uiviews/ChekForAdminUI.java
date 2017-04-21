@@ -30,7 +30,7 @@ public class ChekForAdminUI extends JDialog
 		super(owner);
 		this.setParent(owner);
 		checkForAdminUIComponent =  new HashMap<String, Object>();
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small(owner,adminBtnString);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_Small_Login(owner,adminBtnString);
 		initUI(owner);
 		owner.setVisible(true);
 		
@@ -62,7 +62,7 @@ public class ChekForAdminUI extends JDialog
                 		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.ADMIN_XML_FILE_PATH)))
                 {
                     //System.out.println("Admin Login Successful :: "+txtUserName.getText());
-                    new AdminHomeUI(new javax.swing.JDialog());
+                    new AdminHomeUI(new javax.swing.JDialog(),SConstants.ADMIN_WINDOW_TITLE);
                 	owner.dispose();
                 }
                 else
