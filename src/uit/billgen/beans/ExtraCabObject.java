@@ -1,6 +1,6 @@
 package uit.billgen.beans;
 
-public class BOM
+public class ExtraCabObject
 {
 	
 	private String 		billNumber 				= 		null;
@@ -25,15 +25,17 @@ public class BOM
 	private String		packageRate				=		null;
 	private String 		pakageAmount			=		null;
 	private String 		extraKM					=		null;
-	private String		extraRate				=		null;
+	private String		extraKMRate				=		null;
 	private String		extraTotalAmount		=		null;
 	private String		tollCharges				=		null;
 	private String		nightHaltRate			=		null;
 	private	String		grandTotal				=		null;
 	private String		serviceTaxCarges		=		null;
 	private String		totalWithoutTax			=		null;
-	private String		extraTimeHours			=		null;	
+	private String		extraTimeHours			=		null;
+	private String		extraTimeHoursRate		=		null;
 	private String		monthlyExtraCharges		=		null;
+	private String		extraHourAmount			=		null;
 	
 	
 	
@@ -143,10 +145,10 @@ public class BOM
 		this.packageRate = packageRate;
 	}
 	public String getExtraRate() {
-		return extraRate;
+		return extraKMRate;
 	}
-	public void setExtraRate(String extraRate) {
-		this.extraRate = extraRate;
+	public void setExtraKMRate(String extraRate) {
+		this.extraKMRate = extraRate;
 	}
 	
 	public String getExtraTotalAmount() {
@@ -263,6 +265,30 @@ public class BOM
 	 */
 	public void setTotalWithoutTax(String totalWithoutTax) {
 		this.totalWithoutTax = totalWithoutTax;
+	}
+	/**
+	 * @return the extraHourAmount
+	 */
+	public String getExtraHourAmount() {
+		return extraHourAmount;
+	}
+	/**
+	 * @param extraHourAmount the extraHourAmount to set
+	 */
+	public void setExtraHourAmount(String extraHourAmount) {
+		this.extraHourAmount = extraHourAmount;
+	}
+	/**
+	 * @return the extraTimeHoursRate
+	 */
+	public String getExtraTimeHoursRate() {
+		return extraTimeHoursRate;
+	}
+	/**
+	 * @param extraTimeHoursRate the extraTimeHoursRate to set
+	 */
+	public void setExtraTimeHoursRate(String extraTimeHoursRate) {
+		this.extraTimeHoursRate = extraTimeHoursRate;
 	}
 	
 	

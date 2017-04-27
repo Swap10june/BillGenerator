@@ -52,7 +52,7 @@ public class EditVehicleUI extends JDialog
 		topPanel.setBounds(50, 30, owner.getWidth(), 30);
 		topPanel.setLayout(new GridLayout(1,2));
 		
-		String [] vehicleList = getModel().getAllVehicleNames();
+		String [] vehicleList = Utils.getUtilityInstance().removeDuplicate(getModel().getAllVehicleNames());
 		JPanel panelSelectVehicle = templates.getLabelWithComboWOListner("panelSelectVehicle", "Select Vehicle", vehicleList, editVehicleUIComponent);
 		topPanel.add(panelSelectVehicle);
 		owner.add(topPanel);
@@ -97,7 +97,9 @@ public class EditVehicleUI extends JDialog
 				JTextField vExKmRate = (JTextField) enterExKmRate.getComponent(2);
 				vExKmRate.setText(vehicle.getExtraKmRate());
 				
-				
+				JPanel ExtraHourPerRate = (JPanel) editVehicleUIComponent.get("enterExtraHourPerRate");
+				JTextField exHourRate = (JTextField) ExtraHourPerRate.getComponent(2);
+				exHourRate.setText(vehicle.getExtraHourRate());
 			}
 		});
 		

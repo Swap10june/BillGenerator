@@ -87,6 +87,12 @@ public class EditDutyType extends JDialog
 		vehicle.setVisible(false);
 		list.add(vehicle);
 		
+		String [] type = {"AC","Non-AC"};
+		JPanel panelTypeACNonAC = templates.getLabelWithComboWOListner("panelTypeACNonAC", "Select Type", type,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		bodyMiddlePanel.add(panelTypeACNonAC);
+		panelTypeACNonAC.setVisible(false);
+		list.add(panelTypeACNonAC);
+		
 		JButton btnAddDutyType = new JButton(SConstants.EDIT_BTN_STRING);
 		btnAddDutyType.setBounds(100, 300, 150, 30);
 		btnAddDutyType.setEnabled(false);

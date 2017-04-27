@@ -57,6 +57,14 @@ public class DutyTypeButtonHandler implements ActionListener {
 			@SuppressWarnings("rawtypes")
 			JComboBox comboVehicle = (JComboBox) panelVehicle.getComponent(2);
 			String vName = comboVehicle.getSelectedItem().toString();
+			
+			
+			JPanel panelAcType = (JPanel) dutyTypeComponentMap.get("panelTypeACNonAC");
+			@SuppressWarnings("rawtypes")
+			JComboBox comboType= (JComboBox) panelAcType.getComponent(2);
+			String type = comboType.getSelectedItem().toString().trim();
+			
+			
 			if(hoursValue.isEmpty() ||  cName.isEmpty() || kmValue.isEmpty() || pkgValue.isEmpty() || vName.isEmpty() || extraKmRateValue.isEmpty())
 			{
 				new PopupDialogs(SConstants.MSG_PLZ_FILL_ALL_THE_FIELDS,PopupDialogs.ERROR_MESSAGE);
@@ -65,7 +73,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 			{
 				DutyTypeDataModel model = new DutyTypeDataModel();
 				int uid = model.noOfDutyTypes();
-				DutyType dutyType = new DutyType((uid+1),Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName);
+				DutyType dutyType = new DutyType((uid+1),Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName,type);
 				//new Dao().addDutyType(dutyType);
 				model.addDutyType(dutyType);
 				new PopupDialogs(SConstants.MSG_ADDED_SUCCESSFULLY,PopupDialogs.PLAIN_MESSAGE);
@@ -109,7 +117,12 @@ public class DutyTypeButtonHandler implements ActionListener {
 			JComboBox<String> textVehicle = (JComboBox<String>) vehicle.getComponent(2);
 			String vName = textVehicle.getSelectedItem().toString();
 			
-			DutyType newDutyType = new DutyType(dutyType.getUid(), hours, km, rate, extraKmRate, cName, vName);
+			JPanel acType = (JPanel) map.get("panelTypeACNonAC");
+			@SuppressWarnings("unchecked")
+			JComboBox<String> type = (JComboBox<String>) acType.getComponent(2);
+			String typeValue = type.getSelectedItem().toString();
+			
+			DutyType newDutyType = new DutyType(dutyType.getUid(), hours, km, rate, extraKmRate, cName, vName,typeValue);
 			DutyTypeDataModel objDutyTypeDataModel = new DutyTypeDataModel();
 			objDutyTypeDataModel.updateAttributeValue(newDutyType);
 			new Dao().editDutyType(newDutyType);

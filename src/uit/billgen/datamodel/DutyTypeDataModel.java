@@ -64,6 +64,7 @@ public class DutyTypeDataModel
         familyElement.setAttribute(SConstants.VEHICLE_NAME_ATTR,dutyType.getVehicleType());
         familyElement.setAttribute(SConstants.RATE_ATTR,String.valueOf(dutyType.getPackageRate()));
         familyElement.setAttribute(SConstants.EXTRA_KM_RATE,String.valueOf(dutyType.getExtraKmRate()));
+        familyElement.setAttribute(SConstants.ACNONAC_ATTR,String.valueOf(dutyType.getAcNonAcType()));
         DutyTypesTag.appendChild(familyElement);
        updateXML();
 	}
@@ -117,7 +118,8 @@ public class DutyTypeDataModel
 	            					Double.parseDouble(eElement.getAttribute(SConstants.RATE_ATTR)),
 	            					Double.parseDouble(eElement.getAttribute(SConstants.EXTRA_KM_RATE)),
 	            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
-	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR));
+	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR),
+	            					eElement.getAttribute(SConstants.ACNONAC_ATTR));
     		            }
     		           
     		        }
@@ -171,6 +173,7 @@ public class DutyTypeDataModel
         familyElement.setAttribute(SConstants.VEHICLE_NAME_ATTR,dutyType.getVehicleType());
         familyElement.setAttribute(SConstants.RATE_ATTR,String.valueOf(dutyType.getPackageRate()));
         familyElement.setAttribute(SConstants.EXTRA_KM_RATE,String.valueOf(dutyType.getExtraKmRate()));
+        familyElement.setAttribute(SConstants.ACNONAC_ATTR,String.valueOf(dutyType.getAcNonAcType()));
         DutyTypesTag.appendChild(familyElement);
         
         updateXML();
@@ -242,7 +245,8 @@ public class DutyTypeDataModel
 	            					Double.parseDouble(eElement.getAttribute(SConstants.RATE_ATTR)),
 	            					Double.parseDouble(eElement.getAttribute(SConstants.EXTRA_KM_RATE)),
 	            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
-	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR));
+	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR),
+	            					eElement.getAttribute(SConstants.ACNONAC_ATTR));
     		            }
     		           
     		        }
@@ -277,6 +281,7 @@ public class DutyTypeDataModel
             	    emp.setAttribute(SConstants.HOURS_ATTR,String.valueOf(newDutyType.getHours()));
             	    emp.setAttribute(SConstants.ID_ATTR,String.valueOf(newDutyType.getId()));
             	    emp.setAttribute(SConstants.VEHICLE_NAME_ATTR,String.valueOf(newDutyType.getVehicleType()));
+            	    emp.setAttribute(SConstants.ACNONAC_ATTR,String.valueOf(newDutyType.getAcNonAcType()));
             	//}
             	updateXML();
             }
@@ -332,7 +337,8 @@ public class DutyTypeDataModel
 	            					Double.parseDouble(eElement.getAttribute(SConstants.RATE_ATTR)),
 	            					Double.parseDouble(eElement.getAttribute(SConstants.EXTRA_KM_RATE)),
 	            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
-	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR))
+	            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR),
+	            					eElement.getAttribute(SConstants.ACNONAC_ATTR))
    		            		);
    		         }
    		           

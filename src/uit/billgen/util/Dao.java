@@ -9,12 +9,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uit.billgen.beans.BOM;
+import uit.billgen.beans.ExtraCabObject;
 import uit.billgen.beans.Customer2;
 import uit.billgen.beans.DutyType;
 import uit.billgen.beans.Vehicle;
@@ -25,10 +24,10 @@ import uit.billgen.exceptions.PopupDialogs;
 public class Dao
 {
 	private Connection connection = SQliteConnection.getSQliteConnection("BillGen.db");/*DBConnection.getConnectionInstance();*/
-	private static String ADD_DUTY_TYPE = "insert into SDUTYTYPE values(?,?,?,?,?,?,?,?,?)";
+	private static String ADD_DUTY_TYPE = "insert into SDUTYTYPE values(?,?,?,?,?,?,?,?,?,?)";
 	private static String ADD_CUSTOMER ="insert into SCUSTOMER values(?,?,?,?,?,?)";
 	//private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
-	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?)";
+	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?,?)";
 	private static String ADD_BOM ="insert into SBOM values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	//private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
 	//private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";
@@ -126,6 +125,7 @@ public class Dao
 				pStmtDao.setString(5,vehicle.getVehicleNumber());
 				pStmtDao.setString(6,vehicle.getMonthlyRate());
 				pStmtDao.setString(7,vehicle.getExtraKmRate());
+				pStmtDao.setString(8,vehicle.getExtraHourRate());
 				pStmtDao.executeUpdate();
 				pStmtDao.close();
 				
@@ -249,6 +249,7 @@ public void addDutyType(DutyType dutyType)
 			pStmtDao.setString(7, dutyType.getVehicleType());
 			pStmtDao.setString(8, String.valueOf(dutyType.getExtraKmRate()));
 			pStmtDao.setString(9, dutyType.getDutyTypeString());
+			pStmtDao.setString(10, dutyType.getAcNonAcType());
 			pStmtDao.executeUpdate();
 
 			pStmtDao.close();
@@ -259,7 +260,7 @@ public void addDutyType(DutyType dutyType)
 		}
 	}
 }
-public void addBOM(BOM bom)
+public void addBOM(ExtraCabObject bom)
 {		
 	if(connection!=null)
 	{
@@ -431,7 +432,8 @@ public void addBOM(BOM bom)
 									rSet.getString("CUSTOMERNAME"),
 									rSet.getString("VEHICLENUMBER"),
 									rSet.getString("MRATE"),
-									rSet.getString("EXKMRATE")
+									rSet.getString("EXKMRATE"),
+									rSet.getString("EXHOURRATE")
 							)
 							);
 	    		}
@@ -535,8 +537,14 @@ public void addBOM(BOM bom)
 	    		{
 					uids.put(
 							rSet.getString("DUID"),
-							new DutyType(Integer.parseInt(rSet.getString("DUID")), Integer.parseInt(rSet.getString("HOURS")), Integer.parseInt(rSet.getString("KM")),
-									Double.parseDouble(rSet.getString("PKGRATE")), Double.parseDouble(rSet.getString("EXKMRATE")), rSet.getString("CNAME"), rSet.getString("VNAME")));
+							new DutyType(Integer.parseInt(rSet.getString("DUID")),
+									Integer.parseInt(rSet.getString("HOURS")),
+									Integer.parseInt(rSet.getString("KM")),
+									Double.parseDouble(rSet.getString("PKGRATE")),
+									Double.parseDouble(rSet.getString("EXKMRATE")),
+									rSet.getString("CNAME"),
+									rSet.getString("VNAME"),
+									rSet.getString("ACTYPE")));
 	    		}
 			}
 			else
@@ -551,7 +559,7 @@ public void addBOM(BOM bom)
 		return uids;
 	}
 
-	public BOM getBOM(String string, java.sql.Date date) 
+	public ExtraCabObject getBOM(String string, java.sql.Date date) 
 	{
 		try 
 		{

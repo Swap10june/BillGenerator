@@ -60,6 +60,7 @@ public class VehicleDataModel {
         newVehicleTag.setAttribute(SConstants.CUSTOMER_NAME_ATTR,vehicle.getCustomerName());
         newVehicleTag.setAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR,vehicle.getMonthlyRate());
         newVehicleTag.setAttribute(SConstants.EXTRA_KM_RATE,vehicle.getExtraKmRate());
+        newVehicleTag.setAttribute(SConstants.EXTRA_HOUR_RATE,vehicle.getExtraHourRate());
         vehicleTag.appendChild(newVehicleTag);
        updateXML();
 	}
@@ -133,7 +134,8 @@ public class VehicleDataModel {
    		            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
    		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
    		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
-   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE));
+   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
+   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE));
    		            }
    		           
    		        }
@@ -167,6 +169,7 @@ public class VehicleDataModel {
             	    tag.setAttribute(SConstants.VEHICLE_NO_ATTR,newVehicle.getVehicleNumber());
             	    tag.setAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR, newVehicle.getMonthlyRate());
             	    tag.setAttribute(SConstants.EXTRA_KM_RATE, newVehicle.getExtraKmRate());
+            	    tag.setAttribute(SConstants.EXTRA_HOUR_RATE, newVehicle.getExtraHourRate());
             	//}
             	updateXML();
             }
@@ -194,7 +197,8 @@ public class VehicleDataModel {
    		            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
    		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
    		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
-   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE)));
+   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
+   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE)));
    				}
    		           
    		 }
@@ -205,4 +209,38 @@ public class VehicleDataModel {
     }
 		return vehicleList;
 	}
+	public Vehicle getVehicleFor(String vName, String cName)
+	{
+		Vehicle vehicle = null;
+		try 
+	   	 {
+	   		 doc.getDocumentElement().normalize();
+	   		 NodeList nList = doc.getElementsByTagName(SConstants.VEHICLE_TAG);
+	   		 for (int temp = 0; temp < nList.getLength(); temp++)
+	   		 {
+	   			 Node nNode = nList.item(temp);
+
+	   		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+	   				{
+	   		            Element eElement = (Element) nNode;
+	   		            if(cName.equalsIgnoreCase(eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR))&&
+	   		            	vName.equalsIgnoreCase(eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR))	)
+	   		            	vehicle = new Vehicle
+	   		            			(Integer.parseInt(eElement.getAttribute(SConstants.UID_ATTR)),
+	   		            					eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR),
+	   		            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
+	   		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
+	   		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
+	   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
+	   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE));
+	   				}
+	   		           
+	   		 }
+	    }
+		catch (Exception e)
+		{
+			e.printStackTrace();
+	    }
+			return vehicle;
+		}
 }

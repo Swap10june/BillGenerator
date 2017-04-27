@@ -124,8 +124,8 @@ public class CreateMonthlyBillRow extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				map.put("components"+String.valueOf(MonthlyBOMUI.counter), billRowComponents);
-				billrow.setId("components"+String.valueOf(MonthlyBOMUI.counter));
+				map.put("components"+String.valueOf(MonthlyCabUI.counter), billRowComponents);
+				billrow.setId("components"+String.valueOf(MonthlyCabUI.counter));
 				dispose();
 			}
 		});

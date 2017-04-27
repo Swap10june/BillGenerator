@@ -31,7 +31,7 @@ import uit.billgen.util.NumToWords;
 import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
-public class MonthlyBOMUI extends JDialog{
+public class MonthlyCabUI extends JDialog{
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ public class MonthlyBOMUI extends JDialog{
 	public JCheckBox getChkExcel() {
 		return chkExcel;
 	}
-	public MonthlyBOMUI(JDialog owner, String monthlyBomBtnString)
+	public MonthlyCabUI(JDialog owner, String monthlyBomBtnString)
 	{
 		
 		super(owner);

@@ -111,19 +111,19 @@ public class UITemplates
 		labelKey = Utils.getUtilityInstance().getStringOfCharacters(labelKey,13);
 		JLabel labelkey = new JLabel(labelKey +":");
 		labelkey.setFont(SConstants.FONT_COURRIER_BOLD_13);
-		@SuppressWarnings("unused")
-		String str = "";
-		if(TextValue instanceof String)
-		{
-			str = (String) TextValue;
-		}
 		JTextField textValue = new JTextField(TextColumnSize);
 		textValue.setHorizontalAlignment(JTextField.RIGHT);
 		if(mapKey.equalsIgnoreCase("panelTotalKM"))
 			textValue.setEditable(false);
 		//textValue.setToolTipText(TextValue);
 		//textValue.setText(labelKey);
-		PromptSupport.setPrompt(TextValue, textValue);
+		if(!mapKey.equalsIgnoreCase("panelBillDate"))
+		 PromptSupport.setPrompt(TextValue, textValue);
+		else
+		{
+			textValue.setEditable(false);
+			textValue.setText(TextValue);
+		}
 		panel.add(labelkey);
 		//billGenerateUIComponent.put(Utils.getComponentName(labelText,reg.getValueFor("L_key")), labelkey);
 		panel.add(Box.createHorizontalStrut(10));
@@ -235,7 +235,7 @@ public class UITemplates
 		
 	     //formatting time to have AM/PM text using 'a' format
 	     //String strDateFormat = "HH:mm:ss a";
-	     String strDateFormat = "hh:mm a";
+	     String strDateFormat = "K:mm:a";
 		JSpinner spinner = new JSpinner();
 		SpinnerDateModel spinnermodel = new SpinnerDateModel();
 		spinnermodel.setCalendarField(Calendar.AM_PM);

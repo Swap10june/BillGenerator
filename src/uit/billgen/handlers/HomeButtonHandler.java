@@ -6,9 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JDialog;
 
 import uit.billgen.uiviews.ChekForAdminUI;
-import uit.billgen.uiviews.MonthlyBOMUI;
+import uit.billgen.uiviews.MonthlyCabUI;
 import uit.billgen.uiviews.SearchUI;
-import uit.billgen.uiviews.TelcoBOM;
+import uit.billgen.uiviews.ExtraCabBillUI;
 import uit.billgen.util.SConstants;
 
 public class HomeButtonHandler implements ActionListener {
@@ -24,7 +24,7 @@ public class HomeButtonHandler implements ActionListener {
 		{
 			case SConstants.TAL_BILL_BTN_STRING:
 			{
-				new TelcoBOM(new javax.swing.JDialog(),SConstants.TAL_BILL_BTN_STRING);
+				new ExtraCabBillUI(new javax.swing.JDialog(),SConstants.TAL_BILL_BTN_STRING);
 			}
 			
 			break;
@@ -36,7 +36,7 @@ public class HomeButtonHandler implements ActionListener {
 			break;
 			case SConstants.MONTHLY_BOM_BTN_STRING:
 			{
-				new MonthlyBOMUI(new javax.swing.JDialog(),SConstants.MONTHLY_BOM_BTN_STRING);
+				new MonthlyCabUI(new javax.swing.JDialog(),SConstants.MONTHLY_BOM_BTN_STRING);
 			}
 			
 			break;

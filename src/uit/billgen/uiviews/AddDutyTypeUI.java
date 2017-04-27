@@ -43,7 +43,7 @@ public class AddDutyTypeUI extends JDialog
 	{
 		JPanel bodyLeftPanel = new JPanel();
 		bodyLeftPanel.setBounds(10, 50, 400, 250);
-		bodyLeftPanel.setLayout(new GridLayout(6, 1));
+		bodyLeftPanel.setLayout(new GridLayout(7, 1));
 		JPanel enterHours = templates.getLabelWithTextField("enterHours", "Enter Hrs.", "Enter Hours Here", SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE,true, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterHours);
 		
@@ -56,21 +56,25 @@ public class AddDutyTypeUI extends JDialog
 		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Ex.Km Rate", "Enter Ex Rate Here", SConstants.ADD_DUTY_TYPE_TEXTFILED_COL_SIZE, true,addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(enterExtraKmRate);
 		
-		String [] customerList = new CustomerDataModel().getAllCustomerNames();
+		String [] customerList = Utils.getUtilityInstance().removeDuplicate(new CustomerDataModel().getAllCustomerNames());
 		JPanel panelCustomer = templates.getLabelWithCombo("panelCustomer", "Select Customer", SConstants.ID_CUSTOMER_SELECT_DUTY_TYPE_COMBO,customerList, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(panelCustomer);
 		
 		
-		String [] vehicleList = new VehicleDataModel().getAllVehicleNames();
+		String [] vehicleList = Utils.getUtilityInstance().removeDuplicate(new VehicleDataModel().getAllVehicleNames());
 		JPanel panelVehicle = templates.getLabelWithCombo("panelVehicle", "Select Vehicle",SConstants.ID_VEHICLE_SELECT_DUTY_TYPE_COMBO, vehicleList, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
 		bodyLeftPanel.add(panelVehicle);
 		
+		String [] type = {"AC","Non-AC"};
+		JPanel panelTypeACNonAC = templates.getLabelWithCombo("panelTypeACNonAC", "Type",SConstants.ID_TYPE_SELECT_DUTY_TYPE_COMBO,type, addDutyTypeUIComponent,SConstants.ADD_DUTY_TYPE_LABEL_NAME_SIZE);
+		bodyLeftPanel.add(panelTypeACNonAC);
+		
 		JButton btnAddDutyType = new JButton(SConstants.ADD_BTN_STRING);
-		btnAddDutyType.setBounds(100, 320, 150, 30);
+		btnAddDutyType.setBounds(100, 330, 150, 30);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(300, 320, 150, 30);
+		btnCancel.setBounds(300, 330, 150, 30);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		owner.add(bodyLeftPanel);

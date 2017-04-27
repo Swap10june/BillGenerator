@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -29,7 +33,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import uit.billgen.beans.BOM;
+import uit.billgen.beans.ExtraCabObject;
 import uit.billgen.beans.MonthlyBOM;
 import uit.billgen.exceptions.PopupDialogs;
 
@@ -293,7 +297,7 @@ public class Utils
 	{
 		return key+"_"+value;
 	}
-	public void generateBill(BOM bom)
+	public void generateBill(ExtraCabObject bom)
 	{
 		String str = bom.getBillNumber();
 		str= str.replace(" ", "");
@@ -336,7 +340,9 @@ public class Utils
 			if(lbl.getEditor() instanceof JSpinner.DateEditor)
 			{
 				String [] arr = lbl.getValue().toString().split(" ");
-				return arr[3];
+				String [] arr1 = arr[3].split(":");
+				String str = Integer.parseInt(arr1[0])%12 + ":" + arr1[1] + " " + ((Integer.parseInt(arr1[0])>=12) ? "PM" : "AM");
+				return str;
 			}
 				
 			return lbl.getValue().toString();
@@ -438,4 +444,29 @@ public class Utils
 				new PopupDialogs("File Not Found",PopupDialogs.ERROR_MESSAGE);
 			}
 		}
+	@SuppressWarnings("deprecation")
+	public String getDateString(Date date)
+	{
+		return date.getDate()+"/"+(date.getMonth()+1)+"/20"+String.valueOf(date.getYear()).charAt(1)+String.valueOf(date.getYear()).charAt(2);
+	}
+	public String[] removeDuplicate(String[] arr)
+	{
+		
+		int end = arr.length;
+		Set<String> set = new HashSet<String>();
+
+		for(int i = 0; i < end; i++)
+		{
+		  set.add(arr[i]);
+		}
+		String [] str = new String[set.size()];
+		Iterator<String> it = set.iterator();
+		int i =0;
+		while(it.hasNext())
+		{
+			str[i]=it.next();
+			i++;
+		}
+		return str;
+	}
 }

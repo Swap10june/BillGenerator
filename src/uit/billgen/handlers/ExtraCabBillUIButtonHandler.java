@@ -10,20 +10,20 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import uit.billgen.uiviews.TelcoBOM;
+import uit.billgen.uiviews.ExtraCabBillUI;
 import uit.billgen.util.NumToWords;
 import uit.billgen.util.SConstants;
 
-public class TelcoBillUIButtonHandler implements ActionListener
+public class ExtraCabBillUIButtonHandler implements ActionListener
 {
 
 	Map<String, Object> componentMap;
-	public TelcoBillUIButtonHandler()
+	public ExtraCabBillUIButtonHandler()
 	{
-		componentMap = TelcoBOM.getComponentMap();
+		componentMap = ExtraCabBillUI.getComponentMap();
 	}
 	
-	public TelcoBillUIButtonHandler(String valueFor, JDialog owner)
+	public ExtraCabBillUIButtonHandler(String valueFor, JDialog owner)
 	{
 	}
 
@@ -41,18 +41,25 @@ public class TelcoBillUIButtonHandler implements ActionListener
 			JPanel panelTollAmount = (JPanel) componentMap.get("panelTollAmount");
 			JTextField tollAmountText = (JTextField) panelTollAmount.getComponent(2);
 			
-			JPanel panelNightHaltAmount = (JPanel) componentMap.get("panelTollAmount");
+			JPanel panelNightHaltAmount = (JPanel) componentMap.get("panelNightHaltAmount");
 			JTextField nightHaltAmountText = (JTextField) panelNightHaltAmount.getComponent(2);
 			
 			JPanel panelServiceTax = (JPanel) componentMap.get("panelServiceTax");
 			JTextField serviceTaxText = (JTextField) panelServiceTax.getComponent(2);
 			
-			double finalAMount = 
-					Double.parseDouble(lblAMountValue.getText())+
+			JPanel panelExtraHourAmount = (JPanel) componentMap.get("panelExtraHourAmount");
+			JLabel lblExtraHourAMount = (JLabel) panelExtraHourAmount.getComponent(2);
+			double extraHourAmount = Double.parseDouble(lblExtraHourAMount.getText());
+			
+			double billAmount = extraHourAmount+Double.parseDouble(lblAMountValue.getText())+
+					Double.parseDouble(lblExtraAMount.getText())+Double.parseDouble(nightHaltAmountText.getText().isEmpty()?"0":nightHaltAmountText.getText());
+			double taxOnBillAMount = (billAmount*Double.parseDouble(serviceTaxText.getText().isEmpty()?"0":serviceTaxText.getText()))/100;
+			double finalAMount = billAmount+taxOnBillAMount+Double.parseDouble(tollAmountText.getText().isEmpty()?"0":tollAmountText.getText());
+					/*Double.parseDouble(lblAMountValue.getText())+
 					Double.parseDouble(lblExtraAMount.getText())+
 					Double.parseDouble(tollAmountText.getText().isEmpty()?"0":tollAmountText.getText())+
 					Double.parseDouble(nightHaltAmountText.getText().isEmpty()?"0":nightHaltAmountText.getText())+
-					Double.parseDouble(serviceTaxText.getText().isEmpty()?"0":serviceTaxText.getText());
+					Double.parseDouble(serviceTaxText.getText().isEmpty()?"0":serviceTaxText.getText());*/
 			
 			NumToWords w = new NumToWords(); 
 			String inwords = w.convert((int)finalAMount);
@@ -65,7 +72,7 @@ public class TelcoBillUIButtonHandler implements ActionListener
 			JLabel finalAmount = (JLabel) panelAmountInWords.getComponent(2);
 			finalAmount.setText(inwords);
 			
-			JButton btnGenerate = (JButton) TelcoBOM.getComponentMap().get("btnGenerate");
+			JButton btnGenerate = (JButton) ExtraCabBillUI.getComponentMap().get("btnGenerate");
 			btnGenerate.setEnabled(true);
 		}
 		

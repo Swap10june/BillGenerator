@@ -21,7 +21,7 @@ import uit.billgen.beans.BillRow;
 import uit.billgen.datamodel.MonthlyBillDataModel;
 import uit.billgen.exceptions.PopupDialogs;
 import uit.billgen.uiviews.CreateMonthlyBillRow;
-import uit.billgen.uiviews.MonthlyBOMUI;
+import uit.billgen.uiviews.MonthlyCabUI;
 import uit.billgen.uiviews.UITemplates;
 import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
@@ -30,13 +30,13 @@ public class MonthlyBOMButtonHandler implements ActionListener {
  
 	UITemplates templates = new UITemplates();
 	private JTextField TotalAmount;
-	private MonthlyBOMUI source =null;
+	private MonthlyCabUI source =null;
 	private String action = null;
 	private JXDatePicker fromDate;
 	private JXDatePicker toDate;
 	private GregorianCalendar endCalendar;
 	private GregorianCalendar startCalendar;
-	public MonthlyBOMButtonHandler(MonthlyBOMUI monthlyBOM, String action) 
+	public MonthlyBOMButtonHandler(MonthlyCabUI monthlyBOM, String action) 
 	{
 		this.source  = monthlyBOM;
 		this.action = action;		
@@ -91,11 +91,11 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 
 		
 		@SuppressWarnings("unchecked")
-		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyBOMUI.counter));
+		Map<String, Object> billRowComponents = (Map<String, Object>) source.getBillrows().get("components"+String.valueOf(MonthlyCabUI.counter));
 		if(billRowComponents!=null && billRowComponents.size()>0)
 		{
 			Map<String, JPanel> map = source.getRowsMap();
-			JPanel pan = map.get("pan"+String.valueOf(MonthlyBOMUI.counter));
+			JPanel pan = map.get("pan"+String.valueOf(MonthlyCabUI.counter));
 			pan.setVisible(true);
 			List<JLabel> listLabels = new ArrayList<JLabel>();
 			for (int i = 0; i <pan.getComponentCount(); i++)
@@ -202,14 +202,14 @@ public class MonthlyBOMButtonHandler implements ActionListener {
 				listLabels.get(20).setText("Total Amount:");
 				listLabels.get(20).setFont(SConstants.FONT_COURRIER_BOLD_13);
 				listLabels.get(21).setText(TotalAmount.getText());
-				MonthlyBOMUI.totalAmount = MonthlyBOMUI.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
+				MonthlyCabUI.totalAmount = MonthlyCabUI.totalAmount+Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText());
 				billRow.setTotalAmount(Double.parseDouble(TotalAmount.getText().isEmpty()?"0":TotalAmount.getText()));
 				int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
 				int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
 				billRow.setNoOfMonth(diffMonth);
 			}
 			
-			MonthlyBOMUI.counter++;
+			MonthlyCabUI.counter++;
 			//billRowComponents.clear();
 			source.updateTotalAmountValues();
 			

@@ -1,15 +1,18 @@
 package uit.billgen.util;
 import java.awt.Desktop;
-import  java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import  org.apache.poi.hssf.usermodel.HSSFSheet;
-import  org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import  org.apache.poi.hssf.usermodel.HSSFRow;
-import  org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import uit.billgen.beans.BOM;
+import uit.billgen.beans.ExtraCabObject;
 import uit.billgen.beans.BillRow;
 import uit.billgen.beans.MonthlyBOM;
 import uit.billgen.datamodel.VehicleDataModel;
@@ -18,7 +21,7 @@ public class CreateExlFile
 {
 	private ExcelUtils utility = null;
 	
-    public  void CreateBOMExcel(File filename,BOM bom)
+    public  void CreateBOMExcel(File filename,ExtraCabObject bom)
     {
         try
         {
@@ -26,6 +29,9 @@ public class CreateExlFile
         		filename.createNewFile();
             HSSFWorkbook workbook = new HSSFWorkbook();
             utility  = new ExcelUtils(workbook);
+            
+           
+            
             HSSFSheet sheet = workbook.createSheet("Bill"); 
             int width = sheet.getColumnWidth(8)+sheet.getColumnWidth(8)/2;
             sheet.setColumnWidth(8, width+100);
@@ -38,8 +44,10 @@ public class CreateExlFile
             
             HSSFCell headerRow_cell0 = headerRow.createCell(0);
             headerRow_cell0.setCellValue("SIAKRUPA TRANSPORT");
-            headerRow_cell0.setCellStyle(utility.getExcelHeaderRowStyle());
-        
+            HSSFCellStyle sty = utility.getExcelHeaderRowStyle();
+            utility.setBorder(sty);
+            headerRow_cell0.setCellStyle(sty);
+           
             // ADRESS ROW --1
             row =1;
             HSSFRow addressRow = sheet.createRow((short)row);
@@ -371,24 +379,24 @@ public class CreateExlFile
             CellRangeAddress a = CellRangeAddress.valueOf("F22:G22");
             sheet.addMergedRegion(a);
             HSSFCell DatesRow21_3 = DatesRow21.createCell(5);
-            DatesRow21_3.setCellValue("0");
+            DatesRow21_3.setCellValue(bom.getExtraTimeHoursRate()==null?"0":bom.getExtraTimeHoursRate());
             DatesRow21_3.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress b = CellRangeAddress.valueOf("H22:I22");
             sheet.addMergedRegion(b);
             HSSFCell DatesRow21_4 = DatesRow21.createCell(7);
-            DatesRow21_4.setCellValue("0");
+            DatesRow21_4.setCellValue(bom.getExtraHourAmount()==null?"0":bom.getExtraHourAmount());
             DatesRow21_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
          // Row 22
-            CellRangeAddress c = CellRangeAddress.valueOf("A23:D23");
+            CellRangeAddress c = CellRangeAddress.valueOf("A27:D27");
             sheet.addMergedRegion(c);
-            HSSFRow DatesRow22 = sheet.createRow((short)22);
+            HSSFRow DatesRow22 = sheet.createRow((short)26);
             
             HSSFCell DatesRow22_0 = DatesRow22.createCell(0);
             DatesRow22_0.setCellValue("Toll Charges :");
             
-            CellRangeAddress d = CellRangeAddress.valueOf("H23:I23");
+            CellRangeAddress d = CellRangeAddress.valueOf("H27:I27");
             sheet.addMergedRegion(d);
             HSSFCell DatesRow22_2 = DatesRow22.createCell(7);
             String toll = (bom.getTollCharges()==null)?"0":bom.getTollCharges();
@@ -401,7 +409,7 @@ public class CreateExlFile
             HSSFRow DatesRow23 = sheet.createRow((short)23);
             
             HSSFCell DatesRow23_0 = DatesRow23.createCell(0);
-            DatesRow23_0.setCellValue("Night Halt Charges :");
+            DatesRow23_0.setCellValue("Night Halt/Out Station:");
             
             CellRangeAddress f = CellRangeAddress.valueOf("H24:I24");
             sheet.addMergedRegion(f);
@@ -456,6 +464,27 @@ public class CreateExlFile
             DatesRow29_4.setCellValue(bom.getGrandTotal());
             DatesRow29_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             DatesRow29_4.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short) 10));
+            
+            
+            HSSFCellStyle style = workbook.createCellStyle();
+            for(int i1 =0;i1<31;i1++)
+            {
+            	HSSFRow rowAll = sheet.getRow(i1); 
+            	
+            	for(int j1 =0;j1<9;j1++)
+            	{
+            		HSSFCell cellAll = rowAll.getCell(j1);
+            		//String cellAddr="A"+String.valueOf(i1+1)+":I"+String.valueOf(i1+1);
+            		//System.out.println(cellAddr);
+            		//utility.setRegionBorderWithMedium(CellRangeAddress.valueOf(cellAddr), sheet);
+            		utility.setBorder(style);
+            		cellAll.setCellStyle(style);
+            	}
+            }
+            
+            //String cellAddr="A1:A31";
+            
+            
             
             flushIntoFile(filename,workbook);
         } catch ( Exception ex )

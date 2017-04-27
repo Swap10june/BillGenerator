@@ -9,7 +9,7 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import uit.billgen.uiviews.TelcoBOM;
+import uit.billgen.uiviews.ExtraCabBillUI;
 import uit.billgen.util.SConstants;
 
 public class SpinnerChangeListner implements ChangeListener
@@ -18,7 +18,7 @@ public class SpinnerChangeListner implements ChangeListener
 	@Override
 	public void stateChanged(ChangeEvent e)
 	{
-		Map<String, Object> billGenerateUIComponentsMap = TelcoBOM.getComponentMap();
+		Map<String, Object> billGenerateUIComponentsMap = ExtraCabBillUI.getComponentMap();
 		
 		JPanel panelTotalKM = (JPanel) billGenerateUIComponentsMap.get("panelTotalKM");
 		JTextField textTotalKM=(JTextField) panelTotalKM.getComponent(2);
@@ -37,7 +37,7 @@ public class SpinnerChangeListner implements ChangeListener
 		if(totalKm>=0 )
 		{
 			textTotalKM.setText(String.valueOf(totalKm));
-			TelcoBOM.getComponentMap().put(SConstants.TOTAL_KM_ATTR, totalKm);
+			ExtraCabBillUI.getComponentMap().put(SConstants.TOTAL_KM_ATTR, totalKm);
 		}
 		else
 		{

@@ -1,9 +1,15 @@
 package uit.billgen.util;
 
+import org.apache.poi.hssf.model.Sheet;
+import org.apache.poi.hssf.model.Workbook;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.util.RegionUtil;
 
 public class ExcelUtils
 {
@@ -26,6 +32,28 @@ public class ExcelUtils
 	    font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
 	    font.setColor(HSSFColor.BLUE.index);
 	    return font;
+	}
+	public HSSFFont getExcelCellFont_Arial_Blck_Bold( short i)
+	{
+		HSSFFont font = workbook.createFont();
+	    font.setFontName(HSSFFont.FONT_ARIAL);
+	    font.setFontHeightInPoints(i);
+	    font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+	    font.setColor(HSSFColor.BLACK.index);
+	    return font;
+	}
+	public void setBorder(HSSFCellStyle my_style)
+	{
+		
+        /* We are now ready to set borders for this style */
+        /* Draw a thin left border */
+        my_style.setBorderLeft(HSSFCellStyle.BORDER_THICK);
+        /* Add medium right border */
+        my_style.setBorderRight(HSSFCellStyle.BORDER_THICK);
+        /* Add dashed top border */
+        my_style.setBorderTop(HSSFCellStyle.BORDER_THICK);
+        /* Add dotted bottom border */
+        my_style.setBorderBottom(HSSFCellStyle.BORDER_THICK);
 	}
 	public HSSFCellStyle getExcelCellTextAlinmentStyle(int alignment)
 	{
@@ -68,4 +96,11 @@ public class ExcelUtils
         
         return headerRowStyle;
 	}
+	public void setRegionBorderWithMedium(org.apache.poi.ss.util.CellRangeAddress cellRangeAddress, HSSFSheet sheet) {
+        HSSFWorkbook wb = sheet.getWorkbook();
+        RegionUtil.setBorderBottom(CellStyle.BORDER_MEDIUM, cellRangeAddress, sheet, wb);
+        RegionUtil.setBorderLeft(CellStyle.BORDER_MEDIUM, cellRangeAddress, sheet, wb);
+        RegionUtil.setBorderRight(CellStyle.BORDER_MEDIUM, cellRangeAddress, sheet, wb);
+        RegionUtil.setBorderTop(CellStyle.BORDER_MEDIUM, cellRangeAddress, sheet, wb);
+    }
 }

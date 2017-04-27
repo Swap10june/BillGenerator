@@ -27,7 +27,7 @@ public class AddVehicleUI extends JDialog
 	public AddVehicleUI(JDialog owner, String windowName)
 	{
 		super(owner);
-		Utils.getUtilityInstance().applyBasicSettingsOnWindow_550X300(owner,windowName);
+		Utils.getUtilityInstance().applyBasicSettingsOnWindow_500X400(owner,windowName);
 		addVehicleUIComponentMap = new HashMap<String, Object>();
 		initUI(owner);
 		owner.setVisible(true);
@@ -35,8 +35,8 @@ public class AddVehicleUI extends JDialog
 	private void initUI(final JDialog owner)
 	{
 		JPanel bodyPanel = new JPanel();
-		bodyPanel.setLayout(new GridLayout(5, 1));
-		bodyPanel.setBounds(10, 50, 400, 150);
+		bodyPanel.setLayout(new GridLayout(6, 1));
+		bodyPanel.setBounds(10, 50, 400, 200);
 		
 		JPanel enterVehicleName = templates.getLabelWithTextField("enterVehicleName", " Enter Vehicle Name", "Enter Veh. Name here",SConstants.TEXT_COL_SIZE_15 , false, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterVehicleName);
@@ -46,7 +46,7 @@ public class AddVehicleUI extends JDialog
 		bodyPanel.add(enterVNumber);
 		
 		
-		JPanel enterCustomerName = templates.getLabelWithComboWOListner("enterCustomerName", "Enter Customer Name", new CustomerDataModel().getAllCustomerNames(), addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel enterCustomerName = templates.getLabelWithComboWOListner("enterCustomerName", "Enter Customer Name", Utils.getUtilityInstance().removeDuplicate(new CustomerDataModel().getAllCustomerNames()), addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterCustomerName);
 		
 		
@@ -56,13 +56,16 @@ public class AddVehicleUI extends JDialog
 		JPanel enterExKmRate = templates.getLabelWithTextField("enterExKmRate", "Enter Extra Km Rate", "Enter Extra Km Rate", SConstants.TEXT_COL_SIZE_15, true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterExKmRate);
 		
+		JPanel enterExtraHourPerRate = templates.getLabelWithTextField("enterExtraHourPerRate", "Enter Ex.Hour/Rate", "Enter Ex.Hour/Rate here",SConstants.TEXT_COL_SIZE_15 , true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
+		bodyPanel.add(enterExtraHourPerRate);
+		
 		
 		JButton btnLogin = new JButton(SConstants.ADD_BTN_STRING);
-		btnLogin.setBounds(150, 220, 100, 30);
+		btnLogin.setBounds(150, 250, 100, 30);
 		btnLogin.addActionListener(new VehicleButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
-		btnCancel.setBounds(350, 220, 100, 30);
+		btnCancel.setBounds(350, 250, 100, 30);
 		btnCancel.addActionListener(new ActionListener() {
 			
 			@Override

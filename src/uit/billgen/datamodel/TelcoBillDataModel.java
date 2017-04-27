@@ -1,6 +1,7 @@
 package uit.billgen.datamodel;
 import java.io.File;
 import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,7 +17,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import uit.billgen.beans.BOM;
+import uit.billgen.beans.ExtraCabObject;
 import uit.billgen.util.SConstants;
 
 public class TelcoBillDataModel
@@ -44,7 +45,7 @@ public class TelcoBillDataModel
 	    	  e.printStackTrace();
 	      } 
 	}
-    public void addBillTransaction(BOM bOM)
+    public void addBillTransaction(ExtraCabObject bOM)
     {
     	NodeList totalNoOfSecondRootTags = doc.getElementsByTagName(SConstants.TBILLS_TAG);
         Element eElement = (Element) totalNoOfSecondRootTags.item(0);

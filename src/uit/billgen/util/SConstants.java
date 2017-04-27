@@ -44,8 +44,8 @@ public class SConstants
 	
 	
 	// Home Page Button and its constants
-	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"TAL Bill","Monthly Bill","Admin","History","Update"};
-	public static final String 		TAL_BILL_BTN_STRING 		= 		"TAL Bill";
+	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"Extra Cab Bill","Monthly Bill","Admin","History","Update"};
+	public static final String 		TAL_BILL_BTN_STRING 		= 		"Extra Cab Bill";
 	public static final String 		ADMIN_BTN_STRING 			= 		"Admin";
 	public static final String 		MONTHLY_BOM_BTN_STRING 		= 		"Monthly Bill";
 	public static final String 		HISTORY_BTN_STRING 			= 		"History";
@@ -81,11 +81,16 @@ public class SConstants
 	public static final String	L_PKG_Rate				=	"Pkg. Rate";
 	public static final String	L_AMOUNT				=	"Pkg. Amount";
 	public static final String	L_EXTRA_KM 				= 	"Extra Distance Travelled(Km)";
+	public static final String 	L_EXTRA_HOUR 			= 	"Extra Time Travelled(Hour)";
 	public static final String	L_TOTAL_EXTRA_KM		=	"Total Ex. Km";
 	public static final String	L_EXTRA_KM_RATE			=	"Ex. Rate/Km";
 	public static final String	L_EXTRA_AMOUNT			=	"Ex. Amount";
+	
+	public static final String	L_TOTAL_EXTRA_HOUR		=	"Total Ex. Hour";
+	public static final String	L_EXTRA_HOUR_RATE		=	"Ex. Rs/Hour";
+	
 	public static final String	L_TOLL_AMOUNT			= 	"Toll";
-	public static final String	L_NIGHT_HALT_AMOUNT 	= 	"Night Halt";
+	public static final String	L_NIGHT_HALT_AMOUNT 	= 	"Night Halt/Out Station";
 	public static final String	L_AMOUNTS_IN_WORDS		= 	"Amount In Words";
 	public static final String	L_GROSS_AMOUNT 			= 	"Total Amount To Pay";
 	public static final String	L_GENERATE_EXCEL_CHECK	=	"Excel";
@@ -129,6 +134,7 @@ public class SConstants
 	public static final String	ID_DUTY_TYPE_COMBO_ON_TELCO_BILL 	= 	"DTCOTB";
 
 	public static final String 	ID_VEHICLE_SELECT_DUTY_TYPE_COMBO 	= 	"VSDTC";
+	public static final String 	ID_TYPE_SELECT_DUTY_TYPE_COMBO 		= 	"TSDTC";
 
 	
 	// Telco Bill Combo Ids
@@ -177,6 +183,8 @@ public class SConstants
 	public static final String 		DUTY_TYPE_STRING_ATTR					= "dutyTypeString";
 	public static final String		RATE_ATTR								= "Rate";
 	public static final String		EXTRA_KM_RATE							= "exKMRate";
+	public static final String 		EXTRA_HOUR_RATE 						= "exHourRate";
+	public static final String 		ACNONAC_ATTR 							= "ACType";
 
 	//Monthly bill data model
 	public static final String 		MBILL_DM_FILE_PATH 							= "/UIT-BillGen/src/uit/billgen/resources/MonthlyBillModel.xml";
@@ -256,9 +264,22 @@ public class SConstants
 	public static final int 		ADD_DUTY_TYPE_TEXTFILED_COL_SIZE 	= 15;
 	public static final int 		ADD_DUTY_TYPE_LABEL_NAME_SIZE 		= 17;
 	public static final int 		TEXT_COL_SIZE_15 					= 15;
+	public static final int 		TEXT_COL_SIZE_10 					= 10;
 	public static final int 		UI_LABEL_NAME_SIZE_20				= 20;
 	public static final int 		UI_LABEL_NAME_SIZE_25				= 25;
 
 	public static final String SEARCH_STRING = "Search";
+
+	public static final String NA_STRING = "N/A";
+
+	
+
+	
+
+	
+
+	
+
+	
 	
 }

@@ -49,11 +49,14 @@ public class VehicleButtonHandler implements ActionListener {
 			JPanel enterExKmRate =  (JPanel) compMap.get("enterExKmRate");
 			final JTextField txtExKmRate = (JTextField) enterExKmRate.getComponent(2);
 			
-			if(!txtVName.getText().isEmpty()|| !txtCName.getSelectedItem().toString().isEmpty() || !txtVNo.getText().isEmpty() ||!txtMRate.getText().isEmpty() ||!txtExKmRate.getText().isEmpty())
+			JPanel enterExHourRate =  (JPanel) compMap.get("enterExtraHourPerRate");
+			final JTextField txtExHourRate = (JTextField) enterExHourRate.getComponent(2);
+			
+			if(!txtExHourRate.getText().isEmpty()||!txtVName.getText().isEmpty()|| !txtCName.getSelectedItem().toString().isEmpty() || !txtVNo.getText().isEmpty() ||!txtMRate.getText().isEmpty() ||!txtExKmRate.getText().isEmpty())
 			{
 				VehicleDataModel model = new VehicleDataModel();
 				int uid = model.getAllVehicleNames().length;
-				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText(), txtCName.getSelectedItem().toString(),txtVNo.getText(),txtMRate.getText(),txtExKmRate.getText());
+				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText().trim(), txtCName.getSelectedItem().toString().trim(),txtVNo.getText().trim(),txtMRate.getText().trim(),txtExKmRate.getText().trim(),txtExHourRate.getText().trim());
 				// TODO: add to db
 				model.addVehicle(vehicle);
 				new PopupDialogs(SConstants.MSG_ADDED_SUCCESSFULLY,PopupDialogs.PLAIN_MESSAGE);
@@ -95,7 +98,10 @@ public class VehicleButtonHandler implements ActionListener {
 			JPanel enterExKmRate =  (JPanel) compoMap.get("enterExKmRate");
 			final JTextField txtExKmRate = (JTextField) enterExKmRate.getComponent(2);
 			
-			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue, cNameValue,vNoValue,mRate,txtExKmRate.getText());
+			JPanel enterExHourRate =  (JPanel) compoMap.get("enterExtraHourPerRate");
+			final JTextField txtExHourRate = (JTextField) enterExHourRate.getComponent(2);
+			
+			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue.trim(), cNameValue.trim(),vNoValue,mRate,txtExKmRate.getText().trim(),txtExHourRate.getText().trim());
 			EditVehicleUI.getModel().updateAttributeValue(newVehicle);
 			new Dao().editVehicle(newVehicle);
 			new PopupDialogs(SConstants.MSG_UPDATED_SUCCESSFULLY, PopupDialogs.PLAIN_MESSAGE);

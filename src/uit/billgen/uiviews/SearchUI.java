@@ -1,18 +1,14 @@
 package uit.billgen.uiviews;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import uit.billgen.datamodel.CustomerDataModel;
-import uit.billgen.util.AutoSuggestor;
 import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
