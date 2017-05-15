@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import uit.billgen.beans.Vehicle;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.VehicleDataModel;
+import uit.billgen.db.Dao;
 import uit.billgen.exceptions.PopupDialogs;
 import uit.billgen.uiviews.AddVehicleUI;
 import uit.billgen.uiviews.EditVehicleUI;
-import uit.billgen.util.Dao;
-import uit.billgen.util.SConstants;
 
 public class VehicleButtonHandler implements ActionListener {
 
@@ -52,11 +52,14 @@ public class VehicleButtonHandler implements ActionListener {
 			JPanel enterExHourRate =  (JPanel) compMap.get("enterExtraHourPerRate");
 			final JTextField txtExHourRate = (JTextField) enterExHourRate.getComponent(2);
 			
-			if(!txtExHourRate.getText().isEmpty()||!txtVName.getText().isEmpty()|| !txtCName.getSelectedItem().toString().isEmpty() || !txtVNo.getText().isEmpty() ||!txtMRate.getText().isEmpty() ||!txtExKmRate.getText().isEmpty())
+			JPanel monthlyPkgKm =  (JPanel) compMap.get("monthlyPkgKm");
+			final JTextField txtmonthlyPkgKm= (JTextField) monthlyPkgKm.getComponent(2);
+			
+			if(!txtmonthlyPkgKm.getText().isEmpty() || !txtExHourRate.getText().isEmpty()||!txtVName.getText().isEmpty()|| !txtCName.getSelectedItem().toString().isEmpty() || !txtVNo.getText().isEmpty() ||!txtMRate.getText().isEmpty() ||!txtExKmRate.getText().isEmpty())
 			{
 				VehicleDataModel model = new VehicleDataModel();
 				int uid = model.getAllVehicleNames().length;
-				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText().trim(), txtCName.getSelectedItem().toString().trim(),txtVNo.getText().trim(),txtMRate.getText().trim(),txtExKmRate.getText().trim(),txtExHourRate.getText().trim());
+				Vehicle vehicle = new Vehicle((uid+1),txtVName.getText().trim(), txtCName.getSelectedItem().toString().trim(),txtVNo.getText().trim(),txtMRate.getText().trim(),txtExKmRate.getText().trim(),txtExHourRate.getText().trim(),txtmonthlyPkgKm.getText());
 				// TODO: add to db
 				model.addVehicle(vehicle);
 				new PopupDialogs(SConstants.MSG_ADDED_SUCCESSFULLY,PopupDialogs.PLAIN_MESSAGE);
@@ -101,7 +104,10 @@ public class VehicleButtonHandler implements ActionListener {
 			JPanel enterExHourRate =  (JPanel) compoMap.get("enterExtraHourPerRate");
 			final JTextField txtExHourRate = (JTextField) enterExHourRate.getComponent(2);
 			
-			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue.trim(), cNameValue.trim(),vNoValue,mRate,txtExKmRate.getText().trim(),txtExHourRate.getText().trim());
+			JPanel monthlyPkgKm =  (JPanel) compoMap.get("monthlyPkgKm");
+			final JTextField txtmonthlyPkgKm= (JTextField) monthlyPkgKm.getComponent(2);
+			
+			Vehicle newVehicle = new Vehicle(oldVehicle.getUid(), vNameValue.trim(), cNameValue.trim(),vNoValue,mRate,txtExKmRate.getText().trim(),txtExHourRate.getText().trim(),txtmonthlyPkgKm.getText().trim());
 			EditVehicleUI.getModel().updateAttributeValue(newVehicle);
 			new Dao().editVehicle(newVehicle);
 			new PopupDialogs(SConstants.MSG_UPDATED_SUCCESSFULLY, PopupDialogs.PLAIN_MESSAGE);

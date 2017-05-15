@@ -6,9 +6,14 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,18 +21,23 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import uit.billgen.beans.ExtraCabObject;
+import uit.billgen.beans.CabObject;
+import uit.billgen.beans.DutyType;
+import uit.billgen.beans.Vehicle;
+import uit.billgen.constants.SConstants;
+import uit.billgen.datamodel.BillsDataModel;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.datamodel.DutyTypeDataModel;
-import uit.billgen.datamodel.TelcoBillDataModel;
 import uit.billgen.datamodel.VehicleDataModel;
+import uit.billgen.db.Dao;
+import uit.billgen.exceptions.BillGenException;
 import uit.billgen.handlers.ExtraCabBillUIButtonHandler;
 import uit.billgen.listners.TelcoBillComboItemListner;
-import uit.billgen.util.Dao;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class ExtraCabBillUI extends JDialog {
@@ -52,15 +62,17 @@ public class ExtraCabBillUI extends JDialog {
 		return billGenerateUIComponentsMap;
 	}
 	private UITemplates templates = new UITemplates();
+	private DutyTypeDataModel m_dutyTypeModel;
+	private DutyType m_selectedDutyType;
 	public ExtraCabBillUI(JDialog owner, String talBillBtnString)
 	{
 		super(owner);
 		billGenerateUIComponentsMap = new HashMap<String,Object>();
+		this.m_dutyTypeModel = new DutyTypeDataModel();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,talBillBtnString);
 		initUI(owner);
 		owner.setVisible(true);
 	}
-	@SuppressWarnings("deprecation")
 	private void initUI( final JDialog owner)
 	{
 		Dimension btnDimension = new Dimension(30,30);
@@ -70,16 +82,7 @@ public class ExtraCabBillUI extends JDialog {
 		panelBillHeader.setBorder(BorderFactory.createLineBorder(Color.black));
 		panelBillHeader.setLayout(new FlowLayout());
 		
-		int no = new TelcoBillDataModel().getNoOfTags(SConstants.BILL_TAG);
-		String str = ((new Date().toLocaleString().split(",")[1]).split(" ")[1]).substring(2);
-		int dateYear = Integer.parseInt(str);
-		if(new Date().getMonth()>2)
-		{
-			dateYear++;
-		}
-		dateYear-=1;
-		//8411989003
-		String billNo = String.valueOf(no)+":"+String.valueOf(dateYear)+"-"+String.valueOf(dateYear+1);
+		String billNo = utility.getBillNumber();
 		
 		final JPanel panelBillNo = templates.getLabelWithValueLabel("panelBillNo",SConstants.L_BILL_NO,billNo,billGenerateUIComponentsMap);
 		panelBillHeader.add(panelBillNo);
@@ -181,13 +184,183 @@ public class ExtraCabBillUI extends JDialog {
 		
 		@SuppressWarnings("rawtypes")
 		JComboBox vehicleSelectionCombo = (JComboBox) panelVehicleType.getComponent(2);
-		
-		String[] dutyTypeArray = new DutyTypeDataModel().getAllDutyTypStringsFor(customerSelectionCombo.getSelectedItem().toString(),vehicleSelectionCombo.getSelectedItem().toString());
+		String[] dutyTypeArray;
+		if(vehicleSelectionCombo.getSelectedItem()==null || vehicleSelectionCombo==null)
+			dutyTypeArray = new String []{""};
+		else
+			dutyTypeArray = m_dutyTypeModel.getAllDutyTypStringsFor(customerSelectionCombo.getSelectedItem().toString(),vehicleSelectionCombo.getSelectedItem().toString());
 		
 		final JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType",SConstants.L_DUTY_TYPE, dutyTypeArray, billGenerateUIComponentsMap);
 		@SuppressWarnings("unchecked")
 		JComboBox<String> comboDutyType = (JComboBox<String>) panelDutyType.getComponent(2);
-		comboDutyType.addItemListener(new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE));
+		comboDutyType.addItemListener(/*new TelcoBillComboItemListner(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE)*/new ItemListener() {
+			
+			
+
+			@Override
+			public void itemStateChanged(ItemEvent e)
+			{
+
+				double totalKM = 0.0;
+				if(ExtraCabBillUI.getComponentMap().containsKey(SConstants.TOTAL_KM_ATTR))
+				{
+					totalKM = (double) ExtraCabBillUI.getComponentMap().get(SConstants.TOTAL_KM_ATTR);
+					JButton btnToatl = (JButton) ExtraCabBillUI.getComponentMap().get(SConstants.GET_TOTAL_BTN_STRING);
+					btnToatl.setEnabled(true);
+					
+					JPanel panelTotalPkgKm = (JPanel) ExtraCabBillUI.getComponentMap().get("panelTotalPkgKm");
+					JLabel lblTotalDistanceValue = (JLabel) panelTotalPkgKm.getComponent(2);
+					
+					String dutyTypeID = e.getItem().toString();
+					
+					m_selectedDutyType = m_dutyTypeModel.getDutyType(dutyTypeID);
+					lblTotalDistanceValue.setText(String.valueOf(m_selectedDutyType.getKm()));
+					
+					JPanel panelRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelRate");
+					JLabel lblRate = (JLabel) panelRate.getComponent(2);
+					lblRate.setText(String.valueOf(m_selectedDutyType.getPackageRate()));
+					
+					
+					JPanel panelAmount = (JPanel) ExtraCabBillUI.getComponentMap().get("panelAmount");
+					JLabel lblAMountValue = (JLabel) panelAmount.getComponent(2);
+					lblAMountValue.setText(String.valueOf(m_selectedDutyType.getPackageRate()));
+					 
+					int extraKM = (int) (totalKM-m_selectedDutyType.getKm());
+					if(extraKM>0)
+					{
+					
+						JPanel panelTotalExtraKM = (JPanel) ExtraCabBillUI.getComponentMap().get("panelTotalExtraKM");
+						JLabel lblExtraKM = (JLabel) panelTotalExtraKM.getComponent(2);
+						
+						
+						lblExtraKM.setText(String.valueOf(extraKM));
+					
+						JPanel panelExtraKMRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraKMRate");
+						JLabel lblExtraRate = (JLabel) panelExtraKMRate.getComponent(2);
+						lblExtraRate.setText(String.valueOf(m_selectedDutyType.getExtraKmRate()));
+						 
+						
+						
+						JPanel panelExtraKMAmount = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraKMAmount");
+						JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
+						lblExtraAMount.setText(String.valueOf(extraKM*m_selectedDutyType.getExtraKmRate()));
+					}
+					else
+					{
+						JPanel panelTotalExtraKM = (JPanel) ExtraCabBillUI.getComponentMap().get("panelTotalExtraKM");
+						JLabel lblExtraKM = (JLabel) panelTotalExtraKM.getComponent(2);
+						
+						
+						lblExtraKM.setText(String.valueOf(0));
+						 
+						
+						
+						JPanel panelExtraKMRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraKMRate");
+						JLabel lblExtraRate = (JLabel) panelExtraKMRate.getComponent(2);
+						lblExtraRate.setText(String.valueOf(0));
+						 
+						
+						
+						JPanel panelExtraKMAmount = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraKMAmount");
+						JLabel lblExtraAMount = (JLabel) panelExtraKMAmount.getComponent(2);
+						lblExtraAMount.setText(String.valueOf(0));
+					}
+					JPanel panelStartTime = (JPanel) ExtraCabBillUI.getComponentMap().get("panelStartTime");
+					JSpinner spinnerStartTime= (JSpinner) panelStartTime.getComponent(2);
+					
+					String [] arr = spinnerStartTime.getValue().toString().split(" ");
+					
+					JPanel panelEndTime = (JPanel) ExtraCabBillUI.getComponentMap().get("panelEndTime");
+					JSpinner spinnerEndTime= (JSpinner) panelEndTime.getComponent(2);
+					String [] arr2 = spinnerEndTime.getValue().toString().split(" ");
+					
+					String time1 = arr[3];
+					String time2 = arr2[3];
+
+					try 
+					{
+						SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+						Date date1 = format.parse(time1);
+						Date date2 = format.parse(time2);
+						long difference = date2.getTime() - date1.getTime();
+						System.out.println(difference);
+						int minutes = (int) TimeUnit.MILLISECONDS.toMinutes(difference);
+
+						if(minutes<0)minutes += 1440; 
+						System.out.println(minutes);
+						int hour = minutes/60;
+						int finalmin = minutes%60;
+						
+						double extraHour = hour-m_selectedDutyType.getHours();
+						System.out.println("");
+						if(extraHour>0)
+						{
+							if(finalmin>=15 &&finalmin<30)
+								extraHour+=0.25;
+							
+							if(finalmin>=30 &&finalmin<45)
+								extraHour+=0.50;
+							
+							if(finalmin>=45 &&finalmin<60)
+								extraHour+=0.75;
+							JPanel panelExtraHourLabel = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourLabel");
+							JLabel lbl = (JLabel) panelExtraHourLabel.getComponent(2);
+							lbl.setText(String.valueOf(hour)+":"+String.valueOf(finalmin));
+							
+							String vName = m_selectedDutyType.getVehicleType();
+							String cName = m_selectedDutyType.getCustomerName();
+							Vehicle vehicle = new VehicleDataModel().getVehicleFor(vName,cName);
+							JPanel panelTotalExtraHour = (JPanel) ExtraCabBillUI.getComponentMap().get("panelTotalExtraHour");
+							JLabel lblExtraHour = (JLabel) panelTotalExtraHour.getComponent(2);
+							
+							
+							lblExtraHour.setText(String.valueOf(extraHour));
+						
+							JPanel panelExtraHourRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourRate");
+							JLabel lblExtraHourRate = (JLabel) panelExtraHourRate.getComponent(2);
+							lblExtraHourRate.setText(String.valueOf(vehicle==null?0:vehicle.getExtraHourRate()));
+							 
+							
+							
+							JPanel panelExtraHourAmount = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourAmount");
+							JLabel lblExtraAMount = (JLabel) panelExtraHourAmount.getComponent(2);
+							lblExtraAMount.setText(String.valueOf(extraHour*(Double.parseDouble(vehicle==null?"0":vehicle.getExtraHourRate()))));
+						}
+						else
+						{
+							JPanel panelExtraHourLabel = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourLabel");
+							JLabel lbl = (JLabel) panelExtraHourLabel.getComponent(2);
+							lbl.setText(String.valueOf(hour)+":"+String.valueOf(finalmin));
+							
+							JPanel panelTotalExtraHour = (JPanel) ExtraCabBillUI.getComponentMap().get("panelTotalExtraHour");
+							JLabel lblExtraHour = (JLabel) panelTotalExtraHour.getComponent(2);
+							
+							
+							lblExtraHour.setText(String.valueOf(0));
+						
+							JPanel panelExtraHourRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourRate");
+							JLabel lblExtraHourRate = (JLabel) panelExtraHourRate.getComponent(2);
+							lblExtraHourRate.setText(String.valueOf(0));
+							 
+							
+							
+							JPanel panelExtraHourAmount = (JPanel) ExtraCabBillUI.getComponentMap().get("panelExtraHourAmount");
+							JLabel lblExtraAMount = (JLabel) panelExtraHourAmount.getComponent(2);
+							lblExtraAMount.setText(String.valueOf(0));
+						
+						}
+					} catch (ParseException e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+					
+					
+					
+				}
+			
+			}
+		});
 		comboDutyType.setPrototypeDisplayValue("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 		panelMiddleBody.add(panelDutyType);
 				
@@ -214,7 +387,7 @@ public class ExtraCabBillUI extends JDialog {
 		
 		
 		
-		final JPanel panelExtraHourLabel = templates.getLabelWithEmptyLabel("panelExtraHourLabel",SConstants.L_EXTRA_HOUR, billGenerateUIComponentsMap);
+		final JPanel panelExtraHourLabel = templates.getLabelWithEmptyLabel("panelExtraHourLabel","Total Time Travelled:", billGenerateUIComponentsMap);
 		panelMiddleBody.add(panelExtraHourLabel);
 		
 		final JPanel panelTotalExtraHour = templates.getLabelWithEmptyLabel("panelTotalExtraHour",SConstants.L_TOTAL_EXTRA_HOUR, billGenerateUIComponentsMap);
@@ -299,8 +472,8 @@ public class ExtraCabBillUI extends JDialog {
 				double taxOnBillAMount = (billAmount*Double.parseDouble(serviceTaxText.getText().isEmpty()?"0":serviceTaxText.getText()))/100;
 				double finalAMount = billAmount+taxOnBillAMount+Double.parseDouble(tollAmountText.getText().isEmpty()?"0":tollAmountText.getText());
 						
-				ExtraCabObject extraCab = new ExtraCabObject();
-				
+				CabObject extraCab = new CabObject();
+				extraCab.setBillType(SConstants.EXTRA_CAB_BILL_TYPE);
 				extraCab.setBillNumber(utility.getStringValueFromPanelComponent(panelBillNo, 2));
 				extraCab.setBillDate(utility.getStringValueFromPanelComponent(panelBillDate, 2));
 				extraCab.setContactNumber(utility.getStringValueFromPanelComponent(panelContactNumber, 2));
@@ -314,7 +487,7 @@ public class ExtraCabBillUI extends JDialog {
 				extraCab.setEmployeeNameUsedVehicle(utility.getStringValueFromPanelComponent(panelEmployeeName, 2).isEmpty()?"N/A":utility.getStringValueFromPanelComponent(panelEmployeeName, 2));
 				extraCab.setStartKM(utility.getStringValueFromPanelComponent(panelStartKM, 2));
 				extraCab.setEndKM(utility.getStringValueFromPanelComponent(panelEndKM, 2));
-				//String time = utility.getStringValueFromPanelComponent(panelStartTime, 2);
+				extraCab.setAcStatus(String.valueOf(m_selectedDutyType.getAcNonAcType()));
 				extraCab.setStartTime(utility.getStringValueFromPanelComponent(panelStartTime, 2));
 				extraCab.setEndTime(utility.getStringValueFromPanelComponent(panelEndTime, 2));
 				extraCab.setTotalKM(utility.getStringValueFromPanelComponent(panelTotalKM, 2));
@@ -330,20 +503,23 @@ public class ExtraCabBillUI extends JDialog {
 				extraCab.setExtraTimeHoursRate(utility.getStringValueFromPanelComponent(panelExtraHourRate, 2));
 				extraCab.setExtraHourAmount(String.valueOf(extraHourAmount));
 				extraCab.setNightHaltRate(utility.getStringValueFromPanelComponent(panelNightHaltAmount, 2));
-				extraCab.setTotalWithoutTax(/*String.valueOf(Double.parseDouble(
-						utility.getStringValueFromPanelComponent(panelFinalAmount, 2))
-						-Double.parseDouble(utility.getStringValueFromPanelComponent(panelServiceTax, 2)))*/
-						String.valueOf(billAmount));
-				extraCab.setServiceTaxCarges(/*utility.getStringValueFromPanelComponent(panelServiceTax, 2)*/String.valueOf(taxOnBillAMount));
+				extraCab.setTotalWithoutTax(String.valueOf(billAmount));
+				extraCab.setServiceTaxCarges(String.valueOf(taxOnBillAMount));
 				extraCab.setTollCharges(utility.getStringValueFromPanelComponent(panelTollAmount, 2));
-				extraCab.setGrandTotal(/*utility.getStringValueFromPanelComponent(panelFinalAmount, 2)*/String.valueOf(finalAMount));
+				extraCab.setGrandTotal(String.valueOf(finalAMount));
 				if(panelGenerateExcelCheck.isSelected())
 				{
 					Utils.getUtilityInstance().generateBill(extraCab);
 					
 				}
-				//new Dao().addBill(bom);
-				new TelcoBillDataModel().addBillTransaction(extraCab);
+				
+				try
+				{
+					new BillsDataModel().addBillTransaction(extraCab);
+				} catch (BillGenException e)
+				{
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 				billGenerateUIComponentsMap.remove(SConstants.TOTAL_KM_ATTR);
 				new Dao().addBOM(extraCab);
 				//BOM boma = new Dao().getBOM("date",new java.sql.Date(new java.util.Date().getTime()));

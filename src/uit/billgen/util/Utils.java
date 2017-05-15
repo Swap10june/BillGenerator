@@ -33,8 +33,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import uit.billgen.beans.ExtraCabObject;
-import uit.billgen.beans.MonthlyBOM;
+import uit.billgen.beans.CabObject;
+//import uit.billgen.beans.MonthlyBOM;
+import uit.billgen.constants.SConstants;
+import uit.billgen.datamodel.BillsDataModel;
+import uit.billgen.exceptions.BillGenException;
 import uit.billgen.exceptions.PopupDialogs;
 
 public class Utils 
@@ -297,19 +300,26 @@ public class Utils
 	{
 		return key+"_"+value;
 	}
-	public void generateBill(ExtraCabObject bom)
+	public void generateBill(CabObject extraCabObject)
 	{
-		String str = bom.getBillNumber();
-		str= str.replace(" ", "");
+		String a1 = extraCabObject.getBillNumber();
+		String a = a1.replaceAll(":", "_");
+		String billNo = a.replaceAll("-", "_");
+		String c1 = extraCabObject.getBillDate();
+		String c = c1.replaceAll(":", "_");
+		String billDate = c.replaceAll("-", "_");
+		String billCName = extraCabObject.getCustomerName();
+		/*str= str.replace(" ", "");
 		str = str.replace(":", "");
-		str= str.replace("-", "");
-		File excel = new File("C:\\"+SConstants.BILL_TAG+"\\"+str+".xls");
+		str= str.replace("-", "");*/
+		String fileName = SConstants.BILLS_FOLDER_PATH+billNo+"__"+billDate+"__"+billCName+".xls";
+		File excel = new File(fileName);
 		
 		try 
 		{
 			if(!excel.exists())
 				excel.createNewFile();
-			new CreateExlFile().CreateBOMExcel(excel,bom);
+			new CreateExlFile().CreateBOMExcel(excel,extraCabObject);
 		} catch (IOException e)
 		{
 			new PopupDialogs("File Not Found",PopupDialogs.ERROR_MESSAGE);
@@ -426,7 +436,7 @@ public class Utils
 	    footerLabel.setBorder(border);
 	    owner.add(footerLabel);
 	}
-	public void generateMonthlyBill(MonthlyBOM bom)
+	/*public void generateMonthlyBill(MonthlyBOM bom)
 	{
 		String str = bom.getBillNumber();
 			str= str.replace(" ", "");
@@ -443,7 +453,7 @@ public class Utils
 			{
 				new PopupDialogs("File Not Found",PopupDialogs.ERROR_MESSAGE);
 			}
-		}
+		}*/
 	@SuppressWarnings("deprecation")
 	public String getDateString(Date date)
 	{
@@ -468,5 +478,25 @@ public class Utils
 			i++;
 		}
 		return str;
+	}
+	public String getBillNumber()
+	{
+		int no = 0;
+		try
+		{
+			no = new BillsDataModel().getNoOfTags(SConstants.BILL_TAG);
+			no++;
+		} catch (BillGenException e)
+		{
+			new PopupDialogs(e.getMessage(),PopupDialogs.INFORMATION_MESSAGE  );
+		}
+		
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy");
+		String year = format.format(date);
+		String next = String.valueOf(1+Integer.parseInt(year.substring(2)));
+		//System.out.println(year+"-"+next);
+		
+		return String.format(SConstants.NO_OF_DIGITS,no)+":"+year+"-"+next;
 	}
 }

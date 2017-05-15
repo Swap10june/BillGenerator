@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.exceptions.PopupDialogs;
-import uit.billgen.uiviews.Home;
-import uit.billgen.util.SConstants;
+import uit.billgen.uiviews.HomeUI;
 import uit.billgen.util.Utils;
 
 public class Login extends JDialog
@@ -42,7 +42,7 @@ public class Login extends JDialog
 		 imagePanel.setLayout(new BorderLayout());
 		 JLabel pic = new JLabel();
 		 imagePanel.add(pic);
-		 ImageIcon test = new ImageIcon("/UIT-BillGen/src/uit/billgen/images/login.png"); 
+		 ImageIcon test = new ImageIcon(SConstants.IMAGE_LOGIN); 
 		 pic.setIcon(test);
 		 //imagePanel.setBackground(Color.CYAN);
 		 imagePanel.setBounds(30, 100, 410, 350);
@@ -58,13 +58,13 @@ public class Login extends JDialog
 		 //Text field for user name 
 		 final JTextField  txtUserName = new JTextField(15);
 		 //Helper.setComponent(txtUserName, "txtUserName");
-         txtUserName.setText("swap");
+         //txtUserName.setText("swap");
 		 txtUserName.setBounds(480, 140, 300, 30);
 		 
 		 //Label for user name image icon
 		 JLabel lblUserNameIcon = new JLabel();
 		 //Helper.setComponent(lblUserNameIcon, "lblUserNameIcon");
-		 lblUserNameIcon.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/user.png"));
+		 lblUserNameIcon.setIcon(new ImageIcon(SConstants.IMAGE_USER));
 		 lblUserNameIcon.setBounds(790, 140, 40, 30);
 		 
 		 //Label for password
@@ -80,13 +80,13 @@ public class Login extends JDialog
 		 //Text field for password
 		 final JPasswordField txtUserPass = new JPasswordField(15);
 		 //Helper.setComponent(txtUserPass, "txtUserPass");
-         txtUserPass.setText("swap");
+         //txtUserPass.setText("swap");
 		 txtUserPass.setBounds(480, 240, 300, 30);
 		 
 		//Label for user password image icon
 		 JLabel lblUserPassIcon = new JLabel();
 		 //Helper.setComponent(lblUserPassIcon, "lblUserPassIcon");
-		 lblUserPassIcon.setIcon(new ImageIcon("/UIT-BillGen/src/uit/billgen/images/passwordKey.png"));
+		 lblUserPassIcon.setIcon(new ImageIcon(SConstants.IMAGE_PW_KEY));
 		 lblUserPassIcon.setBounds(790, 240, 40, 30);
 		 
 		 //Check box to show password
@@ -120,12 +120,12 @@ public class Login extends JDialog
 					@Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name",SConstants.USER_XML_FILE_PATH)) 
-                        		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.USER_XML_FILE_PATH)))
+                        if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("name",SConstants.FILE_USERS)) 
+                        		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.FILE_USERS)))
                         {
                             //System.out.println("Login Successful :: "+txtUserName.getText());
                             owner.dispose();
-                            new Home(new javax.swing.JDialog());
+                            new HomeUI(new javax.swing.JDialog());
                         	
                         }
                         else

@@ -10,9 +10,9 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.handlers.VehicleButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class AddVehicleUI extends JDialog
@@ -35,7 +35,7 @@ public class AddVehicleUI extends JDialog
 	private void initUI(final JDialog owner)
 	{
 		JPanel bodyPanel = new JPanel();
-		bodyPanel.setLayout(new GridLayout(6, 1));
+		bodyPanel.setLayout(new GridLayout(7, 1));
 		bodyPanel.setBounds(10, 50, 400, 200);
 		
 		JPanel enterVehicleName = templates.getLabelWithTextField("enterVehicleName", " Enter Vehicle Name", "Enter Veh. Name here",SConstants.TEXT_COL_SIZE_15 , false, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
@@ -58,6 +58,9 @@ public class AddVehicleUI extends JDialog
 		
 		JPanel enterExtraHourPerRate = templates.getLabelWithTextField("enterExtraHourPerRate", "Enter Ex.Hour/Rate", "Enter Ex.Hour/Rate here",SConstants.TEXT_COL_SIZE_15 , true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyPanel.add(enterExtraHourPerRate);
+		
+		JPanel monthlyPkgKm = templates.getLabelWithTextField("monthlyPkgKm", "Enter Monthly Km", "Enter Monthly Km here",SConstants.TEXT_COL_SIZE_15 , true, addVehicleUIComponentMap,SConstants.UI_LABEL_NAME_SIZE_20);
+		bodyPanel.add(monthlyPkgKm);
 		
 		
 		JButton btnLogin = new JButton(SConstants.ADD_BTN_STRING);

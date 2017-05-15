@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.exceptions.PopupDialogs;
  
 /**
@@ -25,7 +26,7 @@ public class SQliteConnection
     	try
         {
            Class.forName("org.sqlite.JDBC");
-           String dbURL = "jdbc:sqlite:C:/sqlite/db/"+dbFilename;
+           String dbURL = SConstants.DB_URL+dbFilename;
            connection = DriverManager.getConnection(dbURL);
             if (connection != null)
             {

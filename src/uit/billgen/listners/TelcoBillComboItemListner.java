@@ -2,26 +2,18 @@ package uit.billgen.listners;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import uit.billgen.beans.Customer2;
-import uit.billgen.beans.DutyType;
+import uit.billgen.beans.Customer;
 import uit.billgen.beans.Vehicle;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.datamodel.DutyTypeDataModel;
 import uit.billgen.datamodel.VehicleDataModel;
 import uit.billgen.uiviews.ExtraCabBillUI;
-import uit.billgen.util.SConstants;
 
 public class TelcoBillComboItemListner implements ItemListener
 {
@@ -30,13 +22,14 @@ public class TelcoBillComboItemListner implements ItemListener
 	public TelcoBillComboItemListner(String comboID)
 	{
 		this.setComboId(comboID);
+		new DutyTypeDataModel();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public void itemStateChanged(ItemEvent e) 
 	{
-		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE))
+		/*if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_DUTY_TYPE))
 		{
 			double totalKM = 0.0;
 			if(ExtraCabBillUI.getComponentMap().containsKey(SConstants.TOTAL_KM_ATTR))
@@ -50,7 +43,7 @@ public class TelcoBillComboItemListner implements ItemListener
 				
 				String dutyTypeID = e.getItem().toString();
 				
-				DutyType dutyType = new DutyTypeDataModel().getDutyType(dutyTypeID);
+				DutyType dutyType = m_dutyTypeModel.getDutyType(dutyTypeID);
 				lblTotalDistanceValue.setText(String.valueOf(dutyType.getKm()));
 				
 				JPanel panelRate = (JPanel) ExtraCabBillUI.getComponentMap().get("panelRate");
@@ -195,7 +188,7 @@ public class TelcoBillComboItemListner implements ItemListener
 				
 				
 			}
-		}
+		}*/
 		
 			
 		if(comboId.equalsIgnoreCase(SConstants.COMBO_TAL_BILL_SELECT_VEHICLE_TYPE))
@@ -249,7 +242,7 @@ public class TelcoBillComboItemListner implements ItemListener
 			{
 				DutySelectionCombo.addItem(dutyTypeArray[i].toString());
 			}
-			Customer2 customer = new CustomerDataModel().getCustomer(cName);
+			Customer customer = new CustomerDataModel().getCustomer(cName);
 			
 			JPanel panelVendorNumber = (JPanel) ExtraCabBillUI.getComponentMap().get("panelVendorNumber");
 			JTextField textVCode =  (JTextField) panelVendorNumber.getComponent(2);

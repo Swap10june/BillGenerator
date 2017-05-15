@@ -8,11 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.handlers.CustomerButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
-public class AddCustomer extends JDialog
+public class AddCustomerUI extends JDialog
 {
 
 	/**
@@ -22,7 +22,7 @@ public class AddCustomer extends JDialog
 	private UITemplates templates = new UITemplates();
 	private static Map<String, Object> addCustomerUIComponentMap;
 	
-	public AddCustomer(JDialog owner, String windowName)
+	public AddCustomerUI(JDialog owner, String windowName)
 	{
 		super(owner);
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_550X300(owner,windowName);
@@ -69,7 +69,7 @@ public class AddCustomer extends JDialog
 	}
 	public void setAddCustomerUIComponentMap(
 			Map<String, Object> addCustomerUIComponentMap) {
-		AddCustomer.addCustomerUIComponentMap = addCustomerUIComponentMap;
+		AddCustomerUI.addCustomerUIComponentMap = addCustomerUIComponentMap;
 	}
 	
 }

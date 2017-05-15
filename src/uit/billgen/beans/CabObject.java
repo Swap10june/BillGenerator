@@ -1,6 +1,6 @@
 package uit.billgen.beans;
 
-public class ExtraCabObject
+public class CabObject
 {
 	
 	private String 		billNumber 				= 		null;
@@ -36,6 +36,8 @@ public class ExtraCabObject
 	private String		extraTimeHoursRate		=		null;
 	private String		monthlyExtraCharges		=		null;
 	private String		extraHourAmount			=		null;
+	private String 		billType				=		null;
+	private String 		acStatus				=		null;
 	
 	
 	
@@ -289,6 +291,26 @@ public class ExtraCabObject
 	 */
 	public void setExtraTimeHoursRate(String extraTimeHoursRate) {
 		this.extraTimeHoursRate = extraTimeHoursRate;
+	}
+	public void setBillType(String string) 
+	{
+		this.billType = string;
+	}
+	public String getBillType() 
+	{
+		return billType;
+	}
+	/**
+	 * @return the acStatus
+	 */
+	public String getAcStatus() {
+		return acStatus;
+	}
+	/**
+	 * @param acStatus the acStatus to set
+	 */
+	public void setAcStatus(String acStatus) {
+		this.acStatus = acStatus;
 	}
 	
 	

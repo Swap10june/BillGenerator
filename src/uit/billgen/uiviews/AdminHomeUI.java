@@ -3,8 +3,8 @@ package uit.billgen.uiviews;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.handlers.AdminButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class AdminHomeUI extends JDialog {

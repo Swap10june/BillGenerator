@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
+import uit.billgen.constants.SConstants;
+import uit.billgen.exceptions.PopupDialogs;
 import uit.billgen.uiviews.ChekForAdminUI;
-import uit.billgen.uiviews.MonthlyCabUI;
-import uit.billgen.uiviews.SearchUI;
 import uit.billgen.uiviews.ExtraCabBillUI;
-import uit.billgen.util.SConstants;
+import uit.billgen.uiviews.MonthlyCabBillUI;
 
 public class HomeButtonHandler implements ActionListener {
 
@@ -22,9 +23,9 @@ public class HomeButtonHandler implements ActionListener {
 	{
 		switch (arg0.getActionCommand())
 		{
-			case SConstants.TAL_BILL_BTN_STRING:
+			case SConstants.EXTRA_CAB_BILL_BTN_STRING:
 			{
-				new ExtraCabBillUI(new javax.swing.JDialog(),SConstants.TAL_BILL_BTN_STRING);
+				new ExtraCabBillUI(new javax.swing.JDialog(),SConstants.EXTRA_CAB_BILL_BTN_STRING);
 			}
 			
 			break;
@@ -34,22 +35,27 @@ public class HomeButtonHandler implements ActionListener {
 			}
 			
 			break;
-			case SConstants.MONTHLY_BOM_BTN_STRING:
+			case SConstants.MONTHLY_CAB_BILL_BTN_STRING:
 			{
-				new MonthlyCabUI(new javax.swing.JDialog(),SConstants.MONTHLY_BOM_BTN_STRING);
+				//new MonthlyCabUI(new javax.swing.JDialog(),SConstants.MONTHLY_CAB_BILL_BTN_STRING);
+				new MonthlyCabBillUI(new javax.swing.JDialog(),SConstants.MONTHLY_CAB_BILL_BTN_STRING);
 			}
 			
 			break;
 			case SConstants.HISTORY_BTN_STRING:
 			{
-				new SearchUI(new javax.swing.JDialog(),SConstants.SEARCH_STRING);
+				//new SearchUI(new javax.swing.JDialog(),SConstants.SEARCH_STRING);
+				JOptionPane.showMessageDialog(null, "Not yet completed.");
 			}
 			
 			break;
 			case SConstants.UPDATE_BTN_STRING:
 			{
-				//new SearchUI(new javax.swing.JDialog(),SConstants.UPDATE_BTN_STRING);
-				//update
+				/*//updating dutyType
+				List<CabObject> dutyTypeList = new BillsDataModel().getAllTransactions();
+				new Dao().update*/
+				
+				new PopupDialogs(SConstants.MSG_UPDATED_SUCCESSFULLY, PopupDialogs.INFORMATION_MESSAGE);
 			}
 			
 			break;

@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<Customers>
-<Customer UId="1" cAdd="Pune" cCode="N/A" cDept="N/A" cName="TAL" sUId="TAL"/>
-<Customer UId="2" cAdd="Pune" cCode="N/A" cDept="N/A" cName="MAHINDRA" sUId="MAHINDRA"/>
-<Customer UId="3" cAdd="Pune" cCode="N/A" cDept="N/A" cName="Dura" sUId="Dura"/>
-</Customers>

@@ -27,8 +27,8 @@ import javax.swing.SpinnerNumberModel;
 import org.jdesktop.swingx.JXDatePicker;
 import org.jdesktop.swingx.prompt.PromptSupport;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.listners.SpinnerChangeListner;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class UITemplates 

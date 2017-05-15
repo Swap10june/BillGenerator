@@ -17,10 +17,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import uit.billgen.beans.Vehicle;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.datamodel.VehicleDataModel;
 import uit.billgen.handlers.VehicleButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class EditVehicleUI extends JDialog
@@ -100,12 +100,17 @@ public class EditVehicleUI extends JDialog
 				JPanel ExtraHourPerRate = (JPanel) editVehicleUIComponent.get("enterExtraHourPerRate");
 				JTextField exHourRate = (JTextField) ExtraHourPerRate.getComponent(2);
 				exHourRate.setText(vehicle.getExtraHourRate());
+				
+				JPanel monthlyPkgKm = (JPanel) editVehicleUIComponent.get("monthlyPkgKm");
+				JTextField monthlyPkgKmField = (JTextField) monthlyPkgKm.getComponent(2);
+				monthlyPkgKmField.setText(vehicle.getMonthlyPkgKm());
+				
 			}
 		});
 		
 		JPanel bodyLeftPanel = new JPanel();
 		bodyLeftPanel.setBounds(0, 60, owner.getWidth(), 200);
-		bodyLeftPanel.setLayout(new GridLayout(5, 1));
+		bodyLeftPanel.setLayout(new GridLayout(6, 1));
 		
 		
 		JPanel enterVehicleName = templates .getLabelWithTextField("enterVehicleName", "Enter Vehicle Name", "Edit Name Here", SConstants.TEXT_COL_SIZE_15,false, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
@@ -133,6 +138,11 @@ public class EditVehicleUI extends JDialog
 		bodyLeftPanel.add(enterExKmRate);
 		enterExKmRate.setVisible(false);
 		list.add(enterExKmRate);
+		
+		JPanel monthlyPkgKm = templates.getLabelWithTextField("monthlyPkgKm", "Enter Monthly Km", "Enter Monthly Km",  SConstants.TEXT_COL_SIZE_15, true, editVehicleUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		bodyLeftPanel.add(monthlyPkgKm);
+		monthlyPkgKm.setVisible(false);
+		list.add(monthlyPkgKm);
 		
 		
 		

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Customers>
+<Customer UId="1" cAdd="Pune" cCode="123" cDept="123" cName="TAL" sUId="TAL"/>
+<Customer UId="5" cAdd="pune" cCode="pune" cDept="pune" cName="DURA AUTO" sUId="DURA AUTO"/>
+<Customer UId="6" cAdd="Pune" cCode="pune" cDept="pune" cName="JBT" sUId="JBT"/>
+</Customers>

@@ -3,13 +3,14 @@ package uit.billgen.beans;
 public class Vehicle {
 
 	private int uid = 0;
-	private String stringUID = null;
-	private String vehicleName = null;
-	private String vehicleNumber = null;
-	private String customerName = null;
-	private String monthlyRate	= null;
-	private String extraKmRate	= null;
-	private String extraHourRate = null;
+	private String stringUID 		= null;
+	private String vehicleName 		= null;
+	private String vehicleNumber 	= null;
+	private String customerName 	= null;
+	private String monthlyRate		= null;
+	private String extraKmRate		= null;
+	private String extraHourRate 	= null;
+	private String monthlyPkgKm		= null;
 	
 	
 	/**
@@ -24,7 +25,7 @@ public class Vehicle {
 	public void setExtraHourRate(String extraHourRate) {
 		this.extraHourRate = extraHourRate;
 	}
-	public Vehicle(int uid, String vehicleName,String customerName, String vNumber,String monthlyRate,String extraKmRate,String extraHourRate )
+	public Vehicle(int uid, String vehicleName,String customerName, String vNumber,String monthlyRate,String extraKmRate,String extraHourRate,String monthlyPkgKm)
 	{
 		this.setUid(uid);
 		this.setVehicleName(vehicleName);
@@ -34,6 +35,7 @@ public class Vehicle {
 		this.setExtraKmRate(extraKmRate);
 		this.setStringUID(vehicleName);
 		this.setExtraHourRate(extraHourRate);
+		this.setMonthlyPkgKm(monthlyPkgKm);
 	}
 	/**
 	 * @return the vehicleName
@@ -118,6 +120,12 @@ public class Vehicle {
 	 */
 	public void setExtraKmRate(String extraKmRate) {
 		this.extraKmRate = extraKmRate;
+	}
+	public String getMonthlyPkgKm() {
+		return monthlyPkgKm;
+	}
+	public void setMonthlyPkgKm(String monthlyPkgKm) {
+		this.monthlyPkgKm = monthlyPkgKm;
 	}
 	
 }

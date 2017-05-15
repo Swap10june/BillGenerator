@@ -1,6 +1,6 @@
 package uit.billgen.beans;
 
-public class Customer2 
+public class Customer 
 {
 	private String cName					=		null;
 	private String cAddress					=		null;
@@ -13,7 +13,7 @@ public class Customer2
 	
 	
 	
-	public Customer2( int uid,String cName, String cAddress, String cVendorCode,String customerDepartmentName) {
+	public Customer( int uid,String cName, String cAddress, String cVendorCode,String customerDepartmentName) {
 		
 		this.cName = cName;
 		this.cAddress = cAddress;

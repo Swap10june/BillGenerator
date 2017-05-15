@@ -1,4 +1,4 @@
-package uit.billgen.util;
+package uit.billgen.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import uit.billgen.beans.ExtraCabObject;
-import uit.billgen.beans.Customer2;
+import uit.billgen.beans.CabObject;
+import uit.billgen.beans.Customer;
 import uit.billgen.beans.DutyType;
 import uit.billgen.beans.Vehicle;
-import uit.billgen.db.SQliteConnection;
 import uit.billgen.exceptions.PopupDialogs;
 
 
@@ -26,14 +25,8 @@ public class Dao
 	private Connection connection = SQliteConnection.getSQliteConnection("BillGen.db");/*DBConnection.getConnectionInstance();*/
 	private static String ADD_DUTY_TYPE = "insert into SDUTYTYPE values(?,?,?,?,?,?,?,?,?,?)";
 	private static String ADD_CUSTOMER ="insert into SCUSTOMER values(?,?,?,?,?,?)";
-	//private static String EDIT_CUSTOMER ="UPDATE CUSTOMERS SET CUSTOMER_NAME=?,VENDOR_CODE=?,ADDRESS=? WHERE CUSTOMER_NAME=?";
-	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?,?)";
+	private static String ADD_VEHICLE ="insert into SVEHICLE values(?,?,?,?,?,?,?,?,?)";
 	private static String ADD_BOM ="insert into SBOM values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	//private static String EDIT_VEHICLE ="UPDATE RATES SET CUSTOMER=?, DUTY_TYPE=?,VEHICLE_TYPE=?,PKG_RATE=?, EXTRA_RATE=?,VENDOR_CODE=?,AC_NOAC=? WHERE CUSTOMER_NAME=? and VEHICLE_TYPE=?;";
-	//private static String GET_CUSTOMER_LIST ="select DISTINCT CUSTOMER_NAME FROM CUSTOMERS;";
-	//private static String GET_VEHICLE_LIST ="select DISTINCT VEHICLE_TYPE FROM RATES where CUSTOMER=?;";
-	//private static String GET_CUSTOMER ="select * FROM CUSTOMERS WHERE CUSTOMER_NAME=?;";
-	//private static String GET_VEHICLE ="select * FROM RATES where CUSTOMER=? AND VEHICLE_TYPE=?;";
 	
 	
 	PreparedStatement pStmtDao;
@@ -84,7 +77,7 @@ public class Dao
 		return vehicleList;
 	}*/
 	
-	public void addCustomer(Customer2 customer2)
+	public void addCustomer(Customer customer2)
 	{		
 		if(connection!=null)
 		{
@@ -94,10 +87,10 @@ public class Dao
 				pStmtDao = connection.prepareStatement(ADD_CUSTOMER);
 				pStmtDao.setString(1,String.valueOf(customer2.getUid()));
 				pStmtDao.setString(2,customer2.getSuid());
-				pStmtDao.setString(3,customer2.getcName());
-				pStmtDao.setString(4,customer2.getcAddress());
-				pStmtDao.setString(5,customer2.getcVendorCode());
-				pStmtDao.setString(6,customer2.getCustomerDepartmentName());
+				pStmtDao.setString(3,customer2.getcName()==null?"":customer2.getcName());
+				pStmtDao.setString(4,customer2.getcAddress()==null?"":customer2.getcAddress());
+				pStmtDao.setString(5,customer2.getcVendorCode()==null?"":customer2.getcVendorCode());
+				pStmtDao.setString(6,customer2.getCustomerDepartmentName()==null?"":customer2.getCustomerDepartmentName());
 				
 				pStmtDao.executeUpdate();
 				pStmtDao.close();
@@ -120,12 +113,13 @@ public class Dao
 				pStmtDao = connection.prepareStatement(ADD_VEHICLE);
 				pStmtDao.setString(1,String.valueOf(vehicle.getUid()));
 				pStmtDao.setString(2,vehicle.getStringUID());
-				pStmtDao.setString(3,vehicle.getVehicleName());
-				pStmtDao.setString(4,vehicle.getCustomerName());
-				pStmtDao.setString(5,vehicle.getVehicleNumber());
-				pStmtDao.setString(6,vehicle.getMonthlyRate());
-				pStmtDao.setString(7,vehicle.getExtraKmRate());
-				pStmtDao.setString(8,vehicle.getExtraHourRate());
+				pStmtDao.setString(3,vehicle.getVehicleName()==null?"":vehicle.getVehicleName());
+				pStmtDao.setString(4,vehicle.getCustomerName()==null?"":vehicle.getCustomerName());
+				pStmtDao.setString(5,vehicle.getVehicleNumber()==null?"":vehicle.getVehicleNumber());
+				pStmtDao.setString(6,vehicle.getMonthlyRate()==null?"":vehicle.getMonthlyRate());
+				pStmtDao.setString(7,vehicle.getExtraKmRate()==null?"":vehicle.getExtraKmRate());
+				pStmtDao.setString(8,vehicle.getExtraHourRate()==null?"":vehicle.getExtraHourRate());
+				pStmtDao.setString(9,vehicle.getMonthlyPkgKm()==null?"":vehicle.getMonthlyPkgKm());
 				pStmtDao.executeUpdate();
 				pStmtDao.close();
 				
@@ -245,11 +239,11 @@ public void addDutyType(DutyType dutyType)
 			pStmtDao.setString(3, String.valueOf(dutyType.getHours()));
 			pStmtDao.setString(4, String.valueOf(dutyType.getKm()));
 			pStmtDao.setString(5, String.valueOf(dutyType.getPackageRate()));
-			pStmtDao.setString(6, dutyType.getCustomerName());
-			pStmtDao.setString(7, dutyType.getVehicleType());
+			pStmtDao.setString(6, dutyType.getCustomerName()==null?"":dutyType.getCustomerName());
+			pStmtDao.setString(7, dutyType.getVehicleType()==null?"":dutyType.getVehicleType());
 			pStmtDao.setString(8, String.valueOf(dutyType.getExtraKmRate()));
-			pStmtDao.setString(9, dutyType.getDutyTypeString());
-			pStmtDao.setString(10, dutyType.getAcNonAcType());
+			pStmtDao.setString(9, dutyType.getDutyTypeString()==null?"":dutyType.getDutyTypeString());
+			pStmtDao.setString(10,dutyType.getAcNonAcType()==null?"":dutyType.getAcNonAcType());
 			pStmtDao.executeUpdate();
 
 			pStmtDao.close();
@@ -260,7 +254,7 @@ public void addDutyType(DutyType dutyType)
 		}
 	}
 }
-public void addBOM(ExtraCabObject bom)
+public void addBOM(CabObject bom)
 {		
 	if(connection!=null)
 	{
@@ -272,30 +266,31 @@ public void addBOM(ExtraCabObject bom)
 		   
 		    pStmtDao = connection.prepareStatement(ADD_BOM);
 			pStmtDao.setString(1,bom.getBillNumber());
-			pStmtDao.setString(2,bom.getCustomerName());
+			pStmtDao.setString(2,bom.getCustomerName()==null?"N/A":bom.getCustomerName());
 			pStmtDao.setDate(3,new java.sql.Date( df.parse(bom.getBillDate()).getTime()));
 			pStmtDao.setDate(4,new java.sql.Date( df.parse(bom.getDateOfTravels()).getTime()));
 			pStmtDao.setDate(5,new java.sql.Date( df.parse(bom.getDateOfReturn()).getTime()));
-			pStmtDao.setString(6,bom.getTypeOfVehicle());
-			pStmtDao.setString(7, bom.getVehicleNumber());
-			pStmtDao.setString(8, bom.getVendorCode());
-			pStmtDao.setDouble(9,Double.parseDouble(bom.getStartKM()));
-			pStmtDao.setDouble(10,Double.parseDouble(bom.getEndKM()));
-			pStmtDao.setString(11, bom.getStartTime());
-			pStmtDao.setString(12, bom.getEndTime());
-			pStmtDao.setDouble(13,Double.parseDouble(bom.getTotalKM()));
-			pStmtDao.setString(14,bom.getDutyType());
-			pStmtDao.setDouble(15,Double.parseDouble(bom.getPackageKM()));
-			pStmtDao.setDouble(16,Double.parseDouble(bom.getPackageRate()));
-			pStmtDao.setDouble(17,Double.parseDouble(bom.getPakageAmount()));
-			pStmtDao.setDouble(18,Double.parseDouble(bom.getExtraKM()));
-			pStmtDao.setDouble(19,Double.parseDouble(bom.getExtraRate()));
-			pStmtDao.setDouble(20,Double.parseDouble(bom.getExtraTotalAmount()));
-			pStmtDao.setDouble(21,Double.parseDouble(bom.getTollCharges()));
-			pStmtDao.setDouble(22,Double.parseDouble(bom.getNightHaltRate()));
-			pStmtDao.setDouble(23,Double.parseDouble(bom.getGrandTotal()));
-			pStmtDao.setDouble(24,Double.parseDouble(bom.getServiceTaxCarges()));
-			pStmtDao.setDouble(25,Double.parseDouble(bom.getTotalWithoutTax()));
+			pStmtDao.setString(6,bom.getTypeOfVehicle()==null?"":bom.getTypeOfVehicle());
+			pStmtDao.setString(7, bom.getVehicleNumber()==null?"":bom.getVehicleNumber());
+			pStmtDao.setString(8, bom.getVendorCode()==null?"":bom.getVendorCode());
+			pStmtDao.setDouble(9,Double.parseDouble(bom.getStartKM()==null?"0.0":bom.getStartKM()));
+			pStmtDao.setDouble(10,Double.parseDouble(bom.getEndKM()==null?"0.0":bom.getEndKM()));
+			pStmtDao.setString(11, bom.getStartTime()==null?"n/a":bom.getStartTime());
+			pStmtDao.setString(12, bom.getEndTime()==null?"n/a":bom.getEndTime());
+			pStmtDao.setDouble(13,Double.parseDouble(bom.getTotalKM()==null?"0.0":bom.getTotalKM()));
+			pStmtDao.setString(14,bom.getDutyType()==null?"n/a":bom.getDutyType());
+			
+			pStmtDao.setDouble(15,Double.parseDouble(bom.getPackageKM()==null?"0.0":bom.getPackageKM()));
+			pStmtDao.setDouble(16,Double.parseDouble(bom.getPackageRate()==null?"0.0":bom.getPackageRate()));
+			pStmtDao.setDouble(17,Double.parseDouble(bom.getPakageAmount()==null?"0.0":bom.getPakageAmount()));
+			pStmtDao.setDouble(18,Double.parseDouble(bom.getExtraKM()==null?"0.0":bom.getExtraKM()));
+			pStmtDao.setDouble(19,Double.parseDouble(bom.getExtraRate()==null?"0.0":bom.getExtraRate()));
+			pStmtDao.setDouble(20,Double.parseDouble(bom.getExtraTotalAmount()==null?"0.0":bom.getExtraTotalAmount()));
+			pStmtDao.setDouble(21,Double.parseDouble(bom.getTollCharges()==null?"0.0":bom.getTollCharges()));
+			pStmtDao.setDouble(22,Double.parseDouble(bom.getNightHaltRate()==null?"0.0":bom.getNightHaltRate()));
+			pStmtDao.setDouble(23,Double.parseDouble(bom.getGrandTotal()==null?"0.0":bom.getGrandTotal()));
+			pStmtDao.setDouble(24,Double.parseDouble(bom.getServiceTaxCarges()==null?"0.0":bom.getServiceTaxCarges()));
+			pStmtDao.setDouble(25,Double.parseDouble(bom.getTotalWithoutTax()==null?"0.0":bom.getTotalWithoutTax()));
 			
 			
 			pStmtDao.executeUpdate();
@@ -332,7 +327,7 @@ public void addBOM(ExtraCabObject bom)
 			}
 		}
 	}
-	public void editCustomer(Customer2 customer)
+	public void editCustomer(Customer customer)
 	{
 		removeCustomerFromDB(String.valueOf(customer.getUid()));
 		addCustomer(customer);
@@ -433,7 +428,8 @@ public void addBOM(ExtraCabObject bom)
 									rSet.getString("VEHICLENUMBER"),
 									rSet.getString("MRATE"),
 									rSet.getString("EXKMRATE"),
-									rSet.getString("EXHOURRATE")
+									rSet.getString("EXHOURRATE"),
+									rSet.getString("MONTHLY_PKG_KM")
 							)
 							);
 	    		}
@@ -468,20 +464,24 @@ public void addBOM(ExtraCabObject bom)
     	}
     }
     
-    private Map<String,Customer2> getAllCustomerUidsFromDB()
+    private Map<String,Customer> getAllCustomerUidsFromDB()
     {
-		Map<String,Customer2> uids = null;
+		Map<String,Customer> uids = null;
 		try
 		{
 			ResultSet rSet = querySELECT("Select * from SCUSTOMER");
 			if(rSet!=null)
 			{
-				uids = new HashMap<String, Customer2>();
+				uids = new HashMap<String, Customer>();
 				while(rSet.next())
 				{
 					uids.put(
 						rSet.getString("CUID"),
-						new Customer2(Integer.parseInt(rSet.getString("CUID")), rSet.getString("CNAME"), rSet.getString("CADDRESS"), rSet.getString("CVCODE"), rSet.getString("CDEPT")));
+						new Customer(Integer.parseInt(rSet.getString("CUID")),
+								rSet.getString("CNAME"),
+								rSet.getString("CADDRESS"),
+								rSet.getString("CVCODE"),
+								rSet.getString("CDEPT")));
 				}
 			}
 			else
@@ -495,9 +495,9 @@ public void addBOM(ExtraCabObject bom)
 		}
 		return uids;
     }
-    public void updateOrInsertCustomerIntoDB(List<Customer2> customerList)
+    public void updateOrInsertCustomerIntoDB(List<Customer> customerList)
     {
-    	Map<String, Customer2> presentUids = getAllCustomerUidsFromDB();
+    	Map<String, Customer> presentUids = getAllCustomerUidsFromDB();
     	for (int i = 0; i < customerList.size(); i++)
     	{
 			String uid = String.valueOf(customerList.get(i).getUid());
@@ -559,7 +559,7 @@ public void addBOM(ExtraCabObject bom)
 		return uids;
 	}
 
-	public ExtraCabObject getBOM(String string, java.sql.Date date) 
+	public CabObject getBOM(String string, java.sql.Date date) 
 	{
 		try 
 		{

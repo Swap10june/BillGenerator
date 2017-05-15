@@ -22,13 +22,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import uit.billgen.beans.Customer2;
-import uit.billgen.util.SConstants;
+import uit.billgen.beans.Customer;
+import uit.billgen.constants.SConstants;
 
 public class CustomerDataModel {
 
 	private Document doc;
-	private String filePath = SConstants.CUSTOMER_DATA_MODEL_FILE_PATH;
+	private String filePath = SConstants.FILE_CUSTOMER_MODEL;
 	public CustomerDataModel()
 	{
 		try
@@ -48,7 +48,7 @@ public class CustomerDataModel {
 	    	  e.printStackTrace();
 	      } 
 	}
-	public void addCustomer(Customer2 customer)
+	public void addCustomer(Customer customer)
 	{
 		NodeList customersTags = doc.getElementsByTagName(SConstants.CUSTOMER_DATA_MODEL_CUSTOMERS_TAG);
         Element vehicleTag = (Element) customersTags.item(0);
@@ -109,9 +109,9 @@ public class CustomerDataModel {
 		}
 		
 	}
-	public Customer2 getCustomer(String suid)
+	public Customer getCustomer(String suid)
 	{
-		Customer2 customer2 = null;
+		Customer customer2 = null;
    	 try 
    	 {
    		 doc.getDocumentElement().normalize();
@@ -125,7 +125,7 @@ public class CustomerDataModel {
    		            Element eElement = (Element) nNode;
    		            if(eElement.getAttribute(SConstants.SUID_ATTR).equalsIgnoreCase(suid))
    		            {
-   		            	customer2 = new Customer2
+   		            	customer2 = new Customer
    		            			(
    		            					Integer.parseInt(eElement.getAttribute(SConstants.UID_ATTR)), 
    		            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR), 
@@ -144,7 +144,7 @@ public class CustomerDataModel {
    		    }
 		return customer2;
 	}
-	public void updateAttributeValue(Customer2 newCustomer)
+	public void updateAttributeValue(Customer newCustomer)
 	{
 		NodeList customerTags = doc.getElementsByTagName(SConstants.CUSTOMER_DATA_MODEL_CUSTOMER_TAG);
         Element tag = null;
@@ -171,10 +171,10 @@ public class CustomerDataModel {
             
         }
 	}
-	public List<Customer2> getAllCustomers()
+	public List<Customer> getAllCustomers()
 	{
 
-		List<Customer2> cList = new ArrayList<Customer2>();
+		List<Customer> cList = new ArrayList<Customer>();
     	 try 
     	 {
     		 doc.getDocumentElement().normalize();
@@ -186,7 +186,7 @@ public class CustomerDataModel {
        		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
        				{
        		            Element eElement = (Element) nNode;
-       		            cList.add(new Customer2 (
+       		            cList.add(new Customer (
        		            					Integer.parseInt(eElement.getAttribute(SConstants.UID_ATTR)),
        		            					eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR),
        		            					eElement.getAttribute(SConstants.CUSTOMER_ADD_ATTR),
@@ -228,5 +228,22 @@ public class CustomerDataModel {
 			e.printStackTrace();
 	    }
 		return cList;
+	}
+	public String getAttributeValue(String attr)
+	{
+		doc.getDocumentElement().normalize();
+ 		 NodeList nList = doc.getElementsByTagName(SConstants.CUSTOMER_DATA_MODEL_CUSTOMER_TAG);
+ 		 for (int temp = 0; temp < nList.getLength(); temp++)
+ 		 {
+ 			 Node nNode = nList.item(temp);
+
+ 		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+ 				{
+ 		            Element eElement = (Element) nNode;
+ 		            return eElement.getAttribute(attr);
+ 		        }
+ 		           
+ 		 }
+		return attr;
 	}
 }

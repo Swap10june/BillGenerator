@@ -14,13 +14,13 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import uit.billgen.beans.Customer2;
+import uit.billgen.beans.Customer;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.handlers.CustomerButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
-public class EditCustomer extends JDialog
+public class EditCustomerUI extends JDialog
 {
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class EditCustomer extends JDialog
 	private static CustomerDataModel model = null;
 	private static List<Object> list = new ArrayList<Object>();
 	
-	public EditCustomer(JDialog owner, String windowName) 
+	public EditCustomerUI(JDialog owner, String windowName) 
 	{
 		super(owner);
 		editCustomerUIComponent = new HashMap<String, Object>();
@@ -68,7 +68,7 @@ public class EditCustomer extends JDialog
 				JPanel panelCombo = (JPanel) editCustomerUIComponent.get("panelSelectCustomer");
 				@SuppressWarnings("rawtypes")
 				JComboBox comboSelectCustomer = (JComboBox) panelCombo.getComponent(2);
-				Customer2 customer = getModel().getCustomer(comboSelectCustomer.getSelectedItem().toString());
+				Customer customer = getModel().getCustomer(comboSelectCustomer.getSelectedItem().toString());
 				for (int i = 0; i < list.size(); i++)
 				{
 					if(list.get(i) instanceof JPanel)
@@ -152,7 +152,7 @@ public class EditCustomer extends JDialog
 	 * @param model the model to set
 	 */
 	public void setModel(CustomerDataModel model) {
-		EditCustomer.model = model;
+		EditCustomerUI.model = model;
 	}
 	public static Map<String, Object> getEditCustomerUIComponent() {
 		return editCustomerUIComponent;
@@ -162,7 +162,7 @@ public class EditCustomer extends JDialog
 
 	public static void setEditCustomerUIComponent(
 			Map<String, Object> editCustomerUIComponent) {
-		EditCustomer.editCustomerUIComponent = editCustomerUIComponent;
+		EditCustomerUI.editCustomerUIComponent = editCustomerUIComponent;
 	}
 
 }

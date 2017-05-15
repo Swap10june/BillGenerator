@@ -12,16 +12,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
-import uit.billgen.beans.ExtraCabObject;
-import uit.billgen.beans.BillRow;
-import uit.billgen.beans.MonthlyBOM;
-import uit.billgen.datamodel.VehicleDataModel;
+//import uit.billgen.beans.BillRow;
+import uit.billgen.beans.CabObject;
+//import uit.billgen.beans.MonthlyBOM;
+import uit.billgen.constants.SConstants;
+//import uit.billgen.datamodel.VehicleDataModel;
 
 public class CreateExlFile
 {
 	private ExcelUtils utility = null;
 	
-    public  void CreateBOMExcel(File filename,ExtraCabObject bom)
+    public  void CreateBOMExcel(File filename,CabObject cabObject)
     {
         try
         {
@@ -67,7 +68,7 @@ public class CreateExlFile
             sheet.addMergedRegion(billNoRowSpan);
             
             HSSFCell billNoRowSpan_cell0 = billNoContactNoRow.createCell(0);
-            String BillNo = "Bill No:"+"   "+bom.getBillNumber();
+            String BillNo = "Bill No:"+"   "+cabObject.getBillNumber();
             billNoRowSpan_cell0.setCellValue(BillNo);
             
             
@@ -75,7 +76,7 @@ public class CreateExlFile
             sheet.addMergedRegion(contactNoRowSpan);
             
             HSSFCell billNoRowSpan_cell1 = billNoContactNoRow.createCell(5);
-            String contact = "Mobile No:"+"   "+bom.getContactNumber();
+            String contact = "Mobile No:"+"   "+cabObject.getContactNumber();
             billNoRowSpan_cell1.setCellValue(contact);
             billNoRowSpan_cell1.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
             
@@ -94,7 +95,7 @@ public class CreateExlFile
             PanRowSpan_cell0.setCellValue(pan);
             
             HSSFCell PanRowSpan_cell2 = PanRow.createCell(5);
-            String email = "E-Mail:"+"   "+bom.getEmail();
+            String email = "E-Mail:"+"   "+cabObject.getEmail();
             PanRowSpan_cell2.setCellValue(email);
             PanRowSpan_cell2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.RIGHT_ALIGNMENT));
             
@@ -108,7 +109,7 @@ public class CreateExlFile
             sheet.addMergedRegion(CustomerColSpan);
             
             HSSFCell CustomerRow_cell0 = CustomerRow.createCell(0);
-            String to = "TO:"+"   "+bom.getCustomerName();
+            String to = "TO:"+"   "+cabObject.getCustomerName();
             CustomerRow_cell0.setCellValue(to);
             CustomerRow_cell0.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
                         
@@ -122,7 +123,7 @@ public class CreateExlFile
             CellRangeAddress billDateValueRowSpan = CellRangeAddress.valueOf("G6:I6");
             sheet.addMergedRegion(billDateValueRowSpan);
             HSSFCell CustomerRow_cell2 = CustomerRow.createCell(6);
-            String billDateValue = bom.getBillDate();
+            String billDateValue = cabObject.getBillDate();
             CustomerRow_cell2.setCellValue(billDateValue);
             
             //Row - 6
@@ -136,7 +137,7 @@ public class CreateExlFile
             CellRangeAddress startDateValueRowSpan = CellRangeAddress.valueOf("G7:I7");
             sheet.addMergedRegion(startDateValueRowSpan);
             HSSFCell DatesRow6_cell1 = DatesRow6.createCell(6);
-            String startDateValue = bom.getDateOfTravels();
+            String startDateValue = cabObject.getDateOfTravels()==null?"N/A":cabObject.getDateOfTravels();
             DatesRow6_cell1.setCellValue(startDateValue);
             
           //Row - 7
@@ -150,7 +151,7 @@ public class CreateExlFile
             CellRangeAddress dateReturnvalueRowSpan = CellRangeAddress.valueOf("G8:I8");
             sheet.addMergedRegion(dateReturnvalueRowSpan);
             HSSFCell DatesRow7_1 = DatesRow7.createCell(6);
-            String dateReturnValue = bom.getDateOfReturn();
+            String dateReturnValue = cabObject.getDateOfReturn()==null?"N/A":cabObject.getDateOfReturn();
             DatesRow7_1.setCellValue(dateReturnValue);
             
           //Row - 8
@@ -164,7 +165,7 @@ public class CreateExlFile
             CellRangeAddress typeOfVehicleValueRowSpan = CellRangeAddress.valueOf("G9:I9");
             sheet.addMergedRegion(typeOfVehicleValueRowSpan);
             HSSFCell DatesRow8_1 = DatesRow8.createCell(6);
-            String typeOfVehicleValue = bom.getTypeOfVehicle();
+            String typeOfVehicleValue = cabObject.getTypeOfVehicle()==null?"N/A":cabObject.getTypeOfVehicle();
             DatesRow8_1.setCellValue(typeOfVehicleValue);
             
           //Row - 9
@@ -178,7 +179,7 @@ public class CreateExlFile
             CellRangeAddress vechicleNumberRowSpan  = CellRangeAddress.valueOf("G10:I10");
             sheet.addMergedRegion(vechicleNumberRowSpan);
             HSSFCell DatesRow9_1 = DatesRow9.createCell(6);
-            String vechicleNumberValue = bom.getVehicleNumber();
+            String vechicleNumberValue = cabObject.getVehicleNumber()==null?"N/A":cabObject.getVehicleNumber();
             DatesRow9_1.setCellValue(vechicleNumberValue);
             
           //Row - 10
@@ -192,7 +193,7 @@ public class CreateExlFile
             CellRangeAddress vendorCodeValueRowSpan  = CellRangeAddress.valueOf("G11:I11");
             sheet.addMergedRegion(vendorCodeValueRowSpan);
             HSSFCell DatesRow10_1 = DatesRow10.createCell(6);
-            String vendorCodeValue = bom.getVendorCode();
+            String vendorCodeValue = cabObject.getVendorCode()==null?"N/A":cabObject.getVendorCode();
             DatesRow10_1.setCellValue(vendorCodeValue);
             
             // Empty Row 11
@@ -204,7 +205,7 @@ public class CreateExlFile
             
             HSSFRow DatesRow11 = sheet.createRow((short)12);
             HSSFCell DatesRow11_0 = DatesRow11.createCell(0);
-            String employeeName = "Employee Name:    " +bom.getCustomerName();
+            String employeeName = "Employee Name:    " +cabObject.getCustomerName()==null?"N/A":cabObject.getCustomerName();
             DatesRow11_0.setCellValue(employeeName);
            
             CellRangeAddress KMRowSpan = CellRangeAddress.valueOf("F13:G13");
@@ -220,69 +221,83 @@ public class CreateExlFile
             DatesRow11_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
          // ROW-13
+            if(!cabObject.getBillType().equalsIgnoreCase(SConstants.MONTHLY_CAB_BILL_TYPE))
+            {
+            	HSSFRow DatesRow13 = sheet.createRow((short)13);
             
-            HSSFRow DatesRow13 = sheet.createRow((short)13);
+            	HSSFCell DatesRow13_1 = DatesRow13.createCell(4);
+            	DatesRow13_1.setCellValue("Starting");
             
-            HSSFCell DatesRow13_1 = DatesRow13.createCell(4);
-            DatesRow13_1.setCellValue("Starting");
+            	CellRangeAddress KMValueRowSpan = CellRangeAddress.valueOf("F14:G14");
+            	sheet.addMergedRegion(KMValueRowSpan);
+            	HSSFCell DatesRow13_2 = DatesRow13.createCell(5);
+            	DatesRow13_2.setCellValue(cabObject.getStartKM()==null?"N/A":cabObject.getStartKM());
+            	DatesRow13_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
-            CellRangeAddress KMValueRowSpan = CellRangeAddress.valueOf("F14:G14");
-            sheet.addMergedRegion(KMValueRowSpan);
-            HSSFCell DatesRow13_2 = DatesRow13.createCell(5);
-            DatesRow13_2.setCellValue(bom.getStartKM());
-            DatesRow13_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            	CellRangeAddress timeValueRowSpan = CellRangeAddress.valueOf("H14:I14");
+            	sheet.addMergedRegion(timeValueRowSpan);
+            	HSSFCell DatesRow13_4 = DatesRow13.createCell(7);
+            	DatesRow13_4.setCellValue(cabObject.getStartTime()==null?"N/A":cabObject.getStartTime());
+            	DatesRow13_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
-            CellRangeAddress timeValueRowSpan = CellRangeAddress.valueOf("H14:I14");
-            sheet.addMergedRegion(timeValueRowSpan);
-            HSSFCell DatesRow13_4 = DatesRow13.createCell(7);
-            DatesRow13_4.setCellValue(bom.getStartTime());
-            DatesRow13_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+            	// ROW-14
             
-            // ROW-14
+	            HSSFRow DatesRow14 = sheet.createRow((short)14);
+	            
+	            HSSFCell DatesRow14_1 = DatesRow14.createCell(4);
+	            DatesRow14_1.setCellValue("Closing");
+	            
+	            CellRangeAddress closKMValueRowSpan = CellRangeAddress.valueOf("F15:G15");
+	            sheet.addMergedRegion(closKMValueRowSpan);
+	            HSSFCell DatesRow14_2 = DatesRow14.createCell(5);
+	            DatesRow14_2.setCellValue(cabObject.getEndKM()==null?"N/A":cabObject.getEndKM());
+	            DatesRow14_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
+	            
+	            CellRangeAddress closetimeValueRowSpan = CellRangeAddress.valueOf("H15:I15");
+	            sheet.addMergedRegion(closetimeValueRowSpan);
+	            HSSFCell DatesRow14_4 = DatesRow14.createCell(7);
+	            DatesRow14_4.setCellValue(cabObject.getEndTime()==null?"N/A":cabObject.getEndTime());
+	            DatesRow14_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
-            HSSFRow DatesRow14 = sheet.createRow((short)14);
-            
-            HSSFCell DatesRow14_1 = DatesRow14.createCell(4);
-            DatesRow14_1.setCellValue("Closing");
-            
-            CellRangeAddress closKMValueRowSpan = CellRangeAddress.valueOf("F15:G15");
-            sheet.addMergedRegion(closKMValueRowSpan);
-            HSSFCell DatesRow14_2 = DatesRow14.createCell(5);
-            DatesRow14_2.setCellValue(bom.getEndKM());
-            DatesRow14_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
-            
-            CellRangeAddress closetimeValueRowSpan = CellRangeAddress.valueOf("H15:I15");
-            sheet.addMergedRegion(closetimeValueRowSpan);
-            HSSFCell DatesRow14_4 = DatesRow14.createCell(7);
-            DatesRow14_4.setCellValue(bom.getEndTime());
-            DatesRow14_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
-            
+            }
             //Row -- 15
             CellRangeAddress packageNameRowSpan = CellRangeAddress.valueOf("A16:D16");
             sheet.addMergedRegion(packageNameRowSpan);
             CellRangeAddress packageNameColSpan = CellRangeAddress.valueOf("A16:A17");
             sheet.addMergedRegion(packageNameColSpan);
             
+            
             HSSFRow packageNameRow15 = sheet.createRow((short)15);
             HSSFCell packageNameRow15_0 = packageNameRow15.createCell(0);
-            String packageName = "Package Name:    " +bom.getPackageType();
-            packageNameRow15_0.setCellValue(packageName);
+        	String packageName = "Package:";
+        	packageNameRow15_0.setCellValue(packageName);
+            if(cabObject.getPackageType()!=null)
+            {
+            	String dutyType = cabObject.getPackageType().split("-")[1];
+            	
+            	packageNameRow15_0 = packageNameRow15.createCell(0);
+            	packageName +=" "+dutyType;
+            	packageNameRow15_0.setCellValue(packageName);
+            }
             
             HSSFCell packageNameRow15_1 = packageNameRow15.createCell(4);
             packageNameRow15_1.setCellValue("Total");
             
-            CellRangeAddress packageNameValueRowSpan = CellRangeAddress.valueOf("F16:I16");
+            CellRangeAddress packageNameValueRowSpan = CellRangeAddress.valueOf("F16:G16");
             sheet.addMergedRegion(packageNameValueRowSpan);
             
             HSSFCell packageNameRow15_2 = packageNameRow15.createCell(5);
-            packageNameRow15_2.setCellValue(bom.getTotalKM());
+            if(!cabObject.getBillType().equalsIgnoreCase(SConstants.MONTHLY_CAB_BILL_TYPE))
+            	packageNameRow15_2.setCellValue(cabObject.getTotalKM()==null?"N/A":cabObject.getTotalKM());
+            else
+            	packageNameRow15_2.setCellValue(cabObject.getPackageKM()==null?"N/A":cabObject.getPackageKM());
+            packageNameRow15_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress acRowSpan = CellRangeAddress.valueOf("E17:I17");
             sheet.addMergedRegion(acRowSpan);
             HSSFRow packageNameRow16 = sheet.createRow((short)16);
             HSSFCell packageNameRow16_1 = packageNameRow16.createCell(4);
-            String acNonAc = "AC:";
-            packageNameRow16_1.setCellValue(acNonAc);
+            packageNameRow16_1.setCellValue(cabObject.getAcStatus()==null?"N/A":cabObject.getAcStatus());
             
             // empty row ---17
             
@@ -298,13 +313,13 @@ public class CreateExlFile
             CellRangeAddress RateValueRowSpan = CellRangeAddress.valueOf("F19:G19");
             sheet.addMergedRegion(RateValueRowSpan);
             HSSFCell DatesRow18_2 = DatesRow18.createCell(5);
-            DatesRow18_2.setCellValue("Rate");
+            DatesRow18_2.setCellValue("Rate(Rs)");
             DatesRow18_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress AmountValueRowSpan = CellRangeAddress.valueOf("H19:I19");
             sheet.addMergedRegion(AmountValueRowSpan);
             HSSFCell DatesRow18_4 = DatesRow18.createCell(7);
-            DatesRow18_4.setCellValue("Amount(RS.)");
+            DatesRow18_4.setCellValue("Amount(Rs)");
             DatesRow18_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             
@@ -312,30 +327,40 @@ public class CreateExlFile
             CellRangeAddress dutyTypeRowSpan = CellRangeAddress.valueOf("A20:B20");
             sheet.addMergedRegion(dutyTypeRowSpan);
             HSSFRow DatesRow19 = sheet.createRow((short)19);
-            
             HSSFCell DatesRow19_0 = DatesRow19.createCell(0);
-            DatesRow19_0.setCellValue("Duty Type :");
+        	String packageName1 = "Package KM:";
+        	DatesRow19_0.setCellValue(packageName1);
+            if(cabObject.getPackageType()!=null)
+            {
+            	//String dutyType = cabObject.getPackageType().split("-")[1];
+            	
+            	DatesRow19_0 = DatesRow19.createCell(0);
+            	packageName1 = "Duty Type :";
+            	DatesRow19_0.setCellValue(packageName1);
+            	
+            	CellRangeAddress dutyTypeValueRowSpan = CellRangeAddress.valueOf("C20:D20");
+                sheet.addMergedRegion(dutyTypeValueRowSpan);
+                
+                HSSFCell DatesRow19_1 = DatesRow19.createCell(2);
+                DatesRow19_1.setCellValue(cabObject.getDutyType().split("-")[1]);
+            }
             
-            CellRangeAddress dutyTypeValueRowSpan = CellRangeAddress.valueOf("C20:D20");
-            sheet.addMergedRegion(dutyTypeValueRowSpan);
             
-            HSSFCell DatesRow19_1 = DatesRow19.createCell(2);
-            DatesRow19_1.setCellValue(bom.getDutyType().split("-")[1]);
                         
             HSSFCell DatesRow19_2 = DatesRow19.createCell(4);
-            DatesRow19_2.setCellValue(bom.getPackageKM());
+            DatesRow19_2.setCellValue(cabObject.getPackageKM()==null?"0":cabObject.getPackageKM());
             DatesRow19_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress rateValueRowSpan = CellRangeAddress.valueOf("F20:G20");
             sheet.addMergedRegion(rateValueRowSpan);
             HSSFCell DatesRow19_3 = DatesRow19.createCell(5);
-            DatesRow19_3.setCellValue(bom.getPackageRate());
+            DatesRow19_3.setCellValue(cabObject.getPackageRate()==null?"0":cabObject.getPackageRate());
             DatesRow19_3.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress amountValueRowSpan = CellRangeAddress.valueOf("H20:I20");
             sheet.addMergedRegion(amountValueRowSpan);
             HSSFCell DatesRow19_4 = DatesRow19.createCell(7);
-            DatesRow19_4.setCellValue(bom.getPackageRate());
+            DatesRow19_4.setCellValue(cabObject.getPackageRate()==null?"0":cabObject.getPackageRate());
             DatesRow19_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
          // Row 20
@@ -347,19 +372,19 @@ public class CreateExlFile
             DatesRow20_0.setCellValue("Extra KM :");
             
             HSSFCell DatesRow20_2 = DatesRow20.createCell(4);
-            DatesRow20_2.setCellValue(bom.getExtraKM());
+            DatesRow20_2.setCellValue(cabObject.getExtraKM()==null?"0":cabObject.getExtraKM());
             DatesRow20_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress extrarateValueRowSpan = CellRangeAddress.valueOf("F21:G21");
             sheet.addMergedRegion(extrarateValueRowSpan);
             HSSFCell DatesRow20_3 = DatesRow20.createCell(5);
-            DatesRow20_3.setCellValue(bom.getExtraRate());
+            DatesRow20_3.setCellValue(cabObject.getExtraRate()==null?"0":cabObject.getExtraRate());
             DatesRow20_3.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress extraAmountValueRowSpan = CellRangeAddress.valueOf("H21:I21");
             sheet.addMergedRegion(extraAmountValueRowSpan);
             HSSFCell DatesRow20_4 = DatesRow20.createCell(7);
-            DatesRow20_4.setCellValue(bom.getExtraTotalAmount());
+            DatesRow20_4.setCellValue(cabObject.getExtraTotalAmount()==null?"0":cabObject.getExtraTotalAmount());
             DatesRow20_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             
@@ -372,34 +397,34 @@ public class CreateExlFile
             DatesRow21_0.setCellValue("Extra Time/Hrs :");
             
             HSSFCell DatesRow21_2 = DatesRow21.createCell(4);
-            String extraTimePerHrs = (bom.getExtraTimeHours()==null)?"0":bom.getExtraTimeHours();
+            String extraTimePerHrs = (cabObject.getExtraTimeHours()==null)?"0":cabObject.getExtraTimeHours();
             DatesRow21_2.setCellValue(extraTimePerHrs);
             DatesRow21_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress a = CellRangeAddress.valueOf("F22:G22");
             sheet.addMergedRegion(a);
             HSSFCell DatesRow21_3 = DatesRow21.createCell(5);
-            DatesRow21_3.setCellValue(bom.getExtraTimeHoursRate()==null?"0":bom.getExtraTimeHoursRate());
+            DatesRow21_3.setCellValue(cabObject.getExtraTimeHoursRate()==null?"0":cabObject.getExtraTimeHoursRate());
             DatesRow21_3.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             CellRangeAddress b = CellRangeAddress.valueOf("H22:I22");
             sheet.addMergedRegion(b);
             HSSFCell DatesRow21_4 = DatesRow21.createCell(7);
-            DatesRow21_4.setCellValue(bom.getExtraHourAmount()==null?"0":bom.getExtraHourAmount());
+            DatesRow21_4.setCellValue(cabObject.getExtraHourAmount()==null?"0":cabObject.getExtraHourAmount());
             DatesRow21_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
          // Row 22
-            CellRangeAddress c = CellRangeAddress.valueOf("A27:D27");
+            CellRangeAddress c = CellRangeAddress.valueOf("A28:D28");
             sheet.addMergedRegion(c);
-            HSSFRow DatesRow22 = sheet.createRow((short)26);
+            HSSFRow DatesRow22 = sheet.createRow((short)27);
             
             HSSFCell DatesRow22_0 = DatesRow22.createCell(0);
             DatesRow22_0.setCellValue("Toll Charges :");
             
-            CellRangeAddress d = CellRangeAddress.valueOf("H27:I27");
+            CellRangeAddress d = CellRangeAddress.valueOf("H28:I28");
             sheet.addMergedRegion(d);
             HSSFCell DatesRow22_2 = DatesRow22.createCell(7);
-            String toll = (bom.getTollCharges()==null)?"0":bom.getTollCharges();
+            String toll = (cabObject.getTollCharges()==null)?"0":cabObject.getTollCharges();
             DatesRow22_2.setCellValue(toll);
             DatesRow22_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
@@ -414,7 +439,7 @@ public class CreateExlFile
             CellRangeAddress f = CellRangeAddress.valueOf("H24:I24");
             sheet.addMergedRegion(f);
             HSSFCell DatesRow23_2 = DatesRow23.createCell(7);
-            String nightHalt = (bom.getNightHaltRate()==null)?"0":bom.getNightHaltRate();
+            String nightHalt = (cabObject.getNightHaltRate()==null)?"0":cabObject.getNightHaltRate();
             DatesRow23_2.setCellValue(nightHalt);
             DatesRow23_2.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
@@ -430,13 +455,15 @@ public class CreateExlFile
             CellRangeAddress h = CellRangeAddress.valueOf("H26:I26");
             sheet.addMergedRegion(h);
             HSSFCell DatesRow25_4 = DatesRow25.createCell(7);
-            DatesRow25_4.setCellValue(bom.getTotalWithoutTax());
+            DatesRow25_4.setCellValue(cabObject.getTotalWithoutTax()==null?"0":cabObject.getTotalWithoutTax());
             DatesRow25_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
           //empty row 26
             // row 27
-            HSSFRow DatesRow27 = sheet.createRow((short)27);
-            CellRangeAddress i = CellRangeAddress.valueOf("F28:G28");
+            HSSFRow DatesRow27 = sheet.createRow((short)26);
+            CellRangeAddress i = CellRangeAddress.valueOf("F27:G27");
+            CellRangeAddress c1 = CellRangeAddress.valueOf("A27:D27");
+            sheet.addMergedRegion(c1);
             sheet.addMergedRegion(i);
             HSSFCell DatesRow27_2 = DatesRow27.createCell(5);
             DatesRow27_2.setCellValue("Service Tax");
@@ -444,8 +471,9 @@ public class CreateExlFile
             
             CellRangeAddress j = CellRangeAddress.valueOf("H28:I28");
             sheet.addMergedRegion(j);
+           
             HSSFCell DatesRow27_4 = DatesRow27.createCell(7);
-            DatesRow27_4.setCellValue(bom.getServiceTaxCarges());
+            DatesRow27_4.setCellValue(cabObject.getServiceTaxCarges()==null?"0":cabObject.getServiceTaxCarges());
             DatesRow27_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             
             //empty row 28
@@ -461,12 +489,12 @@ public class CreateExlFile
             CellRangeAddress l = CellRangeAddress.valueOf("H30:I30");
             sheet.addMergedRegion(l);
             HSSFCell DatesRow29_4 = DatesRow29.createCell(7);
-            DatesRow29_4.setCellValue(bom.getGrandTotal());
+            DatesRow29_4.setCellValue(cabObject.getGrandTotal()==null?"0":cabObject.getGrandTotal());
             DatesRow29_4.setCellStyle(utility.getExcelCellTextAlinmentStyle(ExcelUtils.CENTER_ALIGNMENT));
             DatesRow29_4.setCellStyle(utility.getExcelRowCenterTextBoldFontStyle((short) 10));
             
             
-            HSSFCellStyle style = workbook.createCellStyle();
+           /* HSSFCellStyle style = workbook.createCellStyle();
             for(int i1 =0;i1<31;i1++)
             {
             	HSSFRow rowAll = sheet.getRow(i1); 
@@ -483,7 +511,7 @@ public class CreateExlFile
             }
             
             //String cellAddr="A1:A31";
-            
+*/            
             
             
             flushIntoFile(filename,workbook);
@@ -515,7 +543,7 @@ public class CreateExlFile
 		}
 	}
 
-	public void CreateMonthlyBOMExcel(File excel, MonthlyBOM bom)
+	/*public void CreateMonthlyBOMExcel(File excel, MonthlyBOM bom)
 	{
 		try
         {
@@ -830,5 +858,5 @@ public class CreateExlFile
         {
         	// TODO: handle exception
 		}
-	}
+	}*/
 }

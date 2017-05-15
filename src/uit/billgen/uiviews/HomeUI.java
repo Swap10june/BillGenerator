@@ -3,17 +3,17 @@ package uit.billgen.uiviews;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.handlers.HomeButtonHandler;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
-public class Home extends JDialog {
+public class HomeUI extends JDialog {
 
 	
 
 	private static final long serialVersionUID = 1L;
 
-	public Home(JDialog owner)
+	public HomeUI(JDialog owner)
 	{
 		super(owner);
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow(owner,"Home");

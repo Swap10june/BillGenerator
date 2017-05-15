@@ -3,7 +3,10 @@ package uit.billgen.datamodel;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,12 +26,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import uit.billgen.beans.Vehicle;
-import uit.billgen.util.SConstants;
+import uit.billgen.constants.SConstants;
 
 public class VehicleDataModel {
 
 	private Document doc;
-	private String filePath = SConstants.VEHICLE_DATA_MODEL_FILE_PATH;
+	private String filePath = SConstants.FILE_VEHICLE_MODEL;
 	public VehicleDataModel()
 	{
 		try
@@ -61,6 +64,7 @@ public class VehicleDataModel {
         newVehicleTag.setAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR,vehicle.getMonthlyRate());
         newVehicleTag.setAttribute(SConstants.EXTRA_KM_RATE,vehicle.getExtraKmRate());
         newVehicleTag.setAttribute(SConstants.EXTRA_HOUR_RATE,vehicle.getExtraHourRate());
+        newVehicleTag.setAttribute(SConstants.MONTHLY_PKG_KM_ATTR,vehicle.getMonthlyPkgKm());
         vehicleTag.appendChild(newVehicleTag);
        updateXML();
 	}
@@ -135,7 +139,8 @@ public class VehicleDataModel {
    		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
    		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
    		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
-   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE));
+   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE),
+   		            					eElement.getAttribute(SConstants.MONTHLY_PKG_KM_ATTR));
    		            }
    		           
    		        }
@@ -198,7 +203,8 @@ public class VehicleDataModel {
    		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
    		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
    		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
-   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE)));
+   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE),
+   		            					eElement.getAttribute(SConstants.MONTHLY_PKG_KM_ATTR)));
    				}
    		           
    		 }
@@ -232,7 +238,8 @@ public class VehicleDataModel {
 	   		            					eElement.getAttribute(SConstants.VEHICLE_NO_ATTR),
 	   		            					eElement.getAttribute(SConstants.MONTHLY_VEHICLE_RATE_ATTR),
 	   		            					eElement.getAttribute(SConstants.EXTRA_KM_RATE),
-	   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE));
+	   		            					eElement.getAttribute(SConstants.EXTRA_HOUR_RATE),
+	   		            					eElement.getAttribute(SConstants.MONTHLY_PKG_KM_ATTR));
 	   				}
 	   		           
 	   		 }
@@ -243,4 +250,46 @@ public class VehicleDataModel {
 	    }
 			return vehicle;
 		}
+	public Map<String,String> getAttributes(String ... attr)
+	{
+		Map<String,String> attrs = new HashMap<String, String>();
+		doc.getDocumentElement().normalize();
+		 NodeList nList = doc.getElementsByTagName(SConstants.CUSTOMER_DATA_MODEL_CUSTOMER_TAG);
+		 List<String>  iAttr= Arrays.asList(attr);
+		 for (String string : iAttr)
+		 {
+			 for (int temp = 0; temp < nList.getLength(); temp++)
+			 {
+				 Node nNode = nList.item(temp);
+
+			        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+					{
+			            Element eElement = (Element) nNode;
+			            attrs.put(string,eElement.getAttribute(string));
+			        }
+			           
+			 }
+		 }
+		 
+		return attrs;
+	}
+	public String getAttributeExtraKmRate(String m_selectedCustomerName,String m_selectedVehicleName)
+	{
+		 doc.getDocumentElement().normalize();
+		 NodeList nList = doc.getElementsByTagName(SConstants.VEHICLE_TAG);
+		 for (int temp = 0; temp < nList.getLength(); temp++)
+		 {
+			 Node nNode = nList.item(temp);
+
+		        if (nNode.getNodeType() == Node.ELEMENT_NODE)
+				{
+		            Element eElement = (Element) nNode;
+		            if(eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR).equalsIgnoreCase(m_selectedCustomerName) && eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR).equalsIgnoreCase(m_selectedVehicleName))
+		            	return eElement.getAttribute(SConstants.EXTRA_KM_RATE);
+		        }
+		           
+		 }
+		return null;
+		
+	}
 }

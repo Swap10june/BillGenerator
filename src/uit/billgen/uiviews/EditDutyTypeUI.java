@@ -11,28 +11,32 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
 import uit.billgen.datamodel.DutyTypeDataModel;
 import uit.billgen.datamodel.VehicleDataModel;
 import uit.billgen.handlers.DutyTypeButtonHandler;
 import uit.billgen.listners.DutyTypeComboListner;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
-public class EditDutyType extends JDialog
+public class EditDutyTypeUI extends JDialog
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Map<String, Object> editDutyTypeUIComponent ;
-	private UITemplates templates = new UITemplates();
-	private static List<Object> list = new ArrayList<Object>();
+	private static Map<String, Object> m_editDutyTypeUIComponent ;
+	private UITemplates m_templates = null;
+	private DutyTypeDataModel m_dutyTypeModel;
+	private static List<Object> m_list = null;
 	
-	public EditDutyType(JDialog owner, String winName) 
+	public EditDutyTypeUI(JDialog owner, String winName) 
 	{
 		super(owner);
-		editDutyTypeUIComponent = new HashMap<String, Object>();
+		EditDutyTypeUI.m_editDutyTypeUIComponent = new HashMap<String, Object>();
+		this.m_dutyTypeModel = new DutyTypeDataModel();
+		this.m_templates = new UITemplates();
+		EditDutyTypeUI.m_list =  new ArrayList<Object>();
 		Utils.getUtilityInstance().applyBasicSettingsOnWindow_500X400(owner,winName);
 		initUI(owner);
 		owner.setVisible(true);
@@ -44,8 +48,8 @@ public class EditDutyType extends JDialog
 		topPanel.setBounds(50, 30, owner.getWidth(), 30);
 		topPanel.setLayout(new GridLayout(1,2));
 		
-		String [] dutyTypes = new DutyTypeDataModel().getAllDutyTypeStrings();
-		JPanel panelDutyType = templates.getLabelWithComboWOListner("panelDutyType", "Select Duty Type", dutyTypes, editDutyTypeUIComponent);
+		String [] dutyTypes = m_dutyTypeModel.getAllDutyTypeStrings()==null?new String[]{""}:new DutyTypeDataModel().getAllDutyTypeStrings();
+		JPanel panelDutyType = m_templates.getLabelWithComboWOListner("panelDutyType", "Select Duty Type", dutyTypes, m_editDutyTypeUIComponent);
 		topPanel.add(panelDutyType);
 		@SuppressWarnings("unchecked")
 		JComboBox<String> comboSelectDutyType = (JComboBox<String>) panelDutyType.getComponent(2);
@@ -54,55 +58,55 @@ public class EditDutyType extends JDialog
 		
  		JPanel bodyMiddlePanel = new JPanel();
 		bodyMiddlePanel.setBounds(0, 60, owner.getWidth(), 200);
-		bodyMiddlePanel.setLayout(new GridLayout(6,1));
+		bodyMiddlePanel.setLayout(new GridLayout(7,1));
 		
 		
-		JPanel enterHours = templates .getLabelWithTextField("enterHours", "Enter Hrs.", "Edit Hours Here", SConstants.TEXT_COL_SIZE_15,true, editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel enterHours = m_templates .getLabelWithTextField("enterHours", "Enter Hrs.", "Edit Hours Here", SConstants.TEXT_COL_SIZE_15,true, m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterHours);
 		enterHours.setVisible(false);
-		list.add(enterHours);
+		m_list.add(enterHours);
 		
-		JPanel enterKmValue = templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Edit Km Here",SConstants.TEXT_COL_SIZE_15,true, editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel enterKmValue = m_templates.getLabelWithTextField("enterKmValue", "Enter Km.", "Edit Km Here",SConstants.TEXT_COL_SIZE_15,true, m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterKmValue);
 		enterKmValue.setVisible(false);
-		list.add(enterKmValue);
+		m_list.add(enterKmValue);
 		
-		JPanel enterPkgRate = templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Edit Rate Here", SConstants.TEXT_COL_SIZE_15, true,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel enterPkgRate = m_templates.getLabelWithTextField("enterPkgRate", "Enter Rate", "Edit Rate Here", SConstants.TEXT_COL_SIZE_15, true,m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterPkgRate);
 		enterPkgRate.setVisible(false);
-		list.add(enterPkgRate);
+		m_list.add(enterPkgRate);
 		
-		JPanel enterExtraKmRate = templates.getLabelWithTextField("enterExtraKmRate", "Enter Extra Km Rate", "Enter Ex Rate Here", SConstants.TEXT_COL_SIZE_15, true,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel enterExtraKmRate = m_templates.getLabelWithTextField("enterExtraKmRate", "Enter Extra Km Rate", "Enter Ex Rate Here", SConstants.TEXT_COL_SIZE_15, true,m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(enterExtraKmRate);
 		enterExtraKmRate.setVisible(false);
-		list.add(enterExtraKmRate);
+		m_list.add(enterExtraKmRate);
 		
-		JPanel customer = templates.getLabelWithComboWOListner("customer", "Select Customer", new CustomerDataModel().getAllCustomerNames(), editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel customer = m_templates.getLabelWithComboWOListner("customer", "Select Customer", new CustomerDataModel().getAllCustomerNames(), m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(customer);
 		customer.setVisible(false);
-		list.add(customer);
+		m_list.add(customer);
 		
-		JPanel vehicle = templates.getLabelWithComboWOListner("vehicle", "Select Vehicle", new VehicleDataModel().getAllVehicleNames(),editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel vehicle = m_templates.getLabelWithComboWOListner("vehicle", "Select Vehicle", new VehicleDataModel().getAllVehicleNames(),m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(vehicle);
 		vehicle.setVisible(false);
-		list.add(vehicle);
+		m_list.add(vehicle);
 		
 		String [] type = {"AC","Non-AC"};
-		JPanel panelTypeACNonAC = templates.getLabelWithComboWOListner("panelTypeACNonAC", "Select Type", type,editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
+		JPanel panelTypeACNonAC = m_templates.getLabelWithComboWOListner("panelTypeACNonAC", "Select Type", type,m_editDutyTypeUIComponent,SConstants.UI_LABEL_NAME_SIZE_20);
 		bodyMiddlePanel.add(panelTypeACNonAC);
 		panelTypeACNonAC.setVisible(false);
-		list.add(panelTypeACNonAC);
+		m_list.add(panelTypeACNonAC);
 		
 		JButton btnAddDutyType = new JButton(SConstants.EDIT_BTN_STRING);
 		btnAddDutyType.setBounds(100, 300, 150, 30);
 		btnAddDutyType.setEnabled(false);
-		list.add(btnAddDutyType);
+		m_list.add(btnAddDutyType);
 		btnAddDutyType.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		JButton btnCancel = new JButton(SConstants.CANCEL_BTN_STRING);
 		btnCancel.setBounds(300, 300, 150, 30);
 		btnCancel.setEnabled(false);
-		list.add(btnCancel);
+		m_list.add(btnCancel);
 		btnCancel.addActionListener(new DutyTypeButtonHandler(owner));
 		
 		owner.add(topPanel);
@@ -115,19 +119,19 @@ public class EditDutyType extends JDialog
 	 * @return the editDutyTypeUIComponent
 	 */
 	public static Map<String, Object> getEditDutyTypeUIComponent() {
-		return editDutyTypeUIComponent;
+		return m_editDutyTypeUIComponent;
 	}
 	/**
 	 * @param editDutyTypeUIComponent the editDutyTypeUIComponent to set
 	 */
 	public static void setEditDutyTypeUIComponent(
 			Map<String, Object> editDutyTypeUIComponent) {
-		EditDutyType.editDutyTypeUIComponent = editDutyTypeUIComponent;
+		EditDutyTypeUI.m_editDutyTypeUIComponent = editDutyTypeUIComponent;
 	}
 
 	
 	public static List<Object> getList() {
-		return list;
+		return m_list;
 	}
 
 

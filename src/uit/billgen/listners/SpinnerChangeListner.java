@@ -9,8 +9,8 @@ import javax.swing.SpinnerModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.uiviews.ExtraCabBillUI;
-import uit.billgen.util.SConstants;
 
 public class SpinnerChangeListner implements ChangeListener
 {

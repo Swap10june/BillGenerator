@@ -10,9 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.uiviews.ExtraCabBillUI;
 import uit.billgen.util.NumToWords;
-import uit.billgen.util.SConstants;
 
 public class ExtraCabBillUIButtonHandler implements ActionListener
 {

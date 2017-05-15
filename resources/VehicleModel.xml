@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Vehicles>
+<Vehicle MRate="0" MtlyPkgKM="0" UId="1" cName="TAL" exHourRate="75" exKMRate="15" sUId="TATA SAFARI" vName="TATA SAFARI" vNo="N/A"/>
+<Vehicle MRate="51000" MtlyPkgKM="3000" UId="2" cName="JBT" exHourRate="150" exKMRate="15" sUId="INNOVA(MH14 BC 9090)" vName="INNOVA(MH14 BC 9090)" vNo="9090"/>
+<Vehicle MRate="40000" MtlyPkgKM="2500" UId="3" cName="DURA AUTO" exHourRate="0" exKMRate="16" sUId="INNOVA(MH14 CS 4040)" vName="INNOVA(MH14 CS 4040)" vNo="4040"/>
+<Vehicle MRate="48000" MtlyPkgKM="3000" UId="4" cName="DURA AUTO" exHourRate="0" exKMRate="16" sUId="17 SEATER Bus" vName="17 SEATER Bus" vNo="MH -14 CW 0557"/>
+<Vehicle MRate="0" MtlyPkgKM="0" UId="5" cName="TAL" exHourRate="75" exKMRate="15" sUId="TATA SAFARI" vName="TATA SAFARI" vNo="NA"/>
+</Vehicles>

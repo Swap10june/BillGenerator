@@ -11,17 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import uit.billgen.beans.DutyType;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.DutyTypeDataModel;
-import uit.billgen.uiviews.EditDutyType;
-import uit.billgen.util.SConstants;
+import uit.billgen.uiviews.EditDutyTypeUI;
 
 public class DutyTypeComboListner implements ItemListener
 {
 	private String comboId = null;
+	private DutyTypeDataModel m_dutyTypeModel;
 
 	public DutyTypeComboListner(String comboEditDutyTypeSelctDutyType)
 	{
 		this.comboId = comboEditDutyTypeSelctDutyType;
+		this.m_dutyTypeModel = new DutyTypeDataModel();
 	}
 
 	@Override
@@ -29,12 +31,12 @@ public class DutyTypeComboListner implements ItemListener
 	{
 		if(comboId.equalsIgnoreCase(SConstants.COMBO_EDIT_DUTY_TYPE_SELCT_DUTY_TYPE))
 		{
-			Map<String, Object> map = EditDutyType.getEditDutyTypeUIComponent();
+			Map<String, Object> map = EditDutyTypeUI.getEditDutyTypeUIComponent();
 			JPanel panelCombo = (JPanel) map.get("panelDutyType");
 			@SuppressWarnings("rawtypes")
 			JComboBox comboDutyType = (JComboBox) panelCombo.getComponent(2);
-			List<Object> pnelList = EditDutyType.getList();
-			DutyType dutyType = new DutyTypeDataModel().getDutyType(comboDutyType.getSelectedItem().toString());
+			List<Object> pnelList = EditDutyTypeUI.getList();
+			DutyType dutyType = m_dutyTypeModel.getDutyType(comboDutyType.getSelectedItem().toString());
 			for (int i = 0; i < pnelList.size(); i++)
 			{
 				if(pnelList.get(i) instanceof JPanel)

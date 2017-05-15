@@ -10,19 +10,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import uit.billgen.beans.DutyType;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.DutyTypeDataModel;
+import uit.billgen.db.Dao;
 import uit.billgen.exceptions.PopupDialogs;
 import uit.billgen.uiviews.AddDutyTypeUI;
-import uit.billgen.uiviews.EditDutyType;
-import uit.billgen.util.Dao;
-import uit.billgen.util.SConstants;
+import uit.billgen.uiviews.EditDutyTypeUI;
 
 public class DutyTypeButtonHandler implements ActionListener {
 
 	private JDialog parent = null;
+	private DutyTypeDataModel m_dutyTypeModel;
 	public DutyTypeButtonHandler(JDialog owner)
 	{
 		this.parent = owner;
+		this.m_dutyTypeModel = new DutyTypeDataModel();
 	}
 
 	@Override
@@ -71,11 +73,10 @@ public class DutyTypeButtonHandler implements ActionListener {
 			}
 			else
 			{
-				DutyTypeDataModel model = new DutyTypeDataModel();
-				int uid = model.noOfDutyTypes();
+				int uid = m_dutyTypeModel.noOfDutyTypes();
 				DutyType dutyType = new DutyType((uid+1),Integer.parseInt(hoursValue), Integer.parseInt(kmValue), Double.parseDouble(pkgValue),Double.parseDouble(extraKmRateValue), cName, vName,type);
 				//new Dao().addDutyType(dutyType);
-				model.addDutyType(dutyType);
+				m_dutyTypeModel.addDutyType(dutyType);
 				new PopupDialogs(SConstants.MSG_ADDED_SUCCESSFULLY,PopupDialogs.PLAIN_MESSAGE);
 				parent .dispose();
 			}
@@ -85,7 +86,7 @@ public class DutyTypeButtonHandler implements ActionListener {
 		}
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.EDIT_BTN_STRING))
 		{
-			Map<String, Object> map = EditDutyType.getEditDutyTypeUIComponent();
+			Map<String, Object> map = EditDutyTypeUI.getEditDutyTypeUIComponent();
 			JPanel panelCombo = (JPanel) map.get("panelDutyType");
 			@SuppressWarnings("rawtypes")
 			JComboBox comboDutyType = (JComboBox) panelCombo.getComponent(2);

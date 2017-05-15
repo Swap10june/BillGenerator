@@ -23,12 +23,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import uit.billgen.beans.DutyType;
-import uit.billgen.util.SConstants;
+import uit.billgen.constants.SConstants;
 
 public class DutyTypeDataModel
 {
 	private Document doc;
-	private String filePath = SConstants.DUTY_TYPE_DATA_MODEL_FILE_PATH;
+	private String filePath = SConstants.FILE_DUTY_TYPE_MODEL;
 	
 	public DutyTypeDataModel()
 	{
@@ -83,7 +83,7 @@ public class DutyTypeDataModel
     				{
     		            Element eElement = (Element) nNode;
     		            if(eElement.getAttribute(SConstants.CUSTOMER_NAME_ATTR).equalsIgnoreCase(cName) && eElement.getAttribute(SConstants.VEHICLE_NAME_ATTR).equalsIgnoreCase(vName))
-    		            values.add(eElement.getAttribute(SConstants.ID_ATTR));
+    		            values.add(eElement.getAttribute(SConstants.DUTY_TYPE_STRING_ATTR));
     		            //System.out.println("Staff id : " + eElement.getAttribute(SConstants.ID_ATTR));
     		        }
     		    }

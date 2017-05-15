@@ -9,13 +9,13 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import uit.billgen.beans.Customer2;
+import uit.billgen.beans.Customer;
+import uit.billgen.constants.SConstants;
 import uit.billgen.datamodel.CustomerDataModel;
+import uit.billgen.db.Dao;
 import uit.billgen.exceptions.PopupDialogs;
-import uit.billgen.uiviews.AddCustomer;
-import uit.billgen.uiviews.EditCustomer;
-import uit.billgen.util.Dao;
-import uit.billgen.util.SConstants;
+import uit.billgen.uiviews.AddCustomerUI;
+import uit.billgen.uiviews.EditCustomerUI;
 
 public class CustomerButtonHandler implements ActionListener {
 
@@ -31,7 +31,7 @@ public class CustomerButtonHandler implements ActionListener {
 
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.ADD_BTN_STRING))
 		{
-			Map<String, Object> compMap = AddCustomer.getAddCustomerUIComponentMap();
+			Map<String, Object> compMap = AddCustomerUI.getAddCustomerUIComponentMap();
 			
 			JPanel enterCustomerName =  (JPanel) compMap.get("enterCustomerName");
 			final JTextField txtCName = (JTextField) enterCustomerName.getComponent(2);
@@ -48,7 +48,7 @@ public class CustomerButtonHandler implements ActionListener {
 			{
 				CustomerDataModel model = new CustomerDataModel();
 				int uid = model.getAllCustomerNames().length;
-				Customer2 customer = new Customer2((uid+1),txtCName.getText(), txtCAdd.getText(),txtCVCode.getText(),txtCDept.getText());
+				Customer customer = new Customer((uid+1),txtCName.getText(), txtCAdd.getText(),txtCVCode.getText(),txtCDept.getText());
 				// TODO: add to db
 				model.addCustomer(customer);
 				new PopupDialogs(SConstants.MSG_ADDED_SUCCESSFULLY,PopupDialogs.PLAIN_MESSAGE);
@@ -61,13 +61,13 @@ public class CustomerButtonHandler implements ActionListener {
 		}
 		if(event.getActionCommand().equalsIgnoreCase(SConstants.EDIT_BTN_STRING))
 		{
-			Map<String, Object> compoMap = EditCustomer.getEditCustomerUIComponent();
+			Map<String, Object> compoMap = EditCustomerUI.getEditCustomerUIComponent();
 			
 			JPanel panelSelectCustomer = (JPanel) compoMap.get("panelSelectCustomer");
 			@SuppressWarnings("unchecked")
 			JComboBox<String> comboEditCustomer  = (JComboBox<String>) panelSelectCustomer.getComponent(2);
 			
-			Customer2 oldCustomer = EditCustomer.getModel().getCustomer(comboEditCustomer.getSelectedItem().toString());
+			Customer oldCustomer = EditCustomerUI.getModel().getCustomer(comboEditCustomer.getSelectedItem().toString());
 			
 			JPanel enterCustomerName = (JPanel) compoMap.get("enterCustomerName");
 			JTextField cNameText = (JTextField) enterCustomerName.getComponent(2);
@@ -86,8 +86,8 @@ public class CustomerButtonHandler implements ActionListener {
 			JTextField cDeptText = (JTextField) cDeptPanel.getComponent(2);
 			String cDept = cDeptText.getText();
 		
-			Customer2 customer = new Customer2(oldCustomer.getUid(), cName, cAdd, cVCode, cDept);
-			EditCustomer.getModel().updateAttributeValue(customer);
+			Customer customer = new Customer(oldCustomer.getUid(), cName, cAdd, cVCode, cDept);
+			EditCustomerUI.getModel().updateAttributeValue(customer);
 			new Dao().editCustomer(customer);
 			new PopupDialogs(SConstants.MSG_UPDATED_SUCCESSFULLY, PopupDialogs.PLAIN_MESSAGE);
 			parent.dispose();

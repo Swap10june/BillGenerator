@@ -11,8 +11,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import uit.billgen.constants.SConstants;
 import uit.billgen.exceptions.PopupDialogs;
-import uit.billgen.util.SConstants;
 import uit.billgen.util.Utils;
 
 public class ChekForAdminUI extends JDialog
@@ -43,12 +43,12 @@ public class ChekForAdminUI extends JDialog
 		JPanel panelUserName = templates.getLabelWithTextField("panelUserName", "Enter UserId", "Enter User id Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserName);
 		final JTextField txtUserName = (JTextField) panelUserName.getComponent(2);
-		txtUserName.setText("swap");
+		//txtUserName.setText("swap");
 		
 		JPanel panelUserPass = templates.getLabelWithTextField("panelUserName", "Enter Password", "Enter password Here", 10, false, checkForAdminUIComponent);
 		bodyPanel.add(panelUserPass);
 		final JTextField txtUserPass = (JTextField) panelUserPass.getComponent(2);
-		txtUserPass.setText("swap");
+		//txtUserPass.setText("swap");
 		
 		JButton btnLogin = new JButton(SConstants.LOGIN_BTN_STRING);
 		btnLogin.setBounds(150, 200, 100, 30);
@@ -58,8 +58,8 @@ public class ChekForAdminUI extends JDialog
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("admin",SConstants.ADMIN_XML_FILE_PATH)) 
-                		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.ADMIN_XML_FILE_PATH)))
+				if(txtUserName.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("admin",SConstants.FILE_ADMIN)) 
+                		&&txtUserPass.getText().equalsIgnoreCase(Utils.getUtilityInstance().ReadTag("pw", SConstants.FILE_ADMIN)))
                 {
                     //System.out.println("Admin Login Successful :: "+txtUserName.getText());
                     new AdminHomeUI(new javax.swing.JDialog(),SConstants.ADMIN_WINDOW_TITLE);

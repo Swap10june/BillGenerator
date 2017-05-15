@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<DutyTypes>
+<DutyType ACType="AC" Id="TATA INDICA-4 Hrs 40 KM-(DURA)" KM="40" Rate="520.0" UId="1" cName="DURA" dutyTypeString="TATA INDICA-4 Hrs 40 KM-(DURA)_AC" exKMRate="11.0" hours="4" vName="TATA INDICA"/>
+<DutyType ACType="AC" Id="TATA SAFARI-4 Hrs 40 KM-(DURA)" KM="40" Rate="560.0" UId="2" cName="DURA" dutyTypeString="TATA SAFARI-4 Hrs 40 KM-(DURA)_AC" exKMRate="10.0" hours="4" vName="TATA SAFARI"/>
+<DutyType ACType="AC" Id="TATA SAFARI-4 Hrs 40 KM-(TAL)" KM="40" Rate="1000.0" UId="3" cName="TAL" dutyTypeString="TATA SAFARI-4 Hrs 40 KM-(TAL)" exKMRate="15.0" hours="4" vName="TATA SAFARI"/>
+</DutyTypes>

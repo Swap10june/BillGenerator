@@ -1,4 +1,4 @@
-package uit.billgen.util;
+package uit.billgen.constants;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,9 +45,9 @@ public class SConstants
 	
 	// Home Page Button and its constants
 	public static final String[] 	HOME_BUTTONS_NAMES			= 		{"Extra Cab Bill","Monthly Bill","Admin","History","Update"};
-	public static final String 		TAL_BILL_BTN_STRING 		= 		"Extra Cab Bill";
+	public static final String 		EXTRA_CAB_BILL_BTN_STRING 		= 		"Extra Cab Bill";
 	public static final String 		ADMIN_BTN_STRING 			= 		"Admin";
-	public static final String 		MONTHLY_BOM_BTN_STRING 		= 		"Monthly Bill";
+	public static final String 		MONTHLY_CAB_BILL_BTN_STRING 		= 		"Monthly Bill";
 	public static final String 		HISTORY_BTN_STRING 			= 		"History";
 	//public static final String 		UPDATE_BTN_STRING			=		"Update";
 	
@@ -202,6 +202,7 @@ public class SConstants
 	public static final String 		PGK_AMOUNT_ATTR 							= "pAmount";
 	public static final String 		TOTAL_AMOUNT_ATTR 							= "tAmount";
 	public static final String 		TOTAL_FINAL_AMOUNT_ATTR 					= "fAmount";
+	public static final String 		MONTHLY_PKG_KM_ATTR 								= "MtlyPkgKM";
 
 	// telco bill
 	public static final String 		TELCO_BILL_FILE_PATH 						= "/UIT-BillGen/src/uit/billgen/resources/TelcoBillModel.xml";
@@ -227,6 +228,10 @@ public class SConstants
 	public static final String 		SERVICE_TAX_ATTR 							= "STCharge";
 	public static final String 		NIGHT_HALT_ATTR 							= "NHaltRate";
 	public static final String 		GRAND_TOTAL 								= "GTotal";
+	public static final String 		BILL_TYPE_ATTR 								= "BType";
+
+	public static final String 		EXTRA_CAB_BILL_TYPE 						= "ExtraCab";
+	public static final String 		MONTHLY_CAB_BILL_TYPE 						= "MCab";
 
 	// vehicle data model
 	public static final String 		VEHICLE_DATA_MODEL_FILE_PATH 				= "/UIT-BillGen/src/uit/billgen/resources/VehicleModel.xml";
@@ -271,15 +276,32 @@ public class SConstants
 	public static final String SEARCH_STRING = "Search";
 
 	public static final String NA_STRING = "N/A";
+	
+	
+	public static final String IMAGE_LOGIN 			= "images/login.png";
+	public static final String IMAGE_USER 			= "images/user.png";
+	public static final String IMAGE_PW_KEY 		= "images/passwordKey.png";
+	public static final String IMAGE_DELETE 		= "images/delete.png";
+	public static final String IMAGE_NEW_MEMBER 	= "images/addNewMember.png";
+	public static final String IMAGE_ADD_DOCUMENT 	= "images/addDocument.png";
+
+	public static final String FILE_ADMIN 				= "resources/Admin.xml";
+	public static final String FILE_BILLS 				= "resources/Bills.xml";
+	public static final String FILE_CUSTOMER_MODEL 		= "resources/CustomerModel.xml";
+	public static final String FILE_DUTY_TYPE_MODEL 	= "resources/DutyTypeModel.xml";
+	public static final String FILE_MONTHLY_BILL_MODEL 	= "resources/MonthlyBillModel.xml";
+	public static final String FILE_EXTRA_CAB_MODEL 	= "resources/TelcoBillModel.xml";
+	public static final String FILE_USERS 				= "resources/Users.xml";
+	public static final String FILE_VEHICLE_MODEL 		= "resources/VehicleModel.xml";
+
+	public static final String NO_OF_DIGITS = "%06d";
+
+	public static final String BILLS_FOLDER_PATH = "C:/bills/B_";
+
+	public static final String EXTRA_HOUR_AMOUNT = "EHourAmount";
+
+	public static final String DB_URL = "jdbc:sqlite:C:/sqlite/db/";
 
 	
 
-	
-
-	
-
-	
-
-	
-	
 }
